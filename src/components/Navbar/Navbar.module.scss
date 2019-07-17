@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  grid-template-columns: 70% 100px;
+  justify-content: space-evenly;
+}
+
+.left {
+  margin-right: 40%;
+}
+
+.right {
+  display: inline-flex;
+}
+
+@media only screen and (max-width: 950px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}
