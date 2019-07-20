@@ -1,7 +1,8 @@
 import React from "react";
 import "./index.css";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomeView from "../HomeView/HomeView";
+import LoginView from "../LoginView/LoginView";
 import Navbar from "../../components/Navbar/Navbar";
 import ModalRegister from "../../components/Modals/ModalRegister/ModalRegister";
 
@@ -29,8 +30,11 @@ class Root extends React.Component {
         <>
           <Navbar openModalFn={this.openModal} />
           <h1>Działa!</h1>
-          <Route exact path="/" component={HomeView} />
-          {isModalOpen && <ModalRegister closeModalFn={this.closeModal} />}
+          <Switch>
+            <Route exact path="/" component={HomeView} />
+            {isModalOpen && <ModalRegister closeModalFn={this.closeModal} />}
+            <Route path="/login" component={LoginView} />
+          </Switch>
         </>
       </BrowserRouter>
     );
