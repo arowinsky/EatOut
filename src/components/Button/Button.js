@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Button.module.scss";
-const Button = ({ children, second }) => {
+const Button = ({ children, second, ...props }) => {
   return (
-    <button className={second ? styles.second : styles.button}>
+    <button {...props} className={second ? styles.second : styles.button}>
       {children}
     </button>
   );
