@@ -1,15 +1,19 @@
 import React from "react";
-import Button from "../Button/Button";
 import styles from "./Navbar.module.scss";
+import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 
-const Navbar = ({ openModalFn }) => (
+const Navbar = () => (
   <nav className={styles.wrapper}>
     <div className={styles.left} />
+    <Logo />
     <div className={styles.right}>
-      <Button>Zaloguj</Button>
-      <Button second onClick={openModalFn}>
-        Dołącz
-      </Button>
+      <Link className={styles.navbarItem} to="/login">
+        Zaloguj
+      </Link>
+      <Link className={styles.navbarItem} to="/register">
+        Dołącz do Portalu
+      </Link>
     </div>
   </nav>
 );
