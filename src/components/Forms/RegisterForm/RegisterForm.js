@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./FormRegister.module.scss";
+import styles from "./RegisterForm.module.scss";
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
 import Title from "../../Title/Title";
 
-const FormRegister = ({ submitFn }) => (
+const RegisterForm = ({ submitFn }) => (
   <div className={styles.wrapper}>
-    <Title>Dołącz do nas:</Title>
+    <Title>Rejestracja:</Title>
     <form autoComplete="off" className={styles.form} onSubmit={submitFn}>
       <Input type="text" name="firstname" label="Podaj Imię" maxLength={30} />
       <Input
@@ -46,10 +46,10 @@ const FormRegister = ({ submitFn }) => (
         label="Akceptuję regulamin serwisu"
       />
       <Button second type="submit">
-        Dołącz teraz
+        Zarejestruj
       </Button>
     </form>
   </div>
 );
 
-export default FormRegister;
+export default RegisterForm;

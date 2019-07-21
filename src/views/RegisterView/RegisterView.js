@@ -1,7 +1,8 @@
 import React from "react";
+import RegisterForm from "../../components/Forms/RegisterForm/RegisterForm";
 class RegisterView extends React.Component {
   render() {
-    return <h1>Widok rejestracji działa</h1>;
+    return <RegisterForm />;
   }
 }
 
