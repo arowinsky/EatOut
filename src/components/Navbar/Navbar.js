@@ -8,8 +8,12 @@ const Navbar = () => (
     <div className={styles.left} />
     <Logo />
     <div className={styles.right}>
-      <Link to="/login">Zaloguj</Link>
-      <Link to="/register">Dołącz do Portalu</Link>
+      <Link className={styles.navbarItem} to="/login">
+        Zaloguj
+      </Link>
+      <Link className={styles.navbarItem} to="/register">
+        Dołącz do Portalu
+      </Link>
     </div>
   </nav>
 );

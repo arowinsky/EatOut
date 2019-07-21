@@ -12,6 +12,12 @@
 
 .right {
   display: inline-flex;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.navbarItem {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 @media only screen and (max-width: 950px) {
