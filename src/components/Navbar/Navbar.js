@@ -10,9 +10,7 @@ const Navbar = ({ openModalFn }) => (
     <Logo />
     <div className={styles.right}>
       <Link to="/login">Zaloguj</Link>
-      <Button second onClick={openModalFn}>
-        Dołącz
-      </Button>
+      <Link to="/register">Dołącz do Portalu</Link>
     </div>
   </nav>
 );
