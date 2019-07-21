@@ -1,8 +1,8 @@
 import React from "react";
-
+import LoginForm from "../../components/Forms/LoginForm/LoginForm";
 class LoginView extends React.Component {
   render() {
-    return <h1>Strona logowania działa</h1>;
+    return <LoginForm />;
   }
 }
 
