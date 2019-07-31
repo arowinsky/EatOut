@@ -7,27 +7,11 @@ import RegisterView from "../RegisterView/RegisterView";
 import Navbar from "../../components/Navbar/Navbar";
 
 class Root extends React.Component {
-  state = {
-    isModalOpen: false
-  };
-
-  openModal = () => {
-    this.setState({
-      isModalOpen: true
-    });
-  };
-
-  closeModal = () => {
-    this.setState({
-      isModalOpen: false
-    });
-  };
-
   render() {
     return (
       <BrowserRouter>
         <>
-          <Navbar openModalFn={this.openModal} />
+          <Navbar />
           <h1>Działa!</h1>
           <Switch>
             <Route exact path="/" component={HomeView} />
