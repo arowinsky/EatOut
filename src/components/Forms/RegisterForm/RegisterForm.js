@@ -51,6 +51,7 @@ class RegisterForm extends React.Component {
             type="checkbox"
             name="statute"
             label="Akceptuję regulamin serwisu"
+            className={styles.confirm}
           />
           <Button second type="submit">
             Zarejestruj
