@@ -11,7 +11,7 @@ const Input = ({ type, name, maxLength, label, checkbox, value }) => (
       id={name}
       placeholder=" "
       required
-      maxLength="20"
+      maxLength={maxLength}
       value={value}
     />
     <label htmlFor={name} className={styles.label}>
@@ -29,7 +29,8 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  type: "text"
+  type: "text",
+  maxLength: 50
 };
 
 export default Input;
