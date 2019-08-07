@@ -4,14 +4,12 @@
   position: relative;
   flex-shrink: 0;
 }
-
 .formItemBar {
   width: 100%;
   height: 2px;
   background: #7d7d7d;
   transition: 0.1s all;
 }
-
 .label {
   color: #7d7d7d;
   position: absolute;
@@ -20,7 +18,6 @@
   transition: 0.2s ease-out all;
   font-size: 16px;
 }
-
 .input {
   color: #7d7d7d;
   font-size: 16px;
@@ -29,41 +26,37 @@
   width: 100%;
   background: none;
 }
-
 .input:focus {
-  outline: none;
+  outline: transparent;
 }
-
 .input:focus + .label {
   top: -22px;
   font-size: 13px;
 }
-
 .input:not(:placeholder-shown) + .label {
   top: -22px;
   font-size: 13px;
 }
-
 .input:focus ~ .formItemBar {
   background: #eeb144;
 }
-
 .checkbox + label {
   color: #7d7d7d;
   font-style: normal;
   text-indent: 20px;
+  border: none;
 }
 .checkbox:checked + label {
   color: #d3312c;
   font-style: italic;
 }
 
-.button {
-  font-size: 10px;
-  text-decoration: none;
-  padding: 7px 12px;
-  font-weight: 500;
-  background: none;
-  border: 2px solid #eeb144;
-  color: #eeb144;
-}
+// .button {
+//   font-size: 10px;
+//   text-decoration: none;
+//   padding: 7px 12px;
+//   font-weight: 500;
+//   background: none;
+//   border: 2px solid #eeb144;
+//   color: #eeb144;
+// }

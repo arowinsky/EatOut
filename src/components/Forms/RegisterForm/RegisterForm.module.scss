@@ -1,16 +1,16 @@
 .wrapper {
-  width: 50%;
-  margin: 50px 38% 100px;
+  width: 100%;
   display: flex;
+  justify-items: center;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 80px;
 }
-
 .form {
   width: 100%;
   max-width: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  justify-items: center;
+  align-items: center;
 }

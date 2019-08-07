@@ -1,13 +1,21 @@
 .button {
+  width: 50%;
   font-size: 15px;
   text-decoration: none;
   padding: 7px;
   font-weight: 500;
   background: none;
   border: none;
-  color: black;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   margin-left: 10px;
+  text-align: center;
+  box-shadow: 0px 0px 0px red;
+  transition: .5s ease-in-out all;
+}
+.button:hover{
+  box-shadow: 7px 0px 0px #eeb144;
+  background-color: red;
 }
 
 .second {

@@ -17,7 +17,7 @@ const Input = ({ type, name, maxLength, label, checkbox, value }) => (
     <label htmlFor={name} className={styles.label}>
       {label}
     </label>
-    <div className={styles.formItemBar} />
+    <div className={checkbox ? styles.checkbox : styles.formItemBar} />
   </div>
 );
 
