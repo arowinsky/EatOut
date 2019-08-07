@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Input.module.scss";
 
-const Input = ({ type, name, maxLength, label, checkbox, value }) => (
+const Input = ({ type, name, maxLength, label, checkbox, value, dataHandler }) => (
   <div className={styles.formItem}>
     <input
       type={type}
       className={checkbox ? styles.checkbox : styles.input}
       name={name}
       id={name}
+      onChange={dataHandler}
       placeholder=" "
       required
       maxLength={maxLength}
@@ -25,7 +26,8 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
-  maxLength: PropTypes.number
+  maxLength: PropTypes.number,
+  dataHandler: PropTypes.func,
 };
 
 Input.defaultProps = {
