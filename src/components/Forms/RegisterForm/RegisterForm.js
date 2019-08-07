@@ -5,11 +5,25 @@ import Input from "../../Input/Input";
 import Title from "../../Title/Title";
 
 class RegisterForm extends React.Component {
+  addUser = e => {
+    e.preventDefault();
+    console.log(e.target[0].value);
+    console.log(e.target[1].value);
+    console.log(e.target[2].value);
+    console.log(e.target[3].value);
+    console.log(e.target[4].value);
+    console.log(e.target[5].value);
+    console.log(e.target[6].checked);
+  };
   render() {
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
-        <form autoComplete="off" className={styles.form}>
+        <form
+          autoComplete="off"
+          className={styles.form}
+          onSubmit={this.addUser}
+        >
           <Input
             type="text"
             name="firstname"
@@ -26,7 +40,7 @@ class RegisterForm extends React.Component {
             type="text"
             name="email"
             label="Podaj adres e-mail"
-            maxLength={20}
+            maxLength={40}
           />
           <Input
             type="text"
