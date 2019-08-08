@@ -14,6 +14,18 @@ class RegisterForm extends React.Component {
     password2: "",
     statute: ""
   };
+
+  dataHandler = e => {  
+    const {
+      target: {name, value}
+    } = e;
+
+    if (e.target.type === 'checkbox') {
+      this.setState({[name]: e.target.checked})
+    }
+    else { this.setState({[name]: value})}
+    
+  }
   addUser = e => {
     e.preventDefault();
 
@@ -37,13 +49,14 @@ class RegisterForm extends React.Component {
           className={styles.form}
           onSubmit={this.addUser}
         >
-          <Input type="text" name="firstname" label="Podaj Imię" />
-          <Input type="text" name="lastname" label=" Podaj Nazwisko" />
-          <Input type="text" name="email" label="Podaj adres e-mail" />
-          <Input type="text" name="username" label="Podaj nazwę użytkownika" />
-          <Input type="password" name="password1" label="Podaj hasło" />
-          <Input type="password" name="password2" label="Powtórz hasło" />
+          <Input type="text" dataHandler={this.dataHandler} name="firstname" label="Podaj Imię" />
+          <Input type="text" dataHandler={this.dataHandler} name="lastname" label=" Podaj Nazwisko" />
+          <Input type="text" dataHandler={this.dataHandler} name="email" label="Podaj adres e-mail" />
+          <Input type="text" dataHandler={this.dataHandler} name="username" label="Podaj nazwę użytkownika" />
+          <Input type="password" dataHandler={this.dataHandler} name="password1" label="Podaj hasło" />
+          <Input type="password" dataHandler={this.dataHandler} name="password2" label="Powtórz hasło" />
           <Input
+            dataHandler={this.dataHandler}
             checkbox
             type="checkbox"
             name="statute"
