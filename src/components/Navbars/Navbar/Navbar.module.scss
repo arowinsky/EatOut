@@ -1,0 +1,16 @@
+.navbarItem {
+  margin-right: 30px;
+  list-style: none;
+  display: inline-block;
+
+  &Link {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}

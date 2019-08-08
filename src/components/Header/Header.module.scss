@@ -1,28 +1,19 @@
 .wrapper {
-  display: flex;
+  display: grid;
   height: 70px;
-  grid-template-columns: 70% 100px;
+  grid-template-columns: 5% 0.5fr;
   justify-content: space-evenly;
   padding-top: 10px;
   background-color: #f6b746;
+  align-items: center;
 }
 
 .left {
+  float: left;
   margin-right: 40%;
 }
 
 .right {
   display: inline-flex;
   grid-template-columns: repeat(2, 1fr);
-}
-
-.navbarItem {
-  text-decoration: none;
-  color: #ffffff;
-}
-
-@media only screen and (max-width: 950px) {
-  .wrapper {
-    flex-direction: column;
-  }
 }

@@ -4,14 +4,14 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomeView from "../HomeView/HomeView";
 import LoginView from "../LoginView/LoginView";
 import RegisterView from "../RegisterView/RegisterView";
-import Navbar from "../../components/Navbar/Navbar";
+import Header from "../../components/Header/Header";
 
 class Root extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <>
-          <Navbar />
+          <Header />
           <h1>Działa!</h1>
           <Switch>
             <Route exact path="/" component={HomeView} />
