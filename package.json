@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^6.3.4",
+    "formik": "^1.5.8",
+    "hasha": "^5.0.0",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",
