@@ -38,15 +38,12 @@ class RegisterForm extends React.Component {
   };
 
   addNewUser = values => {
-    console.log(values);
-
     const email = values.email;
     const password = hasha(values.password1, { algorithm: "sha256" });
     const firstname = values.firstname;
     const lastname = values.lastname;
     const username = values.username;
 
-    console.log("weszło do funkcji");
     const verw = this.auth.createUserWithEmailAndPassword(email, password);
 
     verw
@@ -90,7 +87,6 @@ class RegisterForm extends React.Component {
           });
         }
       });
-    values.target.reset();
   };
 
   validateFirstname = value => {
@@ -155,9 +151,7 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={values => {
-            console.log("wysłane");
             this.addNewUser(values);
-            values.reset();
           }}
         >
           {({ errors, touched }) => (
