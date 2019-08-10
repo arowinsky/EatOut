@@ -12,8 +12,11 @@ import Button from "../../Button/Button";
 const hasha = require("hasha");
 
 const validateSchema = Yup.object({
+  firstname: Yup.string().min(3, "Imię musi mieć minimum 3 znaki"),
+  lastname: Yup.string().min(3, "Nazwisko musi mieć minimum 3 znaki"),
+  username: Yup.string().min(5, "Imię musi mieć minimum 5 znaków"),
   password1: Yup.string()
-    .min(3, "Hasło musi mieć minimum 8 zanaków")
+    .min(8, "Hasło musi mieć minimum 8 znaków")
     .required("Podaj hasło"),
   password2: Yup.string()
     .required("Powtórz hasło")
@@ -29,6 +32,11 @@ class RegisterForm extends React.Component {
     this.auth = app.auth();
     this.database = firebase.database();
   }
+  state = {
+    errorEmail: "",
+    singupCorrect: ""
+  };
+
   addNewUser = values => {
     console.log(values);
 
@@ -45,22 +53,44 @@ class RegisterForm extends React.Component {
       .then(user => {
         firebase.auth().currentUser.sendEmailVerification();
         let newEmail = email.replace(".", "_");
-        this.database.ref("users/" + newEmail).set(
-          {
-            firstname: firstname,
-            lastname: lastname,
-            username: username
-          },
-          error => {
-            if (error) {
-              console.log(error);
+        this.database
+          .ref("users/" + newEmail)
+          .set(
+            {
+              firstname: firstname,
+              lastname: lastname,
+              username: username
+            },
+            error => {
+              if (error) {
+                console.log(error);
+                const stringData = JSON.stringify(error);
+                console.log(stringData);
+              }
             }
-          }
-        );
+          )
+          .then(() => {
+            this.setState({
+              errorEmail: "",
+              singupCorrect:
+                "Rejstracja udana. Wysłaliśmy na podany adres e-mail link aktywacyjny sprawdź pocztę. Wrazie braku maila w głównym katalogu sprawdź także spam"
+            });
+          });
       })
       .catch(error => {
         console.log(error);
+        let stringData = JSON.stringify(error);
+        const stringData2 = JSON.parse(stringData);
+        console.log(stringData2.code);
+
+        if (stringData2.code === "auth/email-already-in-use") {
+          console.log("taki użytkownik już istnieje");
+          this.setState({
+            errorEmail: "Istnieje już konto z takim emailem"
+          });
+        }
       });
+    values.target.reset();
   };
 
   validateFirstname = value => {
@@ -86,7 +116,7 @@ class RegisterForm extends React.Component {
     let error;
     if (!value) {
       error = "Podaj adres e-mail";
-    } else if (!/^\w+@[a-zA-Z0-9_.-]+?\.[a-zA-Z]{2,3}$/.test(value)) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       error = "Adres e-mail jest nieprawidłowy";
     }
     return error;
@@ -127,11 +157,13 @@ class RegisterForm extends React.Component {
           onSubmit={values => {
             console.log("wysłane");
             this.addNewUser(values);
+            values.reset();
           }}
         >
-          {({ errors, touched, isValidating }) => (
+          {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {this.state.singupCorrect}
                 <Field
                   name="firstname"
                   type="text"
@@ -167,6 +199,7 @@ class RegisterForm extends React.Component {
                   className={styles.input}
                 />
                 <div className={styles.formItemBar} />
+                {this.state.errorEmail}
                 {errors.email && touched.email && <div>{errors.email}</div>}
               </div>
               <div className={styles.formItem}>
