@@ -1,0 +1,28 @@
+/*COLORS*/
+$yellow-element: #f6b746;
+$red-element: #E82F0B;
+$dark-grey-element: #797979;
+$white: #fff;
+$black: #000;
+
+/*FONTS*/
+@import url('https://fonts.googleapis.com/css?family=Archivo:400,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pattaya&display=swap&subset=latin-ext');
+$main-font: 'Archivo', sans-serif;
+$logo-font: 'Pattaya', sans-serif;
+
+
+body {
+  margin: 0;
+  background-color: #f4f4f4;
+  font-family: $main-font,  -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
