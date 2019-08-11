@@ -1,0 +1,33 @@
+@import '../../../views/Root/index.scss';
+
+.stage_element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 85vh;
+    background-image: url('../../../assets/header/stage-header.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.stage_logo { 
+    font-size: 120px;
+    font-family: $logo-font;
+    text-shadow: 5px 5px 10px $black;
+        .stage_yellow{
+            color: $yellow-element;
+        }
+        .stage_red{
+            color: $red-element;
+        }
+}
+
+@media screen and (max-width: 960px) {
+    .stage_element{
+        background-image: url('../../../assets/header/stage-header-tablet.png');
+        background-size: cover;
+        height: 100%;
+    }
+}
