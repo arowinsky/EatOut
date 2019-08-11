@@ -14,3 +14,63 @@
   justify-items: center;
   align-items: center;
 }
+
+.formItem {
+  width: 100%;
+  margin: 24px 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.formItemBar {
+  width: 100%;
+  height: 2px;
+  background: #7d7d7d;
+  transition: 0.1s all;
+}
+
+.label {
+  color: #7d7d7d;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  transition: 0.2s ease-out all;
+  font-size: 16px;
+}
+
+.input {
+  color: #7d7d7d;
+  font-size: 16px;
+  border: none;
+  line-height: 22px;
+  width: 100%;
+  background: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:focus + .label {
+  top: -22px;
+  font-size: 13px;
+}
+
+.input:not(:placeholder-shown) + .label {
+  top: -22px;
+  font-size: 13px;
+}
+
+.input:focus ~ .formItemBar {
+  background: #eeb144;
+}
+
+.checkbox + label {
+  color: #7d7d7d;
+  font-style: normal;
+  text-indent: 20px;
+}
+.checkbox:checked + label {
+  color: #d3312c;
+  font-style: italic;
+}
