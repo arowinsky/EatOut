@@ -16,7 +16,7 @@ const validateSchema = Yup.object({
   lastname: Yup.string().min(3, "Nazwisko musi mieć minimum 3 znaki"),
   username: Yup.string().min(5, "Imię musi mieć minimum 5 znaków"),
   password1: Yup.string()
-    .min(8, "Hasło musi mieć minimum 8 znaków")
+    .min(3, "Hasło musi mieć minimum 8 zanaków")
     .required("Podaj hasło"),
   password2: Yup.string()
     .required("Powtórz hasło")
@@ -34,57 +34,80 @@ class RegisterForm extends React.Component {
   }
   state = {
     errorEmail: "",
-    singupCorrect: ""
+    singupCorrect: "",
+    usernameError: ""
   };
 
   addNewUser = values => {
+    console.log(values);
+
     const email = values.email;
     const password = hasha(values.password1, { algorithm: "sha256" });
     const firstname = values.firstname;
     const lastname = values.lastname;
     const username = values.username;
 
-    const verw = this.auth.createUserWithEmailAndPassword(email, password);
-
-    verw
-      .then(user => {
-        firebase.auth().currentUser.sendEmailVerification();
-        let newEmail = email.replace(".", "_");
-        this.database
-          .ref("users/" + newEmail)
-          .set(
-            {
-              firstname: firstname,
-              lastname: lastname,
-              username: username
-            },
-            error => {
-              if (error) {
-                console.log(error);
-                const stringData = JSON.stringify(error);
-                console.log(stringData);
-              }
-            }
-          )
-          .then(() => {
-            this.setState({
-              errorEmail: "",
-              singupCorrect:
-                "Rejstracja udana. Wysłaliśmy na podany adres e-mail link aktywacyjny sprawdź pocztę. Wrazie braku maila w głównym katalogu sprawdź także spam"
-            });
-          });
-      })
-      .catch(error => {
-        console.log(error);
-        let stringData = JSON.stringify(error);
-        const stringData2 = JSON.parse(stringData);
-        console.log(stringData2.code);
-
-        if (stringData2.code === "auth/email-already-in-use") {
-          console.log("taki użytkownik już istnieje");
+    this.database
+      .ref()
+      .child("users")
+      .orderByChild("username")
+      .equalTo(username)
+      .on("value", snapshot => {
+        if (snapshot.exists()) {
           this.setState({
-            errorEmail: "Istnieje już konto z takim emailem"
+            usernameError:
+              "Ten username jest już zajęty proszę wprowadzić inny",
+            singupCorrect: "",
+            errorEmail: ""
           });
+        } else {
+          const verw = this.auth.createUserWithEmailAndPassword(
+            email,
+            password
+          );
+
+          verw
+            .then(user => {
+              firebase.auth().currentUser.sendEmailVerification();
+              let newEmail = email.replace(".", "_");
+              this.database
+                .ref("users/" + newEmail)
+                .set(
+                  {
+                    firstname: firstname,
+                    lastname: lastname,
+                    username: username
+                  },
+                  error => {
+                    if (error) {
+                      console.log(error);
+                      let stringData = JSON.stringify(error);
+                      console.log(stringData);
+                    }
+                  }
+                )
+                .then(() => {
+                  this.setState({
+                    errorEmail: "",
+                    usernameError: "",
+                    singupCorrect:
+                      "Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny sprawdź pocztę. Wrazie braku maila w głównym katalogu sprawdź także spam"
+                  });
+                });
+            })
+            .catch(error => {
+              console.log(error);
+              let stringData = JSON.stringify(error);
+              const stringData2 = JSON.parse(stringData);
+              console.log(stringData2.code);
+
+              if (stringData2.code === "auth/email-already-in-use") {
+                console.log("taki użytkownik już istnieje");
+                this.setState({
+                  errorEmail: "Istnieje już konto z takim emailem"
+                });
+              }
+            });
         }
       });
   };
@@ -151,10 +174,11 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={values => {
+            console.log("wysłane");
             this.addNewUser(values);
           }}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, isValidating }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
                 {this.state.singupCorrect}
@@ -205,6 +229,7 @@ class RegisterForm extends React.Component {
                   className={styles.input}
                 />
                 <div className={styles.formItemBar} />
+                {this.state.usernameError}
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
