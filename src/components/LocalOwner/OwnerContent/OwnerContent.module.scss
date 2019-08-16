@@ -1,0 +1,15 @@
+@import '../../../views/Root/index.scss';
+.owner_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.salutation {
+    font-family: $logo-font;
+    color: $yellow-element;
+    font-size: 48px;
+}
+.owner_name{
+    font-size: 24px;
+    color: $dark-grey-element;
+}

@@ -1,0 +1,25 @@
+@import '../../../views/Root/index.scss';
+.owner_nav_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: center;
+  }
+  .owner_nav_navbarItem {
+    margin-left: 15px;
+    list-style: none;
+    letter-spacing: 1px;
+  
+    &Link {
+      text-decoration: none;
+      color: #ffffff;
+    }
+  }
+  .owner_nav_hamburger {
+      color: $white;
+      font-size: 24px;
+      list-style: none;
+      margin-left: 15px;
+      cursor: pointer;
+  }
+  

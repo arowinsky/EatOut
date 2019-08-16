@@ -6,6 +6,7 @@ import LoginView from "../LoginView/LoginView";
 import RegisterView from "../RegisterView/RegisterView";
 import Header from "../../components/Header/Header";
 import Stage from "../../components/Header/Stage/Stage";
+import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent";
 
 class Root extends React.Component {
   render() {
@@ -14,11 +15,11 @@ class Root extends React.Component {
         <>
           <Header />
           <Stage/>
-          <h1>Działa!</h1>
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />
             <Route path="/register" component={RegisterView} />
+            <Route path="/owner-home" component={OwnerContent}/>
           </Switch>
         </>
       </BrowserRouter>
