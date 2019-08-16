@@ -1,0 +1,20 @@
+@import '../../../views/Root/index.scss';
+.wrapper {
+  display: grid;
+  height: 70px;
+  grid-template-columns: 40% .5fr;
+  justify-content: space-evenly;
+  padding-top: 10px;
+  background-color: $yellow-element;
+  align-items: center;
+  text-align: center;
+}
+
+.left {
+  width: 100%;
+  font-family: $logo-font;
+  color: $white;
+  font-size: 52px;
+  text-decoration: none;
+}
+ 
