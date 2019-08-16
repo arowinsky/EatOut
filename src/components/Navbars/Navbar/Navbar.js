@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Navbar = () => (
   <nav className={styles.wrapper}>
@@ -19,4 +20,9 @@ const Navbar = () => (
   </nav>
 );
 
-export default Navbar;
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
+};
+
+export default connect(mapStateToProps)(Navbar);

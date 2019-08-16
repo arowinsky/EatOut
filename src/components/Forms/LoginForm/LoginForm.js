@@ -7,6 +7,9 @@ import "firebase/auth";
 import firebase from "firebase";
 import { config } from "../../../config/config";
 import Button from "../../Button/Button";
+import { connect } from "react-redux";
+import { signIn } from "../../../store/actions/authAction";
+
 const hasha = require("hasha");
 
 class LoginForm extends React.Component {
@@ -65,7 +68,14 @@ class LoginForm extends React.Component {
         }
       });
   };
+
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   this.props.signIn(this.initialValues);
+  // };
+
   render() {
+    const { authError } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
@@ -77,6 +87,7 @@ class LoginForm extends React.Component {
           }}
           onSubmit={values => {
             this.Login(values);
+            this.props.signIn(values);
           }}
         >
           {({ errors, touched }) => (
@@ -109,6 +120,7 @@ class LoginForm extends React.Component {
                 Zaloguj
               </Button>
               {this.state.errorLogin}
+              {authError ? <p>{authError}</p> : null}
             </Form>
           )}
         </Formik>
@@ -117,4 +129,19 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: creds => dispatch(signIn(creds))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginForm);
