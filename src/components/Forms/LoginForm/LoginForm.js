@@ -8,7 +8,7 @@ import firebase from "firebase";
 import { config } from "../../../config/config";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
-import { signIn } from "../../../store/actions/authAction";
+import { signIn } from "../../../store/actions/authActions";
 
 const hasha = require("hasha");
 
@@ -25,49 +25,49 @@ class LoginForm extends React.Component {
   state = {
     errorLogin: ""
   };
-  validateEmail = value => {
-    let error;
-    if (!value) {
-      error = "Podaj adres e-mail";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      error = "Adres e-mail jest nieprawidłowy";
-    }
-    return error;
-  };
-  validatePassword = value => {
-    let error;
-    if (!value) {
-      error = "Podaj hasło";
-    }
-    return error;
-  };
+  // validateEmail = value => {
+  //   let error;
+  //   if (!value) {
+  //     error = "Podaj adres e-mail";
+  //   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  //     error = "Adres e-mail jest nieprawidłowy";
+  //   }
+  //   return error;
+  // };
+  // validatePassword = value => {
+  //   let error;
+  //   if (!value) {
+  //     error = "Podaj hasło";
+  //   }
+  //   return error;
+  // };
 
-  Login = values => {
-    const email = values.email;
-    const password = hasha(values.password, { algorithm: "sha256" });
-    this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        this.setState({
-          errorLogin: ""
-        });
-      })
-      .catch(error => {
-        let stringData = JSON.stringify(error);
-        const errorsObj = JSON.parse(stringData);
-        console.log(errorsObj.code);
+  // Login = values => {
+  //   const email = values.email;
+  //   const password = hasha(values.password, { algorithm: "sha256" });
+  //   this.auth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then(() => {
+  //       this.setState({
+  //         errorLogin: ""
+  //       });
+  //     })
+  //     .catch(error => {
+  //       let stringData = JSON.stringify(error);
+  //       const errorsObj = JSON.parse(stringData);
+  //       console.log(errorsObj.code);
 
-        if (
-          errorsObj.code === "auth/wrong-password" ||
-          errorsObj.code === "auth/user-not-found"
-        ) {
-          console.log("Błąd");
-          this.setState({
-            errorLogin: "Niepoprawny email/hasło"
-          });
-        }
-      });
-  };
+  //       if (
+  //         errorsObj.code === "auth/wrong-password" ||
+  //         errorsObj.code === "auth/user-not-found"
+  //       ) {
+  //         console.log("Błąd");
+  //         this.setState({
+  //           errorLogin: "Niepoprawny email/hasło"
+  //         });
+  //       }
+  //     });
+  // };
 
   // handleSubmit = e => {
   //   e.preventDefault();
@@ -86,7 +86,6 @@ class LoginForm extends React.Component {
             password: ""
           }}
           onSubmit={values => {
-            this.Login(values);
             this.props.signIn(values);
           }}
         >
@@ -96,7 +95,7 @@ class LoginForm extends React.Component {
                 <Field
                   name="email"
                   type="text"
-                  validate={this.validateEmail}
+                  // validate={this.validateEmail}
                   placeholder="E-mail"
                   className={styles.input}
                 />
@@ -107,7 +106,7 @@ class LoginForm extends React.Component {
                 <Field
                   name="password"
                   type="password"
-                  validate={this.validatePassword}
+                  // validate={this.validatePassword}
                   placeholder="Hasło"
                   className={styles.input}
                 />
@@ -129,9 +128,9 @@ class LoginForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = values => {
   return {
-    authError: state.auth.authError
+    authError: values.auth.authError
   };
 };
 

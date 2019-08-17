@@ -182,11 +182,13 @@ class RegisterForm extends React.Component {
             <Form className={styles.form}>
               <div className={styles.formItem}>
                 {this.state.singupCorrect}
+                <label htmlFor="firstname">Podaj imię</label>
                 <Field
                   name="firstname"
                   type="text"
                   validate={this.validateFirstname}
                   placeholder="Podaj Imię"
+                  label="Podaj imię"
                   className={styles.input}
                 />
 
@@ -196,6 +198,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
+              <label htmlFor="lastname">Podaj nazwisko</label>
                 <Field
                   name="lastname"
                   type="text"
@@ -209,6 +212,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
+              <label htmlFor="email">Podaj adres email</label>
                 <Field
                   name="email"
                   type="email"
@@ -221,6 +225,7 @@ class RegisterForm extends React.Component {
                 {errors.email && touched.email && <div>{errors.email}</div>}
               </div>
               <div className={styles.formItem}>
+              <label htmlFor="username">Podaj nazwę użytkownika</label>
                 <Field
                   name="username"
                   type="text"
@@ -235,6 +240,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
+              <label htmlFor="password1" >Podaj hasło</label>
                 <Field
                   name="password1"
                   type="password"
@@ -247,6 +253,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
+              <label htmlFor="password2">Powtórz hasło</label>
                 <Field
                   name="password2"
                   type="password"
