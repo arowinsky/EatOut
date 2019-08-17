@@ -3,13 +3,14 @@ import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
 import Navbar from "../Navbars/Navbar/Navbar";
 import OwnerNavbar from "../LocalOwner/OwnerNavbar/OwnerNavbar";
+import { connect } from "react-redux";
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isGuest: true
-    };
+    // this.state = {
+    //   isGuest: true
+    // };
   }
   render() {
     return (
@@ -19,7 +20,7 @@ class Header extends React.Component {
             <Logo />
           </div>
           <div className={styles.right}>
-            {this.state.isGuest ? <Navbar /> : <OwnerNavbar />}
+            {this.props.auth.authError ? <Navbar /> : <OwnerNavbar />}
           </div>
         </header>
       </div>
@@ -27,4 +28,11 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  // console.log(state);
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(Header);

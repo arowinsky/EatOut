@@ -96,9 +96,9 @@ class LoginForm extends React.Component {
   }
 }
 
-const mapStateToProps = values => {
+const mapStateToProps = state => {
   return {
-    authError: values.auth.authError
+    authError: state.auth.authError
   };
 };
 

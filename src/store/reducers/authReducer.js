@@ -13,7 +13,7 @@ const authReducer = (state = initState, action) => {
       console.log("Logowanie udane");
       return {
         ...state,
-        authError: null
+        authError: true
       };
     case "SIGNOUT_SUCCESS":
       console.log("uytkownik został wylogowany");

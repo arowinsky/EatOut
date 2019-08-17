@@ -12,13 +12,13 @@ const OwnerNavbar = props => {
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
         <li className={styles.owner_nav_navbarItem}>
-          <a
+          <button
             onCLick={props.logOut}
             className={styles.owner_nav_navbarItemLink}
             to="/"
           >
             Wyloguj
-          </a>
+          </button>
         </li>
         <li className={styles.owner_nav_hamburger}>
           <FontAwesomeIcon icon={faBars} />
