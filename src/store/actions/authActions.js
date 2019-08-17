@@ -1,5 +1,5 @@
 const hasha = require("hasha");
-export const signIn = values => {
+export const logIn = values => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     console.log(values.email);
@@ -18,7 +18,7 @@ export const signIn = values => {
   };
 };
 
-export const signOut = () => {
+export const logOut = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
