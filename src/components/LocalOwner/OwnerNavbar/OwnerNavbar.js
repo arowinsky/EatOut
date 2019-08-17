@@ -4,21 +4,20 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import { logOut } from "../../../store/actions/authActions";
+import { signOut } from "../../../store/actions/authActions";
 
 const OwnerNavbar = props => {
-  props.signOut();
   return (
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
         <li className={styles.owner_nav_navbarItem}>
-          <button
-            onCLick={props.logOut}
+          <a
+            onClick={props.signOut}
             className={styles.owner_nav_navbarItemLink}
             to="/"
           >
             Wyloguj
-          </button>
+          </a>
         </li>
         <li className={styles.owner_nav_hamburger}>
           <FontAwesomeIcon icon={faBars} />
@@ -30,7 +29,7 @@ const OwnerNavbar = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signOut: () => dispatch(logOut())
+    signOut: () => dispatch(signOut())
   };
 };
 

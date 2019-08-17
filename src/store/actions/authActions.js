@@ -18,13 +18,15 @@ export const logIn = values => {
   };
 };
 
-export const logOut = () => {
+export const signOut = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
     firebase
       .auth()
       .signOut()
-      .then(() => dispatch({ type: "SIGNOUT_SUCCESS" }));
+      .then(() => {
+        dispatch({ type: "SIGNOUT_SUCCESS" });
+      });
   };
 };
