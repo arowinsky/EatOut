@@ -9,6 +9,7 @@ import { config } from "../../../config/config";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import { logIn } from "../../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
 const hasha = require("hasha");
 
@@ -43,7 +44,8 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { authError } = this.props;
+    const { authError, auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
@@ -98,7 +100,8 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    auth: state.firebase.auth
   };
 };
 
