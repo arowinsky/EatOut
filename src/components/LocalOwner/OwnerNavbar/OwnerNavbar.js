@@ -11,15 +11,17 @@ const OwnerNavbar = props => {
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
         <li className={styles.owner_nav_navbarItem}>
-          <a
-            onClick={props.signOut}
-            className={styles.owner_nav_navbarItemLink}
-            to="/"
-          >
-            Wyloguj
-          </a>
+          <Link
+          to="/"
+          style={{textDecoration:'none'}}> 
+            <div 
+              onClick={props.signOut}
+              className={styles.owner_nav_navbarItemLink}>
+              Wyloguj
+            </div>
+          </Link>
         </li>
-        <li className={styles.owner_nav_hamburger}>
+        <li className={styles.owner_nav_hamburger} onClick={props.click}>
           <FontAwesomeIcon icon={faBars} />
         </li>
       </ul>

@@ -9,11 +9,11 @@
     margin-left: 15px;
     list-style: none;
     letter-spacing: 1px;
-  
-    &Link {
-      text-decoration: none;
-      color: #ffffff;
-    }
+    cursor: pointer;
+      &Link {
+        text-decoration: none;
+        color: #ffffff;
+      }
   }
   .owner_nav_hamburger {
       color: $white;
