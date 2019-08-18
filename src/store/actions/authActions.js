@@ -2,8 +2,6 @@ const hasha = require("hasha");
 export const logIn = values => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
-    console.log(values.email);
-    console.log(values.password);
     const email = values.email;
     const password = hasha(values.password, { algorithm: "sha256" });
     firebase

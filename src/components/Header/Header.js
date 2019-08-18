@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 const Header = props => {
   const { auth } = props;
   console.log(auth);
-  const navbars = auth.uid ? <OwnerNavbar /> : <Navbar />;
+  const navbars = auth.uid ? <OwnerNavbar click={props.sideBarClickHander} /> : <Navbar />;
   return (
     <div>
       <nav className={styles.wrapper}>

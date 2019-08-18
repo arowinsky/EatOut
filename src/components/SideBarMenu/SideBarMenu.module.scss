@@ -1,0 +1,16 @@
+@import '../../views/Root/index.scss';
+
+.sidebar_wrapper {
+    display: flex;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    justify-items: flex-end;
+    height: 100%;
+    width: 250px;
+    background-color: $white;
+    
+    ul {
+        width: 100%;
+    }
+}
