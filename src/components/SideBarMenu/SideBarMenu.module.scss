@@ -5,12 +5,33 @@
     position: absolute;
     top: 80px;
     right: 0;
-    justify-items: flex-end;
     height: 100%;
-    width: 250px;
-    background-color: $white;
+    width: 220px;
+    background-color: #F0F0F0;
+    box-shadow: -3px 1px 15px RGB(0, 0, 0,0.3);
     
     ul {
         width: 100%;
+        li {
+            list-style: none;
+        }
+    }
+}
+.sidebar_list {
+    padding-top: 30px;
+    
+}
+.sidebar_icon {
+    padding-right: 10px;
+}
+.sidebar_item {
+    color: black;
+    font-size: 18px;
+    cursor: pointer;
+    padding-top: 20px;
+    text-decoration: none;
+    transition: 0.3s color ease;
+    &:hover {
+        color: $yellow-element;
     }
 }

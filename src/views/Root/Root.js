@@ -24,7 +24,7 @@ class Root extends React.Component {
 
     if (this.props.auth.uid) {
       if (this.state.sideBarOpen) {
-        sideBar = <SideBarMenu />;
+        sideBar = <SideBarMenu/>;
       }
     }
 
