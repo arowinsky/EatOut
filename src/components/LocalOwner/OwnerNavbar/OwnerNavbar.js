@@ -3,19 +3,37 @@ import styles from "./OwnerNavbar.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import { signOut } from "../../../store/actions/authActions";
 
-const OwnerNavbar = () => (
-  <nav className={styles.owner_nav_wrapper}>
-    <ul className={styles.owner_nav_wrapper}>
-      <li className={styles.owner_nav_navbarItem}>
-        <Link className={styles.owner_nav_navbarItemLink} to="/">
-         Wyloguj
-        </Link>
-      </li>
-      <li className={styles.owner_nav_hamburger}> <FontAwesomeIcon icon={faBars} /></li>
+const OwnerNavbar = props => {
+  return (
+    <nav className={styles.owner_nav_wrapper}>
+      <ul className={styles.owner_nav_wrapper}>
+        <li className={styles.owner_nav_navbarItem}>
+          <a
+            onClick={props.signOut}
+            className={styles.owner_nav_navbarItemLink}
+            to="/"
+          >
+            Wyloguj
+          </a>
+        </li>
+        <li className={styles.owner_nav_hamburger}>
+          <FontAwesomeIcon icon={faBars} />
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
-    </ul>
-  </nav>
-);
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut())
+  };
+};
 
-export default OwnerNavbar;
+export default connect(
+  null,
+  mapDispatchToProps
+)(OwnerNavbar);

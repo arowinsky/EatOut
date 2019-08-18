@@ -14,12 +14,12 @@ class Root extends React.Component {
       <BrowserRouter>
         <>
           <Header />
-          <Stage/>
+          <Stage />
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />
             <Route path="/register" component={RegisterView} />
-            <Route path="/owner-home" component={OwnerContent}/>
+            <Route path="/owner-home" component={OwnerContent} />
           </Switch>
         </>
       </BrowserRouter>
