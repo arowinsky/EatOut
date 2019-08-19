@@ -5,7 +5,6 @@ import HomeView from "../HomeView/HomeView";
 import LoginView from "../LoginView/LoginView";
 import RegisterView from "../RegisterView/RegisterView";
 import Header from "../../components/Header/Header";
-import Stage from "../../components/Header/Stage/Stage";
 import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import { connect } from "react-redux";
@@ -24,7 +23,7 @@ class Root extends React.Component {
 
     if (this.props.auth.uid) {
       if (this.state.sideBarOpen) {
-        sideBar = <SideBarMenu/>;
+        sideBar = <SideBarMenu />;
       }
     }
 
@@ -33,7 +32,6 @@ class Root extends React.Component {
         <>
           <Header sideBarClickHander={this.sideBarToggleClickHandler} />
           {sideBar}
-          <Stage />
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />

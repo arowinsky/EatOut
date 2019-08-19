@@ -1,8 +1,8 @@
 import React from "react";
-
+import Stage from "../../components/Header/Stage/Stage";
 class HomeView extends React.Component {
   render() {
-    return <h1>Strona główna tez działa</h1>;
+    return <Stage />;
   }
 }
 
