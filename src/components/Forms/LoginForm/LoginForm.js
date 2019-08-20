@@ -11,8 +11,6 @@ import { connect } from "react-redux";
 import { logIn } from "../../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
 
-const hasha = require("hasha");
-
 class LoginForm extends React.Component {
   constructor() {
     super();
