@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
-import { config } from "../../../config/config";
+import { config } from "../../../configs/firebaseConfig";
 import styles from "./RegisterForm.module.scss";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
@@ -198,7 +198,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-              <label htmlFor="lastname">Podaj nazwisko</label>
+                <label htmlFor="lastname">Podaj nazwisko</label>
                 <Field
                   name="lastname"
                   type="text"
@@ -212,7 +212,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-              <label htmlFor="email">Podaj adres email</label>
+                <label htmlFor="email">Podaj adres email</label>
                 <Field
                   name="email"
                   type="email"
@@ -225,7 +225,7 @@ class RegisterForm extends React.Component {
                 {errors.email && touched.email && <div>{errors.email}</div>}
               </div>
               <div className={styles.formItem}>
-              <label htmlFor="username">Podaj nazwę użytkownika</label>
+                <label htmlFor="username">Podaj nazwę użytkownika</label>
                 <Field
                   name="username"
                   type="text"
@@ -240,7 +240,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-              <label htmlFor="password1" >Podaj hasło</label>
+                <label htmlFor="password1">Podaj hasło</label>
                 <Field
                   name="password1"
                   type="password"
@@ -253,7 +253,7 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-              <label htmlFor="password2">Powtórz hasło</label>
+                <label htmlFor="password2">Powtórz hasło</label>
                 <Field
                   name="password2"
                   type="password"
