@@ -8,6 +8,8 @@ import { config } from "../../../configs/firebaseConfig";
 import styles from "./RegisterForm.module.scss";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const hasha = require("hasha");
 
@@ -159,6 +161,8 @@ class RegisterForm extends React.Component {
     return error;
   };
   render() {
+    const { auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -285,4 +289,10 @@ class RegisterForm extends React.Component {
   }
 }
 
-export default RegisterForm;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
+export default connect(mapStateToProps)(RegisterForm);
