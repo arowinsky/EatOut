@@ -5,13 +5,11 @@ import Title from "../../Title/Title";
 import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
-import { config } from "../../../config/config";
+import { config } from "../../../configs/firebaseConfig";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import { logIn } from "../../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
-
-const hasha = require("hasha");
 
 class LoginForm extends React.Component {
   constructor() {
