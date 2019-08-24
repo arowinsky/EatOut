@@ -93,7 +93,7 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
-        <FoodImgComponent imagePath={avocado}/>/>
+        <FoodImgComponent imagePath={avocado}/>
       </div>
     );
   }
