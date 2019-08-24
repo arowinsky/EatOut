@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.21",
-    "@fortawesome/free-solid-svg-icons": "^5.10.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "firebase": "^6.4.0",
+    "firebase": "^6.4.2",
     "formik": "^1.5.8",
     "hasha": "^5.0.0",
     "node-sass": "^4.12.0",
@@ -44,6 +44,6 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.1"
+    "@fortawesome/fontawesome-free": "^5.10.2"
   }
 }

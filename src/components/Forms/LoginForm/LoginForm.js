@@ -10,6 +10,8 @@ import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import { logIn } from "../../../store/actions/authActions";
 import { Redirect } from "react-router-dom";
+import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
+import avocado from "../../../assets/body/avocado.png";
 
 class LoginForm extends React.Component {
   constructor() {
@@ -91,6 +93,7 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
+        <FoodImgComponent imagePath={avocado}/>/>
       </div>
     );
   }

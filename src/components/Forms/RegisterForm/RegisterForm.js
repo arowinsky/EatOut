@@ -10,6 +10,8 @@ import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import FoodImgComponent from '../../Footer/FooterImages/FoodImgComponent';
+import dumplings from "../../../assets/body/dumplings.png";
 
 const hasha = require("hasha");
 
@@ -284,6 +286,7 @@ class RegisterForm extends React.Component {
             </Form>
           )}
         </Formik>
+        <FoodImgComponent imagePath={dumplings}/>
       </div>
     );
   }
