@@ -5,18 +5,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/authActions";
-
+import UserData from "../../UserData/UserData";
 const OwnerNavbar = props => {
   console.log(props.profile.userData);
   return (
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
         <li className={styles.owner_nav_navbarItem}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <div className={styles.owner_nav_navbarItemLink}>
-              Witaj, {props.profile.userData}
-            </div>
-          </Link>
+          <div className={styles.welcome}>Witaj,</div>
+        </li>
+        <li className={styles.owner_nav_navbarItem}>
+          <UserData />
         </li>
         <li className={styles.owner_nav_hamburger} onClick={props.click}>
           <FontAwesomeIcon icon={faBars} />

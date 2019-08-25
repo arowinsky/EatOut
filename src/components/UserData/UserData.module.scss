@@ -1,0 +1,13 @@
+@import "../../views/Root/index.scss";
+.wrapper {
+  list-style: none;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.second {
+  @extend .wrapper;
+  font-size: 24px;
+  color: $dark-grey-element;
+}
