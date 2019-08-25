@@ -33,15 +33,7 @@ export const signUp = newUser => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-
-    console.log("To w register");
-    console.log(newUser);
-
-    const email = newUser.email;
     const password = hasha(newUser.password1, { algorithm: "sha256" });
-    const firstname = newUser.firstname;
-    const lastname = newUser.lastname;
-    const username = newUser.username;
 
     firebase
       .auth()
