@@ -11,7 +11,6 @@ const UserData = ({ second, ...props }) => {
 };
 
 const mapStateToProps = state => {
-  console.log("osobny komp" + state);
   return {
     profile: state.firebase.profile
   };
