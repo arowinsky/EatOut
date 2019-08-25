@@ -7,17 +7,14 @@ import { connect } from "react-redux";
 import { signOut } from "../../../store/actions/authActions";
 
 const OwnerNavbar = props => {
+  console.log(props.profile.userData);
   return (
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
         <li className={styles.owner_nav_navbarItem}>
-          <Link
-          to="/"
-          style={{textDecoration:'none'}}> 
-            <div 
-              onClick={props.signOut}
-              className={styles.owner_nav_navbarItemLink}>
-              Wyloguj
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <div className={styles.owner_nav_navbarItemLink}>
+              Witaj, {props.profile.userData}
             </div>
           </Link>
         </li>
