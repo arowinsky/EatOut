@@ -10,10 +10,9 @@ import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import FoodImgComponent from '../../Footer/FooterImages/FoodImgComponent';
+import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import dumplings from "../../../assets/body/dumplings.png";
-
-const hasha = require("hasha");
+import { signUp } from "../../../store/actions/authActions";
 
 const validateSchema = Yup.object({
   firstname: Yup.string().min(3, "Imię musi mieć minimum 3 znaki"),
@@ -42,79 +41,79 @@ class RegisterForm extends React.Component {
     usernameError: ""
   };
 
-  addNewUser = values => {
-    console.log(values);
+  // addNewUser = values => {
+  //   console.log(values);
 
-    const email = values.email;
-    const password = hasha(values.password1, { algorithm: "sha256" });
-    const firstname = values.firstname;
-    const lastname = values.lastname;
-    const username = values.username;
+  //   const email = values.email;
+  //   const password = hasha(values.password1, { algorithm: "sha256" });
+  //   const firstname = values.firstname;
+  //   const lastname = values.lastname;
+  //   const username = values.username;
 
-    this.database
-      .ref()
-      .child("users")
-      .orderByChild("username")
-      .equalTo(username)
-      .on("value", snapshot => {
-        if (snapshot.exists()) {
-          this.setState({
-            usernameError:
-              "Ten username jest już zajęty proszę wprowadzić inny",
-            singupCorrect: "",
-            errorEmail: ""
-          });
-        } else {
-          const verw = this.auth.createUserWithEmailAndPassword(
-            email,
-            password
-          );
+  //   this.database
+  //     .ref()
+  //     .child("users")
+  //     .orderByChild("username")
+  //     .equalTo(username)
+  //     .on("value", snapshot => {
+  //       if (snapshot.exists()) {
+  //         this.setState({
+  //           usernameError:
+  //             "Ten username jest już zajęty proszę wprowadzić inny",
+  //           singupCorrect: "",
+  //           errorEmail: ""
+  //         });
+  //       } else {
+  //         const verw = this.auth.createUserWithEmailAndPassword(
+  //           email,
+  //           password
+  //         );
 
-          verw
-            .then(user => {
-              firebase.auth().currentUser.sendEmailVerification();
-              let newEmail = email.replace(".", "_");
-              this.database
-                .ref("users/" + newEmail)
-                .set(
-                  {
-                    firstname: firstname,
-                    lastname: lastname,
-                    username: username
-                  },
-                  error => {
-                    if (error) {
-                      console.log(error);
-                      let stringData = JSON.stringify(error);
-                      console.log(stringData);
-                    }
-                  }
-                )
-                .then(() => {
-                  this.setState({
-                    errorEmail: "",
-                    usernameError: "",
-                    singupCorrect:
-                      "Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny sprawdź pocztę. Wrazie braku maila w głównym katalogu sprawdź także spam"
-                  });
-                });
-            })
-            .catch(error => {
-              console.log(error);
-              let stringData = JSON.stringify(error);
-              const stringData2 = JSON.parse(stringData);
-              console.log(stringData2.code);
+  //         verw
+  //           .then(user => {
+  //             firebase.auth().currentUser.sendEmailVerification();
+  //             let newEmail = email.replace(".", "_");
+  //             this.database
+  //               .ref("users/" + newEmail)
+  //               .set(
+  //                 {
+  //                   firstname: firstname,
+  //                   lastname: lastname,
+  //                   username: username
+  //                 },
+  //                 error => {
+  //                   if (error) {
+  //                     console.log(error);
+  //                     let stringData = JSON.stringify(error);
+  //                     console.log(stringData);
+  //                   }
+  //                 }
+  //               )
+  //               .then(() => {
+  //                 this.setState({
+  //                   errorEmail: "",
+  //                   usernameError: "",
+  //                   singupCorrect:
+  //                     "Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny sprawdź pocztę. Wrazie braku maila w głównym katalogu sprawdź także spam"
+  //                 });
+  //               });
+  //           })
+  //           .catch(error => {
+  //             console.log(error);
+  //             let stringData = JSON.stringify(error);
+  //             const stringData2 = JSON.parse(stringData);
+  //             console.log(stringData2.code);
 
-              if (stringData2.code === "auth/email-already-in-use") {
-                console.log("taki użytkownik już istnieje");
-                this.setState({
-                  errorEmail: "Istnieje już konto z takim emailem"
-                });
-              }
-            });
-        }
-      });
-  };
+  //             if (stringData2.code === "auth/email-already-in-use") {
+  //               console.log("taki użytkownik już istnieje");
+  //               this.setState({
+  //                 errorEmail: "Istnieje już konto z takim emailem"
+  //               });
+  //             }
+  //           });
+  //       }
+  //     });
+  // };
 
   validateFirstname = value => {
     let error;
@@ -179,9 +178,9 @@ class RegisterForm extends React.Component {
             statute: false
           }}
           validationSchema={validateSchema}
-          onSubmit={values => {
+          onSubmit={newUser => {
             console.log("wysłane");
-            this.addNewUser(values);
+            this.props.signUp(newUser);
           }}
         >
           {({ errors, touched, isValidating }) => (
@@ -286,7 +285,7 @@ class RegisterForm extends React.Component {
             </Form>
           )}
         </Formik>
-        <FoodImgComponent imagePath={dumplings}/>
+        <FoodImgComponent imagePath={dumplings} />
       </div>
     );
   }
@@ -298,4 +297,13 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(RegisterForm);
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: newUser => dispatch(signUp(newUser))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegisterForm);

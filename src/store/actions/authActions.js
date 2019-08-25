@@ -28,3 +28,39 @@ export const signOut = () => {
       });
   };
 };
+
+export const signUp = newUser => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    console.log("To w register");
+    console.log(newUser);
+
+    const email = newUser.email;
+    const password = hasha(newUser.password1, { algorithm: "sha256" });
+    const firstname = newUser.firstname;
+    const lastname = newUser.lastname;
+    const username = newUser.username;
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, password)
+      .then(resp => {
+        return firestore
+          .collection("users")
+          .doc(resp.user.uid)
+          .set({
+            firstName: newUser.firstname,
+            lastName: newUser.lastname,
+            username: newUser.username
+          });
+      })
+      .then(() => {
+        dispatch({ type: "SIGNUP_SUCCESS" });
+      })
+      .catch(err => {
+        dispatch({ type: "SIGNUP_ERROR", err });
+      });
+  };
+};
