@@ -89,10 +89,9 @@ class RegisterForm extends React.Component {
   };
   render() {
     const { auth } = this.props;
-    if (auth.uid) return <Redirect to="/" />;
+    //if (auth.uid) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
-
         <Title>Rejestracja:</Title>
         <Formik
           initialValues={{
@@ -106,7 +105,13 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={newUser => {
-            this.props.signUp(newUser);
+            this.props.signUp(
+              newUser.email,
+              newUser.password1,
+              newUser.firstname,
+              newUser.lastname,
+              newUser.username
+            );
           }}
         >
           {({ errors, touched, isValidating }) => (
@@ -189,7 +194,9 @@ class RegisterForm extends React.Component {
                   <div>{errors.password2}</div>
                 )}
               </div>
-              <label htmlFor="statute">Akceptuję warunki korzystania z serwisu</label>
+              <label htmlFor="statute">
+                Akceptuję warunki korzystania z serwisu
+              </label>
               <Field
                 name="statute"
                 type="checkbox"
@@ -197,7 +204,7 @@ class RegisterForm extends React.Component {
                 className={styles.checkbox}
               />
               {errors.statute && touched.statute && <div>{errors.statute}</div>}
-              <br/>
+              <br />
               <Button second type="submit">
                 Zarejestruj
               </Button>
@@ -212,13 +219,14 @@ class RegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    error: state.auth.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: newUser => dispatch(signUp(newUser))
+    signUp: (email, password1, firstname, lastname, username) =>
+      dispatch(signUp(email, password1, firstname, lastname, username))
   };
 };
 
