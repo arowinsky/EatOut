@@ -7,6 +7,7 @@ import RegisterView from "../RegisterView/RegisterView";
 import Header from "../../components/Header/Header";
 import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
+import NewLocalFirst from "../../components/LocalOwner/NewLocalForm/NewLocalFirst/NewLocalFirst";
 import { connect } from "react-redux";
 class Root extends React.Component {
   state = {
@@ -37,6 +38,7 @@ class Root extends React.Component {
             <Route path="/login" component={LoginView} />
             <Route path="/register" component={RegisterView} />
             <Route path="/owner-home" component={OwnerContent} />
+            <Route path="/add-new-local-1" component={NewLocalFirst}/>
           </Switch>
         </>
       </BrowserRouter>
