@@ -89,7 +89,7 @@ class RegisterForm extends React.Component {
   };
   render() {
     const { isRegistered } = this.props;
-    if (isRegistered) return <Redirect to="/" />;
+    if (isRegistered) return <Redirect to="/login" />;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>

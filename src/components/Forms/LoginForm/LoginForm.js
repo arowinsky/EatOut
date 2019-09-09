@@ -45,7 +45,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { authError, isLoggedIn } = this.props;
-    // if (isLoggedIn) return <Redirect to="/login" />;
+    if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
