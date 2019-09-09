@@ -88,8 +88,8 @@ class RegisterForm extends React.Component {
     return error;
   };
   render() {
-    const { auth } = this.props;
-    //if (auth.uid) return <Redirect to="/" />;
+    const { isRegistered } = this.props;
+    if (isRegistered) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -219,7 +219,8 @@ class RegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.auth.error
+    error: state.auth.error,
+    isRegistered: state.auth.userId
   };
 };
 

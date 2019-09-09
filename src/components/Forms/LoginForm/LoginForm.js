@@ -44,7 +44,8 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { authError } = this.props;
+    const { authError, isLoggedIn } = this.props;
+    // if (isLoggedIn) return <Redirect to="/login" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
@@ -100,7 +101,8 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    error: state.auth.error
+    error: state.auth.error,
+    isLoggedIn: state.auth.token
   };
 };
 
