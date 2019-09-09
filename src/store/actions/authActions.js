@@ -1,6 +1,7 @@
 import axios from "axios";
-
+import db from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
+const hasha = require("hasha");
 
 export const authStart = () => {
   return {
@@ -8,11 +9,12 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId, userData) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
-    userId: userId
+    userId: userId,
+    userData: userData
   };
 };
 
@@ -44,16 +46,14 @@ export const checkAuthTimeout = expirationTime => {
   };
 };
 
-export const signUp = (email, password) => {
+export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: password
-      //returnSecureToken: true
+      password: hasha(password1, { algorithm: "sha256" })
     };
 
-    // dla rejestracji
     axios
       .post(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
@@ -61,8 +61,32 @@ export const signUp = (email, password) => {
       )
 
       .then(response => {
-        console.log(response);
-        dispatch(RegisterSuccess(response.data.localId));
+        db.collection("users")
+          .doc(response.data.localId)
+          .set({
+            firstName: firstname,
+            lastName: lastname,
+            username: username,
+            userData: firstname + " " + lastname
+          })
+          .then(() => {
+            dispatch(RegisterSuccess(response.data.localId));
+            axios({
+              method: "post",
+              url:
+                "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+              headers: {},
+              data: {
+                requestType: "VERIFY_EMAIL",
+                idToken: response.data.idToken
+              }
+            }).catch(err => {
+              console.log("nie dziala", err);
+            });
+          })
+          .catch(err => {
+            console.log("blad firestore", err);
+          });
       })
       .catch(err => {
         dispatch(authFail(err.response.data.error));
@@ -75,23 +99,40 @@ export const logIn = (email, password1, firstname, lastname, username) => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: password1,
+      password: hasha(password1, { algorithm: "sha256" }),
       firstname: firstname,
       lastname: lastname,
       username: username,
       returnSecureToken: true
     };
-
-    // dla logowania
     axios
       .post(
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
         authData
       )
       .then(response => {
-        console.log(response);
-        dispatch(authSuccess(response.data.idToken, response.data.localId));
-        dispatch(checkAuthTimeout(response.data.expiresIn));
+        let idToken = response.data.idToken;
+        let localId = response.data.localId;
+        let expiresIn = response.data.expiresIn;
+        axios({
+          method: "POST",
+          url:
+            "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+          data: {
+            idToken: response.data.idToken
+          }
+        }).then(res => {
+          db.collection("users")
+            .doc(res.data.users[0].localId)
+            .get()
+            .then(doc => {
+              let userData = doc.data().userData;
+              if (res.data.users[0].emailVerified) {
+                dispatch(authSuccess(idToken, localId, userData));
+                dispatch(checkAuthTimeout(expiresIn));
+              }
+            });
+        });
       })
       .catch(err => {
         dispatch(authFail(err.response.data.error));

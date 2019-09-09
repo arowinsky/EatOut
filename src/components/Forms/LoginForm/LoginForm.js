@@ -45,7 +45,6 @@ class LoginForm extends React.Component {
 
   render() {
     const { authError } = this.props;
-    // if (auth.uid) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
@@ -56,8 +55,6 @@ class LoginForm extends React.Component {
             password: ""
           }}
           onSubmit={values => {
-            // this.props.logIn(values);
-            // values.preventDefault();
             this.props.onLogIn(values.email, values.password);
           }}
         >

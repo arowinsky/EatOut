@@ -4,6 +4,7 @@ import { updateObject } from "../update";
 const initState = {
   token: null,
   userid: null,
+  userInfo: null,
   error: null
 };
 
@@ -15,6 +16,7 @@ const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
+    userData: action.userData,
     error: null
   });
 };
@@ -51,16 +53,6 @@ const authReducer = (state = initState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogOut(state, action);
-    case "SIGNUP_SUCCESS":
-      return {
-        ...state,
-        authError: null
-      };
-    case "SIGNUP_ERROR":
-      return {
-        ...state,
-        authError: action.err.message
-      };
     default:
       return state;
   }
