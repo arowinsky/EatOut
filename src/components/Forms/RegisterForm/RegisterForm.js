@@ -9,7 +9,6 @@ import styles from "./RegisterForm.module.scss";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import dumplings from "../../../assets/body/dumplings.png";
 import { signUp } from "../../../store/actions/authActions";
@@ -89,7 +88,6 @@ class RegisterForm extends React.Component {
   };
   render() {
     const { isRegistered } = this.props;
-    if (isRegistered) return <Redirect to="/login" />;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -117,7 +115,13 @@ class RegisterForm extends React.Component {
           {({ errors, touched, isValidating }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {this.state.singupCorrect}
+                {isRegistered ? (
+                  <p>
+                    Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny
+                    sprawdź pocztę. Wrazie braku maila w głównym katalogu
+                    sprawdź także spam
+                  </p>
+                ) : null}
                 <label htmlFor="firstname">Imię</label>
                 <Field
                   name="firstname"
