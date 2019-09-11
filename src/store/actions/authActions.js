@@ -45,6 +45,12 @@ export const checkAuthTimeout = expirationTime => {
     }, expirationTime * 1000);
   };
 };
+export const validationMessage = validMessage => {
+  return {
+    type: actionTypes.AUTH_VALIDATION_MESSAGE,
+    validMessage: validMessage
+  };
+};
 
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
@@ -90,6 +96,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
       })
       .catch(err => {
         dispatch(authFail(err.response.data.error));
+        dispatch(validationMessage(err.response.data.error.message));
       });
   };
 };

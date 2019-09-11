@@ -5,6 +5,7 @@ const initState = {
   token: null,
   userid: null,
   userInfo: null,
+  validMessage: null,
   error: null
 };
 
@@ -34,6 +35,12 @@ const authFail = (state, action) => {
   });
 };
 
+const validationMessage = (state, action) => {
+  return updateObject(state, {
+    validMessage: action.validMessage
+  });
+};
+
 const authLogOut = (state, action) => {
   return updateObject(state, {
     token: null,
@@ -53,6 +60,8 @@ const authReducer = (state = initState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogOut(state, action);
+    case actionTypes.AUTH_VALIDATION_MESSAGE:
+      return validationMessage(state, action);
     default:
       return state;
   }
