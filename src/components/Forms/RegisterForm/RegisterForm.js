@@ -87,8 +87,7 @@ class RegisterForm extends React.Component {
     return error;
   };
   render() {
-    const { isRegistered, validationMessage } = this.props;
-    console.log(validationMessage);
+    const { isRegistered, validationMessage, validationUsername } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -177,6 +176,9 @@ class RegisterForm extends React.Component {
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
+                {validationUsername > 0 ? (
+                  <p>Ta nazwa użytkownika jest już zajęta</p>
+                ) : null}
               </div>
               <div className={styles.formItem}>
                 <label htmlFor="password1">Hasło</label>
@@ -229,7 +231,8 @@ const mapStateToProps = state => {
   return {
     error: state.auth.error,
     isRegistered: state.auth.userId,
-    validationMessage: state.auth.validMessage
+    validationMessage: state.auth.validMessage,
+    validationUsername: state.auth.validUsername
   };
 };
 

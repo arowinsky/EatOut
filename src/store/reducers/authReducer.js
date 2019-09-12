@@ -6,6 +6,7 @@ const initState = {
   userid: null,
   userInfo: null,
   validMessage: null,
+  validUsername: null,
   error: null
 };
 
@@ -40,6 +41,11 @@ const validationMessage = (state, action) => {
     validMessage: action.validMessage
   });
 };
+const validationUsername = (state, action) => {
+  return updateObject(state, {
+    validUsername: action.validUsername
+  });
+};
 
 const authLogOut = (state, action) => {
   return updateObject(state, {
@@ -62,6 +68,8 @@ const authReducer = (state = initState, action) => {
       return authLogOut(state, action);
     case actionTypes.AUTH_VALIDATION_MESSAGE:
       return validationMessage(state, action);
+    case actionTypes.AUTH_VALIDATION_USERNAME:
+      return validationUsername(state, action);
     default:
       return state;
   }

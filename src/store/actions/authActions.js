@@ -52,6 +52,13 @@ export const validationMessage = validMessage => {
   };
 };
 
+export const validationUsername = validUsername => {
+  return {
+    type: actionTypes.AUTH_VALIDATION_USERNAME,
+    validUsername: validUsername
+  };
+};
+
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
@@ -60,43 +67,55 @@ export const signUp = (email, password1, firstname, lastname, username) => {
       password: hasha(password1, { algorithm: "sha256" })
     };
 
-    axios
-      .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-        authData
-      )
+    db.collection("users")
+      .where("username", "==", username)
+      .get()
+      .then(docs => {
+        if (docs.size >= 1) {
+          dispatch(validationUsername(docs.size));
+        } else {
+          axios
+            .post(
+              "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+              authData
+            )
 
-      .then(response => {
-        db.collection("users")
-          .doc(response.data.localId)
-          .set({
-            firstName: firstname,
-            lastName: lastname,
-            username: username,
-            userData: firstname + " " + lastname
-          })
-          .then(() => {
-            dispatch(RegisterSuccess(response.data.localId));
-            axios({
-              method: "post",
-              url:
-                "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-              headers: {},
-              data: {
-                requestType: "VERIFY_EMAIL",
-                idToken: response.data.idToken
-              }
-            }).catch(err => {
-              console.log("nie dziala", err);
+            .then(response => {
+              db.collection("users")
+                .doc(response.data.localId)
+                .set({
+                  firstName: firstname,
+                  lastName: lastname,
+                  username: username,
+                  userData: firstname + " " + lastname
+                })
+                .then(() => {
+                  dispatch(RegisterSuccess(response.data.localId));
+                  axios({
+                    method: "post",
+                    url:
+                      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+                    headers: {},
+                    data: {
+                      requestType: "VERIFY_EMAIL",
+                      idToken: response.data.idToken
+                    }
+                  }).catch(err => {
+                    console.log("nie dziala", err);
+                  });
+                })
+                .catch(err => {
+                  console.log("blad firestore", err);
+                });
+            })
+            .catch(err => {
+              dispatch(authFail(err.response.data.error));
+              dispatch(validationMessage(err.response.data.error.message));
             });
-          })
-          .catch(err => {
-            console.log("blad firestore", err);
-          });
+        }
       })
-      .catch(err => {
-        dispatch(authFail(err.response.data.error));
-        dispatch(validationMessage(err.response.data.error.message));
+      .catch(() => {
+        console.log("Błąd sprawdzania username");
       });
   };
 };
