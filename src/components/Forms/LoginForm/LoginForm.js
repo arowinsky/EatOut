@@ -48,7 +48,8 @@ class LoginForm extends React.Component {
       authError,
       isLoggedIn,
       emailNoVerified,
-      validEmailLogIn
+      validEmailLogIn,
+      validPasswordLogIn
     } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
     return (
@@ -98,6 +99,9 @@ class LoginForm extends React.Component {
                 {errors.password && touched.password && (
                   <div>{errors.password}</div>
                 )}
+                {validPasswordLogIn === "INVALID_PASSWORD"
+                  ? "Niepoprawne hasło"
+                  : null}
               </div>
               <Button second type="submit">
                 Zaloguj
@@ -118,7 +122,8 @@ const mapStateToProps = state => {
     error: state.auth.error,
     isLoggedIn: state.auth.token,
     emailNoVerified: state.auth.emailNoVerified,
-    validEmailLogIn: state.auth.validEmailLogIn
+    validEmailLogIn: state.auth.validEmailLogIn,
+    validPasswordLogIn: state.auth.validPasswordLogIn
   };
 };
 

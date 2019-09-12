@@ -73,6 +73,13 @@ export const validationEmailLogIn = validEmailLogIn => {
   };
 };
 
+export const validationPasswordLogIn = validPasswordLogIn => {
+  return {
+    type: actionTypes.AUTH_VALIDATION_PASSWORD_LOGIN,
+    validPasswordLogIn: validPasswordLogIn
+  };
+};
+
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
@@ -173,7 +180,6 @@ export const logIn = (email, password1, firstname, lastname, username) => {
               } else {
                 let messageNoActive = true;
                 dispatch(noEmailVerified(messageNoActive));
-                console.log(messageNoActive);
               }
             });
         });
@@ -181,6 +187,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       .catch(err => {
         dispatch(authFail(err.response.data.error));
         dispatch(validationEmailLogIn(err.response.data.error.message));
+        dispatch(validationPasswordLogIn(err.response.data.error.message));
       });
   };
 };
