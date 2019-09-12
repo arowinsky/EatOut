@@ -87,7 +87,11 @@ class RegisterForm extends React.Component {
     return error;
   };
   render() {
-    const { isRegistered, validationMessage, validationUsername } = this.props;
+    const {
+      isRegistered,
+      validationEmailSignUp,
+      validationUsername
+    } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -159,7 +163,7 @@ class RegisterForm extends React.Component {
                 <div className={styles.formItemBar} />
                 {this.state.errorEmail}
                 {errors.email && touched.email && <div>{errors.email}</div>}
-                {validationMessage === "EMAIL_EXISTS"
+                {validationEmailSignUp === "EMAIL_EXISTS"
                   ? "Ten email jest zajęty"
                   : null}
               </div>
@@ -231,7 +235,7 @@ const mapStateToProps = state => {
   return {
     error: state.auth.error,
     isRegistered: state.auth.userId,
-    validationMessage: state.auth.validMessage,
+    validationEmailSignUp: state.auth.validEmailSignUp,
     validationUsername: state.auth.validUsername
   };
 };

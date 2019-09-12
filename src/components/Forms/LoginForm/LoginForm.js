@@ -44,7 +44,12 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { authError, isLoggedIn, emailNoVerified } = this.props;
+    const {
+      authError,
+      isLoggedIn,
+      emailNoVerified,
+      validEmailLogIn
+    } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
@@ -77,6 +82,9 @@ class LoginForm extends React.Component {
                 />
                 <div className={styles.formItemBar} />
                 {errors.email && touched.email && <div>{errors.email}</div>}
+                {validEmailLogIn === "EMAIL_NOT_FOUND"
+                  ? "Niepoprawny email"
+                  : null}
               </div>
               <div className={styles.formItem}>
                 <Field
@@ -109,7 +117,8 @@ const mapStateToProps = state => {
   return {
     error: state.auth.error,
     isLoggedIn: state.auth.token,
-    emailNoVerified: state.auth.emailNoVerified
+    emailNoVerified: state.auth.emailNoVerified,
+    validEmailLogIn: state.auth.validEmailLogIn
   };
 };
 

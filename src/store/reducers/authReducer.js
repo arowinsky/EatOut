@@ -5,9 +5,10 @@ const initState = {
   token: null,
   userid: null,
   userInfo: null,
-  validMessage: null,
+  validEmailSignUp: null,
   validUsername: null,
   emailNoVerified: null,
+  validEmailLogIn: null,
   error: null
 };
 
@@ -37,9 +38,9 @@ const authFail = (state, action) => {
   });
 };
 
-const validationMessage = (state, action) => {
+const validationEmailSignUp = (state, action) => {
   return updateObject(state, {
-    validMessage: action.validMessage
+    validEmailSignUp: action.validEmailSignUp
   });
 };
 const validationUsername = (state, action) => {
@@ -51,6 +52,12 @@ const validationUsername = (state, action) => {
 const noEmailVerified = (state, action) => {
   return updateObject(state, {
     emailNoVerified: action.emailNoVerified
+  });
+};
+
+const validationEmailLogIn = (state, action) => {
+  return updateObject(state, {
+    validEmailLogIn: action.validEmailLogIn
   });
 };
 const authLogOut = (state, action) => {
@@ -72,12 +79,14 @@ const authReducer = (state = initState, action) => {
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
       return authLogOut(state, action);
-    case actionTypes.AUTH_VALIDATION_MESSAGE:
-      return validationMessage(state, action);
+    case actionTypes.AUTH_VALIDATION_EMAIL_SIGNUP:
+      return validationEmailSignUp(state, action);
     case actionTypes.AUTH_VALIDATION_USERNAME:
       return validationUsername(state, action);
     case actionTypes.AUTH_VALIDATION_EMAIL_VERIFIED:
       return noEmailVerified(state, action);
+    case actionTypes.AUTH_VALIDATION_EMAIL_LOGIN:
+      return validationEmailLogIn(state, action);
     default:
       return state;
   }

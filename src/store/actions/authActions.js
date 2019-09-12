@@ -45,10 +45,10 @@ export const checkAuthTimeout = expirationTime => {
     }, expirationTime * 1000);
   };
 };
-export const validationMessage = validMessage => {
+export const validationEmailSignUp = validEmailSignUp => {
   return {
-    type: actionTypes.AUTH_VALIDATION_MESSAGE,
-    validMessage: validMessage
+    type: actionTypes.AUTH_VALIDATION_EMAIL_SIGNUP,
+    validEmailSignUp: validEmailSignUp
   };
 };
 
@@ -63,6 +63,13 @@ export const noEmailVerified = emailNoVerified => {
   return {
     type: actionTypes.AUTH_VALIDATION_EMAIL_VERIFIED,
     emailNoVerified: emailNoVerified
+  };
+};
+
+export const validationEmailLogIn = validEmailLogIn => {
+  return {
+    type: actionTypes.AUTH_VALIDATION_EMAIL_LOGIN,
+    validEmailLogIn: validEmailLogIn
   };
 };
 
@@ -117,7 +124,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
             })
             .catch(err => {
               dispatch(authFail(err.response.data.error));
-              dispatch(validationMessage(err.response.data.error.message));
+              dispatch(validationEmailSignUp(err.response.data.error.message));
             });
         }
       })
@@ -173,6 +180,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       })
       .catch(err => {
         dispatch(authFail(err.response.data.error));
+        dispatch(validationEmailLogIn(err.response.data.error.message));
       });
   };
 };
