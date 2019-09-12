@@ -59,6 +59,13 @@ export const validationUsername = validUsername => {
   };
 };
 
+export const noEmailVerified = emailNoVerified => {
+  return {
+    type: actionTypes.AUTH_VALIDATION_EMAIL_VERIFIED,
+    emailNoVerified: emailNoVerified
+  };
+};
+
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
@@ -156,6 +163,10 @@ export const logIn = (email, password1, firstname, lastname, username) => {
               if (res.data.users[0].emailVerified) {
                 dispatch(authSuccess(idToken, localId, userData));
                 dispatch(checkAuthTimeout(expiresIn));
+              } else {
+                let messageNoActive = true;
+                dispatch(noEmailVerified(messageNoActive));
+                console.log(messageNoActive);
               }
             });
         });

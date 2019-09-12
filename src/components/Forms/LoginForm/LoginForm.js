@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { authError, isLoggedIn } = this.props;
+    const { authError, isLoggedIn, emailNoVerified } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
@@ -62,6 +62,12 @@ class LoginForm extends React.Component {
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {emailNoVerified ? (
+                  <p className={styles.emailNoVerifiedInfo}>
+                    To konto nie jest aktywne! Wysłaliśmy email weryfikacyjny na
+                    Twoją skrzynkę. Sprawdź czy czasem nie trafił do spamu.
+                  </p>
+                ) : null}
                 <Field
                   name="email"
                   type="text"
@@ -102,7 +108,8 @@ class LoginForm extends React.Component {
 const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    isLoggedIn: state.auth.token
+    isLoggedIn: state.auth.token,
+    emailNoVerified: state.auth.emailNoVerified
   };
 };
 
