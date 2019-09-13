@@ -66,17 +66,10 @@ export const noEmailVerified = emailNoVerified => {
   };
 };
 
-export const validationEmailLogIn = validEmailLogIn => {
+export const validationsLogIn = validsLogIn => {
   return {
-    type: actionTypes.AUTH_VALIDATION_EMAIL_LOGIN,
-    validEmailLogIn: validEmailLogIn
-  };
-};
-
-export const validationPasswordLogIn = validPasswordLogIn => {
-  return {
-    type: actionTypes.AUTH_VALIDATION_PASSWORD_LOGIN,
-    validPasswordLogIn: validPasswordLogIn
+    type: actionTypes.AUTH_VALIDATIONS_LOGIN,
+    validsLogIn: validsLogIn
   };
 };
 
@@ -124,11 +117,11 @@ export const signUp = (email, password1, firstname, lastname, username) => {
                       idToken: response.data.idToken
                     }
                   }).catch(err => {
-                    console.log("nie dziala", err);
+                    console.log("Email weryfikacyjny nie został wysłany", err);
                   });
                 })
                 .catch(err => {
-                  console.log("blad firestore", err);
+                  console.log("Błąd firestore", err);
                 });
             })
             .catch(err => {
@@ -160,6 +153,8 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         authData
       )
       .then(response => {
+        let dataIsCorrect = null;
+        dispatch(validationsLogIn(dataIsCorrect));
         let idToken = response.data.idToken;
         let localId = response.data.localId;
         let expiresIn = response.data.expiresIn;
@@ -188,8 +183,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       })
       .catch(err => {
         dispatch(authFail(err.response.data.error));
-        dispatch(validationEmailLogIn(err.response.data.error.message));
-        dispatch(validationPasswordLogIn(err.response.data.error.message));
+        dispatch(validationsLogIn(err.response.data.error.message));
       });
   };
 };

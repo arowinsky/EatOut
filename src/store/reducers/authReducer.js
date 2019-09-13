@@ -8,8 +8,7 @@ const initState = {
   validEmailSignUp: null,
   validUsername: null,
   emailNoVerified: null,
-  validEmailLogIn: null,
-  validPasswordLogIn: null,
+  validsLogIn: null,
   error: null
 };
 
@@ -56,17 +55,12 @@ const noEmailVerified = (state, action) => {
   });
 };
 
-const validationEmailLogIn = (state, action) => {
+const validationsLogIn = (state, action) => {
   return updateObject(state, {
-    validEmailLogIn: action.validEmailLogIn
+    validsLogIn: action.validsLogIn
   });
 };
 
-const validationPasswordLogIn = (state, action) => {
-  return updateObject(state, {
-    validPasswordLogIn: action.validPasswordLogIn
-  });
-};
 const authLogOut = (state, action) => {
   return updateObject(state, {
     token: null,
@@ -92,10 +86,8 @@ const authReducer = (state = initState, action) => {
       return validationUsername(state, action);
     case actionTypes.AUTH_VALIDATION_EMAIL_VERIFIED:
       return noEmailVerified(state, action);
-    case actionTypes.AUTH_VALIDATION_EMAIL_LOGIN:
-      return validationEmailLogIn(state, action);
-    case actionTypes.AUTH_VALIDATION_PASSWORD_LOGIN:
-      return validationPasswordLogIn(state, action);
+    case actionTypes.AUTH_VALIDATIONS_LOGIN:
+      return validationsLogIn(state, action);
     default:
       return state;
   }

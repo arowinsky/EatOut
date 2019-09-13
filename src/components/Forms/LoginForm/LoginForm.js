@@ -48,14 +48,12 @@ class LoginForm extends React.Component {
       authError,
       isLoggedIn,
       emailNoVerified,
-      validEmailLogIn,
-      validPasswordLogIn
+      validsEmailPassword
     } = this.props;
     if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
-
         <Formik
           enableReinitialize
           initialValues={{
@@ -69,6 +67,11 @@ class LoginForm extends React.Component {
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {validsEmailPassword != null ? (
+                  <p className={styles.validsEmailPassword}>
+                    Niepoprawny email lub hasło
+                  </p>
+                ) : null}
                 {emailNoVerified ? (
                   <p className={styles.emailNoVerifiedInfo}>
                     To konto nie jest aktywne! Wysłaliśmy email weryfikacyjny na
@@ -84,9 +87,6 @@ class LoginForm extends React.Component {
                 />
                 <div className={styles.formItemBar} />
                 {errors.email && touched.email && <div>{errors.email}</div>}
-                {validEmailLogIn === "EMAIL_NOT_FOUND"
-                  ? "Niepoprawny email"
-                  : null}
               </div>
               <div className={styles.formItem}>
                 <Field
@@ -100,9 +100,6 @@ class LoginForm extends React.Component {
                 {errors.password && touched.password && (
                   <div>{errors.password}</div>
                 )}
-                {validPasswordLogIn === "INVALID_PASSWORD"
-                  ? "Niepoprawne hasło"
-                  : null}
               </div>
               <Button second type="submit">
                 Zaloguj
@@ -123,8 +120,7 @@ const mapStateToProps = state => {
     error: state.auth.error,
     isLoggedIn: state.auth.token,
     emailNoVerified: state.auth.emailNoVerified,
-    validEmailLogIn: state.auth.validEmailLogIn,
-    validPasswordLogIn: state.auth.validPasswordLogIn
+    validsEmailPassword: state.auth.validsLogIn
   };
 };
 
