@@ -1,30 +1,93 @@
+import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../update";
+
 const initState = {
-  authError: null
+  token: null,
+  userid: null,
+  userInfo: null,
+  validEmailSignUp: null,
+  validUsername: null,
+  emailNoVerified: null,
+  validsLogIn: null,
+  error: null
 };
+
+const authStart = (state, action) => {
+  return updateObject(state, { error: null });
+};
+
+const authSuccess = (state, action) => {
+  return updateObject(state, {
+    token: action.idToken,
+    userId: action.userId,
+    userData: action.userData,
+    error: null
+  });
+};
+
+const RegisterSuccess = (state, action) => {
+  return updateObject(state, {
+    userId: action.userId,
+    error: null
+  });
+};
+
+const authFail = (state, action) => {
+  return updateObject(state, {
+    error: action.error
+  });
+};
+
+const validationEmailSignUp = (state, action) => {
+  return updateObject(state, {
+    validEmailSignUp: action.validEmailSignUp
+  });
+};
+const validationUsername = (state, action) => {
+  return updateObject(state, {
+    validUsername: action.validUsername
+  });
+};
+
+const noEmailVerified = (state, action) => {
+  return updateObject(state, {
+    emailNoVerified: action.emailNoVerified
+  });
+};
+
+const validationsLogIn = (state, action) => {
+  return updateObject(state, {
+    validsLogIn: action.validsLogIn
+  });
+};
+
+const authLogOut = (state, action) => {
+  return updateObject(state, {
+    token: null,
+    userId: null
+  });
+};
+
 const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case "LOGIN_ERROR":
-      return {
-        ...state,
-        authError: "Nie udało się zalogować"
-      };
-    case "LOGIN_SUCCESS":
-      return {
-        ...state,
-        authError: null
-      };
-    case "SIGNOUT_SUCCESS":
-      return state;
-    case "SIGNUP_SUCCESS":
-      return {
-        ...state,
-        authError: null
-      };
-    case "SIGNUP_ERROR":
-      return {
-        ...state,
-        authError: action.err.message
-      };
+    case actionTypes.AUTH_START:
+      return authStart(state, action);
+    case actionTypes.AUTH_SUCCESS:
+      return authSuccess(state, action);
+    case actionTypes.REGISTER_SUCCESS:
+      return RegisterSuccess(state, action);
+    case actionTypes.AUTH_FAIL:
+      return authFail(state, action);
+    case actionTypes.AUTH_LOGOUT:
+      return authLogOut(state, action);
+    case actionTypes.AUTH_VALIDATION_EMAIL_SIGNUP:
+      return validationEmailSignUp(state, action);
+    case actionTypes.AUTH_VALIDATION_USERNAME:
+      return validationUsername(state, action);
+    case actionTypes.AUTH_VALIDATION_EMAIL_VERIFIED:
+      return noEmailVerified(state, action);
+    case actionTypes.AUTH_VALIDATIONS_LOGIN:
+      return validationsLogIn(state, action);
     default:
       return state;
   }

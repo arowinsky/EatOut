@@ -8,7 +8,7 @@ import firebase from "firebase";
 import { config } from "../../../configs/firebaseConfig";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
-import { logIn } from "../../../store/actions/authActions";
+import * as actions from "../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import avocado from "../../../assets/body/avocado.png";
@@ -44,24 +44,40 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { authError, auth } = this.props;
-    if (auth.uid) return <Redirect to="/" />;
+    const {
+      authError,
+      isLoggedIn,
+      emailNoVerified,
+      validsEmailPassword
+    } = this.props;
+    if (isLoggedIn) return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
-
         <Formik
+          enableReinitialize
           initialValues={{
             email: "",
             password: ""
           }}
           onSubmit={values => {
-            this.props.logIn(values);
+            this.props.onLogIn(values.email, values.password);
           }}
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {validsEmailPassword != null ? (
+                  <p className={styles.validsEmailPassword}>
+                    Niepoprawny email lub hasło
+                  </p>
+                ) : null}
+                {emailNoVerified ? (
+                  <p className={styles.emailNoVerifiedInfo}>
+                    To konto nie jest aktywne! Wysłaliśmy email weryfikacyjny na
+                    Twoją skrzynkę. Sprawdź czy czasem nie trafił do spamu.
+                  </p>
+                ) : null}
                 <Field
                   name="email"
                   type="text"
@@ -93,7 +109,7 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
-        <FoodImgComponent imagePath={avocado}/>
+        <FoodImgComponent imagePath={avocado} />
       </div>
     );
   }
@@ -101,14 +117,16 @@ class LoginForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth
+    error: state.auth.error,
+    isLoggedIn: state.auth.token,
+    emailNoVerified: state.auth.emailNoVerified,
+    validsEmailPassword: state.auth.validsLogIn
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    logIn: creds => dispatch(logIn(creds))
+    onLogIn: (email, password) => dispatch(actions.logIn(email, password))
   };
 };
 

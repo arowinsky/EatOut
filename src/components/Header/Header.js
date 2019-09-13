@@ -3,10 +3,9 @@ import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
 import Navbar from "../Navbars/Navbar/Navbar";
 import OwnerNavbar from "../LocalOwner/OwnerNavbar/OwnerNavbar";
-import { connect } from "react-redux";
 
 const Header = props => {
-  const { auth, profile } = props;
+  const { profile, isAuth } = props;
   return (
     <div>
       <nav className={styles.wrapper}>
@@ -14,7 +13,7 @@ const Header = props => {
           <Logo />
         </div>
         <div className={styles.right}>
-          {auth.uid ? (
+          {isAuth ? (
             <OwnerNavbar click={props.sideBarClickHander} profile={profile} />
           ) : (
             <Navbar />
@@ -25,11 +24,4 @@ const Header = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile
-  };
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;

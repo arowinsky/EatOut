@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 const UserData = ({ second, ...props }) => {
   return (
     <div className={second ? styles.second : styles.wrapper}>
-      <div>{props.profile.userData}</div>
+      <div>{props.userInfo}</div>
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    profile: state.firebase.profile
+    userInfo: state.auth.userData
   };
 };
 

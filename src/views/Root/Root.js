@@ -9,6 +9,7 @@ import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent"
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import NewLocalFirst from "../../components/LocalOwner/NewLocalForm/NewLocalFirst/NewLocalFirst";
 import { connect } from "react-redux";
+import LogOut from "../../components/Auth/LogOut/LogOut";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -22,7 +23,7 @@ class Root extends React.Component {
   render() {
     let sideBar;
 
-    if (this.props.auth.uid) {
+    if (this.props.isAuthenticated) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
@@ -31,11 +32,15 @@ class Root extends React.Component {
     return (
       <BrowserRouter>
         <>
-          <Header sideBarClickHander={this.sideBarToggleClickHandler} />
+          <Header
+            isAuth={this.props.isAuthenticated}
+            sideBarClickHander={this.sideBarToggleClickHandler}
+          />
           {sideBar}
           <Switch>
             <Route exact path="/" component={HomeView} />
             <Route path="/login" component={LoginView} />
+            <Route path="/logout" component={LogOut} />
             <Route path="/register" component={RegisterView} />
             <Route path="/owner-home" component={OwnerContent} />
             <Route path="/add-new-local-1" component={NewLocalFirst}/>
@@ -47,7 +52,7 @@ class Root extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    isAuthenticated: state.auth.token
   };
 };
 

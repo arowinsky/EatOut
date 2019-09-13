@@ -9,7 +9,6 @@ import styles from "./RegisterForm.module.scss";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import dumplings from "../../../assets/body/dumplings.png";
 import { signUp } from "../../../store/actions/authActions";
@@ -88,11 +87,13 @@ class RegisterForm extends React.Component {
     return error;
   };
   render() {
-    const { auth } = this.props;
-    if (auth.uid) return <Redirect to="/" />;
+    const {
+      isRegistered,
+      validationEmailSignUp,
+      validationUsername
+    } = this.props;
     return (
       <div className={styles.wrapper}>
-
         <Title>Rejestracja:</Title>
         <Formik
           initialValues={{
@@ -106,13 +107,25 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={newUser => {
-            this.props.signUp(newUser);
+            this.props.signUp(
+              newUser.email,
+              newUser.password1,
+              newUser.firstname,
+              newUser.lastname,
+              newUser.username
+            );
           }}
         >
           {({ errors, touched, isValidating }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {this.state.singupCorrect}
+                {isRegistered ? (
+                  <p>
+                    Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny
+                    sprawdź pocztę. Wrazie braku maila w głównym katalogu
+                    sprawdź także spam
+                  </p>
+                ) : null}
                 <label htmlFor="firstname">Imię</label>
                 <Field
                   name="firstname"
@@ -140,18 +153,6 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-                <label htmlFor="email">Adres email</label>
-                <Field
-                  name="email"
-                  type="email"
-                  validate={this.validateEmail}
-                  className={styles.input}
-                />
-                <div className={styles.formItemBar} />
-                {this.state.errorEmail}
-                {errors.email && touched.email && <div>{errors.email}</div>}
-              </div>
-              <div className={styles.formItem}>
                 <label htmlFor="username">Nazwa użytkownika</label>
                 <Field
                   name="username"
@@ -164,6 +165,24 @@ class RegisterForm extends React.Component {
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
+                {validationUsername > 0
+                  ? "Ta nazwa użytkownika jest już zajęta"
+                  : null}
+              </div>
+              <div className={styles.formItem}>
+                <label htmlFor="email">Adres email</label>
+                <Field
+                  name="email"
+                  type="email"
+                  validate={this.validateEmail}
+                  className={styles.input}
+                />
+                <div className={styles.formItemBar} />
+                {this.state.errorEmail}
+                {errors.email && touched.email && <div>{errors.email}</div>}
+                {validationEmailSignUp === "EMAIL_EXISTS"
+                  ? "Ten email jest już zajęty"
+                  : null}
               </div>
               <div className={styles.formItem}>
                 <label htmlFor="password1">Hasło</label>
@@ -189,7 +208,9 @@ class RegisterForm extends React.Component {
                   <div>{errors.password2}</div>
                 )}
               </div>
-              <label htmlFor="statute">Akceptuję warunki korzystania z serwisu</label>
+              <label htmlFor="statute">
+                Akceptuję warunki korzystania z serwisu
+              </label>
               <Field
                 name="statute"
                 type="checkbox"
@@ -197,7 +218,7 @@ class RegisterForm extends React.Component {
                 className={styles.checkbox}
               />
               {errors.statute && touched.statute && <div>{errors.statute}</div>}
-              <br/>
+              <br />
               <Button second type="submit">
                 Zarejestruj
               </Button>
@@ -212,13 +233,17 @@ class RegisterForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    error: state.auth.error,
+    isRegistered: state.auth.userId,
+    validationEmailSignUp: state.auth.validEmailSignUp,
+    validationUsername: state.auth.validUsername
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: newUser => dispatch(signUp(newUser))
+    signUp: (email, password1, firstname, lastname, username) =>
+      dispatch(signUp(email, password1, firstname, lastname, username))
   };
 };
 
