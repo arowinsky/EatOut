@@ -95,13 +95,15 @@ export const signUp = (email, password1, firstname, lastname, username) => {
         if (docs.size >= 1) {
           dispatch(validationUsername(docs.size));
         } else {
+          dispatch(validationUsername(docs.size));
           axios
             .post(
               "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
               authData
             )
-
             .then(response => {
+              let validEmailSignUp = null;
+              dispatch(validationEmailSignUp(validEmailSignUp));
               db.collection("users")
                 .doc(response.data.localId)
                 .set({
@@ -130,7 +132,6 @@ export const signUp = (email, password1, firstname, lastname, username) => {
                 });
             })
             .catch(err => {
-              dispatch(authFail(err.response.data.error));
               dispatch(validationEmailSignUp(err.response.data.error.message));
             });
         }
@@ -152,6 +153,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       username: username,
       returnSecureToken: true
     };
+
     axios
       .post(
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",

@@ -96,6 +96,7 @@ class RegisterForm extends React.Component {
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
         <Formik
+          enableReinitialize={true}
           initialValues={{
             firstname: "",
             lastname: "",
@@ -234,7 +235,7 @@ class RegisterForm extends React.Component {
 const mapStateToProps = state => {
   return {
     error: state.auth.error,
-    isRegistered: state.auth.userId,
+    isRegistered: state.auth,
     validationEmailSignUp: state.auth.validEmailSignUp,
     validationUsername: state.auth.validUsername
   };
