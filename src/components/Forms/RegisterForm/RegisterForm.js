@@ -153,21 +153,6 @@ class RegisterForm extends React.Component {
                 )}
               </div>
               <div className={styles.formItem}>
-                <label htmlFor="email">Adres email</label>
-                <Field
-                  name="email"
-                  type="email"
-                  validate={this.validateEmail}
-                  className={styles.input}
-                />
-                <div className={styles.formItemBar} />
-                {this.state.errorEmail}
-                {errors.email && touched.email && <div>{errors.email}</div>}
-                {validationEmailSignUp === "EMAIL_EXISTS"
-                  ? "Ten email jest zajęty"
-                  : null}
-              </div>
-              <div className={styles.formItem}>
                 <label htmlFor="username">Nazwa użytkownika</label>
                 <Field
                   name="username"
@@ -180,9 +165,24 @@ class RegisterForm extends React.Component {
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
-                {validationUsername > 0 ? (
-                  <p>Ta nazwa użytkownika jest już zajęta</p>
-                ) : null}
+                {validationUsername > 0
+                  ? "Ta nazwa użytkownika jest już zajęta"
+                  : null}
+              </div>
+              <div className={styles.formItem}>
+                <label htmlFor="email">Adres email</label>
+                <Field
+                  name="email"
+                  type="email"
+                  validate={this.validateEmail}
+                  className={styles.input}
+                />
+                <div className={styles.formItemBar} />
+                {this.state.errorEmail}
+                {errors.email && touched.email && <div>{errors.email}</div>}
+                {validationEmailSignUp === "EMAIL_EXISTS"
+                  ? "Ten email jest już zajęty"
+                  : null}
               </div>
               <div className={styles.formItem}>
                 <label htmlFor="password1">Hasło</label>
