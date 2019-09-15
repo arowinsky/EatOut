@@ -71,8 +71,7 @@ class ForgotPasswordForm extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onForgotPassword: email =>
-      dispatch(actions.forgotPassword(this.props.values.email))
+    onForgotPassword: email => dispatch(actions.forgotPassword(email))
   };
 };
 

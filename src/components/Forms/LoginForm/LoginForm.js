@@ -55,7 +55,6 @@ class LoginForm extends React.Component {
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
         <Formik
-          enableReinitialize
           initialValues={{
             email: "",
             password: ""
