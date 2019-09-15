@@ -27,7 +27,6 @@ class ForgotPasswordForm extends React.Component {
     return error;
   };
   render() {
-    const { authError } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>
@@ -35,7 +34,6 @@ class ForgotPasswordForm extends React.Component {
           Twojego hasła:
         </Title>
         <Formik
-          enableReinitialize
           initialValues={{
             email: ""
           }}
@@ -60,7 +58,6 @@ class ForgotPasswordForm extends React.Component {
               <Button second type="submit">
                 Wyślij
               </Button>
-              {authError ? <p>{authError}</p> : null}
             </Form>
           )}
         </Formik>

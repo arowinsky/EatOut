@@ -199,7 +199,17 @@ export const forgotPassword = emailUser => {
       requestType: "PASSWORD_RESET",
       email: data,
       url:
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo"
-    });
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+      data: {
+        requestType: "PASSWORD_RESET",
+        email: data.emailUser
+      }
+    })
+      .then(response => {
+        console.log("wysłano", response);
+      })
+      .catch(err => {
+        console.log("Nie wysłano", err.response.data.error);
+      });
   };
 };
