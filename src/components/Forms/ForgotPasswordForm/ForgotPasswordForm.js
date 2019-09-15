@@ -1,10 +1,22 @@
 import React from "react";
 import styles from "./ForgotPasswordForm.module.scss";
+import app from "firebase/app";
+import "firebase/auth";
+import firebase from "firebase";
+import { config } from "../../../configs/firebaseConfig";
 import { Formik, Field, Form } from "formik";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../../store/actions/index";
 
 class ForgotPasswordForm extends React.Component {
+  constructor() {
+    super();
+    if (!firebase.apps.length) {
+      app.initializeApp(config);
+    }
+  }
   validateEmail = value => {
     let error;
     if (!value) {
@@ -27,9 +39,10 @@ class ForgotPasswordForm extends React.Component {
           initialValues={{
             email: ""
           }}
-          // onSubmit={values => {
-          //   this.props.onForgotPassword(values.email);
-          // }}
+          onSubmit={values => {
+            console.log(values.email);
+            this.props.onForgotPassword(values.email);
+          }}
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
@@ -56,4 +69,14 @@ class ForgotPasswordForm extends React.Component {
   }
 }
 
-export default ForgotPasswordForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    onForgotPassword: email =>
+      dispatch(actions.forgotPassword(this.props.values.email))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ForgotPasswordForm);

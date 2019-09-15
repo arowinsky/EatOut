@@ -187,3 +187,18 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       });
   };
 };
+
+export const forgotPassword = email => {
+  return dispatch => {
+    const email = {
+      email: email
+    };
+    axios({
+      method: "POST",
+      requestType: "PASSWORD_RESET",
+      url:
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+      email
+    });
+  };
+};

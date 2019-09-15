@@ -1,1 +1,1 @@
-export { logIn, logout } from "../actions/authActions";
+export { logIn, logout, forgotPassword } from "../actions/authActions";
