@@ -27,6 +27,7 @@ class ForgotPasswordForm extends React.Component {
     return error;
   };
   render() {
+    const { invalidEmail } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>
@@ -45,6 +46,12 @@ class ForgotPasswordForm extends React.Component {
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {invalidEmail ? (
+                  <p className={styles.invalidEmail}>
+                    Nie istnieje konto z takim emailem. Podaj emial na pewno do
+                    swojego konta
+                  </p>
+                ) : null}
                 <Field
                   name="email"
                   type="text"
@@ -66,6 +73,12 @@ class ForgotPasswordForm extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    invalidEmail: state.auth.validForgotPassword
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onForgotPassword: email => dispatch(actions.forgotPassword(email))
@@ -73,6 +86,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ForgotPasswordForm);

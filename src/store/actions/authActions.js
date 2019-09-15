@@ -73,6 +73,13 @@ export const validationsLogIn = validsLogIn => {
   };
 };
 
+export const validationsForgotPassword = validForgotPassword => {
+  return {
+    type: actionTypes.AUTH_VALIDATIONS_FORGOT_PASSWORD,
+    validForgotPassword: validForgotPassword
+  };
+};
+
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
@@ -210,6 +217,7 @@ export const forgotPassword = emailUser => {
       })
       .catch(err => {
         console.log("Nie wysłano", err.response.data.error);
+        dispatch(validationsForgotPassword(err.response.data.error));
       });
   };
 };
