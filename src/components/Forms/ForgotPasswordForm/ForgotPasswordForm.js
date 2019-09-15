@@ -31,8 +31,8 @@ class ForgotPasswordForm extends React.Component {
     return (
       <div className={styles.wrapper}>
         <Title>
-          Podaj adres e-mail na który założyłeś to konto, a my wyślemy ci maila
-          z kolejnymi krokami
+          Podaj adres e-mail na który założyłeś/aś to konto, a my wyślemy Ci
+          maila z kolejnymi krokami
         </Title>
         <Formik
           initialValues={{

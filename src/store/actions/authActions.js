@@ -147,7 +147,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: hasha(password1, { algorithm: "sha256" }),
+      password: password1,
       firstname: firstname,
       lastname: lastname,
       username: username,
