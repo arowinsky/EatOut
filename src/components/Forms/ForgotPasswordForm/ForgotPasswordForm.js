@@ -31,8 +31,8 @@ class ForgotPasswordForm extends React.Component {
     return (
       <div className={styles.wrapper}>
         <Title>
-          Podaj swój adres e-mail na który mamy wysłać Ci link do zresetowania
-          Twojego hasła:
+          Podaj adres e-mail na który założyłeś to konto, a my wyślemy ci maila
+          z kolejnymi krokami
         </Title>
         <Formik
           initialValues={{
@@ -48,7 +48,7 @@ class ForgotPasswordForm extends React.Component {
               <div className={styles.formItem}>
                 {invalidEmail ? (
                   <p className={styles.invalidEmail}>
-                    Nie istnieje konto z takim emailem. Podaj emial na pewno do
+                    Nie istnieje konto z takim emailem. Podaj email na pewno do
                     swojego konta
                   </p>
                 ) : null}
