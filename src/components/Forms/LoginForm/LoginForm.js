@@ -12,7 +12,7 @@ import * as actions from "../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import avocado from "../../../assets/body/avocado.png";
-
+import { Link } from "react-router-dom";
 class LoginForm extends React.Component {
   constructor() {
     super();
@@ -101,6 +101,11 @@ class LoginForm extends React.Component {
                   <div>{errors.password}</div>
                 )}
               </div>
+
+              <Link className={styles.forgotPasswordLink} to="/forgot-password">
+                Czy zapomniałaś/eś hasła?
+              </Link>
+
               <Button second type="submit">
                 Zaloguj
               </Button>
