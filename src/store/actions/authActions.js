@@ -85,7 +85,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: hasha(password1, { algorithm: "sha256" })
+      password: password1
     };
 
     db.collection("users")
@@ -189,6 +189,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         });
       })
       .catch(err => {
+        console.log(err.response.data.error);
         dispatch(authFail(err.response.data.error));
         dispatch(validationsLogIn(err.response.data.error.message));
       });
