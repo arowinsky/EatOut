@@ -10,6 +10,7 @@ import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import NewLocalFirst from "../../components/LocalOwner/NewLocalForm/NewLocalFirst/NewLocalFirst";
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
+import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -42,8 +43,9 @@ class Root extends React.Component {
             <Route path="/login" component={LoginView} />
             <Route path="/logout" component={LogOut} />
             <Route path="/register" component={RegisterView} />
+            <Route path="/forgot-password" component={ForgotPasswordView} />
             <Route path="/owner-home" component={OwnerContent} />
-            <Route path="/add-new-local-1" component={NewLocalFirst}/>
+            <Route path="/add-new-local-1" component={NewLocalFirst} />
           </Switch>
         </>
       </BrowserRouter>

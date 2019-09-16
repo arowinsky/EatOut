@@ -73,12 +73,19 @@ export const validationsLogIn = validsLogIn => {
   };
 };
 
+export const validationsForgotPassword = validForgotPassword => {
+  return {
+    type: actionTypes.AUTH_VALIDATIONS_FORGOT_PASSWORD,
+    validForgotPassword: validForgotPassword
+  };
+};
+
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: hasha(password1, { algorithm: "sha256" })
+      password: password1
     };
 
     db.collection("users")
@@ -140,7 +147,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
     dispatch(authStart());
     const authData = {
       email: email,
-      password: hasha(password1, { algorithm: "sha256" }),
+      password: password1,
       firstname: firstname,
       lastname: lastname,
       username: username,
@@ -182,8 +189,36 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         });
       })
       .catch(err => {
+        console.log(err.response.data.error);
         dispatch(authFail(err.response.data.error));
         dispatch(validationsLogIn(err.response.data.error.message));
+      });
+  };
+};
+
+export const forgotPassword = emailUser => {
+  return dispatch => {
+    console.log(emailUser);
+    const data = {
+      emailUser: emailUser
+    };
+    axios({
+      method: "POST",
+      requestType: "PASSWORD_RESET",
+      email: data,
+      url:
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+      data: {
+        requestType: "PASSWORD_RESET",
+        email: data.emailUser
+      }
+    })
+      .then(response => {
+        console.log("wysłano", response);
+      })
+      .catch(err => {
+        console.log("Nie wysłano", err.response.data.error);
+        dispatch(validationsForgotPassword(err.response.data.error));
       });
   };
 };
