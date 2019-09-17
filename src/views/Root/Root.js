@@ -24,17 +24,20 @@ class Root extends React.Component {
   render() {
     let sideBar;
 
-    if (this.props.isAuthenticated) {
+    if (this.props.isAuthenticated || this.props.userFbId) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
     }
+    console.log(this.props.userDataFb);
 
     return (
       <BrowserRouter>
         <>
           <Header
             isAuth={this.props.isAuthenticated}
+            userIdFromFb={this.props.userFbId}
+            userNameFromFb={this.props.userDataFb}
             sideBarClickHander={this.sideBarToggleClickHandler}
           />
           {sideBar}
@@ -54,7 +57,9 @@ class Root extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token
+    isAuthenticated: state.auth.token,
+    userFbId: state.auth.idFb,
+    userDataFb: state.auth.usernameFb
   };
 };
 

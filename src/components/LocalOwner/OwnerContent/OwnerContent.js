@@ -4,7 +4,6 @@ import OwnerBox from "../OwnerBox/OwnerBox";
 import taco from "../../../assets/body/taco.png";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import { connect } from "react-redux";
-import UserData from "../../UserData/UserData";
 
 class OwnerContent extends React.Component {
   constructor(props) {
@@ -17,9 +16,7 @@ class OwnerContent extends React.Component {
     return (
       <div className={styles.owner_wrapper}>
         <div className={styles.salutation}>Witaj,</div>
-        <div className={styles.owner_name}>
-          <UserData second />
-        </div>
+        <div className={styles.owner_name}></div>
         <OwnerBox />
         <FoodImgComponent imagePath={taco} />
       </div>

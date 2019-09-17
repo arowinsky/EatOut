@@ -25,6 +25,14 @@ export const RegisterSuccess = userId => {
     userId: userId
   };
 };
+export const facebookLogInSuccess = (idFb, usernameFb) => {
+  console.log(idFb, usernameFb);
+  return {
+    type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+    idFb: idFb,
+    usernameFb: usernameFb
+  };
+};
 
 export const authFail = error => {
   return {
@@ -233,11 +241,15 @@ export const facebookLogIn = () => {
       .signInWithPopup(provider)
       .then(result => {
         console.log(result);
+        console.log(result.additionalUserInfo.profile.id);
+
         console.log("logowanie");
         let username = result.user.displayName;
         let photoMain = result.user.photoURL;
         let userProvider = result.additionalUserInfo.providerId;
         let uid = result.user.Nb.uid;
+        let id = result.additionalUserInfo.profile.id;
+        dispatch(facebookLogInSuccess(id, username));
         console.log(username, photoMain, userProvider, uid);
         if (result.additionalUserInfo.isNewUser) {
           db.collection("users")

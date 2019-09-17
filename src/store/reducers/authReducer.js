@@ -5,6 +5,8 @@ const initState = {
   token: null,
   userid: null,
   userInfo: null,
+  idFb: null,
+  usernameFb: null,
   validEmailSignUp: null,
   validUsername: null,
   emailNoVerified: null,
@@ -30,6 +32,12 @@ const RegisterSuccess = (state, action) => {
   return updateObject(state, {
     userId: action.userId,
     error: null
+  });
+};
+const facebookLogInSuccess = (state, action) => {
+  return updateObject(state, {
+    idFb: action.idFb,
+    usernameFb: action.usernameFb
   });
 };
 
@@ -65,7 +73,9 @@ const validationsLogIn = (state, action) => {
 const authLogOut = (state, action) => {
   return updateObject(state, {
     token: null,
-    userId: null
+    userId: null,
+    idFb: null,
+    usernameFb: null
   });
 };
 const validationsForgotPassword = (state, action) => {
@@ -82,6 +92,8 @@ const authReducer = (state = initState, action) => {
       return authSuccess(state, action);
     case actionTypes.REGISTER_SUCCESS:
       return RegisterSuccess(state, action);
+    case actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS:
+      return facebookLogInSuccess(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
