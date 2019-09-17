@@ -1,4 +1,5 @@
 import axios from "axios";
+import firebase from "firebase";
 import db from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
 const hasha = require("hasha");
@@ -219,6 +220,40 @@ export const forgotPassword = emailUser => {
       .catch(err => {
         console.log("Nie wysłano", err.response.data.error);
         dispatch(validationsForgotPassword(err.response.data.error));
+      });
+  };
+};
+
+export const facebookLogIn = () => {
+  return dispatch => {
+    let provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log(result);
+        console.log("logowanie");
+        let username = result.user.displayName;
+        let photoMain = result.user.photoURL;
+        let userProvider = result.additionalUserInfo.providerId;
+        let uid = result.user.Nb.uid;
+        console.log(username, photoMain, userProvider, uid);
+        if (result.additionalUserInfo.isNewUser) {
+          db.collection("users")
+            .doc(uid)
+            .set({
+              firstName: "",
+              lastName: "",
+              username: username,
+              userData: username,
+              photoMain: photoMain,
+              provaider: userProvider
+            });
+        }
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 };

@@ -1,1 +1,6 @@
-export { logIn, logout, forgotPassword } from "../actions/authActions";
+export {
+  logIn,
+  logout,
+  forgotPassword,
+  facebookLogIn
+} from "../actions/authActions";
