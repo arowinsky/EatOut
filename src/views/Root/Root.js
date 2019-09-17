@@ -23,11 +23,8 @@ class Root extends React.Component {
   };
   render() {
     let sideBar;
-    if (
-      this.props.isAuthenticated ||
-      this.props.userFbId ||
-      this.props.userGoogleId
-    ) {
+    const { isAuthenticated, userFbId, userGoogleId } = this.props;
+    if (isAuthenticated || userFbId || userGoogleId) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
@@ -37,9 +34,8 @@ class Root extends React.Component {
       <BrowserRouter>
         <>
           <Header
-            isAuth={this.props.isAuthenticated}
-            userIdProvider={this.props.userFbId || this.props.userGoogleId}
-            userNameFromFb={this.props.userDataFb}
+            isAuth={isAuthenticated}
+            userIdProvider={userFbId || userGoogleId}
             sideBarClickHander={this.sideBarToggleClickHandler}
           />
           {sideBar}

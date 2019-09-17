@@ -34,12 +34,11 @@ export const facebookLogInSuccess = (idFb, usernameFb) => {
   };
 };
 
-export const googleLogInSuccess = (userGoogleId, usernameGoogle) => {
-  console.log(userGoogleId, usernameGoogle);
+export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
     userGoogleId: userGoogleId,
-    usernameGoogle: usernameGoogle
+    userDataGoogle: userDataGoogle
   };
 };
 

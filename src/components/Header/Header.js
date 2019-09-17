@@ -5,12 +5,10 @@ import Navbar from "../Navbars/Navbar/Navbar";
 import OwnerNavbar from "../LocalOwner/OwnerNavbar/OwnerNavbar";
 
 const Header = props => {
-  const { isAuth, userIdProvider, userNameFromFb } = props;
+  const { isAuth, userIdProvider } = props;
   let navbar;
   if (userIdProvider) {
-    navbar = (
-      <OwnerNavbar click={props.sideBarClickHander} userInfo={userNameFromFb} />
-    );
+    navbar = <OwnerNavbar click={props.sideBarClickHander} />;
   } else if (isAuth) {
     navbar = <OwnerNavbar click={props.sideBarClickHander} />;
   } else {

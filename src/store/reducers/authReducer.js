@@ -8,7 +8,7 @@ const initState = {
   idFb: null,
   usernameFb: null,
   userGoogleId: null,
-  usernameGoogle: null,
+  userDataGoogle: null,
   validEmailSignUp: null,
   validUsername: null,
   emailNoVerified: null,
@@ -45,7 +45,7 @@ const facebookLogInSuccess = (state, action) => {
 const googleLogInSuccess = (state, action) => {
   return updateObject(state, {
     userGoogleId: action.userGoogleId,
-    usernameGoogle: action.usernameGoogle
+    userDataGoogle: action.userDataGoogle
   });
 };
 
