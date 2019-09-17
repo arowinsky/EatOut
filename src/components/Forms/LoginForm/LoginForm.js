@@ -114,6 +114,7 @@ class LoginForm extends React.Component {
           )}
         </Formik>
         <button onClick={this.props.facebookLogIn}>facebook</button>
+        <button onClick={this.props.googleLogIn}>google</button>
         <FoodImgComponent imagePath={avocado} />
       </div>
     );
@@ -132,7 +133,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLogIn: (email, password) => dispatch(actions.logIn(email, password)),
-    facebookLogIn: () => dispatch(actions.facebookLogIn())
+    facebookLogIn: () => dispatch(actions.facebookLogIn()),
+    googleLogIn: () => dispatch(actions.googleLogIn())
   };
 };
 

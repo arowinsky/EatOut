@@ -29,14 +29,13 @@ class Root extends React.Component {
         sideBar = <SideBarMenu />;
       }
     }
-    console.log(this.props.userDataFb);
 
     return (
       <BrowserRouter>
         <>
           <Header
             isAuth={this.props.isAuthenticated}
-            userIdFromFb={this.props.userFbId}
+            userIdProvider={this.props.userFbId || this.props.userGoogleId}
             userNameFromFb={this.props.userDataFb}
             sideBarClickHander={this.sideBarToggleClickHandler}
           />
@@ -59,7 +58,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token,
     userFbId: state.auth.idFb,
-    userDataFb: state.auth.usernameFb
+    userGoogleId: state.auth.userGoogleId
   };
 };
 

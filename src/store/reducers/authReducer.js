@@ -7,6 +7,8 @@ const initState = {
   userInfo: null,
   idFb: null,
   usernameFb: null,
+  userGoogleId: null,
+  usernameGoogle: null,
   validEmailSignUp: null,
   validUsername: null,
   emailNoVerified: null,
@@ -38,6 +40,12 @@ const facebookLogInSuccess = (state, action) => {
   return updateObject(state, {
     idFb: action.idFb,
     usernameFb: action.usernameFb
+  });
+};
+const googleLogInSuccess = (state, action) => {
+  return updateObject(state, {
+    userGoogleId: action.userGoogleId,
+    usernameGoogle: action.usernameGoogle
   });
 };
 
@@ -94,6 +102,8 @@ const authReducer = (state = initState, action) => {
       return RegisterSuccess(state, action);
     case actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS:
       return facebookLogInSuccess(state, action);
+    case actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS:
+      return googleLogInSuccess(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:

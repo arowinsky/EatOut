@@ -34,6 +34,15 @@ export const facebookLogInSuccess = (idFb, usernameFb) => {
   };
 };
 
+export const googleLogInSuccess = (userGoogleId, usernameGoogle) => {
+  console.log(userGoogleId, usernameGoogle);
+  return {
+    type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+    userGoogleId: userGoogleId,
+    usernameGoogle: usernameGoogle
+  };
+};
+
 export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
@@ -251,6 +260,42 @@ export const facebookLogIn = () => {
         let id = result.additionalUserInfo.profile.id;
         dispatch(facebookLogInSuccess(id, username));
         console.log(username, photoMain, userProvider, uid);
+        if (result.additionalUserInfo.isNewUser) {
+          db.collection("users")
+            .doc(uid)
+            .set({
+              firstName: "",
+              lastName: "",
+              username: username,
+              userData: username,
+              photoMain: photoMain,
+              provaider: userProvider
+            });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const googleLogIn = () => {
+  return dispatch => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log("logowanie");
+        console.log(result);
+        let username = result.user.displayName;
+        let photoMain = result.user.photoURL;
+        let userProvider = result.additionalUserInfo.providerId;
+        let uid = result.user.Nb.uid;
+        let idToken = result.credential.idToken;
+        console.log(username, photoMain, userProvider, uid);
+        dispatch(facebookLogInSuccess(idToken, username));
         if (result.additionalUserInfo.isNewUser) {
           db.collection("users")
             .doc(uid)

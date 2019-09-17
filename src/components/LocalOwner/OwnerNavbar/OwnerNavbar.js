@@ -5,7 +5,6 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import UserData from "../../UserData/UserData";
 
 const OwnerNavbar = props => {
-  console.log(props.userInfo);
   return (
     <nav className={styles.owner_nav_wrapper}>
       <ul className={styles.owner_nav_wrapper}>
