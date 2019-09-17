@@ -23,8 +23,11 @@ class Root extends React.Component {
   };
   render() {
     let sideBar;
-
-    if (this.props.isAuthenticated || this.props.userFbId) {
+    if (
+      this.props.isAuthenticated ||
+      this.props.userFbId ||
+      this.props.userGoogleId
+    ) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
