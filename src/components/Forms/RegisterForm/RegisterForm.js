@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import dumplings from "../../../assets/body/dumplings.png";
 import { signUp } from "../../../store/actions/authActions";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const validateSchema = Yup.object({
   firstname: Yup.string().min(3, "Imię musi mieć minimum 3 znaki"),
@@ -25,6 +26,7 @@ const validateSchema = Yup.object({
     .oneOf([Yup.ref("password1"), null], "Hasła nie są jednakowe")
 });
 
+const recaptchaRef = React.createRef();
 class RegisterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +41,7 @@ class RegisterForm extends React.Component {
     singupCorrect: "",
     usernameError: ""
   };
+  result = null;
 
   validateFirstname = value => {
     let error;
@@ -86,6 +89,10 @@ class RegisterForm extends React.Component {
     }
     return error;
   };
+
+  onChange = value => {
+    this.result = value;
+  };
   render() {
     const {
       isRegistered,
@@ -107,13 +114,15 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={newUser => {
-            this.props.signUp(
-              newUser.email,
-              newUser.password1,
-              newUser.firstname,
-              newUser.lastname,
-              newUser.username
-            );
+            if (this.result != null) {
+              this.props.signUp(
+                newUser.email,
+                newUser.password1,
+                newUser.firstname,
+                newUser.lastname,
+                newUser.username
+              );
+            }
           }}
         >
           {({ errors, touched, isValidating }) => (
@@ -219,12 +228,17 @@ class RegisterForm extends React.Component {
               />
               {errors.statute && touched.statute && <div>{errors.statute}</div>}
               <br />
+              <ReCAPTCHA
+                sitekey="6Ldf8rgUAAAAAPwhZUzx8p5aKLX-wG9UZ-XzP_1n"
+                onChange={this.onChange}
+              />
               <Button second type="submit">
                 Zarejestruj
               </Button>
             </Form>
           )}
         </Formik>
+
         <FoodImgComponent imagePath={dumplings} />
       </div>
     );
