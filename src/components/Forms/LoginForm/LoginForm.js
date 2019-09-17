@@ -47,10 +47,13 @@ class LoginForm extends React.Component {
     const {
       authError,
       isLoggedIn,
+      isLoggedInFb,
+      isLoggedInGoogle,
       emailNoVerified,
       validsEmailPassword
     } = this.props;
-    if (isLoggedIn) return <Redirect to="/" />;
+    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
+      return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Logowanie:</Title>
@@ -113,6 +116,8 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
+        <button onClick={this.props.facebookLogIn}>facebook</button>
+        <button onClick={this.props.googleLogIn}>google</button>
         <FoodImgComponent imagePath={avocado} />
       </div>
     );
@@ -123,6 +128,8 @@ const mapStateToProps = state => {
   return {
     error: state.auth.error,
     isLoggedIn: state.auth.token,
+    isLoggedInFb: state.auth.idFb,
+    isLoggedInGoogle: state.auth.userGoogleId,
     emailNoVerified: state.auth.emailNoVerified,
     validsEmailPassword: state.auth.validsLogIn
   };
@@ -130,7 +137,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogIn: (email, password) => dispatch(actions.logIn(email, password))
+    onLogIn: (email, password) => dispatch(actions.logIn(email, password)),
+    facebookLogIn: () => dispatch(actions.facebookLogIn()),
+    googleLogIn: () => dispatch(actions.googleLogIn())
   };
 };
 
