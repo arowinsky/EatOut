@@ -3,6 +3,7 @@ import styles from '../NewLocalForm.module.scss';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Button from '../../../Button/Button';
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
 
 
 class NewLocalFirst extends React.Component {
@@ -164,11 +165,14 @@ class NewLocalFirst extends React.Component {
                             
                        
                         </div>
-                    <Button second 
-                    type="submit"  
-                    disabled={isSubmitting}>
-                        Dalej
-                    </Button>
+                    <Link to="/add-new-local-2" className={styles.button}>
+                        <Button second 
+                        type="submit"  
+                        disabled={isSubmitting}
+                        >
+                            Dalej
+                        </Button>
+                    </Link>
                     </Form>
                 )}
                 </Formik>

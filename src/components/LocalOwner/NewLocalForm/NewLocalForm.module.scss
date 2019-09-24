@@ -76,6 +76,39 @@
     padding-left: 5px;
     text-align: center; 
 }
+
+//BUTTON
+.button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-decoration: none;
+}
+
+//ADD CATEGORY
+.categoryName {
+    font-size: 30px;
+    color: $yellow-element;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+
+    .deleteElement {
+        display: flex;
+        margin: 0 10px;
+        width: 20px;
+        height: 20px;
+        color: $dark-grey-element;
+        border: 1px solid $dark-grey-element;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 @media (max-width: 960px) {
     .hoursWrapper {
         display: flex;
