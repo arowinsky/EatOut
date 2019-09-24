@@ -165,14 +165,18 @@ class NewLocalFirst extends React.Component {
                             
                        
                         </div>
-                    <Link to="/add-new-local-2" className={styles.button}>
+                    
                         <Button second 
-                        type="submit"  
+                        type="submit"
+                        className={styles.button}  
                         disabled={isSubmitting}
                         >
-                            Dalej
+                            <Link to="/add-new-local-2"
+                             disabled={isSubmitting}
+                            >Dalej</Link>
+                          
                         </Button>
-                    </Link>
+                   
                     </Form>
                 )}
                 </Formik>
