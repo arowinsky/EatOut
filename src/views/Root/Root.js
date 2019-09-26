@@ -12,7 +12,7 @@ import NewLocalSecond from "../../components/LocalOwner/NewLocalForm/NewLocalSec
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
-import * as actions from "../../../store/actions/index";
+import * as actions from "../../store/actions/index";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -77,7 +77,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   console.log(dispatch);
   return {
-    getCookies: test => dispatch(getCookies(test))
+    getCookies: test => dispatch(actions.getCookies(test))
   };
 };
 

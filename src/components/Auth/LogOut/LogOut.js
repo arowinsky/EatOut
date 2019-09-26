@@ -9,6 +9,7 @@ class LogOut extends React.Component {
   }
 
   render() {
+    localStorage.clear();
     return <Redirect to="/" />;
   }
 }
