@@ -5,3 +5,5 @@ export {
   facebookLogIn,
   googleLogIn
 } from "../actions/authActions";
+
+export { getCookies } from "../actions/protectionsActions";

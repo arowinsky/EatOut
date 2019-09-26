@@ -12,6 +12,7 @@ import NewLocalSecond from "../../components/LocalOwner/NewLocalForm/NewLocalSec
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
+import * as actions from "../../../store/actions/index";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -23,12 +24,22 @@ class Root extends React.Component {
     });
   };
   render() {
+    let test;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId } = this.props;
     if (isAuthenticated || userFbId || userGoogleId) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
+    }
+    if (
+      isAuthenticated === null ||
+      userFbId === null ||
+      userGoogleId === null
+    ) {
+      test = true;
+      this.props.getCookies(test);
+      console.log(test);
     }
 
     return (
@@ -63,4 +74,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Root);
+const mapDispatchToProps = dispatch => {
+  console.log(dispatch);
+  return {
+    getCookies: test => dispatch(getCookies(test))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Root);
