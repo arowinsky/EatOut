@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
+import PrivateRoute from "../../components/Common/PrivateRoute";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -57,9 +58,9 @@ class Root extends React.Component {
             <Route path="/logout" component={LogOut} />
             <Route path="/register" component={RegisterView} />
             <Route path="/forgot-password" component={ForgotPasswordView} />
-            <Route path="/owner-home" component={OwnerContent} />
-            <Route path="/add-new-local-1" component={NewLocalFirst} />
-            <Route path="/add-new-local-2" component={NewLocalSecond} />
+            <PrivateRoute path="/owner-home" component={OwnerContent} />
+            <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
+            <PrivateRoute path="/add-new-local-2" component={NewLocalSecond} />
           </Switch>
         </>
       </BrowserRouter>
