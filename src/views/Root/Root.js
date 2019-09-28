@@ -14,6 +14,7 @@ import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
+import E404 from "../Errors/HTTP/404";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -61,6 +62,7 @@ class Root extends React.Component {
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
             <PrivateRoute path="/add-new-local-2" component={NewLocalSecond} />
+            <Route component={E404} />
           </Switch>
         </>
       </BrowserRouter>
