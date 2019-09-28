@@ -13,6 +13,7 @@ import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import dumplings from "../../../assets/body/dumplings.png";
 import { signUp } from "../../../store/actions/authActions";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Redirect } from "react-router-dom";
 
 const validateSchema = Yup.object({
   firstname: Yup.string().min(3, "Imię musi mieć minimum 3 znaki"),
@@ -97,8 +98,13 @@ class RegisterForm extends React.Component {
     const {
       isRegistered,
       validationEmailSignUp,
-      validationUsername
+      validationUsername,
+      isLoggedIn,
+      isLoggedInFb,
+      isLoggedInGoogle
     } = this.props;
+    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
+      return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -250,7 +256,10 @@ const mapStateToProps = state => {
     error: state.auth.error,
     isRegistered: state.auth.userId,
     validationEmailSignUp: state.auth.validEmailSignUp,
-    validationUsername: state.auth.validUsername
+    validationUsername: state.auth.validUsername,
+    isLoggedIn: state.auth.token,
+    isLoggedInFb: state.auth.idFb,
+    isLoggedInGoogle: state.auth.userGoogleId
   };
 };
 
