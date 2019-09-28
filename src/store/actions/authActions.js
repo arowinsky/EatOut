@@ -304,6 +304,7 @@ export const googleLogIn = () => {
         let idToken = result.credential.idToken;
         console.log(username, photoMain, userProvider, uid);
         dispatch(facebookLogInSuccess(idToken, username));
+        localStorage.setItem("idToken", idToken);
         if (result.additionalUserInfo.isNewUser) {
           db.collection("users")
             .doc(uid)
