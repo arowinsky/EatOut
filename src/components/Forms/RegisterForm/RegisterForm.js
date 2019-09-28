@@ -1,10 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import app from "firebase/app";
-import "firebase/auth";
-import firebase from "firebase";
-import { config } from "../../../configs/firebaseConfig";
 import styles from "./RegisterForm.module.scss";
 import Title from "../../Title/Title";
 import Button from "../../Button/Button";
@@ -27,16 +23,7 @@ const validateSchema = Yup.object({
     .oneOf([Yup.ref("password1"), null], "Hasła nie są jednakowe")
 });
 
-const recaptchaRef = React.createRef();
 class RegisterForm extends React.Component {
-  constructor(props) {
-    super(props);
-    if (!firebase.apps.length) {
-      app.initializeApp(config);
-    }
-    this.auth = app.auth();
-    this.database = firebase.database();
-  }
   state = {
     errorEmail: "",
     singupCorrect: "",
