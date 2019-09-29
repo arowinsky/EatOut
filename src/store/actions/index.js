@@ -3,5 +3,6 @@ export {
   logout,
   forgotPassword,
   facebookLogIn,
-  googleLogIn
+  googleLogIn,
+  getCookies
 } from "../actions/authActions";

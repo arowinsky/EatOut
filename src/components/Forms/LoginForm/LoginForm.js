@@ -2,10 +2,6 @@ import React from "react";
 import styles from "./LoginForm.module.scss";
 import { Formik, Field, Form } from "formik";
 import Title from "../../Title/Title";
-import app from "firebase/app";
-import "firebase/auth";
-import firebase from "firebase";
-import { config } from "../../../configs/firebaseConfig";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
@@ -14,15 +10,6 @@ import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import avocado from "../../../assets/body/avocado.png";
 import { Link } from "react-router-dom";
 class LoginForm extends React.Component {
-  constructor() {
-    super();
-    if (!firebase.apps.length) {
-      app.initializeApp(config);
-    }
-    this.auth = app.auth();
-    this.database = firebase.database();
-  }
-
   state = {
     errorLogin: ""
   };

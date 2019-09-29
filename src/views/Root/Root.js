@@ -12,6 +12,9 @@ import NewLocalSecond from "../../components/LocalOwner/NewLocalForm/NewLocalSec
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
+import * as actions from "../../store/actions/index";
+import PrivateRoute from "../../components/Common/PrivateRoute";
+import E404 from "../Errors/HTTP/404";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -23,12 +26,22 @@ class Root extends React.Component {
     });
   };
   render() {
+    let test;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId } = this.props;
     if (isAuthenticated || userFbId || userGoogleId) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
+    }
+    if (
+      isAuthenticated === null ||
+      userFbId === null ||
+      userGoogleId === null
+    ) {
+      test = true;
+      this.props.getCookies(test);
+      console.log(test);
     }
 
     return (
@@ -46,9 +59,10 @@ class Root extends React.Component {
             <Route path="/logout" component={LogOut} />
             <Route path="/register" component={RegisterView} />
             <Route path="/forgot-password" component={ForgotPasswordView} />
-            <Route path="/owner-home" component={OwnerContent} />
-            <Route path="/add-new-local-1" component={NewLocalFirst} />
-            <Route path="/add-new-local-2" component={NewLocalSecond} />
+            <PrivateRoute path="/owner-home" component={OwnerContent} />
+            <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
+            <PrivateRoute path="/add-new-local-2" component={NewLocalSecond} />
+            <Route component={E404} />
           </Switch>
         </>
       </BrowserRouter>
@@ -63,4 +77,14 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Root);
+const mapDispatchToProps = dispatch => {
+  console.log(dispatch);
+  return {
+    getCookies: test => dispatch(actions.getCookies(test))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Root);

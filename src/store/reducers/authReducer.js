@@ -48,6 +48,12 @@ const googleLogInSuccess = (state, action) => {
     userDataGoogle: action.userDataGoogle
   });
 };
+const AutoLoginSuccess = (state, action) => {
+  return updateObject(state, {
+    userId: action.userId,
+    token: action.tokenId
+  });
+};
 
 const authFail = (state, action) => {
   return updateObject(state, {
@@ -104,6 +110,8 @@ const authReducer = (state = initState, action) => {
       return facebookLogInSuccess(state, action);
     case actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS:
       return googleLogInSuccess(state, action);
+    case actionTypes.AUTH_AUTO_LOGIN_SUCCESS:
+      return AutoLoginSuccess(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:

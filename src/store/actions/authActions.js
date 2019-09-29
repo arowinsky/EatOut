@@ -41,6 +41,13 @@ export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
     userDataGoogle: userDataGoogle
   };
 };
+export const AutoLoginSuccess = (tokenId, userId) => {
+  return {
+    type: actionTypes.AUTH_AUTO_LOGIN_SUCCESS,
+    userId: userId,
+    tokenId: tokenId
+  };
+};
 
 export const authFail = error => {
   return {
@@ -196,6 +203,8 @@ export const logIn = (email, password1, firstname, lastname, username) => {
             .then(doc => {
               let userData = doc.data().userData;
               if (res.data.users[0].emailVerified) {
+                localStorage.setItem("idToken", idToken);
+                localStorage.setItem("localId", localId);
                 dispatch(authSuccess(idToken, localId, userData));
                 dispatch(checkAuthTimeout(expiresIn));
               } else {
@@ -295,6 +304,7 @@ export const googleLogIn = () => {
         let idToken = result.credential.idToken;
         console.log(username, photoMain, userProvider, uid);
         dispatch(facebookLogInSuccess(idToken, username));
+        localStorage.setItem("idToken", idToken);
         if (result.additionalUserInfo.isNewUser) {
           db.collection("users")
             .doc(uid)
@@ -311,5 +321,13 @@ export const googleLogIn = () => {
       .catch(error => {
         console.log(error);
       });
+  };
+};
+
+export const getCookies = test => {
+  return dispatch => {
+    const idToken = localStorage.getItem("idToken");
+    const localId = localStorage.getItem("localId");
+    dispatch(AutoLoginSuccess(idToken, localId));
   };
 };
