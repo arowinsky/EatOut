@@ -17,7 +17,7 @@
     font-family: $logo-font;
     font-size: 35px;
     color: $yellow-element;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 .restaurantForm {
     width: 100%;    
@@ -83,6 +83,7 @@
     width: 100%;
     justify-content: center;
     text-decoration: none;
+    color: $white;
 }
 
 //ADD CATEGORY
@@ -109,6 +110,22 @@
     }
 }
 
+//MEAL NAME CATEGORY
+.categoryWrapper {
+    display: flex;
+    width: 50%;
+}
+.mealNameWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 15px 0px;
+    margin-bottom: 50px;
+}
+.checkboxItem {
+    display: flex;
+    width: 150px;
+}
+
 @media (max-width: 960px) {
     .hoursWrapper {
         display: flex;
@@ -116,5 +133,19 @@
     }
     .hourElement {
         margin-right: 0;
+    }
+}
+@media (max-width: 800px) {
+    .mealNameWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15px 0px;
+    }
+}
+@media (max-width: 500px) {
+    .mealNameWrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px 0px;
     }
 }
