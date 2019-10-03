@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.22",
-    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "axios": "^0.19.0",
-    "firebase": "^6.5.0",
-    "firebase-tools": "^7.3.2",
+    "firebase": "^6.6.2",
+    "firebase-tools": "^7.4.0",
     "formik": "^1.5.8",
-    "hasha": "^5.0.0",
+    "hasha": "^5.1.0",
     "node-sass": "^4.12.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
     "react-google-recaptcha": "^2.0.1",
     "react-redux": "^7.1.1",
     "react-redux-firebase": "^2.4.1",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
+    "react-router": "^5.1.1",
+    "react-router-dom": "^5.1.1",
     "react-scripts": "3.0.1",
     "redux": "^4.0.4",
     "redux-firestore": "^0.8.0",
@@ -47,6 +47,6 @@
     ]
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.2"
+    "@fortawesome/fontawesome-free": "^5.11.2"
   }
 }

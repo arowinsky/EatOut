@@ -173,6 +173,7 @@ class NewLocalFirst extends React.Component {
                         >
                             <Link to="/add-new-local-2"
                              disabled={isSubmitting}
+                             className={styles.button}
                             >Dalej</Link>
                           
                         </Button>
