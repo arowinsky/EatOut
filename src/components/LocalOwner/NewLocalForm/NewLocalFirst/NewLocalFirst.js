@@ -17,6 +17,7 @@ class NewLocalFirst extends React.Component {
                     restaurantStreet: '',
                     restaurantAvatar: '',
                     restaurantHeader: '',
+                    restaurantMenu: '',
                     mondayOpenHour: '',
                     mondayCloseHour: '',
                     tuesdayOpenHour: '',
@@ -46,6 +47,9 @@ class NewLocalFirst extends React.Component {
                         }
                     if (!values.restaurantHeader) {
                         errors.restaurantHeader = 'Pole wymagane';
+                        }
+                    if (!values.restaurantMenu) {
+                        errors.restaurantMenu = 'Pole wymagane';
                         }
                     if (!values.mondayOpenHour || !values.mondayCloseHour) {
                         errors.mondayOpenHour = 'Pole wymagane';
@@ -101,6 +105,13 @@ class NewLocalFirst extends React.Component {
                             <label htmlFor="restaurantHeader">Wybierz zdjęcie banerowe</label>
                             <Field type="file" name="restaurantHeader" className={styles.inputFile} />
                             <ErrorMessage name="restaurantHeader" component="div" />
+                        </div>
+                        <br/>
+                        <br/>
+                        <div className={styles.inputElement}>
+                            <label htmlFor="restaurantMenu">Wybierz zdjęcie banerowe</label>
+                            <Field type="file" name="restaurantMenu" className={styles.inputFile} />
+                            <ErrorMessage name="restaurantMenu" component="div" />
                         </div>
                         <br/>
                         <br/>
@@ -162,22 +173,21 @@ class NewLocalFirst extends React.Component {
                                 <Field type="time" name="sundayCloseHour" className={styles.inputTime}/>
                                 <ErrorMessage name="sundayOpenHour" component="div" className={styles.timeError}/>
                             </div>
-                            
-                       
                         </div>
-                    
+                 
                         <Button second 
                         type="submit"
                         className={styles.button}  
                         disabled={isSubmitting}
                         >
-                            <Link to="/add-new-local-2"
-                             disabled={isSubmitting}
-                             className={styles.button}
-                            >Dalej</Link>
-                          
-                        </Button>
-                   
+                         {isSubmitting ? 
+                         <Link to="/add-new-local-2"  
+                         className={styles.button} >Dalej
+                         </Link> 
+                         : 
+                         'Potwierdź'}
+                        </Button> 
+                      
                     </Form>
                 )}
                 </Formik>
