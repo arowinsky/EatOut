@@ -9,6 +9,7 @@ import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent"
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import NewLocalFirst from "../../components/LocalOwner/NewLocalForm/NewLocalFirst/NewLocalFirst";
 import NewLocalCategory from "../../components/LocalOwner/NewLocalForm/NewLocalCategory/NewLocalCategory";
+import NewLocalResume from "../../components/LocalOwner/NewLocalForm/NewLocalResume/NewLocalResume";
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
@@ -62,6 +63,7 @@ class Root extends React.Component {
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
             <PrivateRoute path="/add-new-local-2" component={NewLocalCategory} />
+            <PrivateRoute path="/add-new-local-resume" component={NewLocalResume} />
             <Route component={E404} />
           </Switch>
         </>

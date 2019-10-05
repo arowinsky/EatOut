@@ -117,13 +117,15 @@
 }
 .mealNameWrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 15px 0px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px 70px;
     margin-bottom: 50px;
 }
 .checkboxItem {
     display: flex;
+    justify-content: space-between;
     width: 150px;
+    text-align: left;
 }
 
 @media (max-width: 960px) {
@@ -135,17 +137,11 @@
         margin-right: 0;
     }
 }
-@media (max-width: 800px) {
-    .mealNameWrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 15px 0px;
-    }
-}
 @media (max-width: 500px) {
     .mealNameWrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-gap: 15px 0px;
+        grid-gap: 20px 70px;
+        margin-bottom: 50px;
     }
 }
