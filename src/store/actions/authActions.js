@@ -11,6 +11,7 @@ export const authStart = () => {
 };
 
 export const authSuccess = (token, userId, userData) => {
+  console.log(token, userId, userData);
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
@@ -63,6 +64,7 @@ export const logout = () => {
 };
 
 export const checkAuthTimeout = expirationTime => {
+  console.log(expirationTime);
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
@@ -187,11 +189,11 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       .then(Response => Response.json())
       .then(response => {
         const userData = response.name;
-        const idToken = "0000000";
+        const idToken = response.status;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
-        console.log(response);
+        console.log(response.status);
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
