@@ -30,25 +30,20 @@ class Root extends React.Component {
     let test;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId } = this.props;
-    console.log(isAuthenticated);
-    if (
-      isAuthenticated === true ||
-      userFbId === true ||
-      userGoogleId === true
-    ) {
+    if (isAuthenticated || userFbId || userGoogleId) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
     }
-    // if (
-    //   isAuthenticated === null ||
-    //   userFbId === null ||
-    //   userGoogleId === null
-    // ) {
-    //   test = true;
-    //   this.props.getCookies(test);
-    //   console.log(test);
-    // }
+    if (
+      isAuthenticated === null ||
+      userFbId === null ||
+      userGoogleId === null
+    ) {
+      test = true;
+      this.props.getCookies(test);
+      console.log(test);
+    }
 
     return (
       <BrowserRouter>
@@ -67,14 +62,8 @@ class Root extends React.Component {
             <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
-            <PrivateRoute
-              path="/add-new-local-2"
-              component={NewLocalCategory}
-            />
-            <PrivateRoute
-              path="/add-new-local-resume"
-              component={NewLocalResume}
-            />
+            <PrivateRoute path="/add-new-local-2" component={NewLocalCategory} />
+            <PrivateRoute path="/add-new-local-resume" component={NewLocalResume} />
             <Route component={E404} />
           </Switch>
         </>
@@ -83,7 +72,6 @@ class Root extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state);
   return {
     isAuthenticated: state.auth.token,
     userFbId: state.auth.idFb,
