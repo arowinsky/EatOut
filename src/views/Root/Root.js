@@ -27,10 +27,8 @@ class Root extends React.Component {
     });
   };
   render() {
-    let test;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId } = this.props;
-    console.log(isAuthenticated);
     if (
       isAuthenticated === true ||
       userFbId === true ||
@@ -40,15 +38,6 @@ class Root extends React.Component {
         sideBar = <SideBarMenu />;
       }
     }
-    // if (
-    //   isAuthenticated === null ||
-    //   userFbId === null ||
-    //   userGoogleId === null
-    // ) {
-    //   test = true;
-    //   this.props.getCookies(test);
-    //   console.log(test);
-    // }
 
     return (
       <BrowserRouter>
@@ -83,7 +72,6 @@ class Root extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state);
   return {
     isAuthenticated: state.auth.token,
     userFbId: state.auth.idFb,
@@ -92,7 +80,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  console.log(dispatch);
   return {
     getCookies: test => dispatch(actions.getCookies(test))
   };
