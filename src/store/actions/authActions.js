@@ -2,7 +2,6 @@ import axios from "axios";
 import firebase from "firebase";
 import db from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
-const hasha = require("hasha");
 
 export const authStart = () => {
   return {
@@ -171,12 +170,10 @@ export const logIn = (email, password1, firstname, lastname, username) => {
     dispatch(authStart());
     const url = "http://localhost:8080/loginEmail";
     fetch(url, {
-      method: "POST", //jaki typ zapytania ma zostać wysłany. można zmienić na get,put,delete  itp
-      mode: "cors", //włacza i wyłącza corsy
-      cache: "no-cache", //
-      credentials: "same-origin", //powoduje że przeglądarki wysułają żadanie z dołączonymi poświadczeniami. co kowiek to znaczy
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
-        //ustaiwa odpowiednie nagłówki
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
@@ -187,11 +184,10 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       .then(Response => Response.json())
       .then(response => {
         const userData = response.name;
-        const idToken = "0000000";
+        const idToken = response.status;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
-        console.log(response);
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));

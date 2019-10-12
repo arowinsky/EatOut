@@ -27,22 +27,16 @@ class Root extends React.Component {
     });
   };
   render() {
-    let test;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId } = this.props;
-    if (isAuthenticated || userFbId || userGoogleId) {
+    if (
+      isAuthenticated === true ||
+      userFbId === true ||
+      userGoogleId === true
+    ) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
-    }
-    if (
-      isAuthenticated === null ||
-      userFbId === null ||
-      userGoogleId === null
-    ) {
-      test = true;
-      this.props.getCookies(test);
-      console.log(test);
     }
 
     return (
@@ -62,8 +56,14 @@ class Root extends React.Component {
             <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
-            <PrivateRoute path="/add-new-local-2" component={NewLocalCategory} />
-            <PrivateRoute path="/add-new-local-resume" component={NewLocalResume} />
+            <PrivateRoute
+              path="/add-new-local-2"
+              component={NewLocalCategory}
+            />
+            <PrivateRoute
+              path="/add-new-local-resume"
+              component={NewLocalResume}
+            />
             <Route component={E404} />
           </Switch>
         </>
@@ -80,7 +80,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  console.log(dispatch);
   return {
     getCookies: test => dispatch(actions.getCookies(test))
   };
