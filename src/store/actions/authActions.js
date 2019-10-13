@@ -185,17 +185,26 @@ export const logIn = (email, password1, firstname, lastname, username) => {
       .then(response => {
         const userData = response.name;
         const idToken = response.status;
+        const err = response.error;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
+        if (err) {
+          console.log(err);
+          dispatch(validationsLogIn(err));
+        }
       })
-      .catch(err => {
-        console.log(err.response.data.error);
-        dispatch(authFail(err.response.data.error));
-        dispatch(validationsLogIn(err.response.data.error.message));
+      .catch(error => {
+        //console.log(err.response.data.error);
+        console.log(error);
+        if (error) {
+          console.log("server not working!");
+        }
+        // dispatch(authFail(err.response.data.error));
+        // dispatch(validationsLogIn(err.response.data.error.message));
       });
   };
 };
@@ -218,10 +227,10 @@ export const forgotPassword = emailUser => {
       }
     })
       .then(response => {
-        console.log("wysłano", response);
+        console.log("sent", response);
       })
       .catch(err => {
-        console.log("Nie wysłano", err.response.data.error);
+        console.log("no sent", err.response.data.error);
         dispatch(validationsForgotPassword(err.response.data.error));
       });
   };
