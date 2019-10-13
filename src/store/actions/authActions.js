@@ -2,6 +2,7 @@ import axios from "axios";
 import firebase from "firebase";
 import db from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
+const hasha = require("hasha");
 
 export const authStart = () => {
   return {
@@ -168,29 +169,50 @@ export const signUp = (email, password1, firstname, lastname, username) => {
 export const logIn = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
-    const url = "http://localhost:8080/loginEmail";
-    fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `email=${email}&password=${password1}`
-    })
-      .then(Response => Response.json())
+    const authData = {
+      email: email,
+      password: password1,
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      returnSecureToken: true
+    };
+
+    axios
+      .post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+        authData
+      )
       .then(response => {
-        const userData = response.name;
-        const idToken = response.status;
-        const localId = "1111111";
-        const expiresIn = 3600;
         let dataIsCorrect = null;
         dispatch(validationsLogIn(dataIsCorrect));
-        dispatch(authSuccess(idToken, localId, userData));
-        dispatch(checkAuthTimeout(expiresIn));
+        let idToken = response.data.idToken;
+        let localId = response.data.localId;
+        let expiresIn = response.data.expiresIn;
+        axios({
+          method: "POST",
+          url:
+            "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+          data: {
+            idToken: response.data.idToken
+          }
+        }).then(res => {
+          db.collection("users")
+            .doc(res.data.users[0].localId)
+            .get()
+            .then(doc => {
+              let userData = doc.data().userData;
+              if (res.data.users[0].emailVerified) {
+                localStorage.setItem("idToken", idToken);
+                localStorage.setItem("localId", localId);
+                dispatch(authSuccess(idToken, localId, userData));
+                dispatch(checkAuthTimeout(expiresIn));
+              } else {
+                let messageNoActive = true;
+                dispatch(noEmailVerified(messageNoActive));
+              }
+            });
+        });
       })
       .catch(err => {
         console.log(err.response.data.error);
