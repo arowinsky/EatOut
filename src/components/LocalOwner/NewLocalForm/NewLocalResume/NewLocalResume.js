@@ -3,8 +3,7 @@ import styles from '../NewLocalForm.module.scss';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import Button from './../../../Button/Button';
-
-
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 class NewLocalResume extends React.Component {
    
