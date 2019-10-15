@@ -381,13 +381,3 @@ export const googleLogIn = () => {
       });
   };
 };
-
-// export const getCookies = test => {
-//   return dispatch => {
-//     const idToken = localStorage.getItem("idToken");
-//     const localId = localStorage.getItem("localId");
-//     const z = localStorage.getItem("z");
-//     dispatch(AutoLogin(z));
-//     dispatch(AutoLoginSuccess(idToken, localId));
-//   };
-// };
