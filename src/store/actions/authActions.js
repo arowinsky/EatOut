@@ -92,7 +92,7 @@ export const authFail = error => {
   };
 };
 
-export const aLogout = z => {
+export const aLogout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT
   };
@@ -100,7 +100,7 @@ export const aLogout = z => {
 
 export const logOut = z => {
   return dispatch => {
-    const z = localStorage.getItem("z");
+    // const z = localStorage.getItem("z");
 
     const url = "http://localhost:8080/logout";
     fetch(url, {
@@ -120,7 +120,7 @@ export const logOut = z => {
         const userLogOut = response.userLogOut;
         if (userLogOut === true) {
           localStorage.removeItem("z");
-          dispatch(aLogout(z));
+          dispatch(aLogout());
         }
       });
   };
@@ -258,7 +258,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         let dataIsCorrect = null;
         localStorage.setItem("z", response.idSession);
         const z = localStorage.getItem("z");
-        dispatch(AutoLogin(z));
+        // dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));

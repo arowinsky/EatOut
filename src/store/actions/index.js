@@ -4,5 +4,6 @@ export {
   forgotPassword,
   facebookLogIn,
   googleLogIn,
-  AutoLoginSuccess
+  AutoLoginSuccess,
+  AutoLogin
 } from "../actions/authActions";

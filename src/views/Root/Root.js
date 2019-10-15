@@ -16,6 +16,7 @@ import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
+import { AutoLogin } from "../../store/actions/authActions";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -38,7 +39,7 @@ class Root extends React.Component {
       isAuthenticated === true ||
       userFbId === true ||
       userGoogleId === true ||
-      z === true
+      z
     ) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
@@ -48,9 +49,11 @@ class Root extends React.Component {
       isAuthenticated === null &&
       userFbId === null &&
       userGoogleId === null &&
-      z
+      z === null
     ) {
       test = true;
+      const z = localStorage.getItem("z");
+      this.props.AutoLogin(z);
       this.props.AutoLoginSuccess(test);
       console.log(test);
     }
@@ -99,7 +102,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    AutoLoginSuccess: test => dispatch(actions.AutoLoginSuccess(test))
+    AutoLoginSuccess: test => dispatch(actions.AutoLoginSuccess(test)),
+    AutoLogin: z => dispatch(actions.AutoLogin(z))
   };
 };
 
