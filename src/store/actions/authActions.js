@@ -220,14 +220,16 @@ export const logIn = (email, password1, firstname, lastname, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
         const userData = response.name;
         const idToken = response.status;
         const err = response.error;
+        const emailUnverified = response.emailUnverified;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
         localStorage.setItem("z", response.idSession);
-
+        dispatch(noEmailVerified(emailUnverified));
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
