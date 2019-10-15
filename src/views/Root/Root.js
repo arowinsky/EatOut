@@ -27,23 +27,39 @@ class Root extends React.Component {
     });
   };
   render() {
+    let test = false;
     let sideBar;
-    const { isAuthenticated, userFbId, userGoogleId } = this.props;
+    const { isAuthenticated, userFbId, userGoogleId, z, userInfo } = this.props;
+    console.log(userInfo);
+    console.log(isAuthenticated);
+    console.log(userFbId);
+    console.log(userGoogleId);
     if (
       isAuthenticated === true ||
       userFbId === true ||
-      userGoogleId === true
+      userGoogleId === true ||
+      z === true
     ) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu />;
       }
+    }
+    if (
+      isAuthenticated === null &&
+      userFbId === null &&
+      userGoogleId === null &&
+      z
+    ) {
+      test = true;
+      this.props.AutoLoginSuccess(test);
+      console.log(test);
     }
 
     return (
       <BrowserRouter>
         <>
           <Header
-            isAuth={isAuthenticated}
+            isAuth={isAuthenticated || z}
             userIdProvider={userFbId || userGoogleId}
             sideBarClickHander={this.sideBarToggleClickHandler}
           />
@@ -75,13 +91,15 @@ const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token,
     userFbId: state.auth.idFb,
-    userGoogleId: state.auth.userGoogleId
+    userGoogleId: state.auth.userGoogleId,
+    z: state.auth.z,
+    userInfo: state.auth.userData
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getCookies: test => dispatch(actions.getCookies(test))
+    AutoLoginSuccess: test => dispatch(actions.AutoLoginSuccess(test))
   };
 };
 

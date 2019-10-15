@@ -17,7 +17,12 @@ export const authSuccess = (token, userId, userData) => {
     userData: userData
   };
 };
-
+export const userData = userData => {
+  return {
+    type: actionTypes.AUTH_DATA,
+    userData: userData
+  };
+};
 export const RegisterSuccess = userId => {
   return {
     type: actionTypes.REGISTER_SUCCESS,
@@ -40,11 +45,43 @@ export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
     userDataGoogle: userDataGoogle
   };
 };
-export const AutoLoginSuccess = (tokenId, userId) => {
+export const AutoLoginSuccess = test => {
+  console.log(test);
+  return dispatch => {
+    const z = localStorage.getItem("z");
+    console.log(z);
+    const url = "http://localhost:8080/autoLogin";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `sid=${z}&pleaseReSend=${test}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const userdata = response.userData;
+        const userInfo = response.userInfo;
+        console.log(userdata);
+        if (userdata) {
+          dispatch(userData(userdata));
+        } else {
+          dispatch(userData(userInfo));
+        }
+      });
+  };
+};
+
+export const AutoLogin = z => {
   return {
-    type: actionTypes.AUTH_AUTO_LOGIN_SUCCESS,
-    userId: userId,
-    tokenId: tokenId
+    type: actionTypes.AUTH_AUTO_LOGIN,
+    z: z
   };
 };
 
@@ -189,6 +226,8 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
+        localStorage.setItem("z", response.idSession);
+
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
@@ -311,10 +350,12 @@ export const googleLogIn = () => {
   };
 };
 
-export const getCookies = test => {
-  return dispatch => {
-    const idToken = localStorage.getItem("idToken");
-    const localId = localStorage.getItem("localId");
-    dispatch(AutoLoginSuccess(idToken, localId));
-  };
-};
+// export const getCookies = test => {
+//   return dispatch => {
+//     const idToken = localStorage.getItem("idToken");
+//     const localId = localStorage.getItem("localId");
+//     const z = localStorage.getItem("z");
+//     dispatch(AutoLogin(z));
+//     dispatch(AutoLoginSuccess(idToken, localId));
+//   };
+// };
