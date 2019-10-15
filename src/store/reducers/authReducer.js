@@ -102,7 +102,8 @@ const authLogOut = (state, action) => {
     token: null,
     userId: null,
     idFb: null,
-    usernameFb: null
+    usernameFb: null,
+    z: null
   });
 };
 const validationsForgotPassword = (state, action) => {

@@ -1,6 +1,6 @@
 export {
   logIn,
-  logout,
+  logOut,
   forgotPassword,
   facebookLogIn,
   googleLogIn,

@@ -92,16 +92,44 @@ export const authFail = error => {
   };
 };
 
-export const logout = () => {
+export const aLogout = z => {
   return {
     type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+export const logOut = z => {
+  return dispatch => {
+    const z = localStorage.getItem("z");
+
+    const url = "http://localhost:8080/logout";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const userLogOut = response.userLogOut;
+        if (userLogOut === true) {
+          localStorage.removeItem("z");
+          dispatch(aLogout(z));
+        }
+      });
   };
 };
 
 export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
-      dispatch(logout());
+      dispatch(aLogout());
     }, expirationTime * 1000);
   };
 };
@@ -229,6 +257,8 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         const expiresIn = 3600;
         let dataIsCorrect = null;
         localStorage.setItem("z", response.idSession);
+        const z = localStorage.getItem("z");
+        dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
