@@ -43,7 +43,6 @@ class Root extends React.Component {
     ) {
       test = true;
       this.props.getCookies(test);
-      console.log(test);
     }
 
     return (
@@ -88,7 +87,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  console.log(dispatch);
   return {
     getCookies: test => dispatch(actions.getCookies(test))
   };

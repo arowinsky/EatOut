@@ -12,7 +12,9 @@ class InfoForRegisteredUser extends React.Component {
             pocztę. W razie braku maila w głównym katalogu sprawdź także spam
           </p>
           <Button second type="submit">
-            <Link className={styles.button}>Chce wyszukać lokal</Link>
+            <Link to="" className={styles.button}>
+              Chce wyszukać lokal
+            </Link>
           </Button>
           <br />
           <Button second type="submit">

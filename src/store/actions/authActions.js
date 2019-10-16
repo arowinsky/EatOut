@@ -77,7 +77,6 @@ export const validationEmailSignUp = validEmailSignUp => {
 };
 
 export const validationUsername = validUsername => {
-  console.log("TCL: validUsername", validUsername);
   return {
     type: actionTypes.AUTH_VALIDATION_USERNAME,
     validUsername: validUsername
@@ -106,16 +105,7 @@ export const validationsForgotPassword = validForgotPassword => {
 };
 
 export const signUp = (email, password1, firstname, lastname, username) => {
-  console.log(
-    "TCL: signUp -> email, password1, firstname, lastname, username",
-    email,
-    password1,
-    firstname,
-    lastname,
-    username
-  );
   return dispatch => {
-    console.log("sended");
     dispatch(authStart());
     const url = "http://localhost:8080/register";
     fetch(url, {
@@ -132,7 +122,6 @@ export const signUp = (email, password1, firstname, lastname, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const isRegistered = response.isRegistered;
         const usernameTaken = response.usernameTaken;
         const emailTaken = response.emailTaken;

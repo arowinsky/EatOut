@@ -67,10 +67,6 @@ const validationEmailSignUp = (state, action) => {
   });
 };
 const validationUsername = (state, action) => {
-  console.log(
-    "TCL: validationUsername -> action.validUsername",
-    action.validUsername
-  );
   return updateObject(state, {
     validUsername: action.validUsername
   });
