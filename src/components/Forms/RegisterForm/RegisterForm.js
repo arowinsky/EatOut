@@ -182,9 +182,7 @@ class RegisterForm extends React.Component {
                 <div className={styles.formItemBar} />
                 {this.state.errorEmail}
                 {errors.email && touched.email && <div>{errors.email}</div>}
-                {validationEmailSignUp === "EMAIL_EXISTS"
-                  ? "Ten email jest już zajęty"
-                  : null}
+                {validationEmailSignUp ? "Ten email jest już zajęty" : null}
               </div>
               <div className={styles.formItem}>
                 <label htmlFor="password1">Hasło</label>
