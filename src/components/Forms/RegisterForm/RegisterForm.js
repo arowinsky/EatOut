@@ -91,7 +91,7 @@ class RegisterForm extends React.Component {
       isLoggedInGoogle
     } = this.props;
     if (isRegistered) {
-      return <Redirect to="/registered-user" />;
+      return <Redirect to="/register-success" />;
     } else if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
       return <Redirect to="/" />;
 

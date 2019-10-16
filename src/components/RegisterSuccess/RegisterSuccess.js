@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./InfoForRegisteredUser.module.scss";
+import styles from "./RegisterSuccess.module.scss";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 class InfoForRegisteredUser extends React.Component {
