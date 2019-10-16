@@ -105,63 +105,35 @@ export const validationsForgotPassword = validForgotPassword => {
 };
 
 export const signUp = (email, password1, firstname, lastname, username) => {
+  console.log(
+    "TCL: signUp -> email, password1, firstname, lastname, username",
+    email,
+    password1,
+    firstname,
+    lastname,
+    username
+  );
   return dispatch => {
+    console.log("sended");
     dispatch(authStart());
-    const authData = {
-      email: email,
-      password: password1
-    };
-
-    db.collection("users")
-      .where("username", "==", username)
-      .get()
-      .then(docs => {
-        if (docs.size >= 1) {
-          dispatch(validationUsername(docs.size));
-        } else {
-          dispatch(validationUsername(docs.size));
-          axios
-            .post(
-              "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-              authData
-            )
-            .then(response => {
-              let validEmailSignUp = null;
-              dispatch(validationEmailSignUp(validEmailSignUp));
-              db.collection("users")
-                .doc(response.data.localId)
-                .set({
-                  firstName: firstname,
-                  lastName: lastname,
-                  username: username,
-                  userData: firstname + " " + lastname
-                })
-                .then(() => {
-                  dispatch(RegisterSuccess(response.data.localId));
-                  axios({
-                    method: "post",
-                    url:
-                      "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-                    headers: {},
-                    data: {
-                      requestType: "VERIFY_EMAIL",
-                      idToken: response.data.idToken
-                    }
-                  }).catch(err => {
-                    console.log("Email weryfikacyjny nie został wysłany", err);
-                  });
-                })
-                .catch(err => {
-                  console.log("Błąd firestore", err);
-                });
-            })
-            .catch(err => {
-              dispatch(validationEmailSignUp(err.response.data.error.message));
-            });
-        }
-      })
-      .catch(() => {
-        console.log("Błąd sprawdzania username");
+    const url = "http://localhost:8080/register";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `email=${email}&password=${password1}&firstName=${firstname}&lastName=${lastname}&userName=${username}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const isRegistered = response.isRegistered;
+        dispatch(RegisterSuccess(isRegistered));
       });
   };
 };
