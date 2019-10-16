@@ -37,9 +37,10 @@ class LoginForm extends React.Component {
       isLoggedInFb,
       isLoggedInGoogle,
       emailNoVerified,
-      validsEmailPassword
+      validsEmailPassword,
+      z
     } = this.props;
-    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
+    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle || z)
       return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
@@ -118,7 +119,8 @@ const mapStateToProps = state => {
     isLoggedInFb: state.auth.idFb,
     isLoggedInGoogle: state.auth.userGoogleId,
     emailNoVerified: state.auth.emailNoVerified,
-    validsEmailPassword: state.auth.validsLogIn
+    validsEmailPassword: state.auth.validsLogIn,
+    z: state.auth.z
   };
 };
 
