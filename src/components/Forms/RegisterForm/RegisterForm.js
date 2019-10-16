@@ -90,8 +90,11 @@ class RegisterForm extends React.Component {
       isLoggedInFb,
       isLoggedInGoogle
     } = this.props;
-    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
+    if (isRegistered) {
+      return <Redirect to="/registered-user" />;
+    } else if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
       return <Redirect to="/" />;
+
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -121,13 +124,6 @@ class RegisterForm extends React.Component {
           {({ errors, touched, isValidating }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {isRegistered ? (
-                  <p>
-                    Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny
-                    sprawdź pocztę. Wrazie braku maila w głównym katalogu
-                    sprawdź także spam
-                  </p>
-                ) : null}
                 <label htmlFor="firstname">Imię</label>
                 <Field
                   name="firstname"

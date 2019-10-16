@@ -3,7 +3,8 @@ import "./index.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomeView from "../HomeView/HomeView";
 import LoginView from "../LoginView/LoginView";
-import RegisterView from "../RegisterView/RegisterView";
+import RegisterView from "../RegisterViews/RegisterView/RegisterView";
+import RegisteredView from "../RegisterViews/RegisteredView/RegisteredView";
 import Header from "../../components/Header/Header";
 import OwnerContent from "../../components/LocalOwner/OwnerContent/OwnerContent";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
@@ -59,11 +60,18 @@ class Root extends React.Component {
             <Route path="/login" component={LoginView} />
             <Route path="/logout" component={LogOut} />
             <Route path="/register" component={RegisterView} />
+            <Route path="/registered-user" component={RegisteredView} />
             <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
-            <PrivateRoute path="/add-new-local-2" component={NewLocalCategory} />
-            <PrivateRoute path="/add-new-local-resume" component={NewLocalResume} />
+            <PrivateRoute
+              path="/add-new-local-2"
+              component={NewLocalCategory}
+            />
+            <PrivateRoute
+              path="/add-new-local-resume"
+              component={NewLocalResume}
+            />
             <Route component={E404} />
           </Switch>
         </>
