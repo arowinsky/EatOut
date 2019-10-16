@@ -167,7 +167,7 @@ class RegisterForm extends React.Component {
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
-                {validationUsername > 0
+                {validationUsername
                   ? "Ta nazwa użytkownika jest już zajęta"
                   : null}
               </div>
