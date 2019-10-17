@@ -46,7 +46,7 @@ class ForgotPasswordForm extends React.Component {
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {invalidEmail ? (
+                {invalidEmail === false ? (
                   <p className={styles.invalidEmail}>
                     Nie istnieje konto z takim emailem. Podaj email na pewno do
                     swojego konta

@@ -222,29 +222,31 @@ export const logIn = (email, password1, firstname, lastname, username) => {
   };
 };
 
-export const forgotPassword = emailUser => {
+export const forgotPassword = email => {
   return dispatch => {
-    console.log(emailUser);
-    const data = {
-      emailUser: emailUser
-    };
-    axios({
+    const url = "http://localhost:8080/reset-password";
+    fetch(url, {
       method: "POST",
-      requestType: "PASSWORD_RESET",
-      email: data,
-      url:
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-      data: {
-        requestType: "PASSWORD_RESET",
-        email: data.emailUser
-      }
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `email=${email}`
     })
+      .then(Response => Response.json())
       .then(response => {
-        console.log("wysłano", response);
-      })
-      .catch(err => {
-        console.log("Nie wysłano", err.response.data.error);
-        dispatch(validationsForgotPassword(err.response.data.error));
+        console.log("TCL: response", response);
+        console.log(response.resetedPassword);
+
+        const resetedPassword = response.resetedPassword;
+        if (resetedPassword === false) {
+          dispatch(validationsForgotPassword(resetedPassword));
+        }
       });
   };
 };
