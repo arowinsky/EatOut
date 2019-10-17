@@ -103,6 +103,14 @@ export const validationsForgotPassword = validForgotPassword => {
     validForgotPassword: validForgotPassword
   };
 };
+export const sendedEmailWithLinkResetPassword = resetedPassword => {
+  console.log("TCL: resetedPassword", resetedPassword);
+
+  return {
+    type: actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD,
+    resetedPassword: resetedPassword
+  };
+};
 
 export const signUp = (email, password1, firstname, lastname, username) => {
   return dispatch => {
@@ -244,6 +252,9 @@ export const forgotPassword = email => {
         console.log(response.resetedPassword);
 
         const resetedPassword = response.resetedPassword;
+        if (resetedPassword === true) {
+          dispatch(sendedEmailWithLinkResetPassword(resetedPassword));
+        }
         if (resetedPassword === false) {
           dispatch(validationsForgotPassword(resetedPassword));
         }
