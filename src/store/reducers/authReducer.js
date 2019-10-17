@@ -99,7 +99,6 @@ const validationsForgotPassword = (state, action) => {
   });
 };
 const sendedEmailWithLinkResetPassword = (state, action) => {
-  console.log(action.resetedPassword);
   return updateObject(state, {
     resetedPassword: action.resetedPassword
   });

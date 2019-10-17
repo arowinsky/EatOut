@@ -28,7 +28,6 @@ class ForgotPasswordForm extends React.Component {
   };
   render() {
     const { invalidEmail, sendedEmail } = this.props;
-    console.log(sendedEmail);
     return (
       <div className={styles.wrapper}>
         <Title>
@@ -40,7 +39,6 @@ class ForgotPasswordForm extends React.Component {
             email: ""
           }}
           onSubmit={values => {
-            console.log(values.email);
             this.props.onForgotPassword(values.email);
           }}
         >
