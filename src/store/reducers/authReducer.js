@@ -14,6 +14,7 @@ const initState = {
   emailNoVerified: null,
   validsLogIn: null,
   validForgotPassword: null,
+  resetedPassword: null,
   error: null
 };
 
@@ -29,7 +30,12 @@ const authSuccess = (state, action) => {
     error: null
   });
 };
-
+export const userData = (state, action) => {
+  console.log(action.userData);
+  return updateObject(state, {
+    userData: action.userData
+  });
+};
 const RegisterSuccess = (state, action) => {
   return updateObject(state, {
     userId: action.userId,
@@ -52,6 +58,12 @@ const AutoLoginSuccess = (state, action) => {
   return updateObject(state, {
     userId: action.userId,
     token: action.tokenId
+  });
+};
+
+const AutoLogin = (state, action) => {
+  return updateObject(state, {
+    z: action.z
   });
 };
 
@@ -89,12 +101,18 @@ const authLogOut = (state, action) => {
     token: null,
     userId: null,
     idFb: null,
-    usernameFb: null
+    usernameFb: null,
+    z: null
   });
 };
 const validationsForgotPassword = (state, action) => {
   return updateObject(state, {
     validForgotPassword: action.validForgotPassword
+  });
+};
+const sendedEmailWithLinkResetPassword = (state, action) => {
+  return updateObject(state, {
+    resetedPassword: action.resetedPassword
   });
 };
 
@@ -112,6 +130,8 @@ const authReducer = (state = initState, action) => {
       return googleLogInSuccess(state, action);
     case actionTypes.AUTH_AUTO_LOGIN_SUCCESS:
       return AutoLoginSuccess(state, action);
+    case actionTypes.AUTH_AUTO_LOGIN:
+      return AutoLogin(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
@@ -126,6 +146,8 @@ const authReducer = (state = initState, action) => {
       return validationsLogIn(state, action);
     case actionTypes.AUTH_VALIDATIONS_FORGOT_PASSWORD:
       return validationsForgotPassword(state, action);
+    case actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD:
+      return sendedEmailWithLinkResetPassword(state, action);
     default:
       return state;
   }
