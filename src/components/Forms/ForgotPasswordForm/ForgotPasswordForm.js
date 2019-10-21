@@ -27,7 +27,7 @@ class ForgotPasswordForm extends React.Component {
     return error;
   };
   render() {
-    const { invalidEmail } = this.props;
+    const { invalidEmail, sendedEmail } = this.props;
     return (
       <div className={styles.wrapper}>
         <Title>
@@ -39,17 +39,22 @@ class ForgotPasswordForm extends React.Component {
             email: ""
           }}
           onSubmit={values => {
-            console.log(values.email);
             this.props.onForgotPassword(values.email);
           }}
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {invalidEmail ? (
+                {invalidEmail === false ? (
                   <p className={styles.invalidEmail}>
                     Nie istnieje konto z takim emailem. Podaj email na pewno do
                     swojego konta
+                  </p>
+                ) : null}
+                {sendedEmail ? (
+                  <p className={styles.invalidEmail}>
+                    Wysłaliśmy na twojego e-maila mail z linkiem do formularza,
+                    w którym będziesz mógł/ła zresetować swoje hasło.
                   </p>
                 ) : null}
                 <Field
@@ -75,7 +80,8 @@ class ForgotPasswordForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    invalidEmail: state.auth.validForgotPassword
+    invalidEmail: state.auth.validForgotPassword,
+    sendedEmail: state.auth.resetedPassword
   };
 };
 
