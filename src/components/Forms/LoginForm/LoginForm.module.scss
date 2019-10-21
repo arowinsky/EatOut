@@ -1,3 +1,4 @@
+@import '../../../views/Root/index.scss';
 .wrapper {
   width: 100%;
   display: flex;
@@ -7,6 +8,7 @@
   justify-items: center;
   justify-self: center;
 }
+
 .form {
   width: 100%;
   max-width: 350px;
@@ -76,6 +78,34 @@
   font-style: normal;
   text-indent: 20px;
   margin-bottom: 40px;
-  color: #0000ff;
+  color: $red-element;
   text-decoration: none;
 }
+
+.socialInfo {
+  margin-top: 20px;
+}
+
+.socialIcons {
+  display: flex;
+  flex-direction: row;
+  margin: 25px 0;
+}
+
+.facebookIcon, .googleIcon {
+  font-size: 26px;
+  margin: 0 15px;
+  transition:  0.5s color ease;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.facebookIcon:hover {
+  color: #3b5998;
+}
+
+.googleIcon:hover {
+  color: #db3236;
+}
+

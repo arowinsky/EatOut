@@ -75,14 +75,8 @@ class Root extends React.Component {
             <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute path="/add-new-local-1" component={NewLocalFirst} />
-            <PrivateRoute
-              path="/add-new-local-2"
-              component={NewLocalCategory}
-            />
-            <PrivateRoute
-              path="/add-new-local-resume"
-              component={NewLocalResume}
-            />
+            <PrivateRoute path="/add-new-local-2" component={NewLocalCategory} />
+            <PrivateRoute path="/add-new-local-resume" component={NewLocalResume} />
             <Route component={E404} />
           </Switch>
         </>
@@ -101,6 +95,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
+  console.log(dispatch);
   return {
     AutoLoginSuccess: test => dispatch(actions.AutoLoginSuccess(test)),
     AutoLogin: z => dispatch(actions.AutoLogin(z))

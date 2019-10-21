@@ -9,6 +9,8 @@ import { Redirect } from "react-router-dom";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import avocado from "../../../assets/body/avocado.png";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 class LoginForm extends React.Component {
   state = {
     errorLogin: ""
@@ -93,7 +95,7 @@ class LoginForm extends React.Component {
               </div>
 
               <Link className={styles.forgotPasswordLink} to="/forgot-password">
-                Czy zapomniałaś/eś hasła?
+                Czy zapomniałaś/eś hasło?
               </Link>
 
               <Button second type="submit">
@@ -104,8 +106,11 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
-        <button onClick={this.props.facebookLogIn}>facebook</button>
-        <button onClick={this.props.googleLogIn}>google</button>
+        <div className={styles.socialInfo}>Zaloguj się za pomocą: </div>    
+        <div className={styles.socialIcons}>
+          <FontAwesomeIcon icon={faFacebookF} onClick={this.props.facebookLogIn} className={styles.facebookIcon}/>
+          <FontAwesomeIcon icon={faGoogle} onClick={this.props.googleLogIn} className={styles.googleIcon}/>
+        </div>
         <FoodImgComponent imagePath={avocado} />
       </div>
     );

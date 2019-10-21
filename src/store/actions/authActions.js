@@ -2,6 +2,7 @@ import axios from "axios";
 import firebase from "firebase";
 import db from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
+const hasha = require("hasha");
 
 export const authStart = () => {
   return {
@@ -233,20 +234,20 @@ export const signUp = (email, password1, firstname, lastname, username) => {
 export const logIn = (email, password1, firstname, lastname, username) => {
   return dispatch => {
     dispatch(authStart());
-    const url = "http://localhost:8080/loginEmail";
-    fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `email=${email}&password=${password1}`
-    })
-      .then(Response => Response.json())
+    const authData = {
+      email: email,
+      password: password1,
+      firstname: firstname,
+      lastname: lastname,
+      username: username,
+      returnSecureToken: true
+    };
+
+    axios
+      .post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+        authData
+      )
       .then(response => {
         console.log(response);
         const userData = response.name;
