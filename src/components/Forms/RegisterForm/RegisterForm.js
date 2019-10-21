@@ -90,8 +90,11 @@ class RegisterForm extends React.Component {
       isLoggedInFb,
       isLoggedInGoogle
     } = this.props;
-    if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
+    if (isRegistered) {
+      return <Redirect to="/register-success" />;
+    } else if (isLoggedIn || isLoggedInFb || isLoggedInGoogle)
       return <Redirect to="/" />;
+
     return (
       <div className={styles.wrapper}>
         <Title>Rejestracja:</Title>
@@ -107,27 +110,20 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={newUser => {
-            if (this.result != null) {
-              this.props.signUp(
-                newUser.email,
-                newUser.password1,
-                newUser.firstname,
-                newUser.lastname,
-                newUser.username
-              );
-            }
+            // if (this.result != null) {
+            this.props.signUp(
+              newUser.email,
+              newUser.password1,
+              newUser.firstname,
+              newUser.lastname,
+              newUser.username
+            );
+            // }
           }}
         >
           {({ errors, touched, isValidating }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
-                {isRegistered ? (
-                  <p>
-                    Rejstracja udana. Wysłaliśmy na podany mail link aktywacyjny
-                    sprawdź pocztę. Wrazie braku maila w głównym katalogu
-                    sprawdź także spam
-                  </p>
-                ) : null}
                 <label htmlFor="firstname">Imię</label>
                 <Field
                   name="firstname"
@@ -167,7 +163,7 @@ class RegisterForm extends React.Component {
                 {errors.username && touched.username && (
                   <div>{errors.username}</div>
                 )}
-                {validationUsername > 0
+                {validationUsername
                   ? "Ta nazwa użytkownika jest już zajęta"
                   : null}
               </div>
@@ -182,9 +178,7 @@ class RegisterForm extends React.Component {
                 <div className={styles.formItemBar} />
                 {this.state.errorEmail}
                 {errors.email && touched.email && <div>{errors.email}</div>}
-                {validationEmailSignUp === "EMAIL_EXISTS"
-                  ? "Ten email jest już zajęty"
-                  : null}
+                {validationEmailSignUp ? "Ten email jest już zajęty" : null}
               </div>
               <div className={styles.formItem}>
                 <label htmlFor="password1">Hasło</label>
@@ -221,10 +215,10 @@ class RegisterForm extends React.Component {
               />
               {errors.statute && touched.statute && <div>{errors.statute}</div>}
               <br />
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey="6Ldf8rgUAAAAAPwhZUzx8p5aKLX-wG9UZ-XzP_1n"
                 onChange={this.onChange}
-              />
+              /> */}
               <Button second type="submit">
                 Zarejestruj
               </Button>
