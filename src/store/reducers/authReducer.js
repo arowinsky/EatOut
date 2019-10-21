@@ -30,7 +30,12 @@ const authSuccess = (state, action) => {
     error: null
   });
 };
-
+export const userData = (state, action) => {
+  console.log(action.userData);
+  return updateObject(state, {
+    userData: action.userData
+  });
+};
 const RegisterSuccess = (state, action) => {
   return updateObject(state, {
     userId: action.userId,
@@ -53,6 +58,12 @@ const AutoLoginSuccess = (state, action) => {
   return updateObject(state, {
     userId: action.userId,
     token: action.tokenId
+  });
+};
+
+const AutoLogin = (state, action) => {
+  return updateObject(state, {
+    z: action.z
   });
 };
 
@@ -90,7 +101,8 @@ const authLogOut = (state, action) => {
     token: null,
     userId: null,
     idFb: null,
-    usernameFb: null
+    usernameFb: null,
+    z: null
   });
 };
 const validationsForgotPassword = (state, action) => {
@@ -118,6 +130,8 @@ const authReducer = (state = initState, action) => {
       return googleLogInSuccess(state, action);
     case actionTypes.AUTH_AUTO_LOGIN_SUCCESS:
       return AutoLoginSuccess(state, action);
+    case actionTypes.AUTH_AUTO_LOGIN:
+      return AutoLogin(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
     case actionTypes.AUTH_LOGOUT:
