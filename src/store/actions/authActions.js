@@ -18,7 +18,12 @@ export const authSuccess = (token, userId, userData) => {
     userData: userData
   };
 };
-
+export const userData = userData => {
+  return {
+    type: actionTypes.AUTH_DATA,
+    userData: userData
+  };
+};
 export const RegisterSuccess = userId => {
   return {
     type: actionTypes.REGISTER_SUCCESS,
@@ -41,11 +46,43 @@ export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
     userDataGoogle: userDataGoogle
   };
 };
-export const AutoLoginSuccess = (tokenId, userId) => {
+export const AutoLoginSuccess = test => {
+  console.log(test);
+  return dispatch => {
+    const z = localStorage.getItem("z");
+    console.log(z);
+    const url = "http://localhost:8080/autoLogin";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `sid=${z}&pleaseReSend=${test}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const userdata = response.userData;
+        const userInfo = response.userInfo;
+        console.log(userdata);
+        if (userdata) {
+          dispatch(userData(userdata));
+        } else {
+          dispatch(userData(userInfo));
+        }
+      });
+  };
+};
+
+export const AutoLogin = z => {
   return {
-    type: actionTypes.AUTH_AUTO_LOGIN_SUCCESS,
-    userId: userId,
-    tokenId: tokenId
+    type: actionTypes.AUTH_AUTO_LOGIN,
+    z: z
   };
 };
 
@@ -56,16 +93,44 @@ export const authFail = error => {
   };
 };
 
-export const logout = () => {
+export const aLogout = () => {
   return {
     type: actionTypes.AUTH_LOGOUT
+  };
+};
+
+export const logOut = z => {
+  return dispatch => {
+    // const z = localStorage.getItem("z");
+
+    const url = "http://localhost:8080/logout";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const userLogOut = response.userLogOut;
+        if (userLogOut === true) {
+          localStorage.removeItem("z");
+          dispatch(aLogout());
+        }
+      });
   };
 };
 
 export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
-      dispatch(logout());
+      dispatch(aLogout());
     }, expirationTime * 1000);
   };
 };
@@ -184,40 +249,34 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         authData
       )
       .then(response => {
+        console.log(response);
+        const userData = response.name;
+        const idToken = response.status;
+        const err = response.error;
+        const emailUnverified = response.emailUnverified;
+        const localId = "1111111";
+        const expiresIn = 3600;
         let dataIsCorrect = null;
+        localStorage.setItem("z", response.idSession);
+        const z = localStorage.getItem("z");
+        // dispatch(AutoLogin(z));
+        dispatch(noEmailVerified(emailUnverified));
         dispatch(validationsLogIn(dataIsCorrect));
-        let idToken = response.data.idToken;
-        let localId = response.data.localId;
-        let expiresIn = response.data.expiresIn;
-        axios({
-          method: "POST",
-          url:
-            "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-          data: {
-            idToken: response.data.idToken
-          }
-        }).then(res => {
-          db.collection("users")
-            .doc(res.data.users[0].localId)
-            .get()
-            .then(doc => {
-              let userData = doc.data().userData;
-              if (res.data.users[0].emailVerified) {
-                localStorage.setItem("idToken", idToken);
-                localStorage.setItem("localId", localId);
-                dispatch(authSuccess(idToken, localId, userData));
-                dispatch(checkAuthTimeout(expiresIn));
-              } else {
-                let messageNoActive = true;
-                dispatch(noEmailVerified(messageNoActive));
-              }
-            });
-        });
+        dispatch(authSuccess(idToken, localId, userData));
+        dispatch(checkAuthTimeout(expiresIn));
+        if (err) {
+          console.log(err);
+          dispatch(validationsLogIn(err));
+        }
       })
-      .catch(err => {
-        console.log(err.response.data.error);
-        dispatch(authFail(err.response.data.error));
-        dispatch(validationsLogIn(err.response.data.error.message));
+      .catch(error => {
+        //console.log(err.response.data.error);
+        console.log(error);
+        if (error) {
+          console.log("server not working!");
+        }
+        // dispatch(authFail(err.response.data.error));
+        // dispatch(validationsLogIn(err.response.data.error.message));
       });
   };
 };
@@ -240,10 +299,10 @@ export const forgotPassword = emailUser => {
       }
     })
       .then(response => {
-        console.log("wysłano", response);
+        console.log("sent", response);
       })
       .catch(err => {
-        console.log("Nie wysłano", err.response.data.error);
+        console.log("no sent", err.response.data.error);
         dispatch(validationsForgotPassword(err.response.data.error));
       });
   };
@@ -321,13 +380,5 @@ export const googleLogIn = () => {
       .catch(error => {
         console.log(error);
       });
-  };
-};
-
-export const getCookies = test => {
-  return dispatch => {
-    const idToken = localStorage.getItem("idToken");
-    const localId = localStorage.getItem("localId");
-    dispatch(AutoLoginSuccess(idToken, localId));
   };
 };
