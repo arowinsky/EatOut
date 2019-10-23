@@ -193,10 +193,13 @@ class NewLocalResume extends React.Component {
     ]
   };
   render() {
-    const firstFormData = JSON.parse(localStorage.getItem("setFirst"));
-    const secondFormData = JSON.parse(localStorage.getItem("setSecond"));
+    const setFirst = localStorage.getItem("setFirst");
+    const setSecond = localStorage.getItem("setSecond");
+    const firstFormData = JSON.parse(setFirst);
+    const secondFormData = JSON.parse(setSecond);
     console.log(firstFormData);
     console.log(secondFormData);
+
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Potwierdź dane:</div>
