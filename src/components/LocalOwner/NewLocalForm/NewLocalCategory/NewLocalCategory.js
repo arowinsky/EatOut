@@ -11,162 +11,276 @@ class NewLocalCategory extends React.Component {
     mealCatName: [
       {
         id: 1,
-        name: "pizza"
+        name: "pizza",
+        value: "pizza"
       },
       {
         id: 2,
-        name: "makaron"
+        name: "makaron",
+        value: "makaron"
       },
       {
         id: 3,
-        name: "burger"
+        name: "burger",
+        value: "burger"
       },
       {
         id: 4,
-        name: "sushi"
+        name: "sushi",
+        value: "sushi"
       },
       {
         id: 5,
-        name: "kebab"
+        name: "kebab",
+        value: "kebab"
       },
       {
         id: 6,
-        name: "zapiekanki"
+        name: "zapiekanki",
+        value: "zapiekanki"
       },
       {
         id: 7,
-        name: "ramen"
+        name: "ramen",
+        value: "ramen"
       },
       {
         id: 8,
-        name: "stek"
+        name: "stek",
+        value: "stek"
       },
       {
         id: 9,
-        name: "obiad"
+        name: "obiad",
+        value: "obiad"
       },
       {
         id: 10,
-        name: "kawa"
+        name: "kawa",
+        value: "kawa"
       },
       {
         id: 11,
-        name: "ciasto"
+        name: "ciasto",
+        value: "ciasto"
       },
       {
         id: 12,
-        name: "alkohol"
+        name: "alkohol",
+        value: "alkohol"
       }
     ],
     cuisineCat: [
       {
         id: 200,
-        name: "arabska"
+        name: "arabska",
+        value: "arabska"
       },
       {
         id: 201,
-        name: "amerykańska"
+        name: "amerykańska",
+        value: "amerykańska"
       },
       {
         id: 202,
-        name: "włoska"
+        name: "włoska",
+        value: "włoska"
       },
       {
         id: 203,
-        name: "europejska"
+        name: "europejska",
+        value: "europejska"
       },
       {
         id: 204,
-        name: "domowa"
+        name: "domowa",
+        value: "domowa"
       },
       {
         id: 205,
-        name: "polska"
+        name: "polska",
+        value: "polska"
       },
       {
         id: 206,
-        name: "francuska"
+        name: "francuska",
+        value: "francuska"
       },
       {
         id: 207,
-        name: "azjatycka"
+        name: "azjatycka",
+        value: "azjatycka"
       },
       {
         id: 208,
-        name: "wege/wegan"
+        name: "wege/wegan",
+        value: "wege_wegan"
       },
       {
         id: 209,
-        name: "meksykańska"
+        name: "meksykańska",
+        value: "meksykańska"
       },
       {
         id: 210,
-        name: "dietetyczna"
+        name: "dietetyczna",
+        value: "dietetyczna"
       }
     ],
     typeCat: [
       {
         id: 400,
-        name: "śniadanie"
+        name: "śniadanie",
+        value: "śniadanie"
       },
       {
         id: 401,
-        name: "lunch"
+        name: "lunch",
+        value: "lunch"
       },
       {
         id: 402,
-        name: "randka"
+        name: "randka",
+        value: "randka"
       },
       {
         id: 403,
-        name: "pub"
+        name: "pub",
+        value: "pub"
       }
     ],
     comfCat: [
       {
         id: 1100,
-        name: "wifi"
+        name: "wifi",
+        value: "wifi"
       },
       {
         id: 1101,
-        name: "transmisja meczy"
+        name: "transmisja meczy",
+        value: "transmisja_meczy"
       },
       {
         id: 1102,
-        name: "ogródek"
+        name: "ogródek",
+        value: "ogródek"
       },
       {
         id: 1103,
-        name: "przystosowane dla osób niepełnosprawnych"
+        name: "przystosowane dla osób niepełnosprawnych",
+        value: "przystosowane_dla_osób_niepełnosprawnych"
       },
       {
         id: 1104,
-        name: "pokój dla matki z dzieckiem"
+        name: "pokój dla matki z dzieckiem",
+        value: "pokój_dla_matki_z_dzieckiem"
       },
       {
         id: 1105,
-        name: "animal friendly"
+        name: "animal friendly",
+        value: "animal_friendly"
       },
       {
         id: 1106,
-        name: "insta friendly"
+        name: "insta friendly",
+        value: "insta_friendly"
       },
       {
         id: 1107,
-        name: "język migowy"
+        name: "język migowy",
+        value: "język_migowy"
       }
     ]
   };
   render() {
+    let setSecond = false;
     return (
       <div className={styles.restaurantFormWrapper}>
         <Formik
-          initialValues={{}}
+          initialValues={{
+            alkohol: false,
+            amerykańska: false,
+            animal_friendly: false,
+            arabska: false,
+            azjatycka: false,
+            burger: false,
+            ciasto: false,
+            dietetyczna: false,
+            domowa: false,
+            europejska: false,
+            francuska: false,
+            insta_friendly: false,
+            język_migowy: false,
+            kawa: false,
+            kebab: false,
+            lunch: false,
+            makaron: false,
+            meksykańska: false,
+            obiad: false,
+            ogródek: false,
+            pizza: false,
+            pokój_dla_matki_z_dzieckiem: false,
+            polska: false,
+            przystosowane_dla_osób_niepełnosprawnych: false,
+            pub: false,
+            ramen: false,
+            randka: false,
+            stek: false,
+            sushi: false,
+            transmisja_meczy: false,
+            wege_wegan: false,
+            wifi: false,
+            włoska: false,
+            zapiekanki: false,
+            śniadanie: false
+          }}
           validate={values => {
             let errors = {};
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {}}
+          onSubmit={values => {
+            if (values) {
+              setSecond = [
+                values.alkohol,
+                values.amerykańska,
+                values.animal_friendly,
+                values.arabska,
+                values.azjatycka,
+                values.burger,
+                values.ciasto,
+                values.dietetyczna,
+                values.domowa,
+                values.europejska,
+                values.francuska,
+                values.insta_friendly,
+                values.język_migowy,
+                values.kawa,
+                values.kebab,
+                values.lunch,
+                values.makaron,
+                values.meksykańska,
+                values.obiad,
+                values.ogródek,
+                values.pizza,
+                values.pokój_dla_matki_z_dzieckiem,
+                values.polska,
+                values.przystosowane_dla_osób_niepełnosprawnych,
+                values.pub,
+                values.ramen,
+                values.randka,
+                values.stek,
+                values.sushi,
+                values.transmisja_meczy,
+                values.wege_wegan,
+                values.wifi,
+                values.włoska,
+                values.zapiekanki,
+                values.śniadanie
+              ];
+              localStorage.setItem("setSecond", setSecond);
+              console.log(values);
+            }
+          }}
         >
           {({ isSubmitting }) => (
             <Form className={styles.restaurantForm}>
@@ -184,13 +298,17 @@ class NewLocalCategory extends React.Component {
                 className={styles.button}
                 disabled={isSubmitting}
               >
-                <Link
-                  to="/add-new-local-resume"
-                  disabled={isSubmitting}
-                  className={styles.button}
-                >
-                  Dalej
-                </Link>
+                {isSubmitting ? (
+                  <Link
+                    to="/add-new-local-resume"
+                    disabled={isSubmitting}
+                    className={styles.button}
+                  >
+                    Dalej
+                  </Link>
+                ) : (
+                  "Potwierdź"
+                )}
               </Button>
             </Form>
           )}
@@ -199,15 +317,4 @@ class NewLocalCategory extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewLocalCategory);
+export default NewLocalCategory;

@@ -8,7 +8,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 class NewLocalResume extends React.Component {
   render() {
     const firstFormData = localStorage.getItem("setFirst");
+    const secondFormData = localStorage.getItem("setSecond");
     console.log(firstFormData);
+    console.log(secondFormData);
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Potwierdź dane:</div>

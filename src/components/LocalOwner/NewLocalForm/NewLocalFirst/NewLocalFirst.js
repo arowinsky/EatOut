@@ -373,21 +373,4 @@ class NewLocalFirst extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     set_first: state.auth.first_values
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     test: test => dispatch(actions.test(test))
-//   };
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(NewLocalFirst);
-
 export default NewLocalFirst;
