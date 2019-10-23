@@ -194,7 +194,7 @@ class NewLocalResume extends React.Component {
   };
   render() {
     const firstFormData = JSON.parse(localStorage.getItem("setFirst"));
-    const secondFormData = localStorage.getItem("setSecond");
+    const secondFormData = JSON.parse(localStorage.getItem("setSecond"));
     console.log(firstFormData);
     console.log(secondFormData);
     return (
@@ -202,7 +202,7 @@ class NewLocalResume extends React.Component {
         <div className={styles.formTitle}>Potwierdź dane:</div>
         <Formik
           initialValues={{
-            restaurantName: firstFormData[1],
+            restaurantName: firstFormData.restaurantName,
             restaurantStreet: "",
             restaurantAvatar: "",
             restaurantHeader: "",
