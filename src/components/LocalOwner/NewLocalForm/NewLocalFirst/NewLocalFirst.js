@@ -84,31 +84,33 @@ class NewLocalFirst extends React.Component {
             return errors;
           }}
           onSubmit={values => {
-            if (values) {
-              setFirst = [
-                values.restaurantName,
-                values.restaurantStreet,
-                values.restaurantAvatar,
-                values.restaurantHeader,
-                values.restaurantMenu,
-                values.mondayCloseHour,
-                values.mondayOpenHour,
-                values.tuesdayCloseHour,
-                values.tuesdayOpenHour,
-                values.wednesdayCloseHour,
-                values.wednesdayOpenHour,
-                values.thursdayCloseHour,
-                values.thursdayOpenHour,
-                values.fridayCloseHour,
-                values.fridayOpenHour,
-                values.saturdayCloseHour,
-                values.saturdayOpenHour,
-                values.sundayCloseHour,
-                values.sundayOpenHour
-              ];
-              console.log(values);
-              localStorage.setItem("setFirst", setFirst);
-            }
+            // if (values) {
+            //   setFirst = Object.assign({}, [
+            //     values.restaurantName,
+            //     values.restaurantStreet,
+            //     values.restaurantAvatar,
+            //     values.restaurantHeader,
+            //     values.restaurantMenu,
+            //     values.mondayCloseHour,
+            //     values.mondayOpenHour,
+            //     values.tuesdayCloseHour,
+            //     values.tuesdayOpenHour,
+            //     values.wednesdayCloseHour,
+            //     values.wednesdayOpenHour,
+            //     values.thursdayCloseHour,
+            //     values.thursdayOpenHour,
+            //     values.fridayCloseHour,
+            //     values.fridayOpenHour,
+            //     values.saturdayCloseHour,
+            //     values.saturdayOpenHour,
+            //     values.sundayCloseHour,
+            //     values.sundayOpenHour
+            //   ]);
+            //   console.log(values);
+            //   localStorage.setItem("setFirst", JSON.stringify(setFirst));
+            // }
+            localStorage.setItem("setFirst", JSON.stringify(values));
+            console.log(JSON.stringify(values));
           }}
         >
           {({ isSubmitting }) => (
@@ -357,7 +359,7 @@ class NewLocalFirst extends React.Component {
                 className={styles.button}
                 disabled={isSubmitting}
               >
-                {{ isSubmitting } ? (
+                {isSubmitting ? (
                   <Link to="/add-new-local-2" className={styles.button}>
                     Dalej
                   </Link>
