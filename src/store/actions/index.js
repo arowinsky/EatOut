@@ -1,8 +1,9 @@
 export {
   logIn,
-  logout,
+  logOut,
   forgotPassword,
   facebookLogIn,
   googleLogIn,
-  getCookies
+  AutoLoginSuccess,
+  AutoLogin
 } from "../actions/authActions";
