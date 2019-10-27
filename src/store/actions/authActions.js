@@ -281,7 +281,7 @@ export const logIn = (email, password1, firstname, lastname, username) => {
         let dataIsCorrect = null;
         localStorage.setItem("z", response.idSession);
         const z = localStorage.getItem("z");
-        // dispatch(AutoLogin(z));
+        dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
         dispatch(validationsLogIn(dataIsCorrect));
         dispatch(authSuccess(idToken, localId, userData));
