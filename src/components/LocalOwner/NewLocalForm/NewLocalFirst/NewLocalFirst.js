@@ -164,7 +164,7 @@ class NewLocalFirst extends React.Component {
               <br />
               <br />
               <div className={styles.inputElement}>
-                <label htmlFor="restaurantMenu">Wybierz zdjęcie banerowe</label>
+                <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
                 <Field
                   type="file"
                   name="restaurantMenu"
