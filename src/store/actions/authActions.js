@@ -102,6 +102,7 @@ export const aLogout = () => {
 export const logOut = z => {
   return dispatch => {
     // const z = localStorage.getItem("z");
+    console.log(z);
 
     const url = "http://localhost:8080/logout";
     fetch(url, {
@@ -118,8 +119,9 @@ export const logOut = z => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const userLogOut = response.userLogOut;
-        if (userLogOut === true) {
+        const userLogOuted = response.userLogOuted;
+        console.log(userLogOuted);
+        if (userLogOuted === true) {
           localStorage.removeItem("z");
           dispatch(aLogout());
         }
@@ -253,7 +255,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
 //   };
 // };
 
-export const logIn = (email, password1, firstname, lastname, username) => {
+export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
     const url = "http://localhost:8080/loginEmail";

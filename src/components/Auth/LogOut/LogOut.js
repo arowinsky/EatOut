@@ -9,18 +9,26 @@ class LogOut extends React.Component {
   }
 
   render() {
+    const { z } = this.props;
+    this.props.onLogout(z);
     localStorage.clear();
     return <Redirect to="/" />;
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    z: state.auth.z
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch(actions.logOut())
+    onLogout: z => dispatch(actions.logOut(z))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(LogOut);
