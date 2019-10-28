@@ -273,34 +273,34 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        console.log(response.error);
         const userData = response.name;
+        console.log(userData);
         const idToken = response.status;
         const err = response.error;
         const emailUnverified = response.emailUnverified;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
+        let z = null;
         localStorage.setItem("z", response.idSession);
-        const z = localStorage.getItem("z");
+        // const z = localStorage.getItem("z");
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        dispatch(validationsLogIn(dataIsCorrect));
+        if (err === "EMAIL_NOT_FOUND") {
+          dataIsCorrect = true;
+          dispatch(validationsLogIn(dataIsCorrect));
+        } else {
+          z = localStorage.getItem("z");
+        }
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
-        if (err) {
-          console.log(err);
-          dispatch(validationsLogIn(err));
-        }
       })
       .catch(error => {
-        //console.log(err.response.data.error);
         console.log(error);
         if (error) {
           console.log("server not working!");
         }
-        // dispatch(authFail(err.response.data.error));
-        // dispatch(validationsLogIn(err.response.data.error.message));
       });
   };
 };

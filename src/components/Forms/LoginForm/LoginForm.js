@@ -10,7 +10,7 @@ import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
 import avocado from "../../../assets/body/avocado.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle, faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faFacebookF } from "@fortawesome/free-brands-svg-icons";
 class LoginForm extends React.Component {
   state = {
     errorLogin: ""
@@ -106,10 +106,18 @@ class LoginForm extends React.Component {
             </Form>
           )}
         </Formik>
-        <div className={styles.socialInfo}>Zaloguj się za pomocą: </div>    
+        <div className={styles.socialInfo}>Zaloguj się za pomocą: </div>
         <div className={styles.socialIcons}>
-          <FontAwesomeIcon icon={faFacebookF} onClick={this.props.facebookLogIn} className={styles.facebookIcon}/>
-          <FontAwesomeIcon icon={faGoogle} onClick={this.props.googleLogIn} className={styles.googleIcon}/>
+          <FontAwesomeIcon
+            icon={faFacebookF}
+            onClick={this.props.facebookLogIn}
+            className={styles.facebookIcon}
+          />
+          <FontAwesomeIcon
+            icon={faGoogle}
+            onClick={this.props.googleLogIn}
+            className={styles.googleIcon}
+          />
         </div>
         <FoodImgComponent imagePath={avocado} />
       </div>
