@@ -102,6 +102,7 @@ export const aLogout = () => {
 export const logOut = z => {
   return dispatch => {
     // const z = localStorage.getItem("z");
+    console.log(z);
 
     const url = "http://localhost:8080/logout";
     fetch(url, {
@@ -118,8 +119,9 @@ export const logOut = z => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const userLogOut = response.userLogOut;
-        if (userLogOut === true) {
+        const userLogOuted = response.userLogOuted;
+        console.log(userLogOuted);
+        if (userLogOuted === true) {
           localStorage.removeItem("z");
           dispatch(aLogout());
         }
@@ -203,56 +205,105 @@ export const signUp = (email, password1, firstname, lastname, username) => {
   };
 };
 
-export const logIn = (email, password1, firstname, lastname, username) => {
+// export const logIn = (email, password1, firstname, lastname, username) => {
+//   return dispatch => {
+//     dispatch(authStart());
+//     const authData = {
+//       email: email,
+//       password: password1,
+//       firstname: firstname,
+//       lastname: lastname,
+//       username: username,
+//       returnSecureToken: true
+//     };
+
+//     axios
+//       .post(
+//         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
+//         authData
+//       )
+//       .then(response => {
+//         console.log(response);
+//         const userData = response.name;
+//         const idToken = response.status;
+//         const err = response.error;
+//         const emailUnverified = response.emailUnverified;
+//         const localId = "1111111";
+//         const expiresIn = 3600;
+//         let dataIsCorrect = null;
+//         localStorage.setItem("z", response.idSession);
+//         const z = localStorage.getItem("z");
+//         // dispatch(AutoLogin(z));
+//         dispatch(noEmailVerified(emailUnverified));
+//         dispatch(validationsLogIn(dataIsCorrect));
+//         dispatch(authSuccess(idToken, localId, userData));
+//         dispatch(checkAuthTimeout(expiresIn));
+//         if (err) {
+//           console.log(err);
+//           dispatch(validationsLogIn(err));
+//         }
+//       })
+//       .catch(error => {
+//         //console.log(err.response.data.error);
+//         console.log(error);
+//         if (error) {
+//           console.log("server not working!");
+//         }
+//         // dispatch(authFail(err.response.data.error));
+//         // dispatch(validationsLogIn(err.response.data.error.message));
+//       });
+//   };
+// };
+
+export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
-    const authData = {
-      email: email,
-      password: password1,
-      firstname: firstname,
-      lastname: lastname,
-      username: username,
-      returnSecureToken: true
-    };
-
-    axios
-      .post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-        authData
-      )
+    const url = "http://localhost:8080/loginEmail";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `email=${email}&password=${password1}`
+    })
+      .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        console.log(response.error);
         const userData = response.name;
+        console.log(userData);
         const idToken = response.status;
         const err = response.error;
         const emailUnverified = response.emailUnverified;
         const localId = "1111111";
         const expiresIn = 3600;
         let dataIsCorrect = null;
+        let z = null;
         localStorage.setItem("z", response.idSession);
-        const z = localStorage.getItem("z");
-        // dispatch(AutoLogin(z));
+        // const z = localStorage.getItem("z");
+        dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        dispatch(validationsLogIn(dataIsCorrect));
+        if (err === "EMAIL_NOT_FOUND") {
+          dataIsCorrect = true;
+          dispatch(validationsLogIn(dataIsCorrect));
+        } else {
+          z = localStorage.getItem("z");
+        }
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
-        if (err) {
-          console.log(err);
-          dispatch(validationsLogIn(err));
-        }
       })
       .catch(error => {
-        //console.log(err.response.data.error);
         console.log(error);
         if (error) {
           console.log("server not working!");
         }
-        // dispatch(authFail(err.response.data.error));
-        // dispatch(validationsLogIn(err.response.data.error.message));
       });
   };
 };
-
 export const forgotPassword = email => {
   return dispatch => {
     const url = "http://localhost:8080/reset-password";

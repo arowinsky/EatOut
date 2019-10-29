@@ -21,7 +21,7 @@ const PrivateRoute = ({
 );
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.token,
+  isAuthenticated: state.auth.z,
   userGoogleId: state.auth.userGoogleId
 });
 export default connect(mapStateToProps)(PrivateRoute);

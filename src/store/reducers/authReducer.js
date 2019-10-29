@@ -15,7 +15,9 @@ const initState = {
   validsLogIn: null,
   validForgotPassword: null,
   resetedPassword: null,
-  error: null
+  error: null,
+  z: null,
+  userData: null
 };
 
 const authStart = (state, action) => {
@@ -148,6 +150,8 @@ const authReducer = (state = initState, action) => {
       return validationsForgotPassword(state, action);
     case actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD:
       return sendedEmailWithLinkResetPassword(state, action);
+    case actionTypes.AUTH_DATA:
+      return userData(state, action);
     default:
       return state;
   }
