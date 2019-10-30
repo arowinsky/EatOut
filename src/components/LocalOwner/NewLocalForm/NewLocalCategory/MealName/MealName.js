@@ -9,7 +9,11 @@ const MealName = ({ mealCatName }) => {
           <div key={mealCatName.id}>
             <div className={styles.checkboxItem}>
               <label htmlFor={mealCatName.name}>{mealCatName.name}</label>
-              <Field type="checkbox" name={mealCatName.value} />
+              <Field
+                type="checkbox"
+                name={mealCatName.value}
+                checked={mealCatName.value === true ? true : null}
+              />
             </div>
           </div>
         </div>
