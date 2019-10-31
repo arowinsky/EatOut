@@ -6,12 +6,13 @@ const PrivateRoute = ({
   component: Component,
   isAuthenticated,
   userGoogleId,
+  z,
   ...rest
 }) => (
   <Route
     {...rest}
     render={props => {
-      if (!isAuthenticated || userGoogleId) {
+      if (!isAuthenticated || userGoogleId || z) {
         return <Redirect to="/login" />;
       } else {
         return <Component {...props} />;
