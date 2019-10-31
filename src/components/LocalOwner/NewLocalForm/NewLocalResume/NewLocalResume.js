@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Button from "./../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MealName from "../NewLocalCategory/MealName/MealName";
+import Files from "react-files";
 
 class NewLocalResume extends React.Component {
   constructor(props) {
@@ -199,6 +200,13 @@ class NewLocalResume extends React.Component {
         }
       ]
     };
+    this.onFilesChange = files => {
+      console.log(files);
+    };
+
+    this.onFilesError = (error, file) => {
+      console.log("error code " + error.code + ": " + error.message);
+    };
   }
   render() {
     const setFirst = localStorage.getItem("setFirst");
@@ -336,7 +344,7 @@ class NewLocalResume extends React.Component {
               </div>
               <br />
               <br />
-              <div className={styles.inputElement}>
+              {/* <div className={styles.inputElement}>
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
                 </label>
@@ -370,7 +378,7 @@ class NewLocalResume extends React.Component {
                   className={styles.inputFile}
                 />
                 <ErrorMessage name="restaurantMenu" component="div" />
-              </div>
+              </div> */}
               <br />
               <br />
               <h3>Godziny otwarcia lokalu</h3>
