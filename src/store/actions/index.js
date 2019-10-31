@@ -5,5 +5,6 @@ export {
   facebookLogIn,
   googleLogIn,
   AutoLoginSuccess,
-  AutoLogin
+  AutoLogin,
+  addNewLocal
 } from "../actions/authActions";

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Button from "./../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MealName from "../NewLocalCategory/MealName/MealName";
-import Files from "react-files";
+import * as actions from "../../../../store/actions/index";
 
 class NewLocalResume extends React.Component {
   constructor(props) {
@@ -200,13 +200,6 @@ class NewLocalResume extends React.Component {
         }
       ]
     };
-    this.onFilesChange = files => {
-      console.log(files);
-    };
-
-    this.onFilesError = (error, file) => {
-      console.log("error code " + error.code + ": " + error.message);
-    };
   }
   render() {
     const setFirst = localStorage.getItem("setFirst");
@@ -223,9 +216,9 @@ class NewLocalResume extends React.Component {
           initialValues={{
             restaurantName: firstFormData.restaurantName,
             restaurantStreet: firstFormData.restaurantStreet,
-            // restaurantAvatar: firstFormData.restaurantAvatar,
-            // restaurantHeader: firstFormData.restaurantHeader,
-            // restaurantMenu: firstFormData.restaurantMenu,
+            restaurantAvatar: firstFormData.restaurantAvatar,
+            restaurantHeader: firstFormData.restaurantHeader,
+            restaurantMenu: firstFormData.restaurantMenu,
             mondayOpenHour: firstFormData.mondayCloseHour,
             mondayCloseHour: firstFormData.mondayCloseHour,
             tuesdayOpenHour: firstFormData.tuesdayOpenHour,
@@ -318,7 +311,9 @@ class NewLocalResume extends React.Component {
             }
             return errors;
           }}
-          onSubmit={values => {}}
+          onSubmit={initialValues => {
+            this.props.addNewLocal(initialValues);
+          }}
         >
           {({ isSubmitting, initialValues }) => (
             <Form className={styles.restaurantForm}>
@@ -597,7 +592,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    addNewLocal: values => dispatch(actions.addNewLocal(values))
+  };
 };
 
 export default connect(

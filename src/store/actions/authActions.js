@@ -333,6 +333,26 @@ export const forgotPassword = email => {
   };
 };
 
+export const addNewLocal = values => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-new-local";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `values=${values}`
+    })
+      .then(Response => Response.json())
+      .then(response => {});
+  };
+};
 export const facebookLogIn = () => {
   return dispatch => {
     let provider = new firebase.auth.FacebookAuthProvider();
