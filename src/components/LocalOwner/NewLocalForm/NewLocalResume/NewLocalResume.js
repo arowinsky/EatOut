@@ -312,7 +312,9 @@ class NewLocalResume extends React.Component {
             return errors;
           }}
           onSubmit={initialValues => {
-            this.props.addNewLocal(initialValues);
+            const test = JSON.stringify(initialValues);
+            this.props.addNewLocal(test);
+            console.log(test);
           }}
         >
           {({ isSubmitting, initialValues }) => (
