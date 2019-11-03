@@ -304,6 +304,7 @@ export const logIn = (email, password1) => {
       });
   };
 };
+
 export const forgotPassword = email => {
   return dispatch => {
     const url = "http://localhost:8080/reset-password";
@@ -335,6 +336,7 @@ export const forgotPassword = email => {
 
 export const addNewLocal = values => {
   return dispatch => {
+    const z = localStorage.getItem("z");
     const url = "http://localhost:8080/add-new-local";
     fetch(url, {
       method: "POST",
@@ -347,7 +349,7 @@ export const addNewLocal = values => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `values=${values}`
+      body: `values=${values}&z=${z}`
     })
       .then(Response => Response.json())
       .then(response => {});
