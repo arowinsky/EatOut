@@ -2,8 +2,8 @@ export {
   logIn,
   logOut,
   forgotPassword,
-  facebookLogIn,
-  googleLogIn,
+  // facebookLogIn,
+  // googleLogIn,
   AutoLoginSuccess,
   AutoLogin,
   addNewLocal

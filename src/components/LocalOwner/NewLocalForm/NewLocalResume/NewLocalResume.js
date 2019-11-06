@@ -254,11 +254,11 @@ class NewLocalResume extends React.Component {
             obiad: secondFormData.obiad,
             ogródek: secondFormData.ogródek,
             pizza: secondFormData.pizza,
-            // pokój_dla_matki_z_dzieckiem:
-            //   secondFormData.pokój_dla_matki_z_dzieckiem,
+            pokój_dla_matki_z_dzieckiem:
+              secondFormData.pokój_dla_matki_z_dzieckiem,
             polska: secondFormData.polska,
-            // przystosowane_dla_osób_niepełnosprawnych:
-            //   secondFormData.przystosowane_dla_osób_niepełnosprawnych,
+            przystosowane_dla_osób_niepełnosprawnych:
+              secondFormData.przystosowane_dla_osób_niepełnosprawnych,
             pub: secondFormData.pub,
             ramen: secondFormData.ramen,
             randka: secondFormData.randka,
@@ -312,9 +312,8 @@ class NewLocalResume extends React.Component {
             return errors;
           }}
           onSubmit={initialValues => {
-            const test = JSON.stringify(initialValues);
-            this.props.addNewLocal(test);
-            console.log(test);
+            this.props.addNewLocal(initialValues);
+            console.log(initialValues);
           }}
         >
           {({ isSubmitting, initialValues }) => (

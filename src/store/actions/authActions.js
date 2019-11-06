@@ -1,7 +1,8 @@
 import axios from "axios";
 import firebase from "firebase";
-import db from "../../configs/firebaseConfig";
+import storage from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
+import { file } from "@babel/types";
 const hasha = require("hasha");
 
 export const authStart = () => {
@@ -30,22 +31,22 @@ export const RegisterSuccess = userId => {
     userId: userId
   };
 };
-export const facebookLogInSuccess = (idFb, usernameFb) => {
-  console.log(idFb, usernameFb);
-  return {
-    type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
-    idFb: idFb,
-    usernameFb: usernameFb
-  };
-};
+// export const facebookLogInSuccess = (idFb, usernameFb) => {
+//   console.log(idFb, usernameFb);
+//   return {
+//     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+//     idFb: idFb,
+//     usernameFb: usernameFb
+//   };
+// };
 
-export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
-  return {
-    type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
-    userGoogleId: userGoogleId,
-    userDataGoogle: userDataGoogle
-  };
-};
+// export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
+//   return {
+//     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+//     userGoogleId: userGoogleId,
+//     userDataGoogle: userDataGoogle
+//   };
+// };
 export const AutoLoginSuccess = test => {
   console.log(test);
   return dispatch => {
@@ -337,6 +338,7 @@ export const forgotPassword = email => {
 export const addNewLocal = values => {
   return dispatch => {
     const z = localStorage.getItem("z");
+    const test = JSON.stringify(values);
     const url = "http://localhost:8080/add-new-local";
     fetch(url, {
       method: "POST",
@@ -349,83 +351,85 @@ export const addNewLocal = values => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `values=${values}&z=${z}`
+      body: `values=${test}&z=${z}`
     })
       .then(Response => Response.json())
-      .then(response => {});
-  };
-};
-export const facebookLogIn = () => {
-  return dispatch => {
-    let provider = new firebase.auth.FacebookAuthProvider();
-
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log(result);
-        console.log(result.additionalUserInfo.profile.id);
-
-        console.log("logowanie");
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let id = result.additionalUserInfo.profile.id;
-        dispatch(facebookLogInSuccess(id, username));
-        console.log(username, photoMain, userProvider, uid);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error);
+      .then(response => {
+        console.log(response);
       });
   };
 };
+// export const facebookLogIn = () => {
+//   return dispatch => {
+//     let provider = new firebase.auth.FacebookAuthProvider();
 
-export const googleLogIn = () => {
-  return dispatch => {
-    let provider = new firebase.auth.GoogleAuthProvider();
+//     firebase
+//       .auth()
+//       .signInWithPopup(provider)
+//       .then(result => {
+//         console.log(result);
+//         console.log(result.additionalUserInfo.profile.id);
 
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log("logowanie");
-        console.log(result);
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let idToken = result.credential.idToken;
-        console.log(username, photoMain, userProvider, uid);
-        dispatch(facebookLogInSuccess(idToken, username));
-        localStorage.setItem("idToken", idToken);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-};
+//         console.log("logowanie");
+//         let username = result.user.displayName;
+//         let photoMain = result.user.photoURL;
+//         let userProvider = result.additionalUserInfo.providerId;
+//         let uid = result.user.Nb.uid;
+//         let id = result.additionalUserInfo.profile.id;
+//         dispatch(facebookLogInSuccess(id, username));
+//         console.log(username, photoMain, userProvider, uid);
+//         if (result.additionalUserInfo.isNewUser) {
+//           db.collection("users")
+//             .doc(uid)
+//             .set({
+//               firstName: "",
+//               lastName: "",
+//               username: username,
+//               userData: username,
+//               photoMain: photoMain,
+//               provaider: userProvider
+//             });
+//         }
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// };
+
+// export const googleLogIn = () => {
+//   return dispatch => {
+//     let provider = new firebase.auth.GoogleAuthProvider();
+
+//     firebase
+//       .auth()
+//       .signInWithPopup(provider)
+//       .then(result => {
+//         console.log("logowanie");
+//         console.log(result);
+//         let username = result.user.displayName;
+//         let photoMain = result.user.photoURL;
+//         let userProvider = result.additionalUserInfo.providerId;
+//         let uid = result.user.Nb.uid;
+//         let idToken = result.credential.idToken;
+//         console.log(username, photoMain, userProvider, uid);
+//         dispatch(facebookLogInSuccess(idToken, username));
+//         localStorage.setItem("idToken", idToken);
+//         if (result.additionalUserInfo.isNewUser) {
+//           db.collection("users")
+//             .doc(uid)
+//             .set({
+//               firstName: "",
+//               lastName: "",
+//               username: username,
+//               userData: username,
+//               photoMain: photoMain,
+//               provaider: userProvider
+//             });
+//         }
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// };
