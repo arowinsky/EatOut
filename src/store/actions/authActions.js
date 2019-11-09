@@ -338,7 +338,7 @@ export const forgotPassword = email => {
 export const addNewLocal = values => {
   return dispatch => {
     const z = localStorage.getItem("z");
-    const test = JSON.stringify(values);
+    // const test = JSON.stringify(values);
     const url = "http://localhost:8080/add-new-local";
     fetch(url, {
       method: "POST",

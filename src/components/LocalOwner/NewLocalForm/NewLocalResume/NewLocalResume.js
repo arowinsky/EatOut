@@ -216,9 +216,9 @@ class NewLocalResume extends React.Component {
           initialValues={{
             restaurantName: firstFormData.restaurantName,
             restaurantStreet: firstFormData.restaurantStreet,
-            restaurantAvatar: firstFormData.restaurantAvatar,
-            restaurantHeader: firstFormData.restaurantHeader,
-            restaurantMenu: firstFormData.restaurantMenu,
+            // restaurantAvatar: firstFormData.restaurantAvatar,
+            // restaurantHeader: firstFormData.restaurantHeader,
+            // restaurantMenu: firstFormData.restaurantMenu,
             mondayOpenHour: firstFormData.mondayCloseHour,
             mondayCloseHour: firstFormData.mondayCloseHour,
             tuesdayOpenHour: firstFormData.tuesdayOpenHour,

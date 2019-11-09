@@ -5,47 +5,8 @@ import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
-import storage from "../../../../configs/firebaseConfig";
 
 class NewLocalFirst extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: null,
-      url: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleUpload = this.handleUpload.bind(this);
-  }
-  handleChange = e => {
-    if (e.target.files[0]) {
-      const image = e.target.files[0];
-      this.setState(() => ({ image }));
-    }
-  };
-
-  handleUpload = e => {
-    const { image } = this.state;
-    console.log(image);
-    const uploadTask = storage.ref(`image/${image.name}`).put(image);
-    uploadTask.on(
-      "state_changed",
-      snapshot => {},
-      error => {
-        console.log(error);
-      }
-      // ,
-      // () => {
-      //   storage
-      //     .ref("images")
-      //     .child(image.name)
-      //     .getDownloadURL()
-      //     .then(url => {
-      //       console.log(url);
-      //     });
-      // }
-    );
-  };
   render() {
     let test = false;
     let setFirst = false;
@@ -149,7 +110,6 @@ class NewLocalFirst extends React.Component {
             //   localStorage.setItem("setFirst", JSON.stringify(setFirst));
             // }
             localStorage.setItem("setFirst", JSON.stringify(values));
-            console.log(values.restaurantAvatar.name);
             console.log(JSON.stringify(values));
           }}
         >
@@ -181,11 +141,10 @@ class NewLocalFirst extends React.Component {
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
                 </label>
-                <input
+                <Field
                   type="file"
                   name="restaurantAvatar"
                   className={styles.inputFile}
-                  onChange={this.handleChange}
                 />
                 <ErrorMessage name="restaurantAvatar" component="div" />
               </div>
@@ -399,20 +358,14 @@ class NewLocalFirst extends React.Component {
                 type="submit"
                 className={styles.button}
                 disabled={isSubmitting}
-                onClick={this.handleUpload}
               >
-                {/* {isSubmitting ? (
+                {isSubmitting ? (
                   <Link to="/add-new-local-2" className={styles.button}>
                     Dalej
                   </Link>
                 ) : (
                   "Potwierdź"
-                )} */}
-                {
-                  <Link to="/add-new-local-2" className={styles.button}>
-                    Dalej
-                  </Link>
-                }
+                )}
               </Button>
             </Form>
           )}
