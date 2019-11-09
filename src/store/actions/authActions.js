@@ -351,7 +351,7 @@ export const addNewLocal = values => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `values=${test}&z=${z}`
+      body: `values=${values}&z=${z}`
     })
       .then(Response => Response.json())
       .then(response => {

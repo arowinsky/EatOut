@@ -216,9 +216,9 @@ class NewLocalResume extends React.Component {
           initialValues={{
             restaurantName: firstFormData.restaurantName,
             restaurantStreet: firstFormData.restaurantStreet,
-            // restaurantAvatar: firstFormData.restaurantAvatar,
-            // restaurantHeader: firstFormData.restaurantHeader,
-            // restaurantMenu: firstFormData.restaurantMenu,
+            restaurantAvatar: firstFormData.restaurantAvatar,
+            restaurantHeader: firstFormData.restaurantHeader,
+            restaurantMenu: firstFormData.restaurantMenu,
             mondayOpenHour: firstFormData.mondayCloseHour,
             mondayCloseHour: firstFormData.mondayCloseHour,
             tuesdayOpenHour: firstFormData.tuesdayOpenHour,
@@ -312,8 +312,9 @@ class NewLocalResume extends React.Component {
             return errors;
           }}
           onSubmit={initialValues => {
-            this.props.addNewLocal(initialValues);
-            console.log(initialValues);
+            const test = JSON.stringify(initialValues);
+            this.props.addNewLocal(test);
+            console.log(test);
           }}
         >
           {({ isSubmitting, initialValues }) => (
@@ -563,21 +564,6 @@ class NewLocalResume extends React.Component {
               <MealName mealCatName={this.state.typeCat} />
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
-
-              {/* <div>
-                <div>
-                  <div>
-                    <label>dupa</label>
-                    <Field
-                      type="checkbox"
-                      checked={initialValues.map(ziomek => {
-                        <p>{this.props.ziomek}</p>;
-                      })}
-                    />
-                  </div>
-                </div>
-              </div> */}
-
               <Button second type="submit" className={styles.button}>
                 Załóz profil lokalu
               </Button>
