@@ -158,7 +158,7 @@ class NewLocalFirst extends React.Component {
             console.log(JSON.stringify(values));
           }}
         >
-          {({ isSubmitting }) => (
+          {({ values }) => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
@@ -405,10 +405,10 @@ class NewLocalFirst extends React.Component {
                 second
                 type="submit"
                 className={styles.button}
-                disabled={isSubmitting}
+                disabled={values}
                 onClick={this.handleUploadImagesRestaurant}
               >
-                {isSubmitting ? (
+                {values ? (
                   <Link to="/add-new-local-2" className={styles.button}>
                     Dalej
                   </Link>
