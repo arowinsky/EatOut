@@ -95,6 +95,7 @@ class NewLocalFirst extends React.Component {
           initialValues={{
             restaurantName: "",
             restaurantStreet: "",
+            restaurantEmail: "",
             restaurantAvatar: "",
             restaurantHeader: "",
             restaurantMenu: "",
@@ -120,6 +121,15 @@ class NewLocalFirst extends React.Component {
             }
             if (!values.restaurantStreet) {
               errors.restaurantStreet = "Pole wymagane";
+            }
+            if (!values.restaurantEmail) {
+              errors.restaurantEmail = "Pole wymagane";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
+                values.restaurantEmail
+              )
+            ) {
+              errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
             }
             if (!values.restaurantAvatar) {
               errors.restaurantAvatar = "Pole wymagane";
@@ -180,6 +190,19 @@ class NewLocalFirst extends React.Component {
                 />
                 <ErrorMessage name="restaurantStreet" component="div" />
               </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantEmail">Adres email</label>
+                <Field
+                  type="text"
+                  name="restaurantEmail"
+                  className={styles.input}
+                  validate={this.validateRestaurantEmail}
+                />
+                <ErrorMessage name="restaurantEmail" component="div" />
+              </div>
+
               <br />
               <br />
               <div className={styles.inputElement}>
