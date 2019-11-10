@@ -12,7 +12,7 @@ class NewLocalFirst extends React.Component {
     super(props);
     this.state = {
       restaurantAvatar: null,
-      url: ""
+      restaurantHeader: null
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
     this.handleUploadRestaurantAvatar = this.handleUploadRestaurantAvatar.bind(
@@ -21,18 +21,35 @@ class NewLocalFirst extends React.Component {
   }
   handleRestaurantAvatar = e => {
     if (e.target.files[0]) {
+      const restaurantHeader = e.target.files[0];
+      this.setState(() => ({ restaurantHeader }));
+    }
+  };
+  handleRestaurantHeader = e => {
+    if (e.target.files[0]) {
       const restaurantAvatar = e.target.files[0];
       this.setState(() => ({ restaurantAvatar }));
     }
   };
 
   handleUploadRestaurantAvatar = e => {
-    const { restaurantAvatar } = this.state;
+    const { restaurantAvatar, restaurantHeader } = this.state;
     console.log(restaurantAvatar);
+    console.log(restaurantHeader);
     const uploadTask = storage
       .ref(`image/${restaurantAvatar.name}`)
       .put(restaurantAvatar);
     uploadTask.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+    );
+    const uploadTask2 = storage
+      .ref(`image/${restaurantHeader.name}`)
+      .put(restaurantHeader);
+    uploadTask2.on(
       "state_changed",
       snapshot => {},
       error => {
@@ -189,10 +206,11 @@ class NewLocalFirst extends React.Component {
                 <label htmlFor="restaurantHeader">
                   Wybierz zdjęcie banerowe
                 </label>
-                <Field
+                <input
                   type="file"
                   name="restaurantHeader"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantHeader}
                 />
                 <ErrorMessage name="restaurantHeader" component="div" />
               </div>
