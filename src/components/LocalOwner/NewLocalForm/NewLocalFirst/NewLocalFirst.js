@@ -12,10 +12,11 @@ class NewLocalFirst extends React.Component {
     super(props);
     this.state = {
       restaurantAvatar: null,
-      restaurantHeader: null
+      restaurantHeader: null,
+      restaurantMenu: null
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
-    this.handleUploadRestaurantAvatar = this.handleUploadRestaurantAvatar.bind(
+    this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
       this
     );
   }
@@ -31,11 +32,18 @@ class NewLocalFirst extends React.Component {
       this.setState(() => ({ restaurantAvatar }));
     }
   };
+  handleRestaurantMenu = e => {
+    if (e.target.files[0]) {
+      const restaurantMenu = e.target.files[0];
+      this.setState(() => ({ restaurantMenu }));
+    }
+  };
 
-  handleUploadRestaurantAvatar = e => {
-    const { restaurantAvatar, restaurantHeader } = this.state;
+  handleUploadImagesRestaurant = e => {
+    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     console.log(restaurantAvatar);
     console.log(restaurantHeader);
+    console.log(restaurantMenu);
     const uploadTask = storage
       .ref(`image/${restaurantAvatar.name}`)
       .put(restaurantAvatar);
@@ -50,6 +58,17 @@ class NewLocalFirst extends React.Component {
       .ref(`image/${restaurantHeader.name}`)
       .put(restaurantHeader);
     uploadTask2.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+    );
+
+    const uploadTask3 = storage
+      .ref(`image/${restaurantMenu.name}`)
+      .put(restaurantMenu);
+    uploadTask3.on(
       "state_changed",
       snapshot => {},
       error => {
@@ -218,10 +237,11 @@ class NewLocalFirst extends React.Component {
               <br />
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
-                <Field
+                <input
                   type="file"
                   name="restaurantMenu"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantMenu}
                 />
                 <ErrorMessage name="restaurantMenu" component="div" />
               </div>
@@ -411,7 +431,7 @@ class NewLocalFirst extends React.Component {
                 type="submit"
                 className={styles.button}
                 disabled={isSubmitting}
-                onClick={this.handleUploadRestaurantAvatar}
+                onClick={this.handleUploadImagesRestaurant}
               >
                 {isSubmitting ? (
                   <Link to="/add-new-local-2" className={styles.button}>
