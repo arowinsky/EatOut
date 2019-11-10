@@ -5,8 +5,52 @@ import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
+import storage from "../../../../configs/firebaseConfig";
 
 class NewLocalFirst extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      restaurantAvatar: null,
+      url: ""
+    };
+    this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
+    this.handleUploadRestaurantAvatar = this.handleUploadRestaurantAvatar.bind(
+      this
+    );
+  }
+  handleRestaurantAvatar = e => {
+    if (e.target.files[0]) {
+      const restaurantAvatar = e.target.files[0];
+      this.setState(() => ({ restaurantAvatar }));
+    }
+  };
+
+  handleUploadRestaurantAvatar = e => {
+    const { restaurantAvatar } = this.state;
+    console.log(restaurantAvatar);
+    const uploadTask = storage
+      .ref(`image/${restaurantAvatar.name}`)
+      .put(restaurantAvatar);
+    uploadTask.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+      // ,
+      // () => {
+      //   storage
+      //     .ref("images")
+      //     .child(image.name)
+      //     .getDownloadURL()
+      //     .then(url => {
+      //       console.log(url);
+      //     });
+      // }
+    );
+  };
+
   render() {
     let test = false;
     let setFirst = false;
@@ -141,10 +185,11 @@ class NewLocalFirst extends React.Component {
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
                 </label>
-                <Field
+                <input
                   type="file"
                   name="restaurantAvatar"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantAvatar}
                 />
                 <ErrorMessage name="restaurantAvatar" component="div" />
               </div>
@@ -358,6 +403,7 @@ class NewLocalFirst extends React.Component {
                 type="submit"
                 className={styles.button}
                 disabled={isSubmitting}
+                onClick={this.handleUploadRestaurantAvatar}
               >
                 {isSubmitting ? (
                   <Link to="/add-new-local-2" className={styles.button}>
