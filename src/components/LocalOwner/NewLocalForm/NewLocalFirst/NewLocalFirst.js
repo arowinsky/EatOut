@@ -126,9 +126,8 @@ class NewLocalFirst extends React.Component {
             if (!values.restaurantEmail) {
               errors.restaurantEmail = "Pole wymagane";
             } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-                values.restaurantEmail
-              )
+              !values.restaurantEmail ===
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
             ) {
               errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
             }
