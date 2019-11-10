@@ -222,7 +222,7 @@ class NewLocalFirst extends React.Component {
               </div>
               <br />
               <br />
-              <h3>Godziny otwarcia lokalu</h3>
+              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
