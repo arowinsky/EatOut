@@ -341,44 +341,7 @@ class NewLocalResume extends React.Component {
               </div>
               <br />
               <br />
-              {/* <div className={styles.inputElement}>
-                <label htmlFor="restaurantAvatar">
-                  Wybierz zdjęcie profilowe
-                </label>
-                <Field
-                  type="file"
-                  name="restaurantAvatar"
-                  className={styles.inputFile}
-                />
-                <ErrorMessage name="restaurantAvatar" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantHeader">
-                  Wybierz zdjęcie banerowe
-                </label>
-                <Field
-                  type="file"
-                  name="restaurantHeader"
-                  className={styles.inputFile}
-                />
-                <ErrorMessage name="restaurantHeader" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantMenu">Wybierz zdjęcie banerowe</label>
-                <Field
-                  type="file"
-                  name="restaurantMenu"
-                  className={styles.inputFile}
-                />
-                <ErrorMessage name="restaurantMenu" component="div" />
-              </div> */}
-              <br />
-              <br />
-              <h3>Godziny otwarcia lokalu</h3>
+              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
