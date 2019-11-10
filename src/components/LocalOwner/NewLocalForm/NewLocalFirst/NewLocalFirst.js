@@ -38,16 +38,6 @@ class NewLocalFirst extends React.Component {
       error => {
         console.log(error);
       }
-      // ,
-      // () => {
-      //   storage
-      //     .ref("images")
-      //     .child(image.name)
-      //     .getDownloadURL()
-      //     .then(url => {
-      //       console.log(url);
-      //     });
-      // }
     );
   };
 
