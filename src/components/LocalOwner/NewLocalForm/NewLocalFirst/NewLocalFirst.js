@@ -88,6 +88,9 @@ class NewLocalFirst extends React.Component {
       console.log(test);
     }
     console.log(this.props.set_first);
+
+    const { userId } = this.props;
+    console.log(userId);
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Dodaj lokal</div>
@@ -464,4 +467,12 @@ class NewLocalFirst extends React.Component {
   }
 }
 
-export default NewLocalFirst;
+const mapStateToProps = state => {
+  return {
+    userId: state.auth.userId
+  };
+};
+export default connect(
+  mapStateToProps,
+  null
+)(NewLocalFirst);

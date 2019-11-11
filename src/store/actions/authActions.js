@@ -12,6 +12,7 @@ export const authStart = () => {
 };
 
 export const authSuccess = (token, userId, userData) => {
+  console.log(userId);
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
@@ -19,10 +20,11 @@ export const authSuccess = (token, userId, userData) => {
     userData: userData
   };
 };
-export const userData = userData => {
+export const userData = (userData, userId) => {
   return {
     type: actionTypes.AUTH_DATA,
-    userData: userData
+    userData: userData,
+    userId: userId
   };
 };
 export const RegisterSuccess = userId => {
@@ -70,11 +72,12 @@ export const AutoLoginSuccess = test => {
         console.log(response);
         const userdata = response.userData;
         const userInfo = response.userInfo;
+        const userId = response.userId;
         console.log(userdata);
         if (userdata) {
-          dispatch(userData(userdata));
+          dispatch(userData(userdata, userId));
         } else {
-          dispatch(userData(userInfo));
+          dispatch(userData(userInfo, userId));
         }
       });
   };
@@ -224,13 +227,14 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response.userId);
         console.log(response.error);
         const userData = response.name;
         console.log(userData);
         const idToken = response.status;
         const err = response.error;
         const emailUnverified = response.emailUnverified;
-        const localId = "1111111";
+        const localId = response.userId;
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;

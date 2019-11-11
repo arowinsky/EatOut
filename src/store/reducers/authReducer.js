@@ -3,7 +3,7 @@ import { updateObject } from "../update";
 
 const initState = {
   token: null,
-  userid: null,
+  userId: null,
   userInfo: null,
   idFb: null,
   usernameFb: null,
@@ -25,6 +25,7 @@ const authStart = (state, action) => {
 };
 
 const authSuccess = (state, action) => {
+  console.log(action.userId);
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
@@ -33,9 +34,10 @@ const authSuccess = (state, action) => {
   });
 };
 export const userData = (state, action) => {
-  console.log(action.userData);
+  console.log(action.userId);
   return updateObject(state, {
-    userData: action.userData
+    userData: action.userData,
+    userId: action.userId
   });
 };
 const RegisterSuccess = (state, action) => {
