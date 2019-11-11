@@ -27,6 +27,14 @@ export const userData = (userData, userId) => {
     userId: userId
   };
 };
+
+export const addedPlace = addedPlace => {
+  console.log(addedPlace);
+  return {
+    type: actionTypes.ADDED_NEW_PLACE,
+    addedPlace: addedPlace
+  };
+};
 export const RegisterSuccess = userId => {
   return {
     type: actionTypes.REGISTER_SUCCESS,
@@ -310,6 +318,8 @@ export const addNewLocal = values => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        const added = response.added;
+        dispatch(addedPlace(added));
       });
   };
 };

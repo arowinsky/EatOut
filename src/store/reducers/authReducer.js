@@ -17,7 +17,8 @@ const initState = {
   resetedPassword: null,
   error: null,
   z: null,
-  userData: null
+  userData: null,
+  addedPlace: null
 };
 
 const authStart = (state, action) => {
@@ -38,6 +39,11 @@ export const userData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId
+  });
+};
+export const addedPlace = (state, action) => {
+  return updateObject(state, {
+    addedPlace: action.addedPlace
   });
 };
 const RegisterSuccess = (state, action) => {
@@ -154,6 +160,8 @@ const authReducer = (state = initState, action) => {
       return sendedEmailWithLinkResetPassword(state, action);
     case actionTypes.AUTH_DATA:
       return userData(state, action);
+    case actionTypes.ADDED_NEW_PLACE:
+      return addedPlace(state, action);
     default:
       return state;
   }

@@ -5,6 +5,7 @@ import Button from "./../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MealName from "../NewLocalCategory/MealName/MealName";
 import * as actions from "../../../../store/actions/index";
+import { Redirect } from "react-router-dom";
 
 class NewLocalResume extends React.Component {
   constructor(props) {
@@ -203,8 +204,13 @@ class NewLocalResume extends React.Component {
     const setSecond = localStorage.getItem("setSecond");
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
+    const { addedPlace } = this.props;
     console.log(firstFormData);
     console.log(secondFormData);
+    console.log(addedPlace);
+    if (addedPlace) {
+      return <Redirect to="/owner-home" />;
+    }
 
     return (
       <div className={styles.restaurantFormWrapper}>
@@ -550,7 +556,9 @@ class NewLocalResume extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    addedPlace: state.auth.addedPlace
+  };
 };
 
 const mapDispatchToProps = dispatch => {
