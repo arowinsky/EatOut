@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../NewLocalForm.module.scss";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "./../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -10,9 +9,7 @@ import * as actions from "../../../../store/actions/index";
 class NewLocalResume extends React.Component {
   constructor(props) {
     super(props);
-    const setFirst = localStorage.getItem("setFirst");
     const setSecond = localStorage.getItem("setSecond");
-    const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
 
     this.state = {
@@ -552,7 +549,7 @@ class NewLocalResume extends React.Component {
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
               <Button second type="submit" className={styles.button}>
-                Załóz profil lokalu
+                Załóż profil lokalu
               </Button>
             </Form>
           )}
