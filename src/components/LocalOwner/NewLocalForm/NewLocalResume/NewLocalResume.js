@@ -216,6 +216,8 @@ class NewLocalResume extends React.Component {
           initialValues={{
             restaurantName: firstFormData.restaurantName,
             restaurantStreet: firstFormData.restaurantStreet,
+            restaurantEmail: firstFormData.restaurantEmail,
+            restaurantPhoneNumber: firstFormData.restaurantPhoneNumber,
             restaurantAvatar: firstFormData.restaurantAvatar,
             restaurantHeader: firstFormData.restaurantHeader,
             restaurantMenu: firstFormData.restaurantMenu,
@@ -338,6 +340,28 @@ class NewLocalResume extends React.Component {
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantStreet" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantEmail">Adres email</label>
+                <Field
+                  type="text"
+                  name="restaurantEmail"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantEmail" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantPhoneNumber">Numer telefonu</label>
+                <Field
+                  type="text"
+                  name="restaurantPhoneNumber"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantPhoneNumber" component="div" />
               </div>
               <br />
               <br />
