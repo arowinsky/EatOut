@@ -278,15 +278,6 @@ class NewLocalResume extends React.Component {
             if (!values.restaurantStreet) {
               errors.restaurantStreet = "Pole wymagane";
             }
-            if (!values.restaurantAvatar) {
-              errors.restaurantAvatar = "Pole wymagane";
-            }
-            if (!values.restaurantHeader) {
-              errors.restaurantHeader = "Pole wymagane";
-            }
-            if (!values.restaurantMenu) {
-              errors.restaurantMenu = "Pole wymagane";
-            }
             if (!values.mondayOpenHour || !values.mondayCloseHour) {
               errors.mondayOpenHour = "Pole wymagane";
             }
