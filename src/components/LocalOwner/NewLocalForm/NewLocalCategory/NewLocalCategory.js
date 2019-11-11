@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../NewLocalForm.module.scss";
 import MealName from "./MealName/MealName";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import Button from "./../../../Button/Button";
 
@@ -252,12 +251,7 @@ class NewLocalCategory extends React.Component {
               <MealName mealCatName={this.state.typeCat} />
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
-              <Button
-                second
-                type="submit"
-                className={styles.button}
-                disabled={isSubmitting}
-              >
+              <Button second type="submit" className={styles.button}>
                 {isSubmitting ? (
                   <Link
                     to="/add-new-local-resume"
