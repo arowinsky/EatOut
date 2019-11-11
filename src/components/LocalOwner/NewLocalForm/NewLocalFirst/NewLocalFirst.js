@@ -41,11 +41,12 @@ class NewLocalFirst extends React.Component {
 
   handleUploadImagesRestaurant = e => {
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
+    const { userId } = this.props;
     console.log(restaurantAvatar);
     console.log(restaurantHeader);
     console.log(restaurantMenu);
     const uploadTask = storage
-      .ref(`image/${restaurantAvatar.name}`)
+      .ref(`${userId}/${restaurantAvatar.name}`)
       .put(restaurantAvatar);
     uploadTask.on(
       "state_changed",
@@ -55,7 +56,7 @@ class NewLocalFirst extends React.Component {
       }
     );
     const uploadTask2 = storage
-      .ref(`image/${restaurantHeader.name}`)
+      .ref(`${userId}/${restaurantHeader.name}`)
       .put(restaurantHeader);
     uploadTask2.on(
       "state_changed",
@@ -66,7 +67,7 @@ class NewLocalFirst extends React.Component {
     );
 
     const uploadTask3 = storage
-      .ref(`image/${restaurantMenu.name}`)
+      .ref(`${userId}/${restaurantMenu.name}`)
       .put(restaurantMenu);
     uploadTask3.on(
       "state_changed",
