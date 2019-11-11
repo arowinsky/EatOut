@@ -127,31 +127,31 @@ class NewLocalFirst extends React.Component {
             if (!values.restaurantStreet) {
               errors.restaurantStreet = "Pole wymagane";
             }
-            if (!values.restaurantEmail) {
-              errors.restaurantEmail = "Pole wymagane";
-            } else if (
-              !values.restaurantEmail ===
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-            ) {
-              errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
-            }
-            if (!values.restaurantPhoneNumber) {
-              errors.restaurantPhoneNumber = "Pole wymagane";
-            } else if (
-              !values.restaurantPhoneNumber ===
-              !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
-            ) {
-              errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
-            }
-            if (!values.restaurantAvatar) {
-              errors.restaurantAvatar = "Pole wymagane";
-            }
-            if (!values.restaurantHeader) {
-              errors.restaurantHeader = "Pole wymagane";
-            }
-            if (!values.restaurantMenu) {
-              errors.restaurantMenu = "Pole wymagane";
-            }
+            // if (!values.restaurantEmail) {
+            //   errors.restaurantEmail = "Pole wymagane";
+            // } else if (
+            //   !values.restaurantEmail ===
+            //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+            // ) {
+            //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
+            // }
+            // if (!values.restaurantPhoneNumber) {
+            //   errors.restaurantPhoneNumber = "Pole wymagane";
+            // } else if (
+            //   !values.restaurantPhoneNumber ===
+            //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
+            // ) {
+            //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
+            // }
+            // if (!values.restaurantAvatar) {
+            //   errors.restaurantAvatar = "Pole wymagane";
+            // }
+            // if (!values.restaurantHeader) {
+            //   errors.restaurantHeader = "Pole wymagane";
+            // }
+            // if (!values.restaurantMenu) {
+            //   errors.restaurantMenu = "Pole wymagane";
+            // }
             if (!values.mondayOpenHour || !values.mondayCloseHour) {
               errors.mondayOpenHour = "Pole wymagane";
             }
@@ -449,16 +449,16 @@ class NewLocalFirst extends React.Component {
                 second
                 type="submit"
                 className={styles.button}
-                disabled={isSubmitting}
+                // disabled={isSubmitting}
                 onClick={this.handleUploadImagesRestaurant}
               >
-                {isSubmitting ? (
-                  <Link to="/add-new-local-2" className={styles.button}>
-                    Dalej
-                  </Link>
-                ) : (
+                {/* {isSubmitting ? ( */}
+                <Link to="/add-new-local-2" className={styles.button}>
+                  Dalej
+                </Link>
+                {/* ) : (
                   "Potwierdź"
-                )}
+                )} */}
               </Button>
             </Form>
           )}
