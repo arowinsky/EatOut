@@ -45,20 +45,20 @@ class NewLocalFirst extends React.Component {
     console.log(restaurantAvatar);
     console.log(restaurantHeader);
     console.log(restaurantMenu);
-    const uploadTask = storage
+    const uploadRestaurantAvatar = storage
       .ref(`${userId}/${restaurantAvatar.name}`)
       .put(restaurantAvatar);
-    uploadTask.on(
+    uploadRestaurantAvatar.on(
       "state_changed",
       snapshot => {},
       error => {
         console.log(error);
       }
     );
-    const uploadTask2 = storage
+    const uploadRestaurantHeader = storage
       .ref(`${userId}/${restaurantHeader.name}`)
       .put(restaurantHeader);
-    uploadTask2.on(
+    uploadRestaurantHeader.on(
       "state_changed",
       snapshot => {},
       error => {
@@ -66,10 +66,10 @@ class NewLocalFirst extends React.Component {
       }
     );
 
-    const uploadTask3 = storage
+    const uploadRestaurantMenu = storage
       .ref(`${userId}/${restaurantMenu.name}`)
       .put(restaurantMenu);
-    uploadTask3.on(
+    uploadRestaurantMenu.on(
       "state_changed",
       snapshot => {},
       error => {
