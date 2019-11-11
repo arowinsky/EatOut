@@ -206,56 +206,6 @@ export const signUp = (email, password1, firstname, lastname, username) => {
   };
 };
 
-// export const logIn = (email, password1, firstname, lastname, username) => {
-//   return dispatch => {
-//     dispatch(authStart());
-//     const authData = {
-//       email: email,
-//       password: password1,
-//       firstname: firstname,
-//       lastname: lastname,
-//       username: username,
-//       returnSecureToken: true
-//     };
-
-//     axios
-//       .post(
-//         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-//         authData
-//       )
-//       .then(response => {
-//         console.log(response);
-//         const userData = response.name;
-//         const idToken = response.status;
-//         const err = response.error;
-//         const emailUnverified = response.emailUnverified;
-//         const localId = "1111111";
-//         const expiresIn = 3600;
-//         let dataIsCorrect = null;
-//         localStorage.setItem("z", response.idSession);
-//         const z = localStorage.getItem("z");
-//         // dispatch(AutoLogin(z));
-//         dispatch(noEmailVerified(emailUnverified));
-//         dispatch(validationsLogIn(dataIsCorrect));
-//         dispatch(authSuccess(idToken, localId, userData));
-//         dispatch(checkAuthTimeout(expiresIn));
-//         if (err) {
-//           console.log(err);
-//           dispatch(validationsLogIn(err));
-//         }
-//       })
-//       .catch(error => {
-//         //console.log(err.response.data.error);
-//         console.log(error);
-//         if (error) {
-//           console.log("server not working!");
-//         }
-//         // dispatch(authFail(err.response.data.error));
-//         // dispatch(validationsLogIn(err.response.data.error.message));
-//       });
-//   };
-// };
-
 export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
