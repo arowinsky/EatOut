@@ -1,7 +1,8 @@
 import axios from "axios";
 import firebase from "firebase";
-import db from "../../configs/firebaseConfig";
+import storage from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
+import { file } from "@babel/types";
 const hasha = require("hasha");
 
 export const authStart = () => {
@@ -11,6 +12,7 @@ export const authStart = () => {
 };
 
 export const authSuccess = (token, userId, userData) => {
+  console.log(userId);
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
@@ -18,10 +20,19 @@ export const authSuccess = (token, userId, userData) => {
     userData: userData
   };
 };
-export const userData = userData => {
+export const userData = (userData, userId) => {
   return {
     type: actionTypes.AUTH_DATA,
-    userData: userData
+    userData: userData,
+    userId: userId
+  };
+};
+
+export const addedPlace = addedPlace => {
+  console.log(addedPlace);
+  return {
+    type: actionTypes.ADDED_NEW_PLACE,
+    addedPlace: addedPlace
   };
 };
 export const RegisterSuccess = userId => {
@@ -30,22 +41,22 @@ export const RegisterSuccess = userId => {
     userId: userId
   };
 };
-export const facebookLogInSuccess = (idFb, usernameFb) => {
-  console.log(idFb, usernameFb);
-  return {
-    type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
-    idFb: idFb,
-    usernameFb: usernameFb
-  };
-};
+// export const facebookLogInSuccess = (idFb, usernameFb) => {
+//   console.log(idFb, usernameFb);
+//   return {
+//     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+//     idFb: idFb,
+//     usernameFb: usernameFb
+//   };
+// };
 
-export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
-  return {
-    type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
-    userGoogleId: userGoogleId,
-    userDataGoogle: userDataGoogle
-  };
-};
+// export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
+//   return {
+//     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+//     userGoogleId: userGoogleId,
+//     userDataGoogle: userDataGoogle
+//   };
+// };
 export const AutoLoginSuccess = test => {
   console.log(test);
   return dispatch => {
@@ -69,11 +80,12 @@ export const AutoLoginSuccess = test => {
         console.log(response);
         const userdata = response.userData;
         const userInfo = response.userInfo;
+        const userId = response.userId;
         console.log(userdata);
         if (userdata) {
-          dispatch(userData(userdata));
+          dispatch(userData(userdata, userId));
         } else {
-          dispatch(userData(userInfo));
+          dispatch(userData(userInfo, userId));
         }
       });
   };
@@ -205,56 +217,6 @@ export const signUp = (email, password1, firstname, lastname, username) => {
   };
 };
 
-// export const logIn = (email, password1, firstname, lastname, username) => {
-//   return dispatch => {
-//     dispatch(authStart());
-//     const authData = {
-//       email: email,
-//       password: password1,
-//       firstname: firstname,
-//       lastname: lastname,
-//       username: username,
-//       returnSecureToken: true
-//     };
-
-//     axios
-//       .post(
-//         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaJRfgtMU3LqvV07NyiaGfqUj_XGpkoNo",
-//         authData
-//       )
-//       .then(response => {
-//         console.log(response);
-//         const userData = response.name;
-//         const idToken = response.status;
-//         const err = response.error;
-//         const emailUnverified = response.emailUnverified;
-//         const localId = "1111111";
-//         const expiresIn = 3600;
-//         let dataIsCorrect = null;
-//         localStorage.setItem("z", response.idSession);
-//         const z = localStorage.getItem("z");
-//         // dispatch(AutoLogin(z));
-//         dispatch(noEmailVerified(emailUnverified));
-//         dispatch(validationsLogIn(dataIsCorrect));
-//         dispatch(authSuccess(idToken, localId, userData));
-//         dispatch(checkAuthTimeout(expiresIn));
-//         if (err) {
-//           console.log(err);
-//           dispatch(validationsLogIn(err));
-//         }
-//       })
-//       .catch(error => {
-//         //console.log(err.response.data.error);
-//         console.log(error);
-//         if (error) {
-//           console.log("server not working!");
-//         }
-//         // dispatch(authFail(err.response.data.error));
-//         // dispatch(validationsLogIn(err.response.data.error.message));
-//       });
-//   };
-// };
-
 export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
@@ -273,13 +235,14 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response.userId);
         console.log(response.error);
         const userData = response.name;
         console.log(userData);
         const idToken = response.status;
         const err = response.error;
         const emailUnverified = response.emailUnverified;
-        const localId = "1111111";
+        const localId = response.userId;
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;
@@ -304,6 +267,7 @@ export const logIn = (email, password1) => {
       });
   };
 };
+
 export const forgotPassword = email => {
   return dispatch => {
     const url = "http://localhost:8080/reset-password";
@@ -333,77 +297,103 @@ export const forgotPassword = email => {
   };
 };
 
-export const facebookLogIn = () => {
+export const addNewLocal = values => {
   return dispatch => {
-    let provider = new firebase.auth.FacebookAuthProvider();
-
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log(result);
-        console.log(result.additionalUserInfo.profile.id);
-
-        console.log("logowanie");
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let id = result.additionalUserInfo.profile.id;
-        dispatch(facebookLogInSuccess(id, username));
-        console.log(username, photoMain, userProvider, uid);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error);
+    const z = localStorage.getItem("z");
+    // const test = JSON.stringify(values);
+    const url = "http://localhost:8080/add-new-local";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `values=${values}&z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const added = response.added;
+        dispatch(addedPlace(added));
       });
   };
 };
+// export const facebookLogIn = () => {
+//   return dispatch => {
+//     let provider = new firebase.auth.FacebookAuthProvider();
 
-export const googleLogIn = () => {
-  return dispatch => {
-    let provider = new firebase.auth.GoogleAuthProvider();
+//     firebase
+//       .auth()
+//       .signInWithPopup(provider)
+//       .then(result => {
+//         console.log(result);
+//         console.log(result.additionalUserInfo.profile.id);
 
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log("logowanie");
-        console.log(result);
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let idToken = result.credential.idToken;
-        console.log(username, photoMain, userProvider, uid);
-        dispatch(facebookLogInSuccess(idToken, username));
-        localStorage.setItem("idToken", idToken);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-};
+//         console.log("logowanie");
+//         let username = result.user.displayName;
+//         let photoMain = result.user.photoURL;
+//         let userProvider = result.additionalUserInfo.providerId;
+//         let uid = result.user.Nb.uid;
+//         let id = result.additionalUserInfo.profile.id;
+//         dispatch(facebookLogInSuccess(id, username));
+//         console.log(username, photoMain, userProvider, uid);
+//         if (result.additionalUserInfo.isNewUser) {
+//           db.collection("users")
+//             .doc(uid)
+//             .set({
+//               firstName: "",
+//               lastName: "",
+//               username: username,
+//               userData: username,
+//               photoMain: photoMain,
+//               provaider: userProvider
+//             });
+//         }
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// };
+
+// export const googleLogIn = () => {
+//   return dispatch => {
+//     let provider = new firebase.auth.GoogleAuthProvider();
+
+//     firebase
+//       .auth()
+//       .signInWithPopup(provider)
+//       .then(result => {
+//         console.log("logowanie");
+//         console.log(result);
+//         let username = result.user.displayName;
+//         let photoMain = result.user.photoURL;
+//         let userProvider = result.additionalUserInfo.providerId;
+//         let uid = result.user.Nb.uid;
+//         let idToken = result.credential.idToken;
+//         console.log(username, photoMain, userProvider, uid);
+//         dispatch(facebookLogInSuccess(idToken, username));
+//         localStorage.setItem("idToken", idToken);
+//         if (result.additionalUserInfo.isNewUser) {
+//           db.collection("users")
+//             .doc(uid)
+//             .set({
+//               firstName: "",
+//               lastName: "",
+//               username: username,
+//               userData: username,
+//               photoMain: photoMain,
+//               provaider: userProvider
+//             });
+//         }
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   };
+// };

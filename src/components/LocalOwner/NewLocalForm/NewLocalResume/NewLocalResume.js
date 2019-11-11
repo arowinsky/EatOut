@@ -1,204 +1,216 @@
 import React from "react";
 import styles from "../NewLocalForm.module.scss";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from "./../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MealName from "../NewLocalCategory/MealName/MealName";
+import * as actions from "../../../../store/actions/index";
+import { Redirect } from "react-router-dom";
 
 class NewLocalResume extends React.Component {
-  state = {
-    mealCatName: [
-      {
-        id: 1,
-        name: "pizza",
-        value: "pizza"
-      },
-      {
-        id: 2,
-        name: "makaron",
-        value: "makaron"
-      },
-      {
-        id: 3,
-        name: "burger",
-        value: "burger"
-      },
-      {
-        id: 4,
-        name: "sushi",
-        value: "sushi"
-      },
-      {
-        id: 5,
-        name: "kebab",
-        value: "kebab"
-      },
-      {
-        id: 6,
-        name: "zapiekanki",
-        value: "zapiekanki"
-      },
-      {
-        id: 7,
-        name: "ramen",
-        value: "ramen"
-      },
-      {
-        id: 8,
-        name: "stek",
-        value: "stek"
-      },
-      {
-        id: 9,
-        name: "obiad",
-        value: "obiad"
-      },
-      {
-        id: 10,
-        name: "kawa",
-        value: "kawa"
-      },
-      {
-        id: 11,
-        name: "ciasto",
-        value: "ciasto"
-      },
-      {
-        id: 12,
-        name: "alkohol",
-        value: "alkohol"
-      }
-    ],
-    cuisineCat: [
-      {
-        id: 200,
-        name: "arabska",
-        value: "arabska"
-      },
-      {
-        id: 201,
-        name: "amerykańska",
-        value: "amerykańska"
-      },
-      {
-        id: 202,
-        name: "włoska",
-        value: "włoska"
-      },
-      {
-        id: 203,
-        name: "europejska",
-        value: "europejska"
-      },
-      {
-        id: 204,
-        name: "domowa",
-        value: "domowa"
-      },
-      {
-        id: 205,
-        name: "polska",
-        value: "polska"
-      },
-      {
-        id: 206,
-        name: "francuska",
-        value: "francuska"
-      },
-      {
-        id: 207,
-        name: "azjatycka",
-        value: "azjatycka"
-      },
-      {
-        id: 208,
-        name: "wege/wegan",
-        value: "wege_wegan"
-      },
-      {
-        id: 209,
-        name: "meksykańska",
-        value: "meksykańska"
-      },
-      {
-        id: 210,
-        name: "dietetyczna",
-        value: "dietetyczna"
-      }
-    ],
-    typeCat: [
-      {
-        id: 400,
-        name: "śniadanie",
-        value: "śniadanie"
-      },
-      {
-        id: 401,
-        name: "lunch",
-        value: "lunch"
-      },
-      {
-        id: 402,
-        name: "randka",
-        value: "randka"
-      },
-      {
-        id: 403,
-        name: "pub",
-        value: "pub"
-      }
-    ],
-    comfCat: [
-      {
-        id: 1100,
-        name: "wifi",
-        value: "wifi"
-      },
-      {
-        id: 1101,
-        name: "transmisja meczy",
-        value: "transmisja_meczy"
-      },
-      {
-        id: 1102,
-        name: "ogródek",
-        value: "ogródek"
-      },
-      {
-        id: 1103,
-        name: "przystosowane dla osób niepełnosprawnych",
-        value: "przystosowane_dla_osób_niepełnosprawnych"
-      },
-      {
-        id: 1104,
-        name: "pokój dla matki z dzieckiem",
-        value: "pokój_dla_matki_z_dzieckiem"
-      },
-      {
-        id: 1105,
-        name: "animal friendly",
-        value: "animal_friendly"
-      },
-      {
-        id: 1106,
-        name: "insta friendly",
-        value: "insta_friendly"
-      },
-      {
-        id: 1107,
-        name: "język migowy",
-        value: "język_migowy"
-      }
-    ]
-  };
+  constructor(props) {
+    super(props);
+    const setSecond = localStorage.getItem("setSecond");
+    const secondFormData = JSON.parse(setSecond);
+
+    this.state = {
+      mealCatName: [
+        {
+          id: 1,
+          name: "pizza",
+          value: secondFormData.pizza
+        },
+        {
+          id: 2,
+          name: "makaron",
+          value: secondFormData.makaron
+        },
+        {
+          id: 3,
+          name: "burger",
+          value: secondFormData.burger
+        },
+        {
+          id: 4,
+          name: "sushi",
+          value: secondFormData.sushi
+        },
+        {
+          id: 5,
+          name: "kebab",
+          value: secondFormData.kebab
+        },
+        {
+          id: 6,
+          name: "zapiekanki",
+          value: secondFormData.zapiekanki
+        },
+        {
+          id: 7,
+          name: "ramen",
+          value: secondFormData.ramen
+        },
+        {
+          id: 8,
+          name: "stek",
+          value: secondFormData.stek
+        },
+        {
+          id: 9,
+          name: "obiad",
+          value: secondFormData.obiad
+        },
+        {
+          id: 10,
+          name: "kawa",
+          value: secondFormData.kawa
+        },
+        {
+          id: 11,
+          name: "ciasto",
+          value: secondFormData.ciasto
+        },
+        {
+          id: 12,
+          name: "alkohol",
+          value: secondFormData.alkohol
+        }
+      ],
+      cuisineCat: [
+        {
+          id: 200,
+          name: "arabska",
+          value: secondFormData.arabska
+        },
+        {
+          id: 201,
+          name: "amerykańska",
+          value: secondFormData.amerykańska
+        },
+        {
+          id: 202,
+          name: "włoska",
+          value: secondFormData.włoska
+        },
+        {
+          id: 203,
+          name: "europejska",
+          value: secondFormData.europejska
+        },
+        {
+          id: 204,
+          name: "domowa",
+          value: secondFormData.domowa
+        },
+        {
+          id: 205,
+          name: "polska",
+          value: secondFormData.polska
+        },
+        {
+          id: 206,
+          name: "francuska",
+          value: secondFormData.francuska
+        },
+        {
+          id: 207,
+          name: "azjatycka",
+          value: secondFormData.azjatycka
+        },
+        {
+          id: 208,
+          name: "wege/wegan",
+          value: secondFormData.wege_wegan
+        },
+        {
+          id: 209,
+          name: "meksykańska",
+          value: secondFormData.meksykańska
+        },
+        {
+          id: 210,
+          name: "dietetyczna",
+          value: secondFormData.dietetyczna
+        }
+      ],
+      typeCat: [
+        {
+          id: 400,
+          name: "śniadanie",
+          value: secondFormData.śniadanie
+        },
+        {
+          id: 401,
+          name: "lunch",
+          value: secondFormData.lunch
+        },
+        {
+          id: 402,
+          name: "randka",
+          value: secondFormData.randka
+        },
+        {
+          id: 403,
+          name: "pub",
+          value: secondFormData.pub
+        }
+      ],
+      comfCat: [
+        {
+          id: 1100,
+          name: "wifi",
+          value: secondFormData.wifi
+        },
+        {
+          id: 1101,
+          name: "transmisja meczy",
+          value: secondFormData.transmisja_meczy
+        },
+        {
+          id: 1102,
+          name: "ogródek",
+          value: secondFormData.ogródek
+        },
+        {
+          id: 1103,
+          name: "przystosowane dla osób niepełnosprawnych",
+          value: secondFormData.przystosowane_dla_osób_niepełnosprawnych
+        },
+        {
+          id: 1104,
+          name: "pokój dla matki z dzieckiem",
+          value: secondFormData.pokój_dla_matki_z_dzieckiem
+        },
+        {
+          id: 1105,
+          name: "animal friendly",
+          value: secondFormData.animal_friendly
+        },
+        {
+          id: 1106,
+          name: "insta friendly",
+          value: secondFormData.insta_friendly
+        },
+        {
+          id: 1107,
+          name: "język migowy",
+          value: secondFormData.język_migowy
+        }
+      ]
+    };
+  }
   render() {
     const setFirst = localStorage.getItem("setFirst");
     const setSecond = localStorage.getItem("setSecond");
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
+    const { addedPlace } = this.props;
     console.log(firstFormData);
     console.log(secondFormData);
+    console.log(addedPlace);
+    if (addedPlace) {
+      return <Redirect to="/owner-home" />;
+    }
 
     return (
       <div className={styles.restaurantFormWrapper}>
@@ -207,9 +219,11 @@ class NewLocalResume extends React.Component {
           initialValues={{
             restaurantName: firstFormData.restaurantName,
             restaurantStreet: firstFormData.restaurantStreet,
-            // restaurantAvatar: firstFormData.restaurantAvatar,
-            // restaurantHeader: firstFormData.restaurantHeader,
-            // restaurantMenu: firstFormData.restaurantMenu,
+            restaurantEmail: firstFormData.restaurantEmail,
+            restaurantPhoneNumber: firstFormData.restaurantPhoneNumber,
+            restaurantAvatar: firstFormData.restaurantAvatar,
+            restaurantHeader: firstFormData.restaurantHeader,
+            restaurantMenu: firstFormData.restaurantMenu,
             mondayOpenHour: firstFormData.mondayCloseHour,
             mondayCloseHour: firstFormData.mondayCloseHour,
             tuesdayOpenHour: firstFormData.tuesdayOpenHour,
@@ -245,11 +259,11 @@ class NewLocalResume extends React.Component {
             obiad: secondFormData.obiad,
             ogródek: secondFormData.ogródek,
             pizza: secondFormData.pizza,
-            // pokój_dla_matki_z_dzieckiem:
-            //   secondFormData.pokój_dla_matki_z_dzieckiem,
+            pokój_dla_matki_z_dzieckiem:
+              secondFormData.pokój_dla_matki_z_dzieckiem,
             polska: secondFormData.polska,
-            // przystosowane_dla_osób_niepełnosprawnych:
-            //   secondFormData.przystosowane_dla_osób_niepełnosprawnych,
+            przystosowane_dla_osób_niepełnosprawnych:
+              secondFormData.przystosowane_dla_osób_niepełnosprawnych,
             pub: secondFormData.pub,
             ramen: secondFormData.ramen,
             randka: secondFormData.randka,
@@ -269,15 +283,6 @@ class NewLocalResume extends React.Component {
             }
             if (!values.restaurantStreet) {
               errors.restaurantStreet = "Pole wymagane";
-            }
-            if (!values.restaurantAvatar) {
-              errors.restaurantAvatar = "Pole wymagane";
-            }
-            if (!values.restaurantHeader) {
-              errors.restaurantHeader = "Pole wymagane";
-            }
-            if (!values.restaurantMenu) {
-              errors.restaurantMenu = "Pole wymagane";
             }
             if (!values.mondayOpenHour || !values.mondayCloseHour) {
               errors.mondayOpenHour = "Pole wymagane";
@@ -302,9 +307,13 @@ class NewLocalResume extends React.Component {
             }
             return errors;
           }}
-          onSubmit={values => {}}
+          onSubmit={initialValues => {
+            const test = JSON.stringify(initialValues);
+            this.props.addNewLocal(test);
+            console.log(test);
+          }}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, initialValues }) => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
@@ -329,43 +338,28 @@ class NewLocalResume extends React.Component {
               <br />
               <br />
               <div className={styles.inputElement}>
-                <label htmlFor="restaurantAvatar">
-                  Wybierz zdjęcie profilowe
-                </label>
+                <label htmlFor="restaurantEmail">Adres email</label>
                 <Field
-                  type="file"
-                  name="restaurantAvatar"
-                  className={styles.inputFile}
+                  type="text"
+                  name="restaurantEmail"
+                  className={styles.input}
                 />
-                <ErrorMessage name="restaurantAvatar" component="div" />
+                <ErrorMessage name="restaurantEmail" component="div" />
               </div>
               <br />
               <br />
               <div className={styles.inputElement}>
-                <label htmlFor="restaurantHeader">
-                  Wybierz zdjęcie banerowe
-                </label>
+                <label htmlFor="restaurantPhoneNumber">Numer telefonu</label>
                 <Field
-                  type="file"
-                  name="restaurantHeader"
-                  className={styles.inputFile}
+                  type="text"
+                  name="restaurantPhoneNumber"
+                  className={styles.input}
                 />
-                <ErrorMessage name="restaurantHeader" component="div" />
+                <ErrorMessage name="restaurantPhoneNumber" component="div" />
               </div>
               <br />
               <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantMenu">Wybierz zdjęcie banerowe</label>
-                <Field
-                  type="file"
-                  name="restaurantMenu"
-                  className={styles.inputFile}
-                />
-                <ErrorMessage name="restaurantMenu" component="div" />
-              </div>
-              <br />
-              <br />
-              <h3>Godziny otwarcia lokalu</h3>
+              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
@@ -551,9 +545,8 @@ class NewLocalResume extends React.Component {
               <MealName mealCatName={this.state.typeCat} />
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
-
               <Button second type="submit" className={styles.button}>
-                Załóz profil lokalu
+                Załóż profil lokalu
               </Button>
             </Form>
           )}
@@ -563,11 +556,15 @@ class NewLocalResume extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    addedPlace: state.auth.addedPlace
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    addNewLocal: values => dispatch(actions.addNewLocal(values))
+  };
 };
 
 export default connect(

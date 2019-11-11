@@ -5,8 +5,79 @@ import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
+import storage from "../../../../configs/firebaseConfig";
 
 class NewLocalFirst extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      restaurantAvatar: null,
+      restaurantHeader: null,
+      restaurantMenu: null
+    };
+    this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
+    this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
+      this
+    );
+  }
+  handleRestaurantAvatar = e => {
+    if (e.target.files[0]) {
+      const restaurantHeader = e.target.files[0];
+      this.setState(() => ({ restaurantHeader }));
+    }
+  };
+  handleRestaurantHeader = e => {
+    if (e.target.files[0]) {
+      const restaurantAvatar = e.target.files[0];
+      this.setState(() => ({ restaurantAvatar }));
+    }
+  };
+  handleRestaurantMenu = e => {
+    if (e.target.files[0]) {
+      const restaurantMenu = e.target.files[0];
+      this.setState(() => ({ restaurantMenu }));
+    }
+  };
+
+  handleUploadImagesRestaurant = e => {
+    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
+    const { userId } = this.props;
+    console.log(restaurantAvatar);
+    console.log(restaurantHeader);
+    console.log(restaurantMenu);
+    const uploadRestaurantAvatar = storage
+      .ref(`${userId}/${restaurantAvatar.name}`)
+      .put(restaurantAvatar);
+    uploadRestaurantAvatar.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+    );
+    const uploadRestaurantHeader = storage
+      .ref(`${userId}/${restaurantHeader.name}`)
+      .put(restaurantHeader);
+    uploadRestaurantHeader.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+    );
+
+    const uploadRestaurantMenu = storage
+      .ref(`${userId}/${restaurantMenu.name}`)
+      .put(restaurantMenu);
+    uploadRestaurantMenu.on(
+      "state_changed",
+      snapshot => {},
+      error => {
+        console.log(error);
+      }
+    );
+  };
+
   render() {
     let test = false;
     let setFirst = false;
@@ -18,6 +89,9 @@ class NewLocalFirst extends React.Component {
       console.log(test);
     }
     console.log(this.props.set_first);
+
+    const { userId } = this.props;
+    console.log(userId);
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Dodaj lokal</div>
@@ -25,6 +99,8 @@ class NewLocalFirst extends React.Component {
           initialValues={{
             restaurantName: "",
             restaurantStreet: "",
+            restaurantEmail: "",
+            restaurantPhoneNumber: "",
             restaurantAvatar: "",
             restaurantHeader: "",
             restaurantMenu: "",
@@ -51,15 +127,31 @@ class NewLocalFirst extends React.Component {
             if (!values.restaurantStreet) {
               errors.restaurantStreet = "Pole wymagane";
             }
-            if (!values.restaurantAvatar) {
-              errors.restaurantAvatar = "Pole wymagane";
-            }
-            if (!values.restaurantHeader) {
-              errors.restaurantHeader = "Pole wymagane";
-            }
-            if (!values.restaurantMenu) {
-              errors.restaurantMenu = "Pole wymagane";
-            }
+            // if (!values.restaurantEmail) {
+            //   errors.restaurantEmail = "Pole wymagane";
+            // } else if (
+            //   !values.restaurantEmail ===
+            //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+            // ) {
+            //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
+            // }
+            // if (!values.restaurantPhoneNumber) {
+            //   errors.restaurantPhoneNumber = "Pole wymagane";
+            // } else if (
+            //   !values.restaurantPhoneNumber ===
+            //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
+            // ) {
+            //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
+            // }
+            // if (!values.restaurantAvatar) {
+            //   errors.restaurantAvatar = "Pole wymagane";
+            // }
+            // if (!values.restaurantHeader) {
+            //   errors.restaurantHeader = "Pole wymagane";
+            // }
+            // if (!values.restaurantMenu) {
+            //   errors.restaurantMenu = "Pole wymagane";
+            // }
             if (!values.mondayOpenHour || !values.mondayCloseHour) {
               errors.mondayOpenHour = "Pole wymagane";
             }
@@ -84,31 +176,6 @@ class NewLocalFirst extends React.Component {
             return errors;
           }}
           onSubmit={values => {
-            // if (values) {
-            //   setFirst = Object.assign({}, [
-            //     values.restaurantName,
-            //     values.restaurantStreet,
-            //     values.restaurantAvatar,
-            //     values.restaurantHeader,
-            //     values.restaurantMenu,
-            //     values.mondayCloseHour,
-            //     values.mondayOpenHour,
-            //     values.tuesdayCloseHour,
-            //     values.tuesdayOpenHour,
-            //     values.wednesdayCloseHour,
-            //     values.wednesdayOpenHour,
-            //     values.thursdayCloseHour,
-            //     values.thursdayOpenHour,
-            //     values.fridayCloseHour,
-            //     values.fridayOpenHour,
-            //     values.saturdayCloseHour,
-            //     values.saturdayOpenHour,
-            //     values.sundayCloseHour,
-            //     values.sundayOpenHour
-            //   ]);
-            //   console.log(values);
-            //   localStorage.setItem("setFirst", JSON.stringify(setFirst));
-            // }
             localStorage.setItem("setFirst", JSON.stringify(values));
             console.log(JSON.stringify(values));
           }}
@@ -138,13 +205,36 @@ class NewLocalFirst extends React.Component {
               <br />
               <br />
               <div className={styles.inputElement}>
+                <label htmlFor="restaurantEmail">Adres email</label>
+                <Field
+                  type="text"
+                  name="restaurantEmail"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantEmail" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantPhoneNumber">Numer telefonu</label>
+                <Field
+                  type="text"
+                  name="restaurantPhoneNumber"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantPhoneNumber" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
                 </label>
-                <Field
+                <input
                   type="file"
                   name="restaurantAvatar"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantAvatar}
                 />
                 <ErrorMessage name="restaurantAvatar" component="div" />
               </div>
@@ -154,10 +244,11 @@ class NewLocalFirst extends React.Component {
                 <label htmlFor="restaurantHeader">
                   Wybierz zdjęcie banerowe
                 </label>
-                <Field
+                <input
                   type="file"
                   name="restaurantHeader"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantHeader}
                 />
                 <ErrorMessage name="restaurantHeader" component="div" />
               </div>
@@ -165,16 +256,17 @@ class NewLocalFirst extends React.Component {
               <br />
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
-                <Field
+                <input
                   type="file"
                   name="restaurantMenu"
                   className={styles.inputFile}
+                  onChange={this.handleRestaurantMenu}
                 />
                 <ErrorMessage name="restaurantMenu" component="div" />
               </div>
               <br />
               <br />
-              <h3>Godziny otwarcia lokalu</h3>
+              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
@@ -357,15 +449,16 @@ class NewLocalFirst extends React.Component {
                 second
                 type="submit"
                 className={styles.button}
-                disabled={isSubmitting}
+                // disabled={isSubmitting}
+                onClick={this.handleUploadImagesRestaurant}
               >
-                {isSubmitting ? (
-                  <Link to="/add-new-local-2" className={styles.button}>
-                    Dalej
-                  </Link>
-                ) : (
+                {/* {isSubmitting ? ( */}
+                <Link to="/add-new-local-2" className={styles.button}>
+                  Dalej
+                </Link>
+                {/* ) : (
                   "Potwierdź"
-                )}
+                )} */}
               </Button>
             </Form>
           )}
@@ -375,4 +468,12 @@ class NewLocalFirst extends React.Component {
   }
 }
 
-export default NewLocalFirst;
+const mapStateToProps = state => {
+  return {
+    userId: state.auth.userId
+  };
+};
+export default connect(
+  mapStateToProps,
+  null
+)(NewLocalFirst);

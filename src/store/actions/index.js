@@ -2,8 +2,9 @@ export {
   logIn,
   logOut,
   forgotPassword,
-  facebookLogIn,
-  googleLogIn,
+  // facebookLogIn,
+  // googleLogIn,
   AutoLoginSuccess,
-  AutoLogin
+  AutoLogin,
+  addNewLocal
 } from "../actions/authActions";

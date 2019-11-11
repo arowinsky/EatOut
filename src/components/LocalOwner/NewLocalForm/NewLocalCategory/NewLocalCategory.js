@@ -2,7 +2,6 @@ import React from "react";
 import styles from "../NewLocalForm.module.scss";
 import MealName from "./MealName/MealName";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import { Formik, Form } from "formik";
 import Button from "./../../../Button/Button";
 
@@ -193,7 +192,6 @@ class NewLocalCategory extends React.Component {
     ]
   };
   render() {
-    let setSecond = false;
     return (
       <div className={styles.restaurantFormWrapper}>
         <Formik
@@ -239,47 +237,6 @@ class NewLocalCategory extends React.Component {
             return errors;
           }}
           onSubmit={values => {
-            // if (values) {
-            //   setSecond = [
-            //     values.alkohol,
-            //     values.amerykańska,
-            //     values.animal_friendly,
-            //     values.arabska,
-            //     values.azjatycka,
-            //     values.burger,
-            //     values.ciasto,
-            //     values.dietetyczna,
-            //     values.domowa,
-            //     values.europejska,
-            //     values.francuska,
-            //     values.insta_friendly,
-            //     values.język_migowy,
-            //     values.kawa,
-            //     values.kebab,
-            //     values.lunch,
-            //     values.makaron,
-            //     values.meksykańska,
-            //     values.obiad,
-            //     values.ogródek,
-            //     values.pizza,
-            //     values.pokój_dla_matki_z_dzieckiem,
-            //     values.polska,
-            //     values.przystosowane_dla_osób_niepełnosprawnych,
-            //     values.pub,
-            //     values.ramen,
-            //     values.randka,
-            //     values.stek,
-            //     values.sushi,
-            //     values.transmisja_meczy,
-            //     values.wege_wegan,
-            //     values.wifi,
-            //     values.włoska,
-            //     values.zapiekanki,
-            //     values.śniadanie
-            //   ];
-            //   localStorage.setItem("setSecond", setSecond);
-            //   console.log(values);
-            // }
             localStorage.setItem("setSecond", JSON.stringify(values));
             console.log(JSON.stringify(values));
           }}
@@ -294,12 +251,7 @@ class NewLocalCategory extends React.Component {
               <MealName mealCatName={this.state.typeCat} />
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
-              <Button
-                second
-                type="submit"
-                className={styles.button}
-                disabled={isSubmitting}
-              >
+              <Button second type="submit" className={styles.button}>
                 {isSubmitting ? (
                   <Link
                     to="/add-new-local-resume"
