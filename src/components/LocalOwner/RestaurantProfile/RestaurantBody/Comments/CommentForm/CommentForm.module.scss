@@ -1,0 +1,40 @@
+@import '../../../../../../views/Root/index.scss';
+
+.wrapper {
+    margin: 100px 0;
+}
+.formWrapper {
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    justify-content: center;
+}
+
+.formItem {
+    width: 45%;
+    padding: 20px;
+    background-color: $white;
+}
+
+.commentArea {
+    width: 100%;
+    min-height: 120px;
+    outline: transparent;
+}
+
+.button {
+    background-color: $yellow-element;
+    border: none;
+    width: 15%;
+    color: $white;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 20px;
+    transition: background-color ease .4s;
+    outline: transparent;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $red-element;
+    }
+}

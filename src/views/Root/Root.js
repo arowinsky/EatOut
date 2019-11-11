@@ -11,12 +11,15 @@ import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import NewLocalFirst from "../../components/LocalOwner/NewLocalForm/NewLocalFirst/NewLocalFirst";
 import NewLocalCategory from "../../components/LocalOwner/NewLocalForm/NewLocalCategory/NewLocalCategory";
 import NewLocalResume from "../../components/LocalOwner/NewLocalForm/NewLocalResume/NewLocalResume";
+import RestautantProfile from "../../components/LocalOwner/RestaurantProfile/RestaurantProfile";
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
+import RestaurantHeader from "../../components/LocalOwner/RestaurantProfile/Header/Header";
+import RestaurantProfile from "../../components/LocalOwner/RestaurantProfile/RestaurantProfile";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -83,6 +86,10 @@ class Root extends React.Component {
             <PrivateRoute
               path="/add-new-local-resume"
               component={NewLocalResume}
+            />
+            <PrivateRoute
+              path="/restaurant-profile"
+              component={RestaurantProfile}
             />
             <Route component={E404} />
           </Switch>
