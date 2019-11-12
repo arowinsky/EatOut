@@ -46,7 +46,7 @@ class NewLocalFirst extends React.Component {
     console.log(restaurantHeader);
     console.log(restaurantMenu);
     const uploadRestaurantAvatar = storage
-      .ref(`${userId}/${restaurantAvatar.name}`)
+      .ref(`${userId}/restaurantAvatar`)
       .put(restaurantAvatar);
     uploadRestaurantAvatar.on(
       "state_changed",
@@ -56,7 +56,7 @@ class NewLocalFirst extends React.Component {
       }
     );
     const uploadRestaurantHeader = storage
-      .ref(`${userId}/${restaurantHeader.name}`)
+      .ref(`${userId}/restaurantHeader`)
       .put(restaurantHeader);
     uploadRestaurantHeader.on(
       "state_changed",
@@ -67,7 +67,7 @@ class NewLocalFirst extends React.Component {
     );
 
     const uploadRestaurantMenu = storage
-      .ref(`${userId}/${restaurantMenu.name}`)
+      .ref(`${userId}/restaurantMenu`)
       .put(restaurantMenu);
     uploadRestaurantMenu.on(
       "state_changed",
@@ -473,7 +473,4 @@ const mapStateToProps = state => {
     userId: state.auth.userId
   };
 };
-export default connect(
-  mapStateToProps,
-  null
-)(NewLocalFirst);
+export default connect(mapStateToProps, null)(NewLocalFirst);
