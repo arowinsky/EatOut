@@ -1,0 +1,32 @@
+@import '../../../../views/Root/index.scss';
+
+.headerWrapper {
+    width: 100%;
+    height: 200px;
+    background-color: $dark-grey-element;
+    margin-top: 25px;
+    position: absolute;
+    z-index: -1;
+}
+
+.iconWrapper {
+    width: 175px;
+    height: 175px;
+    background-color: $white;
+    border-radius: 50%;
+    position: relative;
+    top: 150px;
+    left: 5%;
+}
+
+.adressWrapper {
+    position: relative;
+    top: 75px;
+    left: 22%;
+
+    .title {
+        font-weight: 800;
+        font-size: 40px;
+        color: $dark-grey-element;
+    }
+}

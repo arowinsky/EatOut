@@ -1,0 +1,23 @@
+@import '../../../../../views/Root/index.scss';
+
+.infoWrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.infoContent {
+    width: 70%;
+    padding: 0px 20%;
+
+    .title {
+        font-size: 22px;
+        color: $yellow-element;
+        font-weight: 800;
+        margin: 20px 0;
+    }
+
+    .timeDay {
+        margin: 10px 0;
+    }
+}
