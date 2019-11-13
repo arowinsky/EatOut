@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
 import storage from "../../../../configs/firebaseConfig";
+import { Redirect } from "react-router-dom";
 
 class NewLocalFirst extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class NewLocalFirst extends React.Component {
     this.state = {
       restaurantAvatar: null,
       restaurantHeader: null,
-      restaurantMenu: null
+      restaurantMenu: null,
+      uploadedRestaurantAvatar: null
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
     this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
@@ -50,7 +52,12 @@ class NewLocalFirst extends React.Component {
       .put(restaurantAvatar);
     uploadRestaurantAvatar.on(
       "state_changed",
-      snapshot => {},
+      snapshot => {
+        const uploadedRestaurantAvatar =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadedRestaurantAvatar);
+        this.setState(() => ({ uploadedRestaurantAvatar }));
+      },
       error => {
         console.log(error);
       }
@@ -89,9 +96,12 @@ class NewLocalFirst extends React.Component {
       console.log(test);
     }
     console.log(this.props.set_first);
-
     const { userId } = this.props;
     console.log(userId);
+    const { uploadedRestaurantAvatar } = this.state;
+    if (uploadedRestaurantAvatar === 100) {
+      return <Redirect to="/add-new-local-2" />;
+    }
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Dodaj lokal</div>
