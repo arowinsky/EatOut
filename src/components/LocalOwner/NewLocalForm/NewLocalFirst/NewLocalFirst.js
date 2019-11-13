@@ -15,7 +15,8 @@ class NewLocalFirst extends React.Component {
       restaurantAvatar: null,
       restaurantHeader: null,
       restaurantMenu: null,
-      uploadedRestaurantAvatar: null
+      uploadedRestaurantAvatar: null,
+      uploadedRestaurantHeader: null
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
     this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
@@ -67,7 +68,12 @@ class NewLocalFirst extends React.Component {
       .put(restaurantHeader);
     uploadRestaurantHeader.on(
       "state_changed",
-      snapshot => {},
+      snapshot => {
+        const uploadedRestaurantHeader =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadedRestaurantHeader);
+        this.setState(() => ({ uploadedRestaurantHeader }));
+      },
       error => {
         console.log(error);
       }
@@ -98,8 +104,8 @@ class NewLocalFirst extends React.Component {
     console.log(this.props.set_first);
     const { userId } = this.props;
     console.log(userId);
-    const { uploadedRestaurantAvatar } = this.state;
-    if (uploadedRestaurantAvatar === 100) {
+    const { uploadedRestaurantAvatar, uploadedRestaurantHeader } = this.state;
+    if (uploadedRestaurantAvatar === 100 && uploadedRestaurantHeader === 100) {
       return <Redirect to="/add-new-local-2" />;
     }
     return (
