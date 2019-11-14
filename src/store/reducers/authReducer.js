@@ -132,6 +132,12 @@ const setRestaurantAvatar = (state, action) => {
     restaurantAvatar: action.restaurantAvatar
   });
 };
+const setRestaurantHeader = (state, action) => {
+  console.log(action.restaurantHeader);
+  return updateObject(state, {
+    restaurantAvatar: action.restaurantHeader
+  });
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -171,6 +177,8 @@ const authReducer = (state = initState, action) => {
       return addedPlace(state, action);
     case actionTypes.SET_RESTAURANT_AVATAR:
       return setRestaurantAvatar(state, action);
+    case actionTypes.SET_RESTAURANT_HEADER:
+      return setRestaurantHeader(state, action);
     default:
       return state;
   }
