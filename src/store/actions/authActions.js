@@ -340,6 +340,7 @@ export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
     let restaurantAvatar;
     let restaurantHeader;
+    let restaurantMenu;
     const downloadRestaurantAvatar = storage
       .ref(`${localId}/restaurantAvatar`)
       .getDownloadURL()
@@ -350,12 +351,21 @@ export const getDataEatingPlace = (z, localId) => {
       })
       .catch(function(error) {});
     const downloadRestaurantHeader = storage
-      .ref(`${localId}/restaurantAvatar`)
+      .ref(`${localId}/restaurantHeader`)
       .getDownloadURL()
       .then(function(url) {
         console.log(url);
         restaurantHeader = url;
         dispatch(setRestaurantHeader(restaurantHeader));
+      })
+      .catch(function(error) {});
+    const downloadRestaurantMenu = storage
+      .ref(`${localId}/restaurantMenu`)
+      .getDownloadURL()
+      .then(function(url) {
+        console.log(url);
+        restaurantMenu = url;
+        dispatch(setRestaurantMenu(restaurantMenu));
       })
       .catch(function(error) {});
   };
@@ -365,6 +375,13 @@ export const setRestaurantHeader = restaurantHeader => {
   return {
     type: actionTypes.SET_RESTAURANT_HEADER,
     restaurantHeader: restaurantHeader
+  };
+};
+export const setRestaurantMenu = restaurantMenu => {
+  console.log("TCL: restaurantMenu", restaurantMenu);
+  return {
+    type: actionTypes.SET_RESTAURANT_MENU,
+    restaurantMenu: restaurantMenu
   };
 };
 // export const facebookLogIn = () => {

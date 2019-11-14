@@ -19,7 +19,9 @@ const initState = {
   z: null,
   userData: null,
   addedPlace: null,
-  restaurantAvatar: null
+  restaurantAvatar: null,
+  restaurantHeader: null,
+  restaurantMenu: null
 };
 
 const authStart = (state, action) => {
@@ -135,7 +137,13 @@ const setRestaurantAvatar = (state, action) => {
 const setRestaurantHeader = (state, action) => {
   console.log(action.restaurantHeader);
   return updateObject(state, {
-    restaurantAvatar: action.restaurantHeader
+    restaurantHeader: action.restaurantHeader
+  });
+};
+const setRestaurantMenu = (state, action) => {
+  console.log(action.restaurantMenu);
+  return updateObject(state, {
+    restaurantMenu: action.restaurantMenu
   });
 };
 
@@ -179,6 +187,8 @@ const authReducer = (state = initState, action) => {
       return setRestaurantAvatar(state, action);
     case actionTypes.SET_RESTAURANT_HEADER:
       return setRestaurantHeader(state, action);
+    case actionTypes.SET_RESTAURANT_MENU:
+      return setRestaurantMenu(state, action);
     default:
       return state;
   }
