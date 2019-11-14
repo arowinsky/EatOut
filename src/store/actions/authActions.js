@@ -81,11 +81,14 @@ export const AutoLoginSuccess = test => {
         const userdata = response.userData;
         const userInfo = response.userInfo;
         const userId = response.userId;
+        console.log(sessionId);
         console.log(userdata);
         if (userdata) {
           dispatch(userData(userdata, userId));
+          dispatch(getDataEatingPlace(z, userId));
         } else {
           dispatch(userData(userInfo, userId));
+          dispatch(getDataEatingPlace(z, userId));
         }
       });
   };
@@ -255,6 +258,7 @@ export const logIn = (email, password1) => {
           dispatch(validationsLogIn(dataIsCorrect));
         } else {
           z = localStorage.getItem("z");
+          dispatch(getDataEatingPlace(z, localId));
         }
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
@@ -321,6 +325,21 @@ export const addNewLocal = values => {
         const added = response.added;
         dispatch(addedPlace(added));
       });
+  };
+};
+
+export const getDataEatingPlace = (z, localId) => {
+  return dispatch => {
+    let restaurantAvatar;
+
+    const downloadRestaurantAvatar = storage
+      .ref(`${localId}/restaurantAvatar`)
+      .getDownloadURL()
+      .then(function(url) {
+        console.log(url);
+        restaurantAvatar = url;
+      })
+      .catch(function(error) {});
   };
 };
 // export const facebookLogIn = () => {
