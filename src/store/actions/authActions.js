@@ -341,7 +341,7 @@ export const getDataEatingPlace = (z, localId) => {
     let restaurantAvatar;
     let restaurantHeader;
     let restaurantMenu;
-    const downloadRestaurantAvatar = storage
+    storage
       .ref(`${localId}/restaurantAvatar`)
       .getDownloadURL()
       .then(function(url) {
@@ -350,7 +350,7 @@ export const getDataEatingPlace = (z, localId) => {
         dispatch(setRestaurantAvatar(restaurantAvatar));
       })
       .catch(function(error) {});
-    const downloadRestaurantHeader = storage
+    storage
       .ref(`${localId}/restaurantHeader`)
       .getDownloadURL()
       .then(function(url) {
@@ -359,7 +359,7 @@ export const getDataEatingPlace = (z, localId) => {
         dispatch(setRestaurantHeader(restaurantHeader));
       })
       .catch(function(error) {});
-    const downloadRestaurantMenu = storage
+    storage
       .ref(`${localId}/restaurantMenu`)
       .getDownloadURL()
       .then(function(url) {
