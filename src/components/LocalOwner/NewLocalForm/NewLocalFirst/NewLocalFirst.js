@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as actions from "../../../../store/actions/index";
 import storage from "../../../../configs/firebaseConfig";
+import { Redirect } from "react-router-dom";
 
 class NewLocalFirst extends React.Component {
   constructor(props) {
@@ -13,7 +14,10 @@ class NewLocalFirst extends React.Component {
     this.state = {
       restaurantAvatar: null,
       restaurantHeader: null,
-      restaurantMenu: null
+      restaurantMenu: null,
+      uploadedRestaurantAvatar: null,
+      uploadedRestaurantHeader: null,
+      uploadedRestaurantMenu: null
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
     this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
@@ -22,14 +26,14 @@ class NewLocalFirst extends React.Component {
   }
   handleRestaurantAvatar = e => {
     if (e.target.files[0]) {
-      const restaurantHeader = e.target.files[0];
-      this.setState(() => ({ restaurantHeader }));
+      const restaurantAvatar = e.target.files[0];
+      this.setState(() => ({ restaurantAvatar }));
     }
   };
   handleRestaurantHeader = e => {
     if (e.target.files[0]) {
-      const restaurantAvatar = e.target.files[0];
-      this.setState(() => ({ restaurantAvatar }));
+      const restaurantHeader = e.target.files[0];
+      this.setState(() => ({ restaurantHeader }));
     }
   };
   handleRestaurantMenu = e => {
@@ -46,32 +50,47 @@ class NewLocalFirst extends React.Component {
     console.log(restaurantHeader);
     console.log(restaurantMenu);
     const uploadRestaurantAvatar = storage
-      .ref(`${userId}/${restaurantAvatar.name}`)
+      .ref(`${userId}/restaurantAvatar`)
       .put(restaurantAvatar);
     uploadRestaurantAvatar.on(
       "state_changed",
-      snapshot => {},
+      snapshot => {
+        const uploadedRestaurantAvatar =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadedRestaurantAvatar);
+        this.setState(() => ({ uploadedRestaurantAvatar }));
+      },
       error => {
         console.log(error);
       }
     );
     const uploadRestaurantHeader = storage
-      .ref(`${userId}/${restaurantHeader.name}`)
+      .ref(`${userId}/restaurantHeader`)
       .put(restaurantHeader);
     uploadRestaurantHeader.on(
       "state_changed",
-      snapshot => {},
+      snapshot => {
+        const uploadedRestaurantHeader =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadedRestaurantHeader);
+        this.setState(() => ({ uploadedRestaurantHeader }));
+      },
       error => {
         console.log(error);
       }
     );
 
     const uploadRestaurantMenu = storage
-      .ref(`${userId}/${restaurantMenu.name}`)
+      .ref(`${userId}/restaurantMenu`)
       .put(restaurantMenu);
     uploadRestaurantMenu.on(
       "state_changed",
-      snapshot => {},
+      snapshot => {
+        const uploadedRestaurantMenu =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(uploadedRestaurantMenu);
+        this.setState(() => ({ uploadedRestaurantMenu }));
+      },
       error => {
         console.log(error);
       }
@@ -89,9 +108,20 @@ class NewLocalFirst extends React.Component {
       console.log(test);
     }
     console.log(this.props.set_first);
-
     const { userId } = this.props;
     console.log(userId);
+    const {
+      uploadedRestaurantAvatar,
+      uploadedRestaurantHeader,
+      uploadedRestaurantMenu
+    } = this.state;
+    if (
+      uploadedRestaurantAvatar === 100 &&
+      uploadedRestaurantHeader === 100 &&
+      uploadedRestaurantMenu === 100
+    ) {
+      return <Redirect to="/add-new-local-2" />;
+    }
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Dodaj lokal</div>
@@ -119,63 +149,64 @@ class NewLocalFirst extends React.Component {
             sundayOpenHour: "",
             sundayCloseHour: ""
           }}
-          validate={values => {
-            let errors = {};
-            if (!values.restaurantName) {
-              errors.restaurantName = "Pole wymagane";
-            }
-            if (!values.restaurantStreet) {
-              errors.restaurantStreet = "Pole wymagane";
-            }
-            // if (!values.restaurantEmail) {
-            //   errors.restaurantEmail = "Pole wymagane";
-            // } else if (
-            //   !values.restaurantEmail ===
-            //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-            // ) {
-            //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
-            // }
-            // if (!values.restaurantPhoneNumber) {
-            //   errors.restaurantPhoneNumber = "Pole wymagane";
-            // } else if (
-            //   !values.restaurantPhoneNumber ===
-            //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
-            // ) {
-            //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
-            // }
-            // if (!values.restaurantAvatar) {
-            //   errors.restaurantAvatar = "Pole wymagane";
-            // }
-            // if (!values.restaurantHeader) {
-            //   errors.restaurantHeader = "Pole wymagane";
-            // }
-            // if (!values.restaurantMenu) {
-            //   errors.restaurantMenu = "Pole wymagane";
-            // }
-            if (!values.mondayOpenHour || !values.mondayCloseHour) {
-              errors.mondayOpenHour = "Pole wymagane";
-            }
-            if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
-              errors.tuesdayOpenHour = "Pole wymagane";
-            }
-            if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
-              errors.wednesdayOpenHour = "Pole wymagane";
-            }
-            if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
-              errors.thursdayOpenHour = "Pole wymagane";
-            }
-            if (!values.fridayOpenHour || !values.fridayCloseHour) {
-              errors.fridayOpenHour = "Pole wymagane";
-            }
-            if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
-              errors.saturdayOpenHour = "Pole wymagane";
-            }
-            if (!values.sundayOpenHour || !values.sundayCloseHour) {
-              errors.sundayOpenHour = "Pole wymagane";
-            }
-            return errors;
-          }}
+          // validate={values => {
+          //   let errors = {};
+          //   if (!values.restaurantName) {
+          //     errors.restaurantName = "Pole wymagane";
+          //   }
+          //   if (!values.restaurantStreet) {
+          //     errors.restaurantStreet = "Pole wymagane";
+          //   }
+          //   // if (!values.restaurantEmail) {
+          //   //   errors.restaurantEmail = "Pole wymagane";
+          //   // } else if (
+          //   //   !values.restaurantEmail ===
+          //   //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
+          //   // ) {
+          //   //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
+          //   // }
+          //   // if (!values.restaurantPhoneNumber) {
+          //   //   errors.restaurantPhoneNumber = "Pole wymagane";
+          //   // } else if (
+          //   //   !values.restaurantPhoneNumber ===
+          //   //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
+          //   // ) {
+          //   //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
+          //   // }
+          //   // if (!values.restaurantAvatar) {
+          //   //   errors.restaurantAvatar = "Pole wymagane";
+          //   // }
+          //   // if (!values.restaurantHeader) {
+          //   //   errors.restaurantHeader = "Pole wymagane";
+          //   // }
+          //   // if (!values.restaurantMenu) {
+          //   //   errors.restaurantMenu = "Pole wymagane";
+          //   // }
+          // //   if (!values.mondayOpenHour || !values.mondayCloseHour) {
+          // //     errors.mondayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
+          // //     errors.tuesdayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
+          // //     errors.wednesdayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
+          // //     errors.thursdayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.fridayOpenHour || !values.fridayCloseHour) {
+          // //     errors.fridayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
+          // //     errors.saturdayOpenHour = "Pole wymagane";
+          // //   }
+          // //   if (!values.sundayOpenHour || !values.sundayCloseHour) {
+          // //     errors.sundayOpenHour = "Pole wymagane";
+          // //   }
+          // //   return errors;
+          //  }}
           onSubmit={values => {
+            console.log(values);
             localStorage.setItem("setFirst", JSON.stringify(values));
             console.log(JSON.stringify(values));
           }}
@@ -452,13 +483,7 @@ class NewLocalFirst extends React.Component {
                 // disabled={isSubmitting}
                 onClick={this.handleUploadImagesRestaurant}
               >
-                {/* {isSubmitting ? ( */}
-                <Link to="/add-new-local-2" className={styles.button}>
-                  Dalej
-                </Link>
-                {/* ) : (
-                  "Potwierdź"
-                )} */}
+                Dalej
               </Button>
             </Form>
           )}
@@ -473,7 +498,4 @@ const mapStateToProps = state => {
     userId: state.auth.userId
   };
 };
-export default connect(
-  mapStateToProps,
-  null
-)(NewLocalFirst);
+export default connect(mapStateToProps, null)(NewLocalFirst);

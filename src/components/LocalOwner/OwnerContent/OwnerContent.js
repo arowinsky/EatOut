@@ -14,6 +14,8 @@ class OwnerContent extends React.Component {
     };
   }
   render() {
+    const { eatingProfielAdded } = this.props;
+    console.log(eatingProfielAdded);
     return (
       <div className={styles.owner_wrapper}>
         <div className={styles.salutation}>Witaj,</div>
@@ -30,7 +32,8 @@ class OwnerContent extends React.Component {
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    eatingProfielAdded: state.auth.addedPlace
   };
 };
 
