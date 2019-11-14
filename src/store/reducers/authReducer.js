@@ -18,7 +18,8 @@ const initState = {
   error: null,
   z: null,
   userData: null,
-  addedPlace: null
+  addedPlace: null,
+  restaurantAvatar: null
 };
 
 const authStart = (state, action) => {
@@ -125,6 +126,12 @@ const sendedEmailWithLinkResetPassword = (state, action) => {
     resetedPassword: action.resetedPassword
   });
 };
+const setRestaurantAvatar = (state, action) => {
+  console.log(action.restaurantAvatar);
+  return updateObject(state, {
+    restaurantAvatar: action.restaurantAvatar
+  });
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -162,6 +169,8 @@ const authReducer = (state = initState, action) => {
       return userData(state, action);
     case actionTypes.ADDED_NEW_PLACE:
       return addedPlace(state, action);
+    case actionTypes.SET_RESTAURANT_AVATAR:
+      return setRestaurantAvatar(state, action);
     default:
       return state;
   }

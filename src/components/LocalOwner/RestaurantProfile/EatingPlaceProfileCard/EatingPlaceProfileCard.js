@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./EatingPlaceProfileCard.module.scss";
-const EatingPlaceProfileCard = () => {
+import { connect } from "react-redux";
+const EatingPlaceProfileCard = ({ restaurantAvatar }) => {
+  console.log(restaurantAvatar);
   return (
     <div className={styles.card}>
-      <img src="" alt="eatingPlaceAvatar" />
+      <img src={restaurantAvatar} alt="eatingPlaceAvatar" />
       <div className={styles.container}>
         <p>Poczekalnia</p>
         <p>Mickiewicza 38, Poznań</p>
@@ -11,4 +13,10 @@ const EatingPlaceProfileCard = () => {
     </div>
   );
 };
-export default EatingPlaceProfileCard;
+
+const mapStateToProps = state => {
+  return {
+    restaurantAvatar: state.auth.restaurantAvatar
+  };
+};
+export default connect(mapStateToProps, null)(EatingPlaceProfileCard);

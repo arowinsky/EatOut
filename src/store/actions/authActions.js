@@ -81,7 +81,6 @@ export const AutoLoginSuccess = test => {
         const userdata = response.userData;
         const userInfo = response.userInfo;
         const userId = response.userId;
-        console.log(sessionId);
         console.log(userdata);
         if (userdata) {
           dispatch(userData(userdata, userId));
@@ -328,6 +327,15 @@ export const addNewLocal = values => {
   };
 };
 
+export const setRestaurantAvatar = restaurantAvatar => {
+  console.log("TCL: restaurantAvatar", restaurantAvatar);
+
+  return {
+    type: actionTypes.SET_RESTAURANT_AVATAR,
+    restaurantAvatar: restaurantAvatar
+  };
+};
+
 export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
     let restaurantAvatar;
@@ -338,6 +346,7 @@ export const getDataEatingPlace = (z, localId) => {
       .then(function(url) {
         console.log(url);
         restaurantAvatar = url;
+        dispatch(setRestaurantAvatar(restaurantAvatar));
       })
       .catch(function(error) {});
   };
