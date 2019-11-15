@@ -338,6 +338,26 @@ export const setRestaurantAvatar = restaurantAvatar => {
 
 export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
+    console.log("wysyłam");
+    const url = "http://localhost:8080/get-data-place";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+      });
+
     let restaurantAvatar;
     let restaurantHeader;
     let restaurantMenu;
