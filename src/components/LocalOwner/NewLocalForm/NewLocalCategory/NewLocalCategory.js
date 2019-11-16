@@ -238,7 +238,6 @@ class NewLocalCategory extends React.Component {
           }}
           onSubmit={values => {
             localStorage.setItem("setSecond", JSON.stringify(values));
-            console.log(JSON.stringify(values));
           }}
         >
           {({ isSubmitting }) => (

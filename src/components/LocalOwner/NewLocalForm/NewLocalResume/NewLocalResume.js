@@ -205,9 +205,6 @@ class NewLocalResume extends React.Component {
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
     const { addedPlace } = this.props;
-    console.log(firstFormData);
-    console.log(secondFormData);
-    console.log(addedPlace);
     if (addedPlace) {
       return <Redirect to="/owner-home" />;
     }
@@ -310,7 +307,6 @@ class NewLocalResume extends React.Component {
           onSubmit={initialValues => {
             const test = JSON.stringify(initialValues);
             this.props.addNewLocal(test);
-            console.log(test);
           }}
         >
           {({ isSubmitting, initialValues }) => (
@@ -567,7 +563,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewLocalResume);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLocalResume);

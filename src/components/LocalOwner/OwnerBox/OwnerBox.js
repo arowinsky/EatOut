@@ -8,9 +8,13 @@ import { connect } from "react-redux";
 class OwnerBox extends React.Component {
   render() {
     const { haveEatingPlace, restaurantAvatar } = this.props;
-    let restaurantName = haveEatingPlace.restaurantName;
-    let restaurantStreet = haveEatingPlace.restaurantStreet;
-    console.log(restaurantAvatar, restaurantName);
+    let restaurantName;
+    let restaurantStreet;
+    if (haveEatingPlace) {
+      restaurantName = haveEatingPlace.restaurantName;
+      restaurantStreet = haveEatingPlace.restaurantStreet;
+    }
+
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
         Twoja restauracja to:

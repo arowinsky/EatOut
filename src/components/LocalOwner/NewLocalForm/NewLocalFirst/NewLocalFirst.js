@@ -3,8 +3,6 @@ import styles from "../NewLocalForm.module.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../../../Button/Button";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import * as actions from "../../../../store/actions/index";
 import storage from "../../../../configs/firebaseConfig";
 import { Redirect } from "react-router-dom";
 
@@ -46,9 +44,6 @@ class NewLocalFirst extends React.Component {
   handleUploadImagesRestaurant = e => {
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const { userId } = this.props;
-    console.log(restaurantAvatar);
-    console.log(restaurantHeader);
-    console.log(restaurantMenu);
     const uploadRestaurantAvatar = storage
       .ref(`${userId}/restaurantAvatar`)
       .put(restaurantAvatar);
@@ -57,7 +52,6 @@ class NewLocalFirst extends React.Component {
       snapshot => {
         const uploadedRestaurantAvatar =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(uploadedRestaurantAvatar);
         this.setState(() => ({ uploadedRestaurantAvatar }));
       },
       error => {
@@ -72,7 +66,6 @@ class NewLocalFirst extends React.Component {
       snapshot => {
         const uploadedRestaurantHeader =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(uploadedRestaurantHeader);
         this.setState(() => ({ uploadedRestaurantHeader }));
       },
       error => {
@@ -88,7 +81,6 @@ class NewLocalFirst extends React.Component {
       snapshot => {
         const uploadedRestaurantMenu =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(uploadedRestaurantMenu);
         this.setState(() => ({ uploadedRestaurantMenu }));
       },
       error => {
@@ -99,17 +91,12 @@ class NewLocalFirst extends React.Component {
 
   render() {
     let test = false;
-    let setFirst = false;
-    console.log(setFirst);
     const { set_first } = this.props;
     if (set_first === null) {
       test = true;
       this.props.test(test);
-      console.log(test);
     }
-    console.log(this.props.set_first);
-    const { userId } = this.props;
-    console.log(userId);
+
     const {
       uploadedRestaurantAvatar,
       uploadedRestaurantHeader,
@@ -206,9 +193,7 @@ class NewLocalFirst extends React.Component {
           // //   return errors;
           //  }}
           onSubmit={values => {
-            console.log(values);
             localStorage.setItem("setFirst", JSON.stringify(values));
-            console.log(JSON.stringify(values));
           }}
         >
           {({ isSubmitting }) => (

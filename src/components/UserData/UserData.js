@@ -16,7 +16,6 @@ const UserData = ({ second, ...props }) => {
 };
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     userInfo: state.auth.userData,
     userDataFb: state.auth.usernameFb,
