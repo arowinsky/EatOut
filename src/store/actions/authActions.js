@@ -84,8 +84,10 @@ export const AutoLoginSuccess = test => {
         console.log(userdata);
         if (userdata) {
           dispatch(userData(userdata, userId));
+          dispatch(getDataEatingPlace(z, userId));
         } else {
           dispatch(userData(userInfo, userId));
+          dispatch(getDataEatingPlace(z, userId));
         }
       });
   };
@@ -255,6 +257,7 @@ export const logIn = (email, password1) => {
           dispatch(validationsLogIn(dataIsCorrect));
         } else {
           z = localStorage.getItem("z");
+          dispatch(getDataEatingPlace(z, localId));
         }
         dispatch(authSuccess(idToken, localId, userData));
         dispatch(checkAuthTimeout(expiresIn));
@@ -321,6 +324,102 @@ export const addNewLocal = values => {
         const added = response.added;
         dispatch(addedPlace(added));
       });
+  };
+};
+
+export const setRestaurantAvatar = restaurantAvatar => {
+  console.log("TCL: restaurantAvatar", restaurantAvatar);
+
+  return {
+    type: actionTypes.SET_RESTAURANT_AVATAR,
+    restaurantAvatar: restaurantAvatar
+  };
+};
+
+export const getImagesEatingPlace = (localId, eatingPlace) => {
+  console.log(eatingPlace);
+  return dispatch => {
+    if (eatingPlace) {
+      let restaurantAvatar;
+      let restaurantHeader;
+      let restaurantMenu;
+      storage
+        .ref(`${localId}/restaurantAvatar`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantAvatar = url;
+          dispatch(setRestaurantAvatar(restaurantAvatar));
+        })
+        .catch(function(error) {});
+      storage
+        .ref(`${localId}/restaurantHeader`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantHeader = url;
+          dispatch(setRestaurantHeader(restaurantHeader));
+        })
+        .catch(function(error) {});
+      storage
+        .ref(`${localId}/restaurantMenu`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantMenu = url;
+          dispatch(setRestaurantMenu(restaurantMenu));
+        })
+        .catch(function(error) {});
+      dispatch(ownerHaveEatingPlace(eatingPlace));
+    }
+  };
+};
+export const ownerHaveEatingPlace = haveEatingPlace => {
+  console.log(haveEatingPlace);
+  return {
+    type: actionTypes.OWNER_HAVE_EATING_PLACE,
+    haveEatingPlace: haveEatingPlace
+  };
+};
+
+export const getDataEatingPlace = (z, localId) => {
+  return dispatch => {
+    let haveEatingPlace;
+    console.log("wysyłam");
+    const url = "http://localhost:8080/get-data-place";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        haveEatingPlace = response.eatingPlace;
+        dispatch(getImagesEatingPlace(localId, haveEatingPlace));
+      });
+  };
+};
+export const setRestaurantHeader = restaurantHeader => {
+  console.log("TCL: restaurantHeader", restaurantHeader);
+  return {
+    type: actionTypes.SET_RESTAURANT_HEADER,
+    restaurantHeader: restaurantHeader
+  };
+};
+export const setRestaurantMenu = restaurantMenu => {
+  console.log("TCL: restaurantMenu", restaurantMenu);
+  return {
+    type: actionTypes.SET_RESTAURANT_MENU,
+    restaurantMenu: restaurantMenu
   };
 };
 // export const facebookLogIn = () => {

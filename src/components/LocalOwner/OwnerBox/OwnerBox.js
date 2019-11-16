@@ -7,7 +7,7 @@ import EatingPlaceProfileCard from "../RestaurantProfile/EatingPlaceProfileCard/
 class OwnerBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isRestaurant: false };
+    this.state = { isRestaurant: true };
   }
   render() {
     return this.state.isRestaurant ? (

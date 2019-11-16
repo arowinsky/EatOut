@@ -18,7 +18,11 @@ const initState = {
   error: null,
   z: null,
   userData: null,
-  addedPlace: null
+  addedPlace: null,
+  restaurantAvatar: null,
+  restaurantHeader: null,
+  restaurantMenu: null,
+  eatingPlace: null
 };
 
 const authStart = (state, action) => {
@@ -125,6 +129,30 @@ const sendedEmailWithLinkResetPassword = (state, action) => {
     resetedPassword: action.resetedPassword
   });
 };
+const setRestaurantAvatar = (state, action) => {
+  console.log(action.restaurantAvatar);
+  return updateObject(state, {
+    restaurantAvatar: action.restaurantAvatar
+  });
+};
+const setRestaurantHeader = (state, action) => {
+  console.log(action.restaurantHeader);
+  return updateObject(state, {
+    restaurantHeader: action.restaurantHeader
+  });
+};
+const setRestaurantMenu = (state, action) => {
+  console.log(action.restaurantMenu);
+  return updateObject(state, {
+    restaurantMenu: action.restaurantMenu
+  });
+};
+const ownerHaveEatingPlace = (state, action) => {
+  console.log(action.haveEatingPlace);
+  return updateObject(state, {
+    haveEatingPlace: action.haveEatingPlace
+  });
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -162,6 +190,14 @@ const authReducer = (state = initState, action) => {
       return userData(state, action);
     case actionTypes.ADDED_NEW_PLACE:
       return addedPlace(state, action);
+    case actionTypes.SET_RESTAURANT_AVATAR:
+      return setRestaurantAvatar(state, action);
+    case actionTypes.SET_RESTAURANT_HEADER:
+      return setRestaurantHeader(state, action);
+    case actionTypes.SET_RESTAURANT_MENU:
+      return setRestaurantMenu(state, action);
+    case actionTypes.OWNER_HAVE_EATING_PLACE:
+      return ownerHaveEatingPlace(state, action);
     default:
       return state;
   }
