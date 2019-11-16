@@ -3,7 +3,11 @@ import styles from "./EatingPlaceProfileCard.module.scss";
 import { connect } from "react-redux";
 import Button from "../../../Button/Button";
 import { Link } from "react-router-dom";
-const EatingPlaceProfileCard = ({ restaurantAvatar }) => {
+const EatingPlaceProfileCard = ({
+  restaurantAvatar,
+  restaurantName,
+  restaurantStreet
+}) => {
   console.log(restaurantAvatar);
   return (
     <div className={styles.card}>
@@ -13,8 +17,8 @@ const EatingPlaceProfileCard = ({ restaurantAvatar }) => {
         alt="eatingPlaceAvatar"
       />
       <div className={styles.container}>
-        <p>Poczekalnia</p>
-        <p>Mickiewicza 38, Poznań</p>
+        <p>{restaurantName}</p>
+        <p>{restaurantStreet}</p>
       </div>
       <Button second>
         <Link className={styles.button} to="/restaurant-profile">
