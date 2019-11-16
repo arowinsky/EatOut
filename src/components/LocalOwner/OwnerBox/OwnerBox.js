@@ -6,14 +6,12 @@ import EatingPlaceProfileCard from "../RestaurantProfile/EatingPlaceProfileCard/
 import { connect } from "react-redux";
 
 class OwnerBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isRestaurant: true };
-  }
   render() {
-    const { restaurantAvatar, restaurantName, restaurantStreet } = this.props;
-    console.log(restaurantAvatar, restaurantName, restaurantStreet);
-    return this.state.isRestaurant ? (
+    const { haveEatingPlace, restaurantAvatar } = this.props;
+    let restaurantName = haveEatingPlace.restaurantName;
+    let restaurantStreet = haveEatingPlace.restaurantStreet;
+    console.log(restaurantAvatar, restaurantName);
+    return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
         Twoja restauracja to:
         <EatingPlaceProfileCard
@@ -37,8 +35,7 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    restaurantName: state.auth.haveEatingPlace.restaurantName,
-    restaurantStreet: state.auth.haveEatingPlace.restaurantStreet
+    haveEatingPlace: state.auth.haveEatingPlace
   };
 };
 
