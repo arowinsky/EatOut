@@ -327,7 +327,9 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
           restaurantAvatar = url;
           dispatch(setRestaurantAvatar(restaurantAvatar));
         })
-        .catch(function(error) {});
+        .catch(error => {
+          console.log("i can't get image restaurantAvatar");
+        });
       storage
         .ref(`${localId}/restaurantHeader`)
         .getDownloadURL()
@@ -335,7 +337,9 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
           restaurantHeader = url;
           dispatch(setRestaurantHeader(restaurantHeader));
         })
-        .catch(function(error) {});
+        .catch(error => {
+          console.log("i can't get image restaurantHeader");
+        });
       storage
         .ref(`${localId}/restaurantMenu`)
         .getDownloadURL()
@@ -343,7 +347,9 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
           restaurantMenu = url;
           dispatch(setRestaurantMenu(restaurantMenu));
         })
-        .catch(function(error) {});
+        .catch(error => {
+          console.log("i can't get image restaurantMenu");
+        });
       dispatch(ownerHaveEatingPlace(eatingPlace));
     }
   };
