@@ -33,11 +33,7 @@ class Root extends React.Component {
   render() {
     let test = false;
     let sideBar;
-    const { isAuthenticated, userFbId, userGoogleId, z, userInfo } = this.props;
-    console.log(userInfo);
-    console.log(isAuthenticated);
-    console.log(userFbId);
-    console.log(userGoogleId);
+    const { isAuthenticated, userFbId, userGoogleId, z } = this.props;
     if (
       isAuthenticated === true ||
       userFbId === true ||
@@ -58,7 +54,6 @@ class Root extends React.Component {
       const z = localStorage.getItem("z");
       this.props.AutoLogin(z);
       this.props.AutoLoginSuccess(test);
-      console.log(test);
     }
 
     return (
@@ -115,7 +110,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Root);
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
