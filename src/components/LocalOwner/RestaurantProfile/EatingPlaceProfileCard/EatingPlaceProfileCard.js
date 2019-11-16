@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./EatingPlaceProfileCard.module.scss";
-import { connect } from "react-redux";
 import Button from "../../../Button/Button";
 import { Link } from "react-router-dom";
 const EatingPlaceProfileCard = ({
@@ -30,9 +29,4 @@ const EatingPlaceProfileCard = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    restaurantAvatar: state.auth.restaurantAvatar
-  };
-};
-export default connect(mapStateToProps, null)(EatingPlaceProfileCard);
+export default EatingPlaceProfileCard;
