@@ -14,9 +14,12 @@ class RestaurantHeader extends React.Component {
     return (
       <div>
         <div className={styles.headerWrapper}></div>
-        <div className={styles.iconWrapper}>
-          <img src={restaurantAvatar} alt="restaurantAvatar"></img>
-        </div>
+        <img
+          className={styles.iconWrapper}
+          src={restaurantAvatar}
+          alt="restaurantAvatar"
+        ></img>
+
         <div className={styles.adressWrapper}>
           <div className={styles.title}>{restaurantName}</div>
           <div>{restaurantStreet}</div>
