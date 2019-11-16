@@ -30,7 +30,6 @@ const authStart = (state, action) => {
 };
 
 const authSuccess = (state, action) => {
-  console.log(action.userId);
   return updateObject(state, {
     token: action.idToken,
     userId: action.userId,
@@ -39,7 +38,6 @@ const authSuccess = (state, action) => {
   });
 };
 export const userData = (state, action) => {
-  console.log(action.userId);
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId
@@ -130,25 +128,21 @@ const sendedEmailWithLinkResetPassword = (state, action) => {
   });
 };
 const setRestaurantAvatar = (state, action) => {
-  console.log(action.restaurantAvatar);
   return updateObject(state, {
     restaurantAvatar: action.restaurantAvatar
   });
 };
 const setRestaurantHeader = (state, action) => {
-  console.log(action.restaurantHeader);
   return updateObject(state, {
     restaurantHeader: action.restaurantHeader
   });
 };
 const setRestaurantMenu = (state, action) => {
-  console.log(action.restaurantMenu);
   return updateObject(state, {
     restaurantMenu: action.restaurantMenu
   });
 };
 const ownerHaveEatingPlace = (state, action) => {
-  console.log(action.haveEatingPlace);
   return updateObject(state, {
     haveEatingPlace: action.haveEatingPlace
   });
