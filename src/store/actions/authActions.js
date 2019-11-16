@@ -12,7 +12,6 @@ export const authStart = () => {
 };
 
 export const authSuccess = (token, userId, userData) => {
-  console.log(userId);
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
@@ -29,7 +28,6 @@ export const userData = (userData, userId) => {
 };
 
 export const addedPlace = addedPlace => {
-  console.log(addedPlace);
   return {
     type: actionTypes.ADDED_NEW_PLACE,
     addedPlace: addedPlace
@@ -58,10 +56,8 @@ export const RegisterSuccess = userId => {
 //   };
 // };
 export const AutoLoginSuccess = test => {
-  console.log(test);
   return dispatch => {
     const z = localStorage.getItem("z");
-    console.log(z);
     const url = "http://localhost:8080/autoLogin";
     fetch(url, {
       method: "POST",
@@ -77,11 +73,9 @@ export const AutoLoginSuccess = test => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const userdata = response.userData;
         const userInfo = response.userInfo;
         const userId = response.userId;
-        console.log(userdata);
         if (userdata) {
           dispatch(userData(userdata, userId));
           dispatch(getDataEatingPlace(z, userId));
@@ -115,9 +109,6 @@ export const aLogout = () => {
 
 export const logOut = z => {
   return dispatch => {
-    // const z = localStorage.getItem("z");
-    console.log(z);
-
     const url = "http://localhost:8080/logout";
     fetch(url, {
       method: "POST",
@@ -237,10 +228,7 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response.userId);
-        console.log(response.error);
         const userData = response.name;
-        console.log(userData);
         const idToken = response.status;
         const err = response.error;
         const emailUnverified = response.emailUnverified;
@@ -249,7 +237,6 @@ export const logIn = (email, password1) => {
         let dataIsCorrect = null;
         let z = null;
         localStorage.setItem("z", response.idSession);
-        // const z = localStorage.getItem("z");
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
         if (err === "EMAIL_NOT_FOUND") {
@@ -303,7 +290,6 @@ export const forgotPassword = email => {
 export const addNewLocal = values => {
   return dispatch => {
     const z = localStorage.getItem("z");
-    // const test = JSON.stringify(values);
     const url = "http://localhost:8080/add-new-local";
     fetch(url, {
       method: "POST",
@@ -320,7 +306,6 @@ export const addNewLocal = values => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const added = response.added;
         dispatch(addedPlace(added));
       });
@@ -328,8 +313,6 @@ export const addNewLocal = values => {
 };
 
 export const setRestaurantAvatar = restaurantAvatar => {
-  console.log("TCL: restaurantAvatar", restaurantAvatar);
-
   return {
     type: actionTypes.SET_RESTAURANT_AVATAR,
     restaurantAvatar: restaurantAvatar
@@ -337,7 +320,6 @@ export const setRestaurantAvatar = restaurantAvatar => {
 };
 
 export const getImagesEatingPlace = (localId, eatingPlace) => {
-  console.log(eatingPlace);
   return dispatch => {
     if (eatingPlace) {
       let restaurantAvatar;
@@ -375,7 +357,6 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
   };
 };
 export const ownerHaveEatingPlace = haveEatingPlace => {
-  console.log(haveEatingPlace);
   return {
     type: actionTypes.OWNER_HAVE_EATING_PLACE,
     haveEatingPlace: haveEatingPlace
@@ -385,7 +366,6 @@ export const ownerHaveEatingPlace = haveEatingPlace => {
 export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
     let haveEatingPlace;
-    console.log("wysyłam");
     const url = "http://localhost:8080/get-data-place";
     fetch(url, {
       method: "POST",
@@ -402,21 +382,18 @@ export const getDataEatingPlace = (z, localId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         haveEatingPlace = response.eatingPlace;
         dispatch(getImagesEatingPlace(localId, haveEatingPlace));
       });
   };
 };
 export const setRestaurantHeader = restaurantHeader => {
-  console.log("TCL: restaurantHeader", restaurantHeader);
   return {
     type: actionTypes.SET_RESTAURANT_HEADER,
     restaurantHeader: restaurantHeader
   };
 };
 export const setRestaurantMenu = restaurantMenu => {
-  console.log("TCL: restaurantMenu", restaurantMenu);
   return {
     type: actionTypes.SET_RESTAURANT_MENU,
     restaurantMenu: restaurantMenu
