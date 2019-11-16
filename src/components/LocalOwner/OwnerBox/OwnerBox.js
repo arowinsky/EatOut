@@ -13,7 +13,6 @@ class OwnerBox extends React.Component {
     if (haveEatingPlace) {
       restaurantName = haveEatingPlace.restaurantName;
       restaurantStreet = haveEatingPlace.restaurantStreet;
-      console.log(restaurantAvatar, restaurantName, restaurantStreet);
     }
 
     return haveEatingPlace ? (
