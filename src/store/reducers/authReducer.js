@@ -22,7 +22,7 @@ const initState = {
   restaurantAvatar: null,
   restaurantHeader: null,
   restaurantMenu: null,
-  eatingPlace: null
+  haveEatingPlace: null
 };
 
 const authStart = (state, action) => {

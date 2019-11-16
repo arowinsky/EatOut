@@ -3,17 +3,22 @@ import styles from "./OwnerBox.module.scss";
 import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
 import EatingPlaceProfileCard from "../RestaurantProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
+import { connect } from "react-redux";
 
 class OwnerBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isRestaurant: true };
-  }
   render() {
-    return this.state.isRestaurant ? (
+    const { haveEatingPlace, restaurantAvatar } = this.props;
+    let restaurantName = haveEatingPlace.restaurantName;
+    let restaurantStreet = haveEatingPlace.restaurantStreet;
+    console.log(restaurantAvatar, restaurantName);
+    return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
         Twoja restauracja to:
-        <EatingPlaceProfileCard />
+        <EatingPlaceProfileCard
+          restaurantAvatar={restaurantAvatar}
+          restaurantName={restaurantName}
+          restaurantStreet={restaurantStreet}
+        />
       </div>
     ) : (
       <div className={styles.box_wrapper}>
@@ -27,4 +32,11 @@ class OwnerBox extends React.Component {
   }
 }
 
-export default OwnerBox;
+const mapStateToProps = state => {
+  return {
+    restaurantAvatar: state.auth.restaurantAvatar,
+    haveEatingPlace: state.auth.haveEatingPlace
+  };
+};
+
+export default connect(mapStateToProps, null)(OwnerBox);
