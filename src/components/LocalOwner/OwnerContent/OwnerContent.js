@@ -3,7 +3,6 @@ import styles from "./OwnerContent.module.scss";
 import OwnerBox from "../OwnerBox/OwnerBox";
 import taco from "../../../assets/body/taco.png";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";
-import { connect } from "react-redux";
 import UserData from "../../UserData/UserData";
 
 class OwnerContent extends React.Component {
@@ -14,8 +13,6 @@ class OwnerContent extends React.Component {
     };
   }
   render() {
-    const { eatingProfielAdded } = this.props;
-    console.log(eatingProfielAdded);
     return (
       <div className={styles.owner_wrapper}>
         <div className={styles.salutation}>Witaj,</div>
@@ -29,12 +26,4 @@ class OwnerContent extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
-    eatingProfielAdded: state.auth.addedPlace
-  };
-};
-
-export default connect(mapStateToProps)(OwnerContent);
+export default OwnerContent;
