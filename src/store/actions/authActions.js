@@ -370,12 +370,21 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
           dispatch(setRestaurantMenu(restaurantMenu));
         })
         .catch(function(error) {});
+      dispatch(ownerHaveEatingPlace(eatingPlace));
     }
+  };
+};
+export const ownerHaveEatingPlace = haveEatingPlace => {
+  console.log(haveEatingPlace);
+  return {
+    type: actionTypes.OWNER_HAVE_EATING_PLACE,
+    haveEatingPlace: haveEatingPlace
   };
 };
 
 export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
+    let haveEatingPlace;
     console.log("wysyłam");
     const url = "http://localhost:8080/get-data-place";
     fetch(url, {
@@ -394,7 +403,8 @@ export const getDataEatingPlace = (z, localId) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
-        dispatch(getImagesEatingPlace(localId, response));
+        haveEatingPlace = response.eatingPlace;
+        dispatch(getImagesEatingPlace(localId, haveEatingPlace));
       });
   };
 };

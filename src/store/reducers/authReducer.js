@@ -21,7 +21,8 @@ const initState = {
   addedPlace: null,
   restaurantAvatar: null,
   restaurantHeader: null,
-  restaurantMenu: null
+  restaurantMenu: null,
+  eatingPlace: null
 };
 
 const authStart = (state, action) => {
@@ -146,6 +147,12 @@ const setRestaurantMenu = (state, action) => {
     restaurantMenu: action.restaurantMenu
   });
 };
+const ownerHaveEatingPlace = (state, action) => {
+  console.log(action.haveEatingPlace);
+  return updateObject(state, {
+    haveEatingPlace: action.haveEatingPlace
+  });
+};
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
@@ -189,6 +196,8 @@ const authReducer = (state = initState, action) => {
       return setRestaurantHeader(state, action);
     case actionTypes.SET_RESTAURANT_MENU:
       return setRestaurantMenu(state, action);
+    case actionTypes.OWNER_HAVE_EATING_PLACE:
+      return ownerHaveEatingPlace(state, action);
     default:
       return state;
   }
