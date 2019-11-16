@@ -7,7 +7,6 @@ const EatingPlaceProfileCard = ({
   restaurantName,
   restaurantStreet
 }) => {
-  console.log(restaurantAvatar);
   return (
     <div className={styles.card}>
       <img
