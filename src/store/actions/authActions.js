@@ -1,9 +1,5 @@
-import axios from "axios";
-import firebase from "firebase";
 import storage from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
-import { file } from "@babel/types";
-const hasha = require("hasha");
 
 export const authStart = () => {
   return {
@@ -125,7 +121,6 @@ export const logOut = z => {
       .then(Response => Response.json())
       .then(response => {
         const userLogOuted = response.userLogOuted;
-        console.log(userLogOuted);
         if (userLogOuted === true) {
           localStorage.removeItem("z");
           dispatch(aLogout());
@@ -328,8 +323,7 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
       storage
         .ref(`${localId}/restaurantAvatar`)
         .getDownloadURL()
-        .then(function(url) {
-          console.log(url);
+        .then(url => {
           restaurantAvatar = url;
           dispatch(setRestaurantAvatar(restaurantAvatar));
         })
@@ -337,8 +331,7 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
       storage
         .ref(`${localId}/restaurantHeader`)
         .getDownloadURL()
-        .then(function(url) {
-          console.log(url);
+        .then(url => {
           restaurantHeader = url;
           dispatch(setRestaurantHeader(restaurantHeader));
         })
@@ -346,8 +339,7 @@ export const getImagesEatingPlace = (localId, eatingPlace) => {
       storage
         .ref(`${localId}/restaurantMenu`)
         .getDownloadURL()
-        .then(function(url) {
-          console.log(url);
+        .then(url => {
           restaurantMenu = url;
           dispatch(setRestaurantMenu(restaurantMenu));
         })
