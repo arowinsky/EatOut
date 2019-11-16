@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 class RestaurantHeader extends React.Component {
   render() {
-    const { haveEatingPlace, restaurantAvatar } = this.props;
+    const { haveEatingPlace, restaurantAvatar, restaurantHeader } = this.props;
     let restaurantName;
     let restaurantStreet;
     if (haveEatingPlace) {
@@ -13,7 +13,11 @@ class RestaurantHeader extends React.Component {
     }
     return (
       <div>
-        <div className={styles.headerWrapper}></div>
+        <img
+          className={styles.headerWrapper}
+          src={restaurantHeader}
+          alt="restaurantHeader"
+        ></img>
         <img
           className={styles.iconWrapper}
           src={restaurantAvatar}
@@ -32,7 +36,8 @@ class RestaurantHeader extends React.Component {
 const mapStateToProps = state => {
   return {
     haveEatingPlace: state.auth.haveEatingPlace,
-    restaurantAvatar: state.auth.restaurantAvatar
+    restaurantAvatar: state.auth.restaurantAvatar,
+    restaurantHeader: state.auth.restaurantHeader
   };
 };
 
