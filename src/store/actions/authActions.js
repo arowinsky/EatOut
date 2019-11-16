@@ -336,6 +336,44 @@ export const setRestaurantAvatar = restaurantAvatar => {
   };
 };
 
+export const getImagesEatingPlace = (localId, eatingPlace) => {
+  console.log(eatingPlace);
+  return dispatch => {
+    if (eatingPlace) {
+      let restaurantAvatar;
+      let restaurantHeader;
+      let restaurantMenu;
+      storage
+        .ref(`${localId}/restaurantAvatar`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantAvatar = url;
+          dispatch(setRestaurantAvatar(restaurantAvatar));
+        })
+        .catch(function(error) {});
+      storage
+        .ref(`${localId}/restaurantHeader`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantHeader = url;
+          dispatch(setRestaurantHeader(restaurantHeader));
+        })
+        .catch(function(error) {});
+      storage
+        .ref(`${localId}/restaurantMenu`)
+        .getDownloadURL()
+        .then(function(url) {
+          console.log(url);
+          restaurantMenu = url;
+          dispatch(setRestaurantMenu(restaurantMenu));
+        })
+        .catch(function(error) {});
+    }
+  };
+};
+
 export const getDataEatingPlace = (z, localId) => {
   return dispatch => {
     console.log("wysyłam");
@@ -356,38 +394,8 @@ export const getDataEatingPlace = (z, localId) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        dispatch(getImagesEatingPlace(localId, response));
       });
-
-    let restaurantAvatar;
-    let restaurantHeader;
-    let restaurantMenu;
-    storage
-      .ref(`${localId}/restaurantAvatar`)
-      .getDownloadURL()
-      .then(function(url) {
-        console.log(url);
-        restaurantAvatar = url;
-        dispatch(setRestaurantAvatar(restaurantAvatar));
-      })
-      .catch(function(error) {});
-    storage
-      .ref(`${localId}/restaurantHeader`)
-      .getDownloadURL()
-      .then(function(url) {
-        console.log(url);
-        restaurantHeader = url;
-        dispatch(setRestaurantHeader(restaurantHeader));
-      })
-      .catch(function(error) {});
-    storage
-      .ref(`${localId}/restaurantMenu`)
-      .getDownloadURL()
-      .then(function(url) {
-        console.log(url);
-        restaurantMenu = url;
-        dispatch(setRestaurantMenu(restaurantMenu));
-      })
-      .catch(function(error) {});
   };
 };
 export const setRestaurantHeader = restaurantHeader => {
