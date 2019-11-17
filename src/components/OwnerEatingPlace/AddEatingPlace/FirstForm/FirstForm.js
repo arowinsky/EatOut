@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../NewLocalForm.module.scss";
+import styles from "../AddEatingPlace.module.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../../../Button/Button";
 import { connect } from "react-redux";

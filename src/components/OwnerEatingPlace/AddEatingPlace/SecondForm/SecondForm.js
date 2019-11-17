@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../NewLocalForm.module.scss";
+import styles from "../AddEatingPlace.module.scss";
 import MealName from "./MealName/MealName";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
-import Button from "./../../../Button/Button";
+import Button from "../../../Button/Button";
 
 class NewLocalCategory extends React.Component {
   state = {

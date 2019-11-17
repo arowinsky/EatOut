@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../NewLocalForm.module.scss";
+import styles from "../../AddEatingPlace.module.scss";
 import { Field } from "formik";
 const MealName = ({ mealCatName }) => {
   const categoriesName = mealCatName.length ? (

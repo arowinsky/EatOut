@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "../NewLocalForm.module.scss";
+import styles from "../AddEatingPlace.module.scss";
 import { connect } from "react-redux";
-import Button from "./../../../Button/Button";
+import Button from "../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import MealName from "../NewLocalCategory/MealName/MealName";
+import MealName from "../SecondForm/MealName/MealName";
 import * as actions from "../../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 
