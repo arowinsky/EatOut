@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 class Posts extends React.Component {
   render() {
-    const { ownerId, haveEatingPlace } = this.props;
+    const { userId, haveEatingPlace } = this.props;
     console.log(haveEatingPlace);
     let owner;
     if (haveEatingPlace) {
@@ -15,7 +15,7 @@ class Posts extends React.Component {
     return (
       <div>
         <PostItem />
-        {ownerId === owner ? <PostForm /> : null}
+        {userId === owner ? <PostForm /> : null}
       </div>
     );
   }
@@ -23,7 +23,7 @@ class Posts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    ownerId: state.auth.userId,
+    userId: state.auth.userId,
     haveEatingPlace: state.auth.haveEatingPlace
   };
 };
