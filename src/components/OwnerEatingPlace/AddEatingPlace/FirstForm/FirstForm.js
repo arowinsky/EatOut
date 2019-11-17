@@ -115,8 +115,10 @@ class NewLocalFirst extends React.Component {
         <Formik
           initialValues={{
             restaurantName: "",
-            restaurantStreet: "",
             restaurantEmail: "",
+            restaurantStreet: "",
+            restaurantBuildingNumber: "",
+            restaurantCity: "",
             restaurantPhoneNumber: "",
             restaurantAvatar: "",
             restaurantHeader: "",
@@ -193,6 +195,7 @@ class NewLocalFirst extends React.Component {
           // //   return errors;
           //  }}
           onSubmit={values => {
+            console.log(values);
             localStorage.setItem("setFirst", JSON.stringify(values));
           }}
         >
@@ -206,17 +209,6 @@ class NewLocalFirst extends React.Component {
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantName" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantStreet">Adres lokalu</label>
-                <Field
-                  type="text"
-                  name="restaurantStreet"
-                  className={styles.input}
-                />
-                <ErrorMessage name="restaurantStreet" component="div" />
               </div>
               <br />
               <br />
@@ -242,6 +234,41 @@ class NewLocalFirst extends React.Component {
               </div>
               <br />
               <br />
+              <div className={styles.formTitle}>Adres lokalu</div>
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantStreet">Nazwa ulicy</label>
+                <Field
+                  type="text"
+                  name="restaurantStreet"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantStreet" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantBuildingNumber">Numer budynku</label>
+                <Field
+                  type="text"
+                  name="restaurantBuildingNumber"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantBuildingNumber" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantCity">Miejscowość</label>
+                <Field
+                  type="text"
+                  name="restaurantCity"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantCity" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.formTitle}>Zdjęcia lokalu</div>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
@@ -282,7 +309,7 @@ class NewLocalFirst extends React.Component {
               </div>
               <br />
               <br />
-              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
+              <div className={styles.formTitle}>Godziny otwarcia lokalu</div>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
