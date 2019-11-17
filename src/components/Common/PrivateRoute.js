@@ -6,23 +6,24 @@ const PrivateRoute = ({
   component: Component,
   isAuthenticated,
   userGoogleId,
-  z,
   ...rest
 }) => (
   <Route
     {...rest}
     render={props => {
-      if (!isAuthenticated || userGoogleId || z) {
-        return <Redirect to="/login" />;
-      } else {
+      if (isAuthenticated || userGoogleId) {
         return <Component {...props} />;
+      } else {
+        return <Redirect to="/login" />;
       }
     }}
   />
 );
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.z,
-  userGoogleId: state.auth.userGoogleId
-});
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.z,
+    userGoogleId: state.auth.userGoogleId
+  };
+};
 export default connect(mapStateToProps)(PrivateRoute);
