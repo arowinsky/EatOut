@@ -28,7 +28,7 @@ class OwnerBox extends React.Component {
       <div className={styles.box_wrapper}>
         Nie masz jeszcze restauracji
         <br />
-        <Link to="/add-new-local-1">
+        <Link to="/add-eating-place-first-form">
           <Button second>Dodaj swój lokal</Button>
         </Link>
       </div>

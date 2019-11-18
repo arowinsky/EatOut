@@ -253,7 +253,7 @@ class NewLocalCategory extends React.Component {
               <Button second type="submit" className={styles.button}>
                 {isSubmitting ? (
                   <Link
-                    to="/add-new-local-resume"
+                    to="/add-eating-place-summary-form"
                     disabled={isSubmitting}
                     className={styles.button}
                   >
