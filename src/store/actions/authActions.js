@@ -7,12 +7,13 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId, userData) => {
+export const authSuccess = (token, userId, userData, z) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId: userId,
-    userData: userData
+    userData: userData,
+    z: z
   };
 };
 export const userData = (userData, userId) => {
@@ -241,7 +242,7 @@ export const logIn = (email, password1) => {
           z = localStorage.getItem("z");
           dispatch(getDataEatingPlace(z, localId));
         }
-        dispatch(authSuccess(idToken, localId, userData));
+        dispatch(authSuccess(idToken, localId, userData, z));
         dispatch(checkAuthTimeout(expiresIn));
       })
       .catch(error => {

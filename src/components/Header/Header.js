@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
 import Navbar from "../Navbars/Navbar/Navbar";
-import OwnerNavbar from "../LocalOwner/OwnerNavbar/OwnerNavbar";
+import OwnerNavbar from "../OwnerEatingPlace/OwnerNavbar/OwnerNavbar";
 
 const Header = props => {
   const { isAuth, userIdProvider } = props;
