@@ -10,9 +10,13 @@ class OwnerBox extends React.Component {
     const { haveEatingPlace, restaurantAvatar } = this.props;
     let restaurantName;
     let restaurantStreet;
+    let restaurantBuildingNumber;
+    let restaurantCity;
     if (haveEatingPlace) {
       restaurantName = haveEatingPlace.restaurantName;
       restaurantStreet = haveEatingPlace.restaurantStreet;
+      restaurantBuildingNumber = haveEatingPlace.restaurantBuildingNumber;
+      restaurantCity = haveEatingPlace.restaurantCity;
     }
 
     return haveEatingPlace ? (
@@ -22,6 +26,8 @@ class OwnerBox extends React.Component {
           restaurantAvatar={restaurantAvatar}
           restaurantName={restaurantName}
           restaurantStreet={restaurantStreet}
+          restaurantBuildingNumber={restaurantBuildingNumber}
+          restaurantCity={restaurantCity}
         />
       </div>
     ) : (

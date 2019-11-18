@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 const EatingPlaceProfileCard = ({
   restaurantAvatar,
   restaurantName,
-  restaurantStreet
+  restaurantStreet,
+  restaurantBuildingNumber,
+  restaurantCity
 }) => {
   return (
     <div className={styles.card}>
@@ -16,7 +18,10 @@ const EatingPlaceProfileCard = ({
       />
       <div className={styles.container}>
         <p>{restaurantName}</p>
-        <p>{restaurantStreet}</p>
+        <p>
+          {restaurantStreet} {restaurantBuildingNumber}
+        </p>
+        <p>{restaurantCity}</p>
       </div>
       <Button second>
         <Link className={styles.button} to="/eating-place-profile">
