@@ -1,4 +1,4 @@
-@import '../../../views/Root/index.scss';
+@import "../../../views/Root/index.scss";
 .wrapper {
   width: 100%;
   display: flex;
@@ -7,6 +7,12 @@
   justify-content: center;
   justify-items: center;
   justify-self: center;
+}
+.formTitle {
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
 }
 
 .form {
@@ -92,10 +98,11 @@
   margin: 25px 0;
 }
 
-.facebookIcon, .googleIcon {
+.facebookIcon,
+.googleIcon {
   font-size: 26px;
   margin: 0 15px;
-  transition:  0.5s color ease;
+  transition: 0.5s color ease;
   &:hover {
     cursor: pointer;
   }
@@ -108,4 +115,3 @@
 .googleIcon:hover {
   color: #db3236;
 }
-

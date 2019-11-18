@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
       return <Redirect to="/" />;
     return (
       <div className={styles.wrapper}>
-        <Title>Logowanie:</Title>
+        <div className={styles.formTitle}>Logowanie:</div>
         <Formik
           initialValues={{
             email: "",
@@ -145,7 +145,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
