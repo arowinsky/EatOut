@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Header.module.scss";
+import styles from "./EatingPlaceHeader.module.scss";
 import { connect } from "react-redux";
 
-class RestaurantHeader extends React.Component {
+class EatingPlaceHeader extends React.Component {
   render() {
     const { haveEatingPlace, restaurantAvatar, restaurantHeader } = this.props;
     let restaurantName;
@@ -41,4 +41,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(RestaurantHeader);
+export default connect(mapStateToProps)(EatingPlaceHeader);
