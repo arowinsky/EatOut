@@ -1,4 +1,4 @@
-@import '../../../views/Root/index.scss';
+@import "../../../views/Root/index.scss";
 .wrapper {
   width: 100%;
   display: flex;
@@ -22,6 +22,12 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
+}
+.formTitle {
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
 }
 
 .formItem {
@@ -56,7 +62,7 @@
   width: 100%;
   background: none;
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
@@ -86,5 +92,3 @@
   color: $red-element;
   font-style: italic;
 }
-
-
