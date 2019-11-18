@@ -11,15 +11,13 @@ import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import FirstForm from "../../components/OwnerEatingPlace/AddEatingPlace/FirstForm/FirstForm";
 import SecondForm from "../../components/OwnerEatingPlace/AddEatingPlace/SecondForm/SecondForm";
 import SummaryForm from "../../components/OwnerEatingPlace/AddEatingPlace/SummaryForm/SummaryForm";
-import RestautantProfile from "../../components/OwnerEatingPlace/RestaurantProfile/RestaurantProfile";
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
 import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
-import RestaurantHeader from "../../components/OwnerEatingPlace/RestaurantProfile/Header/Header";
-import RestaurantProfile from "../../components/OwnerEatingPlace/RestaurantProfile/RestaurantProfile";
+import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/RestaurantProfile";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -81,7 +79,7 @@ class Root extends React.Component {
             />
             <PrivateRoute
               path="/restaurant-profile"
-              component={RestaurantProfile}
+              component={EatingPlaceProfile}
             />
             <Route component={E404} />
           </Switch>
