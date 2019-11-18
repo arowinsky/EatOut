@@ -19,7 +19,7 @@ const EatingPlaceProfileCard = ({
         <p>{restaurantStreet}</p>
       </div>
       <Button second>
-        <Link className={styles.button} to="/restaurant-profile">
+        <Link className={styles.button} to="/eating-place-profile">
           Przejdź do profilu
         </Link>
       </Button>

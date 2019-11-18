@@ -107,7 +107,7 @@ class NewLocalFirst extends React.Component {
       uploadedRestaurantHeader === 100 &&
       uploadedRestaurantMenu === 100
     ) {
-      return <Redirect to="/add-new-local-2" />;
+      return <Redirect to="/add-eating-place-second-form" />;
     }
     return (
       <div className={styles.restaurantFormWrapper}>

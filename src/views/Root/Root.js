@@ -71,14 +71,20 @@ class Root extends React.Component {
             <Route path="/register-success" component={RegisterSuccessView} />
             <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
-            <PrivateRoute path="/add-new-local-1" component={FirstForm} />
-            <PrivateRoute path="/add-new-local-2" component={SecondForm} />
             <PrivateRoute
-              path="/add-new-local-resume"
+              path="/add-eating-place-first-form"
+              component={FirstForm}
+            />
+            <PrivateRoute
+              path="/add-eating-place-second-form"
+              component={SecondForm}
+            />
+            <PrivateRoute
+              path="/add-eating-place-summary-form"
               component={SummaryForm}
             />
             <PrivateRoute
-              path="/restaurant-profile"
+              path="/eating-place-profile"
               component={EatingPlaceProfile}
             />
             <Route component={E404} />
