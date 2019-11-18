@@ -17,7 +17,7 @@ import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
-import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/RestaurantProfile";
+import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
