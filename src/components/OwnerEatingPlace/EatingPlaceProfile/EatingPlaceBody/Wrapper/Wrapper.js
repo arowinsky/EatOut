@@ -1,44 +1,43 @@
-import React from 'react';
-import Posts from '../Posts/Posts';
-import Menu from '../Menu/Menu';
-import Info from '../Info/Info';
-import Comments from '../Comments/Comments';
+import React from "react";
+import Posts from "../Posts/Posts";
+import Menu from "../Menu/Menu";
+import Info from "../Info/Info";
+import Comments from "../Opinion/Opinion";
 
-const Wrapper = ({tabItem, active}) => {
-   if(tabItem === 'item1') {
-       return (
-           <div>
-               <Posts/>
-           </div>
-       )
-   }
-   if(tabItem === 'item2') {
+const Wrapper = ({ tabItem, active }) => {
+  if (tabItem === "item1") {
     return (
-        <div>
-            <Menu/>
-        </div>
-    )
-}
-if(tabItem === 'item3') {
+      <div>
+        <Posts />
+      </div>
+    );
+  }
+  if (tabItem === "item2") {
     return (
-        <div>
-            <Info/>
-        </div>
-    )
-}
-if(tabItem === 'item4') {
+      <div>
+        <Menu />
+      </div>
+    );
+  }
+  if (tabItem === "item3") {
     return (
-        <div>
-            <Comments/>
-        </div>
-    )
-}
-else {
+      <div>
+        <Info />
+      </div>
+    );
+  }
+  if (tabItem === "item4") {
     return (
-        <div>
-            <Info/>
-        </div>
-    )
-}
-}
+      <div>
+        <Comments />
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Info />
+      </div>
+    );
+  }
+};
 export default Wrapper;

@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./Comments.module.scss";
-import CommentItem from "./CommentItem/CommentItem";
-import CommentForm from "./CommentForm/CommentForm";
+import styles from "./Opinion.module.scss";
+import OpinionItem from "./OpinionItem/OpinionItem";
+import OpinionForm from "./OpinionForm/OpinionForm";
 import { connect } from "react-redux";
-class Comments extends React.Component {
+class Opinion extends React.Component {
   render() {
     const { userId, haveEatingPlace } = this.props;
     console.log(haveEatingPlace);
@@ -14,8 +14,8 @@ class Comments extends React.Component {
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
-          <CommentItem />
-          {userId !== owner ? <CommentForm /> : null}
+          <OpinionItem />
+          {userId !== owner ? <OpinionForm /> : null}
         </div>
       </div>
     );
@@ -28,4 +28,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Comments);
+export default connect(mapStateToProps)(Opinion);
