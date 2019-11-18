@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./OwnerBox.module.scss";
 import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
-import EatingPlaceProfileCard from "../RestaurantProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
+import EatingPlaceProfileCard from "../EatingPlaceProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
 import { connect } from "react-redux";
 
 class OwnerBox extends React.Component {
