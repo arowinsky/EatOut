@@ -7,9 +7,13 @@ class EatingPlaceHeader extends React.Component {
     const { haveEatingPlace, restaurantAvatar, restaurantHeader } = this.props;
     let restaurantName;
     let restaurantStreet;
+    let restaurantBuildingNumber;
+    let restaurantCity;
     if (haveEatingPlace) {
       restaurantName = haveEatingPlace.restaurantName;
       restaurantStreet = haveEatingPlace.restaurantStreet;
+      restaurantBuildingNumber = haveEatingPlace.restaurantBuildingNumber;
+      restaurantCity = haveEatingPlace.restaurantCity;
     }
     return (
       <div>
@@ -26,8 +30,10 @@ class EatingPlaceHeader extends React.Component {
 
         <div className={styles.adressWrapper}>
           <div className={styles.title}>{restaurantName}</div>
-          <div>{restaurantStreet}</div>
-          <div>dzielnica</div>
+          <div>
+            {restaurantStreet} {restaurantBuildingNumber}
+          </div>
+          <div>{restaurantCity}</div>
         </div>
       </div>
     );
