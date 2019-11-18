@@ -215,9 +215,11 @@ class NewLocalResume extends React.Component {
         <Formik
           initialValues={{
             restaurantName: firstFormData.restaurantName,
-            restaurantStreet: firstFormData.restaurantStreet,
             restaurantEmail: firstFormData.restaurantEmail,
             restaurantPhoneNumber: firstFormData.restaurantPhoneNumber,
+            restaurantStreet: firstFormData.restaurantStreet,
+            restaurantBuildingNumber: firstFormData.restaurantBuildingNumber,
+            restaurantCity: firstFormData.restaurantCity,
             restaurantAvatar: firstFormData.restaurantAvatar,
             restaurantHeader: firstFormData.restaurantHeader,
             restaurantMenu: firstFormData.restaurantMenu,
@@ -323,17 +325,6 @@ class NewLocalResume extends React.Component {
               <br />
               <br />
               <div className={styles.inputElement}>
-                <label htmlFor="restaurantStreet">Adres lokalu</label>
-                <Field
-                  type="text"
-                  name="restaurantStreet"
-                  className={styles.input}
-                />
-                <ErrorMessage name="restaurantStreet" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
                 <label htmlFor="restaurantEmail">Adres email</label>
                 <Field
                   type="text"
@@ -355,7 +346,41 @@ class NewLocalResume extends React.Component {
               </div>
               <br />
               <br />
-              <h3 className={styles.formTitle}>Godziny otwarcia lokalu</h3>
+              <div className={styles.formTitle}>Adres lokalu</div>
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantStreet">Nazwa ulicy</label>
+                <Field
+                  type="text"
+                  name="restaurantStreet"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantStreet" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantBuildingNumber">Numer budynku</label>
+                <Field
+                  type="text"
+                  name="restaurantBuildingNumber"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantBuildingNumber" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantCity">Miejscowość</label>
+                <Field
+                  type="text"
+                  name="restaurantCity"
+                  className={styles.input}
+                />
+                <ErrorMessage name="restaurantCity" component="div" />
+              </div>
+              <br />
+              <br />
+              <div className={styles.formTitle}>Godziny otwarcia lokalu</div>
               <div className={styles.hoursWrapper}>
                 <div className={styles.hourLabel}>
                   <label
