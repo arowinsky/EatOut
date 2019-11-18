@@ -14,8 +14,8 @@ class Opinion extends React.Component {
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
-          <OpinionItem />
           {userId !== owner ? <OpinionForm /> : null}
+          <OpinionItem />
         </div>
       </div>
     );
