@@ -97,7 +97,7 @@ class RegisterForm extends React.Component {
 
     return (
       <div className={styles.wrapper}>
-        <Title>Rejestracja:</Title>
+        <div className={styles.formTitle}>Rejestracja:</div>
         <Formik
           initialValues={{
             firstname: "",
@@ -251,7 +251,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
