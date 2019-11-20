@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 class Info extends React.Component {
   render() {
     const { haveEatingPlace } = this.props;
+    console.log(haveEatingPlace);
     let restaurantPhoneNumber;
     let restaurantEmail;
     let tuesdayOpenHour;
@@ -19,26 +20,50 @@ class Info extends React.Component {
     let saturdayCloseHour;
     let sundayOpenHour;
     let sundayCloseHour;
+    let alkohol;
+    let burger;
+    let ciastko;
+    let kawa;
+    let kebab;
+    let makaron;
+    let obiad;
+    let pizza;
+    let ramen;
+    let stek;
+    let sushi;
+    let zapieknaki;
 
     let mondayOpenHour;
     let mondayCloseHour;
     if (haveEatingPlace) {
-      restaurantPhoneNumber = haveEatingPlace.restaurantPhoneNumber;
-      restaurantEmail = haveEatingPlace.restaurantEmail;
-      mondayOpenHour = haveEatingPlace.mondayOpenHour;
-      mondayCloseHour = haveEatingPlace.mondayCloseHour;
-      tuesdayOpenHour = haveEatingPlace.tuesdayOpenHour;
-      tuesdayCloseHour = haveEatingPlace.tuesdayCloseHour;
-      wednesdayOpenHour = haveEatingPlace.wednesdayOpenHour;
-      wednesdayCloseHour = haveEatingPlace.wednesdayCloseHour;
-      thursdayOpenHour = haveEatingPlace.thursdayOpenHour;
-      thursdayCloseHour = haveEatingPlace.thursdayCloseHour;
-      fridayOpenHour = haveEatingPlace.fridayOpenHour;
-      fridayCloseHour = haveEatingPlace.fridayCloseHour;
-      saturdayOpenHour = haveEatingPlace.saturdayOpenHour;
-      saturdayCloseHour = haveEatingPlace.saturdayCloseHour;
-      sundayOpenHour = haveEatingPlace.sundayOpenHour;
-      sundayCloseHour = haveEatingPlace.sundayCloseHour;
+      restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
+      restaurantEmail = haveEatingPlace.info.restaurantEmail;
+      mondayOpenHour = haveEatingPlace.info.mondayOpenHour;
+      mondayCloseHour = haveEatingPlace.info.mondayCloseHour;
+      tuesdayOpenHour = haveEatingPlace.info.tuesdayOpenHour;
+      tuesdayCloseHour = haveEatingPlace.info.tuesdayCloseHour;
+      wednesdayOpenHour = haveEatingPlace.info.wednesdayOpenHour;
+      wednesdayCloseHour = haveEatingPlace.info.wednesdayCloseHour;
+      thursdayOpenHour = haveEatingPlace.info.thursdayOpenHour;
+      thursdayCloseHour = haveEatingPlace.info.thursdayCloseHour;
+      fridayOpenHour = haveEatingPlace.info.fridayOpenHour;
+      fridayCloseHour = haveEatingPlace.info.fridayCloseHour;
+      saturdayOpenHour = haveEatingPlace.info.saturdayOpenHour;
+      saturdayCloseHour = haveEatingPlace.info.saturdayCloseHour;
+      sundayOpenHour = haveEatingPlace.info.sundayOpenHour;
+      sundayCloseHour = haveEatingPlace.info.sundayCloseHour;
+      alkohol = haveEatingPlace.dishes.alkohol;
+      burger = haveEatingPlace.dishes.burger;
+      ciastko = haveEatingPlace.dishes.ciastko;
+      kawa = haveEatingPlace.dishes.kawa;
+      kebab = haveEatingPlace.dishes.kebab;
+      makaron = haveEatingPlace.dishes.makaron;
+      obiad = haveEatingPlace.dishes.obiad;
+      pizza = haveEatingPlace.dishes.pizza;
+      ramen = haveEatingPlace.dishes.ramen;
+      stek = haveEatingPlace.dishes.stek;
+      sushi = haveEatingPlace.dishes.sushi;
+      zapieknaki = haveEatingPlace.dishes.zapieknaki;
     }
     console.log(haveEatingPlace);
     return (
@@ -52,7 +77,14 @@ class Info extends React.Component {
           <div className={styles.title}>Kuchnia</div>
           <div className={styles.content}>kuchnia1, kuchnia2, kuchnia3</div>
           <div className={styles.title}>Dania</div>
-          <div className={styles.content}>danie1, danie2, danie3</div>
+          <div className={styles.content}>
+            {alkohol ? "alkohol" : null},{burger ? "burger" : null},
+            {ciastko ? "ciastko" : null}, {kawa ? "kawa" : null},
+            {kebab ? "kebab" : null},{makaron ? "makaron" : null},
+            {obiad ? "obiad" : null},{pizza ? "pizza" : null},
+            {ramen ? "ramen" : null},{stek ? "stek" : null},
+            {sushi ? "sushi" : null}, {zapieknaki ? "zapieknaki" : null}
+          </div>
           <div className={styles.title}>Udogodnienia</div>
           <div className={styles.content}>
             udogodnienie1, udogodnienie2, udogodnienie3
@@ -78,7 +110,7 @@ class Info extends React.Component {
               Sobota {saturdayOpenHour}-{saturdayCloseHour}
             </div>
             <div className={styles.timeDay}>
-              Niedziela {sundayOpenHour}-{saturdayCloseHour}
+              Niedziela {sundayOpenHour}-{sundayCloseHour}
             </div>
           </div>
         </div>
