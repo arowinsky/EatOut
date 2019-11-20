@@ -98,21 +98,22 @@ class Info extends React.Component {
           <div className={styles.title}>Kuchnia</div>
           <div className={styles.content}>
             {amerykanska ? " amerykanska," : null}
-            {arabska ? " arabska," : null} {azjatycka ? " azjatycka," : null}
-            {dietetyczna ? " dietetyczna," : null} {domowa ? " domowa," : null}
-            {europejska ? " europejska," : null}
+            {arabska ? " arabska," : null}
+            {azjatycka ? " azjatycka," : null}
+            {dietetyczna ? " dietetyczna," : null}
+            {domowa ? " domowa," : null} {europejska ? " europejska," : null}
             {francuska ? " francuska," : null}
-            {meksykanska ? " meksykanska," : null} {polska ? " polska," : null}
-            {wege_wegan ? " wege_wegan," : null}
+            {meksykanska ? " meksykanska," : null}
+            {polska ? " polska," : null} {wege_wegan ? " wege_wegan," : null}
           </div>
           <div className={styles.title}>Dania</div>
           <div className={styles.content}>
-            {alkohol ? "alkohol" : null},{burger ? "burger" : null},
-            {ciastko ? "ciastko" : null}, {kawa ? "kawa" : null},
-            {kebab ? "kebab" : null},{makaron ? "makaron" : null},
-            {obiad ? "obiad" : null},{pizza ? "pizza" : null},
-            {ramen ? "ramen" : null},{stek ? "stek" : null},
-            {sushi ? "sushi" : null}, {zapieknaki ? "zapieknaki" : null}
+            {alkohol ? " alkohol," : null} {burger ? " burger," : null}
+            {ciastko ? " ciastko," : null} {kawa ? " kawa," : null}
+            {kebab ? " kebab," : null} {makaron ? " makaron," : null}
+            {obiad ? " obiad," : null} {pizza ? " pizza," : null}
+            {ramen ? " ramen," : null} {stek ? " stek," : null}
+            {sushi ? " sushi," : null} {zapieknaki ? " zapiekanki," : null}
           </div>
           <div className={styles.title}>Udogodnienia</div>
           <div className={styles.content}>
