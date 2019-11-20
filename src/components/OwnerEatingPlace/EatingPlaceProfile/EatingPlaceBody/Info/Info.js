@@ -51,6 +51,15 @@ class Info extends React.Component {
     let pub;
     let randka;
     let sniadanie;
+    //facilities
+    let animal_friendly;
+    let insta_friendly;
+    let jezyk_migowy;
+    let ogrodek;
+    let pokoj_dla_matki_z_dzieckiem;
+    let przystosowanie_dla_osob_niepelnosprawnych;
+    let transmija_meczy;
+    let wifi;
     if (haveEatingPlace) {
       restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
       restaurantEmail = haveEatingPlace.info.restaurantEmail;
@@ -94,6 +103,16 @@ class Info extends React.Component {
       pub = haveEatingPlace.opportunity.pub;
       randka = haveEatingPlace.opportunity.randka;
       sniadanie = haveEatingPlace.opportunity.sniadanie;
+      animal_friendly = haveEatingPlace.facilities.animal_friendly;
+      insta_friendly = haveEatingPlace.facilities.insta_friendly;
+      jezyk_migowy = haveEatingPlace.facilities.jezyk_migowy;
+      ogrodek = haveEatingPlace.facilities.ogrodek;
+      pokoj_dla_matki_z_dzieckiem =
+        haveEatingPlace.facilities.pokoj_dla_matki_z_dzieckiem;
+      przystosowanie_dla_osob_niepelnosprawnych =
+        haveEatingPlace.facilities.przystosowanie_dla_osob_niepelnosprawnych;
+      transmija_meczy = haveEatingPlace.facilities.transmija_meczy;
+      wifi = haveEatingPlace.facilities.wifi;
     }
     console.log(haveEatingPlace);
     return (
@@ -113,7 +132,7 @@ class Info extends React.Component {
             {domowa ? " domowa," : null} {europejska ? " europejska," : null}
             {francuska ? " francuska," : null}
             {meksykanska ? " meksykanska," : null}
-            {polska ? " polska," : null} {wege_wegan ? " wege_wegan," : null}
+            {polska ? " polska," : null} {wege_wegan ? " wege/wegan," : null}
           </div>
           <div className={styles.title}>Dania</div>
           <div className={styles.content}>
@@ -130,6 +149,21 @@ class Info extends React.Component {
             {pub ? " pub," : null}
             {randka ? " randka," : null}
             {sniadanie ? " sniadanie," : null}
+          </div>
+          <div className={styles.title}>Udogodnienia</div>
+          <div className={styles.content}>
+            {animal_friendly ? " animal friendly," : null}
+            {insta_friendly ? " insta friendly," : null}
+            {jezyk_migowy ? " jezyk migowy," : null}
+            {ogrodek ? " ogrodek," : null}
+            {pokoj_dla_matki_z_dzieckiem
+              ? " pokoj dla matki z dzieckiem,"
+              : null}
+            {przystosowanie_dla_osob_niepelnosprawnych
+              ? " przystosowanie dla osob niepelnosprawnych,"
+              : null}
+            {transmija_meczy ? " transmija meczy," : null}
+            {wifi ? " wifi," : null}
           </div>
           <div className={styles.title}>Godziny otwarcia</div>
           <div className={styles.timeWrapper}>
