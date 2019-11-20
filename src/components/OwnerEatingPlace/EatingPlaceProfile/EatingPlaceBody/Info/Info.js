@@ -46,6 +46,11 @@ class Info extends React.Component {
     let meksykanska;
     let polska;
     let wege_wegan;
+    //opportunity
+    let lunch;
+    let pub;
+    let randka;
+    let sniadanie;
     if (haveEatingPlace) {
       restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
       restaurantEmail = haveEatingPlace.info.restaurantEmail;
@@ -85,6 +90,10 @@ class Info extends React.Component {
       meksykanska = haveEatingPlace.kitchen.meksykanska;
       polska = haveEatingPlace.kitchen.polska;
       wege_wegan = haveEatingPlace.kitchen.wege_wegan;
+      lunch = haveEatingPlace.opportunity.lunch;
+      pub = haveEatingPlace.opportunity.pub;
+      randka = haveEatingPlace.opportunity.randka;
+      sniadanie = haveEatingPlace.opportunity.sniadanie;
     }
     console.log(haveEatingPlace);
     return (
@@ -115,9 +124,12 @@ class Info extends React.Component {
             {ramen ? " ramen," : null} {stek ? " stek," : null}
             {sushi ? " sushi," : null} {zapieknaki ? " zapiekanki," : null}
           </div>
-          <div className={styles.title}>Udogodnienia</div>
+          <div className={styles.title}>Okazje</div>
           <div className={styles.content}>
-            udogodnienie1, udogodnienie2, udogodnienie3
+            {lunch ? " lunch," : null}
+            {pub ? " pub," : null}
+            {randka ? " randka," : null}
+            {sniadanie ? " sniadanie," : null}
           </div>
           <div className={styles.title}>Godziny otwarcia</div>
           <div className={styles.timeWrapper}>
