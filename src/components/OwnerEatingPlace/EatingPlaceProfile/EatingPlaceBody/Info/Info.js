@@ -8,6 +8,8 @@ class Info extends React.Component {
     console.log(haveEatingPlace);
     let restaurantPhoneNumber;
     let restaurantEmail;
+    let mondayOpenHour;
+    let mondayCloseHour;
     let tuesdayOpenHour;
     let tuesdayCloseHour;
     let wednesdayOpenHour;
@@ -20,6 +22,7 @@ class Info extends React.Component {
     let saturdayCloseHour;
     let sundayOpenHour;
     let sundayCloseHour;
+    //dishes
     let alkohol;
     let burger;
     let ciastko;
@@ -32,9 +35,17 @@ class Info extends React.Component {
     let stek;
     let sushi;
     let zapieknaki;
-
-    let mondayOpenHour;
-    let mondayCloseHour;
+    //kitchen
+    let amerykanska;
+    let arabska;
+    let azjatycka;
+    let dietetyczna;
+    let domowa;
+    let europejska;
+    let francuska;
+    let meksykanska;
+    let polska;
+    let wege_wegan;
     if (haveEatingPlace) {
       restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
       restaurantEmail = haveEatingPlace.info.restaurantEmail;
@@ -64,6 +75,16 @@ class Info extends React.Component {
       stek = haveEatingPlace.dishes.stek;
       sushi = haveEatingPlace.dishes.sushi;
       zapieknaki = haveEatingPlace.dishes.zapieknaki;
+      amerykanska = haveEatingPlace.kitchen.amerykanska;
+      arabska = haveEatingPlace.kitchen.arabska;
+      azjatycka = haveEatingPlace.kitchen.azjatycka;
+      dietetyczna = haveEatingPlace.kitchen.dietetyczna;
+      domowa = haveEatingPlace.kitchen.domowa;
+      europejska = haveEatingPlace.kitchen.europejska;
+      francuska = haveEatingPlace.kitchen.francuska;
+      meksykanska = haveEatingPlace.kitchen.meksykanska;
+      polska = haveEatingPlace.kitchen.polska;
+      wege_wegan = haveEatingPlace.kitchen.wege_wegan;
     }
     console.log(haveEatingPlace);
     return (
@@ -75,7 +96,15 @@ class Info extends React.Component {
           </div>
           <div className={styles.content}>email: {restaurantEmail}</div>
           <div className={styles.title}>Kuchnia</div>
-          <div className={styles.content}>kuchnia1, kuchnia2, kuchnia3</div>
+          <div className={styles.content}>
+            {amerykanska ? " amerykanska," : null}
+            {arabska ? " arabska," : null} {azjatycka ? " azjatycka," : null}
+            {dietetyczna ? " dietetyczna," : null} {domowa ? " domowa," : null}
+            {europejska ? " europejska," : null}
+            {francuska ? " francuska," : null}
+            {meksykanska ? " meksykanska," : null} {polska ? " polska," : null}
+            {wege_wegan ? " wege_wegan," : null}
+          </div>
           <div className={styles.title}>Dania</div>
           <div className={styles.content}>
             {alkohol ? "alkohol" : null},{burger ? "burger" : null},
