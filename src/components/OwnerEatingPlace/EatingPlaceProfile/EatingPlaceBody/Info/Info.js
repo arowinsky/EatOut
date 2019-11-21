@@ -5,8 +5,11 @@ import { connect } from "react-redux";
 class Info extends React.Component {
   render() {
     const { haveEatingPlace } = this.props;
+    console.log(haveEatingPlace);
     let restaurantPhoneNumber;
     let restaurantEmail;
+    let mondayOpenHour;
+    let mondayCloseHour;
     let tuesdayOpenHour;
     let tuesdayCloseHour;
     let wednesdayOpenHour;
@@ -19,26 +22,97 @@ class Info extends React.Component {
     let saturdayCloseHour;
     let sundayOpenHour;
     let sundayCloseHour;
-
-    let mondayOpenHour;
-    let mondayCloseHour;
+    //dishes
+    let alkohol;
+    let burger;
+    let ciastko;
+    let kawa;
+    let kebab;
+    let makaron;
+    let obiad;
+    let pizza;
+    let ramen;
+    let stek;
+    let sushi;
+    let zapieknaki;
+    //kitchen
+    let amerykanska;
+    let arabska;
+    let azjatycka;
+    let dietetyczna;
+    let domowa;
+    let europejska;
+    let francuska;
+    let meksykanska;
+    let polska;
+    let wege_wegan;
+    //opportunity
+    let lunch;
+    let pub;
+    let randka;
+    let sniadanie;
+    //facilities
+    let animal_friendly;
+    let insta_friendly;
+    let jezyk_migowy;
+    let ogrodek;
+    let pokoj_dla_matki_z_dzieckiem;
+    let przystosowanie_dla_osob_niepelnosprawnych;
+    let transmija_meczy;
+    let wifi;
     if (haveEatingPlace) {
-      restaurantPhoneNumber = haveEatingPlace.restaurantPhoneNumber;
-      restaurantEmail = haveEatingPlace.restaurantEmail;
-      mondayOpenHour = haveEatingPlace.mondayOpenHour;
-      mondayCloseHour = haveEatingPlace.mondayCloseHour;
-      tuesdayOpenHour = haveEatingPlace.tuesdayOpenHour;
-      tuesdayCloseHour = haveEatingPlace.tuesdayCloseHour;
-      wednesdayOpenHour = haveEatingPlace.wednesdayOpenHour;
-      wednesdayCloseHour = haveEatingPlace.wednesdayCloseHour;
-      thursdayOpenHour = haveEatingPlace.thursdayOpenHour;
-      thursdayCloseHour = haveEatingPlace.thursdayCloseHour;
-      fridayOpenHour = haveEatingPlace.fridayOpenHour;
-      fridayCloseHour = haveEatingPlace.fridayCloseHour;
-      saturdayOpenHour = haveEatingPlace.saturdayOpenHour;
-      saturdayCloseHour = haveEatingPlace.saturdayCloseHour;
-      sundayOpenHour = haveEatingPlace.sundayOpenHour;
-      sundayCloseHour = haveEatingPlace.sundayCloseHour;
+      restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
+      restaurantEmail = haveEatingPlace.info.restaurantEmail;
+      mondayOpenHour = haveEatingPlace.info.mondayOpenHour;
+      mondayCloseHour = haveEatingPlace.info.mondayCloseHour;
+      tuesdayOpenHour = haveEatingPlace.info.tuesdayOpenHour;
+      tuesdayCloseHour = haveEatingPlace.info.tuesdayCloseHour;
+      wednesdayOpenHour = haveEatingPlace.info.wednesdayOpenHour;
+      wednesdayCloseHour = haveEatingPlace.info.wednesdayCloseHour;
+      thursdayOpenHour = haveEatingPlace.info.thursdayOpenHour;
+      thursdayCloseHour = haveEatingPlace.info.thursdayCloseHour;
+      fridayOpenHour = haveEatingPlace.info.fridayOpenHour;
+      fridayCloseHour = haveEatingPlace.info.fridayCloseHour;
+      saturdayOpenHour = haveEatingPlace.info.saturdayOpenHour;
+      saturdayCloseHour = haveEatingPlace.info.saturdayCloseHour;
+      sundayOpenHour = haveEatingPlace.info.sundayOpenHour;
+      sundayCloseHour = haveEatingPlace.info.sundayCloseHour;
+      alkohol = haveEatingPlace.dishes.alkohol;
+      burger = haveEatingPlace.dishes.burger;
+      ciastko = haveEatingPlace.dishes.ciastko;
+      kawa = haveEatingPlace.dishes.kawa;
+      kebab = haveEatingPlace.dishes.kebab;
+      makaron = haveEatingPlace.dishes.makaron;
+      obiad = haveEatingPlace.dishes.obiad;
+      pizza = haveEatingPlace.dishes.pizza;
+      ramen = haveEatingPlace.dishes.ramen;
+      stek = haveEatingPlace.dishes.stek;
+      sushi = haveEatingPlace.dishes.sushi;
+      zapieknaki = haveEatingPlace.dishes.zapieknaki;
+      amerykanska = haveEatingPlace.kitchen.amerykanska;
+      arabska = haveEatingPlace.kitchen.arabska;
+      azjatycka = haveEatingPlace.kitchen.azjatycka;
+      dietetyczna = haveEatingPlace.kitchen.dietetyczna;
+      domowa = haveEatingPlace.kitchen.domowa;
+      europejska = haveEatingPlace.kitchen.europejska;
+      francuska = haveEatingPlace.kitchen.francuska;
+      meksykanska = haveEatingPlace.kitchen.meksykanska;
+      polska = haveEatingPlace.kitchen.polska;
+      wege_wegan = haveEatingPlace.kitchen.wege_wegan;
+      lunch = haveEatingPlace.opportunity.lunch;
+      pub = haveEatingPlace.opportunity.pub;
+      randka = haveEatingPlace.opportunity.randka;
+      sniadanie = haveEatingPlace.opportunity.sniadanie;
+      animal_friendly = haveEatingPlace.facilities.animal_friendly;
+      insta_friendly = haveEatingPlace.facilities.insta_friendly;
+      jezyk_migowy = haveEatingPlace.facilities.jezyk_migowy;
+      ogrodek = haveEatingPlace.facilities.ogrodek;
+      pokoj_dla_matki_z_dzieckiem =
+        haveEatingPlace.facilities.pokoj_dla_matki_z_dzieckiem;
+      przystosowanie_dla_osob_niepelnosprawnych =
+        haveEatingPlace.facilities.przystosowanie_dla_osob_niepelnosprawnych;
+      transmija_meczy = haveEatingPlace.facilities.transmija_meczy;
+      wifi = haveEatingPlace.facilities.wifi;
     }
     console.log(haveEatingPlace);
     return (
@@ -50,12 +124,46 @@ class Info extends React.Component {
           </div>
           <div className={styles.content}>email: {restaurantEmail}</div>
           <div className={styles.title}>Kuchnia</div>
-          <div className={styles.content}>kuchnia1, kuchnia2, kuchnia3</div>
+          <div className={styles.content}>
+            {amerykanska ? " amerykanska," : null}
+            {arabska ? " arabska," : null}
+            {azjatycka ? " azjatycka," : null}
+            {dietetyczna ? " dietetyczna," : null}
+            {domowa ? " domowa," : null} {europejska ? " europejska," : null}
+            {francuska ? " francuska," : null}
+            {meksykanska ? " meksykanska," : null}
+            {polska ? " polska," : null} {wege_wegan ? " wege/wegan," : null}
+          </div>
           <div className={styles.title}>Dania</div>
-          <div className={styles.content}>danie1, danie2, danie3</div>
+          <div className={styles.content}>
+            {alkohol ? " alkohol," : null} {burger ? " burger," : null}
+            {ciastko ? " ciastko," : null} {kawa ? " kawa," : null}
+            {kebab ? " kebab," : null} {makaron ? " makaron," : null}
+            {obiad ? " obiad," : null} {pizza ? " pizza," : null}
+            {ramen ? " ramen," : null} {stek ? " stek," : null}
+            {sushi ? " sushi," : null} {zapieknaki ? " zapiekanki," : null}
+          </div>
+          <div className={styles.title}>Okazje</div>
+          <div className={styles.content}>
+            {lunch ? " lunch," : null}
+            {pub ? " pub," : null}
+            {randka ? " randka," : null}
+            {sniadanie ? " sniadanie," : null}
+          </div>
           <div className={styles.title}>Udogodnienia</div>
           <div className={styles.content}>
-            udogodnienie1, udogodnienie2, udogodnienie3
+            {animal_friendly ? " animal friendly," : null}
+            {insta_friendly ? " insta friendly," : null}
+            {jezyk_migowy ? " jezyk migowy," : null}
+            {ogrodek ? " ogrodek," : null}
+            {pokoj_dla_matki_z_dzieckiem
+              ? " pokoj dla matki z dzieckiem,"
+              : null}
+            {przystosowanie_dla_osob_niepelnosprawnych
+              ? " przystosowanie dla osob niepelnosprawnych,"
+              : null}
+            {transmija_meczy ? " transmija meczy," : null}
+            {wifi ? " wifi," : null}
           </div>
           <div className={styles.title}>Godziny otwarcia</div>
           <div className={styles.timeWrapper}>
@@ -78,7 +186,7 @@ class Info extends React.Component {
               Sobota {saturdayOpenHour}-{saturdayCloseHour}
             </div>
             <div className={styles.timeDay}>
-              Niedziela {sundayOpenHour}-{saturdayCloseHour}
+              Niedziela {sundayOpenHour}-{sundayCloseHour}
             </div>
           </div>
         </div>
