@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./Posts.module.scss";
-import PostItem from "./PostItem/PostItem";
-import PostForm from "./PostForm/PostForm";
+import styles from "./OwnerPosts.module.scss";
+import OwnerPostItem from "./OwnerPostItem/OwnerPostItem";
+import OwnerPostForm from "./OwnerPostForm/OwnerPostForm";
 import { connect } from "react-redux";
 
 class Posts extends React.Component {
@@ -14,8 +14,8 @@ class Posts extends React.Component {
     }
     return (
       <div>
-        <PostItem />
-        {userId === owner ? <PostForm /> : null}
+        <OwnerPostItem />
+        {userId === owner ? <OwnerPostForm /> : null}
       </div>
     );
   }
