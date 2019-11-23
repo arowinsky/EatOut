@@ -7,15 +7,16 @@ import { connect } from "react-redux";
 class Posts extends React.Component {
   render() {
     const { userId, haveEatingPlace } = this.props;
+    console.log(userId);
     console.log(haveEatingPlace);
     let owner;
     if (haveEatingPlace) {
-      owner = haveEatingPlace.owner;
+      owner = haveEatingPlace.info.owner;
     }
     return (
       <div>
-        <OwnerPostItem />
         {userId === owner ? <OwnerPostForm /> : null}
+        <OwnerPostItem />
       </div>
     );
   }
