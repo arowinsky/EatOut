@@ -6,5 +6,6 @@ export {
   // googleLogIn,
   AutoLoginSuccess,
   AutoLogin,
-  addNewLocal
+  addNewLocal,
+  sendOwnerPost
 } from "../actions/authActions";

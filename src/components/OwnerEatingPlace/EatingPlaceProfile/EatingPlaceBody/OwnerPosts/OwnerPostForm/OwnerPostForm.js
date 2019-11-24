@@ -7,6 +7,13 @@ import * as actions from "../../../../../../store/actions/index";
 import Button from "../../../../../Button/Button";
 class OwnerPostForm extends React.Component {
   render() {
+    const { haveEatingPlace } = this.props;
+    let eatingPlaceName;
+    let eatingPlaceId;
+    if (haveEatingPlace) {
+      eatingPlaceName = haveEatingPlace.info.restaurantName;
+      eatingPlaceId = haveEatingPlace.id;
+    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.formWrapper}>
@@ -14,9 +21,12 @@ class OwnerPostForm extends React.Component {
             initialValues={{
               textOfPost: ""
             }}
-            onSubmit={values => {
-              console.log(values);
-              this.props.sendOwnerPost(values);
+            onSubmit={value => {
+              this.props.sendOwnerPost(
+                value.textOfPost,
+                eatingPlaceName,
+                eatingPlaceId
+              );
             }}
           >
             {({ errors, touched }) => (
@@ -47,11 +57,14 @@ class OwnerPostForm extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    haveEatingPlace: state.auth.haveEatingPlace
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    sendOwnerPost: values => dispatch(actions.sendOwnerPost(values))
+    sendOwnerPost: (post, eatingPlaceName, eatingPlaceId) =>
+      dispatch(actions.sendOwnerPost(post, eatingPlaceName, eatingPlaceId))
   };
 };
 
