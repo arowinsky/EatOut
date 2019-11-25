@@ -1,11 +1,21 @@
 import React from "react";
 import styles from "./OwnerPostForm.module.scss";
-import Input from "../../../../../Input/Input";
 import { connect } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as actions from "../../../../../../store/actions/index";
 import Button from "../../../../../Button/Button";
 class OwnerPostForm extends React.Component {
+  state = {
+    errorAddOwnerPost: ""
+  };
+
+  validateOwnerPost = value => {
+    let error;
+    if (!value) {
+      error = "Musisz podać treść posta";
+    }
+    return error;
+  };
   render() {
     const { haveEatingPlace } = this.props;
     let eatingPlaceName;
@@ -35,10 +45,14 @@ class OwnerPostForm extends React.Component {
                   <Field
                     name="textOfPost"
                     component="textarea"
-                    validate=""
+                    validate={this.validateOwnerPost}
                     placeholder="Podaj treść posta"
                     className={styles.commentArea}
                   />
+                  {errors.textOfPost && touched.textOfPost && (
+                    <div>{errors.textOfPost}</div>
+                  )}
+
                   <br />
                   <Button second type="submit">
                     Wyślij
