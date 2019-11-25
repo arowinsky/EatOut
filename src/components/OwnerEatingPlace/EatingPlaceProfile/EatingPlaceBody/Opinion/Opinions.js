@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./Opinion.module.scss";
+import styles from "./Opinions.module.scss";
 import OpinionItem from "./OpinionItem/OpinionItem";
 import OpinionForm from "./OpinionForm/OpinionForm";
 import { connect } from "react-redux";
-class Opinion extends React.Component {
+class Opinions extends React.Component {
   render() {
     const { userId, haveEatingPlace } = this.props;
     console.log(haveEatingPlace);
@@ -28,4 +28,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Opinion);
+export default connect(mapStateToProps)(Opinions);
