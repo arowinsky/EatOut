@@ -3,6 +3,7 @@ import styles from "./Opinions.module.scss";
 import OpinionItem from "./OpinionItem/OpinionItem";
 import OpinionForm from "./OpinionForm/OpinionForm";
 import { connect } from "react-redux";
+import CodeForUnlockAddOpinion from "./CodeForUnlockAddOpinion/CodeForUnlockAddOpinion";
 class Opinions extends React.Component {
   render() {
     const { userId, haveEatingPlace } = this.props;
@@ -14,6 +15,7 @@ class Opinions extends React.Component {
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
+          <CodeForUnlockAddOpinion />
           {userId !== owner ? <OpinionForm /> : null}
           <OpinionItem />
         </div>
