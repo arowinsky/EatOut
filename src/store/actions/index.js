@@ -9,3 +9,5 @@ export {
   addNewLocal,
   sendOwnerPost
 } from "../actions/authActions";
+
+export { generationCodeForClient } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
