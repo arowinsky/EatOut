@@ -1,3 +1,4 @@
+@import "../../../../views/Root/index.scss";
 .wrapper {
   width: 100%;
   display: flex;
@@ -6,6 +7,20 @@
   justify-content: center;
   justify-items: center;
   justify-self: center;
+}
+.header {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1%;
+}
+.question {
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
 }
 
 .items {

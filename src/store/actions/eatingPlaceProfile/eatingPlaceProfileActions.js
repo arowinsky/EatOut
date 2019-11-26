@@ -1,3 +1,4 @@
+import * as actionTypes from "../actionTypes";
 export const generationCodeForClient = eatingPlaceId => {
   return dispatch => {
     const url = "http://localhost:8080/generation-code-for-client";
@@ -15,7 +16,15 @@ export const generationCodeForClient = eatingPlaceId => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        const codeForClient = response.code;
+        dispatch(returnCodeForClient(codeForClient));
       });
+  };
+};
+
+export const returnCodeForClient = codeForClient => {
+  return {
+    type: actionTypes.RETURN_CODE_FOR_CLIENT,
+    codeForClient: codeForClient
   };
 };

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
 const GeneratorCodeForClient = props => {
-  const { haveEatingPlace, generationCodeForClient } = props;
+  const { haveEatingPlace, codeForClient, generationCodeForClient } = props;
   let eatingPlaceId;
   if (haveEatingPlace) {
     eatingPlaceId = haveEatingPlace.id;
@@ -15,20 +15,26 @@ const GeneratorCodeForClient = props => {
   };
   return (
     <div className={styles.wrapper}>
-      <div className={styles.items}>
-        <p>
-          Czy wygenerować kod dający dostęp Twojemu klientowi do wystawienia
-          opinii o Twoim lokalu gastronomicznym?
-        </p>
-        <Button second type="submit" onClick={sendRequestToGenarateCode}>
-          Tak wygeneruj
-        </Button>
-        <br />
-        <Button second type="submit">
-          <Link to="/eating-place-profile" className={styles.button}>
-            Chcę powrócić do profilu tego lokalu
-          </Link>
-        </Button>
+      <div className={styles.header}>
+        <div className={styles.question}>Czy wygenerować kod dla klienta?</div>
+        <div className={styles.items}>
+          <Button second type="submit" onClick={sendRequestToGenarateCode}>
+            Tak wygeneruj
+          </Button>
+          <br />
+          <Button second type="submit">
+            <Link to="/eating-place-profile" className={styles.button}>
+              Chcę powrócić do profilu tego lokalu
+            </Link>
+          </Button>
+          <br />
+          {codeForClient ? (
+            <div className={styles.items}>
+              <h3>Wygenerowany kod to:</h3>
+              <h1>{codeForClient}</h1>
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
@@ -36,7 +42,8 @@ const GeneratorCodeForClient = props => {
 
 const mapStateToProps = state => {
   return {
-    haveEatingPlace: state.auth.haveEatingPlace
+    haveEatingPlace: state.auth.haveEatingPlace,
+    codeForClient: state.eatingPlaceProfile.codeForClient
   };
 };
 
