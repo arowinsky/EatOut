@@ -1,5 +1,4 @@
 export const generationCodeForClient = eatingPlaceId => {
-  console.log(eatingPlaceId);
   return dispatch => {
     const url = "http://localhost:8080/generation-code-for-client";
     fetch(url, {
