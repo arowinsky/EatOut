@@ -18,6 +18,7 @@ import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
+import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -86,6 +87,10 @@ class Root extends React.Component {
             <PrivateRoute
               path="/eating-place-profile"
               component={EatingPlaceProfile}
+            />
+            <PrivateRoute
+              path="/generator-code-for-client"
+              component={GeneratorCodeForClientView}
             />
             <Route component={E404} />
           </Switch>
