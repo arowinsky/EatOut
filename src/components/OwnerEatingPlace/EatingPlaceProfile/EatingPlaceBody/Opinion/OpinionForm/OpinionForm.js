@@ -6,6 +6,16 @@ import { connect } from "react-redux";
 import * as actions from "../../../../../../store/actions/index";
 
 class OpinionForm extends React.Component {
+  state = {
+    errorAddclientOpinion: ""
+  };
+  validateClientOpinion = value => {
+    let error;
+    if (!value) {
+      error = "Musisz podać treść opinii";
+    }
+    return error;
+  };
   render() {
     const { haveEatingPlace, z } = this.props;
     let eatingPlaceId;
@@ -33,12 +43,12 @@ class OpinionForm extends React.Component {
                   <Field
                     name="textofOpinion"
                     component="textarea"
-                    validate={this.validateOwnerPost}
+                    validate={this.validateClientOpinion}
                     placeholder="Podaj treść opinii"
                     className={styles.commentArea}
                   />
-                  {errors.textOfPost && touched.textOfPost && (
-                    <div>{errors.textOfPost}</div>
+                  {errors.textofOpinion && touched.textofOpinion && (
+                    <div>{errors.textofOpinion}</div>
                   )}
 
                   <br />
