@@ -5,6 +5,17 @@ import { Formik, Field, Form } from "formik";
 import Button from "../../../../../Button/Button";
 import * as actions from "../../../../../../store/actions/index";
 class CodeForUnlockAddOpinion extends React.Component {
+  state = {
+    errorAddClientCode: ""
+  };
+  validateClientCode = value => {
+    let error;
+    if (!value) {
+      error =
+        "Musisz podać kod, który otrzymałaś/eś w tym lokalu gastronomicznym";
+    }
+    return error;
+  };
   render() {
     return (
       <div className={styles.wrapper}>
@@ -23,10 +34,15 @@ class CodeForUnlockAddOpinion extends React.Component {
                   <Field
                     name="clientCode"
                     type="text"
+                    validate={this.validateClientCode}
                     placeholder="Podaj kod który dostałaś/eś w lokalu gastronomicznym"
                     className={styles.input}
                   />
                   <div className={styles.formItemBar} />
+                  <br />
+                  {errors.clientCode && touched.clientCode && (
+                    <div>{errors.clientCode}</div>
+                  )}
                   <br />
                   <Button second type="submit">
                     Wyślij
