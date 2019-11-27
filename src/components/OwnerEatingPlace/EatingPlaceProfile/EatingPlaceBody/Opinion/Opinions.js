@@ -15,18 +15,18 @@ class Opinions extends React.Component {
     console.log(haveEatingPlace);
     let owner;
     let canShow;
+    let cantShow;
     if (haveEatingPlace) {
       owner = haveEatingPlace.info.owner;
     }
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
-          {userId == owner ? (canShow = true) : null}
+          {userId !== owner ? (canShow = true) : (cantShow = true)}
           {blockedOpinionForm === null && canShow && clientCodeIsVerified ? (
             <OpinionForm />
-          ) : (
-            <CodeForUnlockAddOpinion />
-          )}
+          ) : null}
+          {cantShow ? null : <CodeForUnlockAddOpinion />}
           <OpinionItem />
         </div>
       </div>
