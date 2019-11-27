@@ -12,5 +12,6 @@ export {
 
 export {
   generationCodeForClient,
-  sendCodeToVerification
+  sendCodeToVerification,
+  sendClientOpinion
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";

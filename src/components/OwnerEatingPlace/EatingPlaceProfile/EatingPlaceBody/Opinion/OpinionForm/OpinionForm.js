@@ -1,19 +1,72 @@
 import React from "react";
 import styles from "./OpinionForm.module.scss";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import Button from "../../../../../Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../../../../../store/actions/index";
 
 class OpinionForm extends React.Component {
   render() {
+    const { haveEatingPlace, z } = this.props;
+    let eatingPlaceId;
+    if (haveEatingPlace) {
+      eatingPlaceId = haveEatingPlace.id;
+    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.formWrapper}>
-          <div className={styles.formItem}>
-            <textarea className={styles.commentArea}></textarea>
-            <button className={styles.button}>Wyślij</button>
-          </div>
+          <Formik
+            initialValues={{
+              textofOpinion: ""
+            }}
+            onSubmit={clientOpinion => {
+              this.props.sendClientOpinion(
+                clientOpinion.textofOpinion,
+                eatingPlaceId,
+                z
+              );
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form>
+                <div className={styles.formItem}>
+                  <Field
+                    name="textofOpinion"
+                    component="textarea"
+                    validate={this.validateOwnerPost}
+                    placeholder="Podaj treść opinii"
+                    className={styles.commentArea}
+                  />
+                  {errors.textOfPost && touched.textOfPost && (
+                    <div>{errors.textOfPost}</div>
+                  )}
+
+                  <br />
+                  <Button second type="submit">
+                    Wyślij
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     );
   }
 }
 
-export default OpinionForm;
+const mapStateToProps = state => {
+  return {
+    haveEatingPlace: state.auth.haveEatingPlace,
+    z: state.auth.z
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sendClientOpinion: (clientOpinion, eatingPlaceId, z) =>
+      dispatch(actions.sendClientOpinion(clientOpinion, eatingPlaceId, z))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OpinionForm);

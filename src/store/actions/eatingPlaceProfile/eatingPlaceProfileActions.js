@@ -58,3 +58,25 @@ export const clientCodeIsVerified = clientCodeIsVerified => {
     clientCodeIsVerified: clientCodeIsVerified
   };
 };
+
+export const sendClientOpinion = (clientOpinion, eatingPlaceId, z) => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-client-opinion";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `clientOpinion=${clientOpinion}&eatingPlaceId=${eatingPlaceId}&z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+      });
+  };
+};
