@@ -7,8 +7,10 @@ export {
   AutoLoginSuccess,
   AutoLogin,
   addNewLocal,
-  sendOwnerPost,
-  sendCodeToVerification
+  sendOwnerPost
 } from "../actions/authActions";
 
-export { generationCodeForClient } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
+export {
+  generationCodeForClient,
+  sendCodeToVerification
+} from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
