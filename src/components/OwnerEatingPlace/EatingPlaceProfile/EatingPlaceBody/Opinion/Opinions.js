@@ -6,17 +6,17 @@ import { connect } from "react-redux";
 import CodeForUnlockAddOpinion from "./CodeForUnlockAddOpinion/CodeForUnlockAddOpinion";
 class Opinions extends React.Component {
   render() {
-    const { userId, haveEatingPlace } = this.props;
+    const { userId, haveEatingPlace, clientCodeIsVerified } = this.props;
     console.log(haveEatingPlace);
     let owner;
     if (haveEatingPlace) {
-      owner = haveEatingPlace.owner;
+      owner = haveEatingPlace.info.owner;
     }
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
-          <CodeForUnlockAddOpinion />
           {userId !== owner ? <OpinionForm /> : null}
+          {clientCodeIsVerified ? <OpinionForm /> : <CodeForUnlockAddOpinion />}
           <OpinionItem />
         </div>
       </div>
@@ -26,7 +26,8 @@ class Opinions extends React.Component {
 const mapStateToProps = state => {
   return {
     userId: state.auth.userId,
-    haveEatingPlace: state.auth.haveEatingPlace
+    haveEatingPlace: state.auth.haveEatingPlace,
+    clientCodeIsVerified: state.eatingPlaceProfile.clientCodeIsVerified
   };
 };
 

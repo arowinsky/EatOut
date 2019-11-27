@@ -28,3 +28,33 @@ export const returnCodeForClient = codeForClient => {
     codeForClient: codeForClient
   };
 };
+
+export const sendCodeToVerification = clientCode => {
+  console.log(clientCode);
+  return dispatch => {
+    const url = "http://localhost:8080/verification-client-code";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `clientCode=${clientCode}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        dispatch(clientCodeIsVerified(response.isVerified));
+      });
+  };
+};
+
+export const clientCodeIsVerified = clientCodeIsVerified => {
+  return {
+    type: actionTypes.CLIENT_CODE_IS_VERIFIED,
+    clientCodeIsVerified: clientCodeIsVerified
+  };
+};
