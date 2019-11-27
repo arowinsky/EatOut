@@ -381,7 +381,7 @@ export const getDataEatingPlace = (z, localId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        haveEatingPlace = response;
+        haveEatingPlace = response.places;
         dispatch(getImagesEatingPlace(localId, haveEatingPlace));
       });
   };
