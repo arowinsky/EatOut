@@ -2,7 +2,7 @@ import React from "react";
 import Posts from "../OwnerPosts/OwnerPosts";
 import Menu from "../Menu/Menu";
 import Info from "../Info/Info";
-import Comments from "../Opinion/Opinion";
+import Comments from "../Opinion/Opinions";
 
 const Wrapper = ({ tabItem, active }) => {
   if (tabItem === "item1") {

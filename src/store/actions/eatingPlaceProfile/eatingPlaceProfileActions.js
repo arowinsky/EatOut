@@ -28,3 +28,70 @@ export const returnCodeForClient = codeForClient => {
     codeForClient: codeForClient
   };
 };
+
+export const sendCodeToVerification = clientCode => {
+  console.log(clientCode);
+  return dispatch => {
+    const url = "http://localhost:8080/verification-client-code";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `clientCode=${clientCode}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        dispatch(clientCodeIsVerified(response.isVerified));
+      });
+  };
+};
+
+export const clientCodeIsVerified = clientCodeIsVerified => {
+  return {
+    type: actionTypes.CLIENT_CODE_IS_VERIFIED,
+    clientCodeIsVerified: clientCodeIsVerified
+  };
+};
+
+export const sendClientOpinion = (
+  clientOpinion,
+  eatingPlaceId,
+  z,
+  blockedOpinionForm
+) => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-client-opinion";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `clientOpinion=${clientOpinion}&eatingPlaceId=${eatingPlaceId}&z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        blockedOpinionForm = true;
+        dispatch(blockOpinionForm(blockedOpinionForm));
+      });
+  };
+};
+
+export const blockOpinionForm = blockedOpinionForm => {
+  console.log(blockedOpinionForm);
+  return {
+    type: actionTypes.BLOCKED_OPINION_FORM,
+    blockOpinonForm: blockedOpinionForm
+  };
+};

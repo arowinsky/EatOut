@@ -10,4 +10,9 @@ export {
   sendOwnerPost
 } from "../actions/authActions";
 
-export { generationCodeForClient } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
+export {
+  generationCodeForClient,
+  sendCodeToVerification,
+  sendClientOpinion,
+  blockOpinionForm
+} from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
