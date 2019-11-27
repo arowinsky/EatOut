@@ -59,7 +59,12 @@ export const clientCodeIsVerified = clientCodeIsVerified => {
   };
 };
 
-export const sendClientOpinion = (clientOpinion, eatingPlaceId, z) => {
+export const sendClientOpinion = (
+  clientOpinion,
+  eatingPlaceId,
+  z,
+  blockedOpinionForm
+) => {
   return dispatch => {
     const url = "http://localhost:8080/add-client-opinion";
     fetch(url, {
@@ -77,6 +82,16 @@ export const sendClientOpinion = (clientOpinion, eatingPlaceId, z) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        blockedOpinionForm = true;
+        dispatch(blockOpinionForm(blockedOpinionForm));
       });
+  };
+};
+
+export const blockOpinionForm = blockedOpinionForm => {
+  console.log(blockedOpinionForm);
+  return {
+    type: actionTypes.BLOCKED_OPINION_FORM,
+    blockOpinonForm: blockedOpinionForm
   };
 };

@@ -30,10 +30,12 @@ class OpinionForm extends React.Component {
               textofOpinion: ""
             }}
             onSubmit={clientOpinion => {
+              let blockedOpinionForm = false;
               this.props.sendClientOpinion(
                 clientOpinion.textofOpinion,
                 eatingPlaceId,
-                z
+                z,
+                blockedOpinionForm
               );
             }}
           >
@@ -75,8 +77,15 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendClientOpinion: (clientOpinion, eatingPlaceId, z) =>
-      dispatch(actions.sendClientOpinion(clientOpinion, eatingPlaceId, z))
+    sendClientOpinion: (clientOpinion, eatingPlaceId, z, blockOpinionForm) =>
+      dispatch(
+        actions.sendClientOpinion(
+          clientOpinion,
+          eatingPlaceId,
+          z,
+          blockOpinionForm
+        )
+      )
   };
 };
 
