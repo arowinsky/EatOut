@@ -2,14 +2,7 @@ import React from "react";
 import styles from "./EatingPlaceProfileCard.module.scss";
 import Button from "../../../Button/Button";
 import { Link } from "react-router-dom";
-const EatingPlaceProfileCard = ({
-  // restaurantAvatar,
-  // restaurantName,
-  // restaurantStreet,
-  // restaurantBuildingNumber,
-  // restaurantCity
-  eatingPlaces
-}) => {
+const EatingPlaceProfileCard = ({ eatingPlaces }) => {
   console.log(eatingPlaces);
   const eatingPlacesProfilesCards = eatingPlaces.length
     ? eatingPlaces.map(eatingPlaces => {
