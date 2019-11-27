@@ -3,29 +3,27 @@ import styles from "./CodeForUnlockAddOpinion.module.scss";
 import { connect } from "react-redux";
 import { Formik, Field, Form } from "formik";
 import Button from "../../../../../Button/Button";
+import * as actions from "../../../../../../store/actions/index";
 class CodeForUnlockAddOpinion extends React.Component {
   render() {
-    const { haveEatingPlace } = this.props;
-    let eatingPlaceId;
-    if (haveEatingPlace) {
-      eatingPlaceId = haveEatingPlace.id;
-    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.formWrapper}>
           <Formik
             initialValues={{
-              unlockCode: ""
+              clientCode: ""
             }}
-            onSubmit={value => {}}
+            onSubmit={code => {
+              this.props.sendCodeToVerification(code.clientCode);
+            }}
           >
             {({ errors, touched }) => (
               <Form>
                 <div className={styles.formItem}>
                   <Field
-                    name="textOfPost"
+                    name="clientCode"
                     type="text"
-                    placeholder="Podaj kod który dostałeś/aś w lokalu gastronomicznym"
+                    placeholder="Podaj kod który dostałaś/eś w lokalu gastronomicznym"
                     className={styles.input}
                   />
                   <div className={styles.formItemBar} />
@@ -44,9 +42,17 @@ class CodeForUnlockAddOpinion extends React.Component {
 }
 
 const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
   return {
-    haveEatingPlace: state.auth.haveEatingPlace
+    sendCodeToVerification: clientCode =>
+      dispatch(actions.sendCodeToVerification(clientCode))
   };
 };
 
-export default connect(mapStateToProps)(CodeForUnlockAddOpinion);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CodeForUnlockAddOpinion);

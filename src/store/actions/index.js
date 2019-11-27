@@ -7,5 +7,6 @@ export {
   AutoLoginSuccess,
   AutoLogin,
   addNewLocal,
-  sendOwnerPost
+  sendOwnerPost,
+  sendCodeToVerification
 } from "../actions/authActions";
