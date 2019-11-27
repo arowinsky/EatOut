@@ -39,6 +39,7 @@ class OpinionForm extends React.Component {
           >
             {({ errors, touched }) => (
               <Form>
+                <div className={styles.header}>Napisz opinię</div>
                 <div className={styles.formItem}>
                   <Field
                     name="textofOpinion"

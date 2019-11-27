@@ -13,6 +13,13 @@
   flex-direction: column;
   justify-content: center;
 }
+.header {
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
+  text-align: center;
+}
 // .formItem {
 //   display: flex;
 // }
