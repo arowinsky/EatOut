@@ -1,0 +1,43 @@
+@import "../../../../views/Root/index.scss";
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+.header {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1%;
+}
+.question {
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
+}
+
+.items {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+p {
+  font-size: 14pt;
+}
+
+.button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+}

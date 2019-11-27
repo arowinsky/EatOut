@@ -10,3 +10,5 @@ export {
   sendOwnerPost,
   sendCodeToVerification
 } from "../actions/authActions";
+
+export { generationCodeForClient } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";

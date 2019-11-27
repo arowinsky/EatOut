@@ -1,12 +1,10 @@
-import authReducer from "./authReducer";
 import { combineReducers } from "redux";
-import { firebaseReducer } from "react-redux-firebase";
-import { firestoreReducer } from "redux-firestore";
+import authReducer from "./authReducer";
+import eatingPlaceProfileReducer from "./eatingPlaceProfile/eatingPlaceProfileReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  firebase: firebaseReducer,
-  firestore: firestoreReducer
+  eatingPlaceProfile: eatingPlaceProfileReducer
 });
 
 export default rootReducer;
