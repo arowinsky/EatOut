@@ -22,7 +22,15 @@ const EatingPlaceProfileCard = ({ eatingPlaces }) => {
               <p>{eatingPlaces.info.restaurantCity}</p>
             </div>
             <Button second>
-              <Link className={styles.button} to="/eating-place-profile">
+              <Link
+                className={styles.button}
+                to={{
+                  pathname: "/eating-place-profile",
+                  state: {
+                    eatingPlaces: eatingPlaces
+                  }
+                }}
+              >
                 Przejdź do profilu
               </Link>
             </Button>

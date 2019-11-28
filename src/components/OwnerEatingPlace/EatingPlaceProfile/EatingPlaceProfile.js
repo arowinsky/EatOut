@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 
 const EatingPlaceProfile = props => {
   const { userId, haveEatingPlace } = props;
+  const { eatingPlaces } = props.location.state;
   let owner;
-  if (haveEatingPlace) {
-    owner = haveEatingPlace.info.owner;
-  }
+  console.log(eatingPlaces);
+  // if (haveEatingPlace) {
+  //   owner = haveEatingPlace.info.owner;
+  // }
 
   return (
     <div>
@@ -26,8 +28,8 @@ const EatingPlaceProfile = props => {
           </div>
         </div>
       ) : null}
-      <EatingPlaceHeader />
-      <EatingPlaceBody />
+      <EatingPlaceHeader eatingPlaces={eatingPlaces} />
+      <EatingPlaceBody eatingPlaces={eatingPlaces} />
     </div>
   );
 };

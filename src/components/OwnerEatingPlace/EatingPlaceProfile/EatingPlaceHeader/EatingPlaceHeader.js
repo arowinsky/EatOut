@@ -4,36 +4,28 @@ import { connect } from "react-redux";
 
 class EatingPlaceHeader extends React.Component {
   render() {
-    const { haveEatingPlace, restaurantAvatar, restaurantHeader } = this.props;
-    let restaurantName;
-    let restaurantStreet;
-    let restaurantBuildingNumber;
-    let restaurantCity;
-    if (haveEatingPlace) {
-      restaurantName = haveEatingPlace.restaurantName;
-      restaurantStreet = haveEatingPlace.restaurantStreet;
-      restaurantBuildingNumber = haveEatingPlace.restaurantBuildingNumber;
-      restaurantCity = haveEatingPlace.restaurantCity;
-    }
+    const { eatingPlaces } = this.props;
+    console.log(eatingPlaces);
     return (
       <div>
         <img
           className={styles.headerWrapper}
-          src={restaurantHeader}
+          src={eatingPlaces.header}
           alt="restaurantHeader"
         ></img>
         <img
           className={styles.iconWrapper}
-          src={restaurantAvatar}
+          src={eatingPlaces.avatar}
           alt="restaurantAvatar"
         ></img>
 
         <div className={styles.adressWrapper}>
-          <div className={styles.title}>{restaurantName}</div>
+          <div className={styles.title}>{eatingPlaces.info.restaurantName}</div>
           <div>
-            {restaurantStreet} {restaurantBuildingNumber}
+            {eatingPlaces.info.restaurantStreet}{" "}
+            {eatingPlaces.info.restaurantBuildingNumber}
           </div>
-          <div>{restaurantCity}</div>
+          <div>{eatingPlaces.info.restaurantCity}</div>
         </div>
       </div>
     );
