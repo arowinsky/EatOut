@@ -7,13 +7,13 @@ import styles from "./EatingPlaceProfile.module.scss";
 import { Link } from "react-router-dom";
 
 const EatingPlaceProfile = props => {
-  const { userId, haveEatingPlace } = props;
-  const { eatingPlaces } = props.location.state;
+  const { userId } = props;
+  const { eatingPlace } = props.location.state;
   let owner;
-  console.log(eatingPlaces);
-  // if (haveEatingPlace) {
-  //   owner = haveEatingPlace.info.owner;
-  // }
+  console.log(eatingPlace);
+  if (eatingPlace) {
+    owner = eatingPlace.info.owner;
+  }
 
   return (
     <div>
@@ -28,16 +28,15 @@ const EatingPlaceProfile = props => {
           </div>
         </div>
       ) : null}
-      <EatingPlaceHeader eatingPlaces={eatingPlaces} />
-      <EatingPlaceBody eatingPlaces={eatingPlaces} />
+      <EatingPlaceHeader eatingPlace={eatingPlace} />
+      <EatingPlaceBody eatingPlace={eatingPlace} />
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    userId: state.auth.userId,
-    haveEatingPlace: state.auth.haveEatingPlace
+    userId: state.auth.userId
   };
 };
 

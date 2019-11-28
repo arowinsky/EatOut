@@ -8,26 +8,28 @@ class Opinions extends React.Component {
   render() {
     const {
       userId,
-      haveEatingPlace,
+      eatingPlace,
       clientCodeIsVerified,
       blockedOpinionForm
     } = this.props;
-    console.log(haveEatingPlace);
+    console.log(eatingPlace);
     let owner;
     let canShow;
     let cantShow;
-    if (haveEatingPlace) {
-      owner = haveEatingPlace.info.owner;
+    if (eatingPlace) {
+      owner = eatingPlace.info.owner;
     }
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
           {userId !== owner ? (canShow = true) : (cantShow = true)}
           {blockedOpinionForm === null && canShow && clientCodeIsVerified ? (
-            <OpinionForm />
+            <OpinionForm eatingPlace={eatingPlace} />
           ) : null}
-          {cantShow ? null : <CodeForUnlockAddOpinion />}
-          <OpinionItem />
+          {cantShow ? null : (
+            <CodeForUnlockAddOpinion eatingPlace={eatingPlace} />
+          )}
+          <OpinionItem eatingPlace={eatingPlace} />
         </div>
       </div>
     );
@@ -36,7 +38,6 @@ class Opinions extends React.Component {
 const mapStateToProps = state => {
   return {
     userId: state.auth.userId,
-    haveEatingPlace: state.auth.haveEatingPlace,
     clientCodeIsVerified: state.eatingPlaceProfile.clientCodeIsVerified,
     blockedOpinionForm: state.eatingPlaceProfile.blockedOpinionForm
   };

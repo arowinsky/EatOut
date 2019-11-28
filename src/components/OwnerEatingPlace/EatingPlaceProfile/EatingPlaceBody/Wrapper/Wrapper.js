@@ -4,38 +4,39 @@ import Menu from "../Menu/Menu";
 import Info from "../Info/Info";
 import Comments from "../Opinion/Opinions";
 
-const Wrapper = ({ tabItem, active }) => {
+const Wrapper = ({ tabItem, active, eatingPlace }) => {
   if (tabItem === "item1") {
     return (
       <div>
-        <Posts />
+        <Posts eatingPlace={eatingPlace} />
       </div>
     );
   }
   if (tabItem === "item2") {
+    console.log(eatingPlace);
     return (
       <div>
-        <Menu />
+        <Menu eatingPlace={eatingPlace} />
       </div>
     );
   }
   if (tabItem === "item3") {
     return (
       <div>
-        <Info />
+        <Info eatingPlace={eatingPlace} />
       </div>
     );
   }
   if (tabItem === "item4") {
     return (
       <div>
-        <Comments />
+        <Comments eatingPlace={eatingPlace} />
       </div>
     );
   } else {
     return (
       <div>
-        <Info />
+        <Info eatingPlace={eatingPlace} />
       </div>
     );
   }

@@ -57,10 +57,6 @@ class CodeForUnlockAddOpinion extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     sendCodeToVerification: clientCode =>
@@ -68,7 +64,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CodeForUnlockAddOpinion);
+export default connect(mapDispatchToProps)(CodeForUnlockAddOpinion);

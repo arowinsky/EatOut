@@ -27,7 +27,7 @@ const EatingPlaceProfileCard = ({ eatingPlaces }) => {
                 to={{
                   pathname: "/eating-place-profile",
                   state: {
-                    eatingPlaces: eatingPlaces
+                    eatingPlace: eatingPlaces
                   }
                 }}
               >

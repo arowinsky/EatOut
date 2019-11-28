@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
 const GeneratorCodeForClient = props => {
-  const { haveEatingPlace, codeForClient, generationCodeForClient } = props;
+  const { eatingPlace, codeForClient, generationCodeForClient } = props;
   let eatingPlaceId;
-  if (haveEatingPlace) {
-    eatingPlaceId = haveEatingPlace.id;
+  if (eatingPlace) {
+    eatingPlaceId = eatingPlace.id;
   }
   const sendRequestToGenarateCode = () => {
     generationCodeForClient(eatingPlaceId);
@@ -42,7 +42,6 @@ const GeneratorCodeForClient = props => {
 
 const mapStateToProps = state => {
   return {
-    haveEatingPlace: state.auth.haveEatingPlace,
     codeForClient: state.eatingPlaceProfile.codeForClient
   };
 };

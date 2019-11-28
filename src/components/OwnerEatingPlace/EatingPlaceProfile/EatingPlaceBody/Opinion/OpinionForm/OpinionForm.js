@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./OpinionForm.module.scss";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import Button from "../../../../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../store/actions/index";
