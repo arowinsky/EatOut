@@ -188,9 +188,6 @@ class NewLocalFirst extends React.Component {
             restaurantBuildingNumber: "",
             restaurantCity: "",
             restaurantPhoneNumber: "",
-            // restaurantAvatar: "",
-            // restaurantHeader: "",
-            // restaurantMenu: "",
             mondayOpenHour: "",
             mondayCloseHour: "",
             tuesdayOpenHour: "",
@@ -206,64 +203,6 @@ class NewLocalFirst extends React.Component {
             sundayOpenHour: "",
             sundayCloseHour: ""
           }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.restaurantName) {
-          //     errors.restaurantName = "Pole wymagane";
-          //   }
-          //   if (!values.restaurantStreet) {
-          //     errors.restaurantStreet = "Pole wymagane";
-          //   }
-          //   if (!values.restaurantEmail) {
-          //     errors.restaurantEmail = "Pole wymagane";
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
-          //       values.restaurantEmail
-          //     )
-          //   ) {
-          //     errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
-          //   }
-          //   if (!values.restaurantPhoneNumber) {
-          //     errors.restaurantPhoneNumber = "Pole wymagane";
-          //   } else if (
-          //     !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i.test(
-          //       values.restaurantPhoneNumber
-          //     )
-          //   ) {
-          //     errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
-          //   }
-          //   if (!values.restaurantAvatar) {
-          //     errors.restaurantAvatar = "Pole wymagane";
-          //   }
-          //   if (!values.restaurantHeader) {
-          //     errors.restaurantHeader = "Pole wymagane";
-          //   }
-          //   if (!values.restaurantMenu) {
-          //     errors.restaurantMenu = "Pole wymagane";
-          //   }
-          //   if (!values.mondayOpenHour || !values.mondayCloseHour) {
-          //     errors.mondayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
-          //     errors.tuesdayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
-          //     errors.wednesdayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
-          //     errors.thursdayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.fridayOpenHour || !values.fridayCloseHour) {
-          //     errors.fridayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
-          //     errors.saturdayOpenHour = "Pole wymagane";
-          //   }
-          //   if (!values.sundayOpenHour || !values.sundayCloseHour) {
-          //     errors.sundayOpenHour = "Pole wymagane";
-          //   }
-          //   return errors;
-          // }}
           onSubmit={(values, errors) => {
             console.log(errors);
             if (errors) {
@@ -568,7 +507,6 @@ class NewLocalFirst extends React.Component {
                 second
                 type="submit"
                 className={styles.button}
-                // disabled={isSubmitting}
                 onClick={this.handleUploadImagesRestaurant}
               >
                 Dalej
