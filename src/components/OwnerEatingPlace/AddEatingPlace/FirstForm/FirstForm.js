@@ -15,7 +15,13 @@ class NewLocalFirst extends React.Component {
       restaurantMenu: null,
       uploadedRestaurantAvatar: null,
       uploadedRestaurantHeader: null,
-      uploadedRestaurantMenu: null
+      uploadedRestaurantMenu: null,
+      errorRestaurantName: "",
+      errorRestaurantEmail: "",
+      errorRestaurantStreet: "",
+      errorRestaurantBuildingNumber: "",
+      errorRestaurantCity: "",
+      errorRestaurantPhoneNumber: ""
     };
     this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
     this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
@@ -87,6 +93,49 @@ class NewLocalFirst extends React.Component {
         console.log(error);
       }
     );
+  };
+  validateRestaurantName = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę lokalu";
+      return error;
+    }
+  };
+
+  validateRestaurantEmail = value => {
+    let error;
+    if (!value) {
+      error = "Podaj adres email lokalu/właściela";
+      return error;
+    }
+  };
+  validateRestaurantStreet = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę ulicy, na której znajduje się lokal";
+      return error;
+    }
+  };
+  validateRestaurantBuildingNumber = value => {
+    let error;
+    if (!value) {
+      error = "Podaj numer budynku, w którym jest lokal";
+      return error;
+    }
+  };
+  validateRestaurantCity = value => {
+    let error;
+    if (!value) {
+      error = "Podaj miasto, w którym jest lokal";
+      return error;
+    }
+  };
+  validateRestaurantPhoneNumber = value => {
+    let error;
+    if (!value) {
+      error = "Podaj numer telefonu do lokalu/właściela";
+      return error;
+    }
   };
 
   render() {
@@ -199,13 +248,14 @@ class NewLocalFirst extends React.Component {
             localStorage.setItem("setFirst", JSON.stringify(values));
           }}
         >
-          {({ isSubmitting }) => (
+          {({ errors, touched }) => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
                 <Field
                   type="text"
                   name="restaurantName"
+                  validate={this.validateRestaurantName}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantName" component="div" />
@@ -217,6 +267,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantEmail"
+                  validate={this.validateRestaurantEmail}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantEmail" component="div" />
@@ -228,6 +279,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantPhoneNumber"
+                  validate={this.validateRestaurantPhoneNumber}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantPhoneNumber" component="div" />
@@ -240,6 +292,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantStreet"
+                  validate={this.validateRestaurantStreet}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantStreet" component="div" />
@@ -251,6 +304,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantBuildingNumber"
+                  validate={this.validateRestaurantBuildingNumber}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantBuildingNumber" component="div" />
@@ -262,6 +316,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantCity"
+                  validate={this.validateRestaurantCity}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantCity" component="div" />
@@ -279,7 +334,6 @@ class NewLocalFirst extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantAvatar}
                 />
-                <ErrorMessage name="restaurantAvatar" component="div" />
               </div>
               <br />
               <br />
@@ -293,7 +347,6 @@ class NewLocalFirst extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantHeader}
                 />
-                <ErrorMessage name="restaurantHeader" component="div" />
               </div>
               <br />
               <br />
@@ -305,7 +358,6 @@ class NewLocalFirst extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantMenu}
                 />
-                <ErrorMessage name="restaurantMenu" component="div" />
               </div>
               <br />
               <br />
