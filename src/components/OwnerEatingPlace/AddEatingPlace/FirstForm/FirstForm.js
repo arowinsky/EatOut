@@ -16,6 +16,7 @@ class NewLocalFirst extends React.Component {
       uploadedRestaurantAvatar: null,
       uploadedRestaurantHeader: null,
       uploadedRestaurantMenu: null,
+      noErrorsValidations: null,
       errorRestaurantName: "",
       errorRestaurantEmail: "",
       errorRestaurantStreet: "",
@@ -106,36 +107,51 @@ class NewLocalFirst extends React.Component {
     let error;
     if (!value) {
       error = "Podaj adres email lokalu/właściela";
-      return error;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = "Adres e-mail jest nieprawidłowy";
     }
+    return error;
   };
   validateRestaurantStreet = value => {
     let error;
     if (!value) {
       error = "Podaj nazwę ulicy, na której znajduje się lokal";
-      return error;
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwa ulicy";
     }
+    return error;
   };
   validateRestaurantBuildingNumber = value => {
     let error;
     if (!value) {
       error = "Podaj numer budynku, w którym jest lokal";
-      return error;
+    } else if (!/[0-9]/.test(value)) {
+      error = "Numer budynku musi być liczbą";
     }
+    return error;
   };
   validateRestaurantCity = value => {
     let error;
     if (!value) {
       error = "Podaj miasto, w którym jest lokal";
       return error;
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwa miasta";
     }
+    return error;
   };
   validateRestaurantPhoneNumber = value => {
     let error;
     if (!value) {
       error = "Podaj numer telefonu do lokalu/właściela";
-      return error;
+    } else if (
+      !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i.test(
+        value
+      )
+    ) {
+      error = "Nie poprawny numer telefonu";
     }
+    return error;
   };
 
   render() {
@@ -149,12 +165,15 @@ class NewLocalFirst extends React.Component {
     const {
       uploadedRestaurantAvatar,
       uploadedRestaurantHeader,
-      uploadedRestaurantMenu
+      uploadedRestaurantMenu,
+      noErrorsValidations
     } = this.state;
+    console.log(noErrorsValidations);
     if (
       uploadedRestaurantAvatar === 100 &&
       uploadedRestaurantHeader === 100 &&
-      uploadedRestaurantMenu === 100
+      uploadedRestaurantMenu === 100 &&
+      noErrorsValidations === true
     ) {
       return <Redirect to="/add-eating-place-second-form" />;
     }
@@ -169,9 +188,9 @@ class NewLocalFirst extends React.Component {
             restaurantBuildingNumber: "",
             restaurantCity: "",
             restaurantPhoneNumber: "",
-            restaurantAvatar: "",
-            restaurantHeader: "",
-            restaurantMenu: "",
+            // restaurantAvatar: "",
+            // restaurantHeader: "",
+            // restaurantMenu: "",
             mondayOpenHour: "",
             mondayCloseHour: "",
             tuesdayOpenHour: "",
@@ -195,57 +214,62 @@ class NewLocalFirst extends React.Component {
           //   if (!values.restaurantStreet) {
           //     errors.restaurantStreet = "Pole wymagane";
           //   }
-          //   // if (!values.restaurantEmail) {
-          //   //   errors.restaurantEmail = "Pole wymagane";
-          //   // } else if (
-          //   //   !values.restaurantEmail ===
-          //   //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-          //   // ) {
-          //   //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
-          //   // }
-          //   // if (!values.restaurantPhoneNumber) {
-          //   //   errors.restaurantPhoneNumber = "Pole wymagane";
-          //   // } else if (
-          //   //   !values.restaurantPhoneNumber ===
-          //   //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
-          //   // ) {
-          //   //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
-          //   // }
-          //   // if (!values.restaurantAvatar) {
-          //   //   errors.restaurantAvatar = "Pole wymagane";
-          //   // }
-          //   // if (!values.restaurantHeader) {
-          //   //   errors.restaurantHeader = "Pole wymagane";
-          //   // }
-          //   // if (!values.restaurantMenu) {
-          //   //   errors.restaurantMenu = "Pole wymagane";
-          //   // }
-          // //   if (!values.mondayOpenHour || !values.mondayCloseHour) {
-          // //     errors.mondayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
-          // //     errors.tuesdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
-          // //     errors.wednesdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
-          // //     errors.thursdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.fridayOpenHour || !values.fridayCloseHour) {
-          // //     errors.fridayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
-          // //     errors.saturdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.sundayOpenHour || !values.sundayCloseHour) {
-          // //     errors.sundayOpenHour = "Pole wymagane";
-          // //   }
-          // //   return errors;
-          //  }}
-          onSubmit={values => {
-            console.log(values);
-            localStorage.setItem("setFirst", JSON.stringify(values));
+          //   if (!values.restaurantEmail) {
+          //     errors.restaurantEmail = "Pole wymagane";
+          //   } else if (
+          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(
+          //       values.restaurantEmail
+          //     )
+          //   ) {
+          //     errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
+          //   }
+          //   if (!values.restaurantPhoneNumber) {
+          //     errors.restaurantPhoneNumber = "Pole wymagane";
+          //   } else if (
+          //     !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i.test(
+          //       values.restaurantPhoneNumber
+          //     )
+          //   ) {
+          //     errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
+          //   }
+          //   if (!values.restaurantAvatar) {
+          //     errors.restaurantAvatar = "Pole wymagane";
+          //   }
+          //   if (!values.restaurantHeader) {
+          //     errors.restaurantHeader = "Pole wymagane";
+          //   }
+          //   if (!values.restaurantMenu) {
+          //     errors.restaurantMenu = "Pole wymagane";
+          //   }
+          //   if (!values.mondayOpenHour || !values.mondayCloseHour) {
+          //     errors.mondayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
+          //     errors.tuesdayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
+          //     errors.wednesdayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
+          //     errors.thursdayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.fridayOpenHour || !values.fridayCloseHour) {
+          //     errors.fridayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
+          //     errors.saturdayOpenHour = "Pole wymagane";
+          //   }
+          //   if (!values.sundayOpenHour || !values.sundayCloseHour) {
+          //     errors.sundayOpenHour = "Pole wymagane";
+          //   }
+          //   return errors;
+          // }}
+          onSubmit={(values, errors) => {
+            console.log(errors);
+            if (errors) {
+              this.setState({ noErrorsValidations: true });
+              localStorage.setItem("setFirst", JSON.stringify(values));
+            }
           }}
         >
           {({ errors, touched }) => (
