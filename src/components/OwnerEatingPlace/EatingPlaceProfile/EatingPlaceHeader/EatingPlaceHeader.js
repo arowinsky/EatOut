@@ -14,10 +14,10 @@ class EatingPlaceHeader extends React.Component {
     if (eatingPlace) {
       restaurantAvatar = eatingPlace.avatar;
       restaurantHeader = eatingPlace.header;
-      restaurantName = eatingPlace.restaurantName;
-      restaurantStreet = eatingPlace.restaurantStreet;
-      restaurantBuildingNumber = eatingPlace.restaurantBuildingNumber;
-      restaurantCity = eatingPlace.restaurantCity;
+      restaurantName = eatingPlace.info.restaurantName;
+      restaurantStreet = eatingPlace.info.restaurantStreet;
+      restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
+      restaurantCity = eatingPlace.info.restaurantCity;
     }
     return (
       <div>
