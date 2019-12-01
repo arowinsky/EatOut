@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OwnerPostForm.module.scss";
 import { connect } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as actions from "../../../../../../store/actions/index";
 import Button from "../../../../../Button/Button";
 class OwnerPostForm extends React.Component {
@@ -17,12 +17,12 @@ class OwnerPostForm extends React.Component {
     return error;
   };
   render() {
-    const { haveEatingPlace } = this.props;
+    const { eatingPlace } = this.props;
     let eatingPlaceName;
     let eatingPlaceId;
-    if (haveEatingPlace) {
-      eatingPlaceName = haveEatingPlace.info.restaurantName;
-      eatingPlaceId = haveEatingPlace.id;
+    if (eatingPlace) {
+      eatingPlaceName = eatingPlace.info.restaurantName;
+      eatingPlaceId = eatingPlace.id;
     }
     return (
       <div className={styles.wrapper}>
@@ -61,20 +61,11 @@ class OwnerPostForm extends React.Component {
               </Form>
             )}
           </Formik>
-          {/* // <div className={styles.formItem}>
-          //   <textarea className={styles.commentArea}></textarea>
-          //   <button className={styles.button}>Wyślij</button>
-          // </div> */}
         </div>
       </div>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    haveEatingPlace: state.auth.haveEatingPlace
-  };
-};
 const mapDispatchToProps = dispatch => {
   return {
     sendOwnerPost: (post, eatingPlaceName, eatingPlaceId) =>
@@ -82,4 +73,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OwnerPostForm);
+export default connect(mapDispatchToProps)(OwnerPostForm);

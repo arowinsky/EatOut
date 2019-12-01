@@ -6,15 +6,15 @@ import { connect } from "react-redux";
 
 class Posts extends React.Component {
   render() {
-    const { userId, haveEatingPlace } = this.props;
+    const { userId, eatingPlace } = this.props;
     let owner;
-    if (haveEatingPlace) {
-      owner = haveEatingPlace.info.owner;
+    if (eatingPlace) {
+      owner = eatingPlace.info.owner;
     }
     return (
       <div>
-        {userId === owner ? <OwnerPostForm /> : null}
-        <OwnerPostItem />
+        {userId === owner ? <OwnerPostForm eatingPlace={eatingPlace} /> : null}
+        <OwnerPostItem eatingPlace={eatingPlace} />
       </div>
     );
   }
@@ -22,8 +22,7 @@ class Posts extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    userId: state.auth.userId,
-    haveEatingPlace: state.auth.haveEatingPlace
+    userId: state.auth.userId
   };
 };
 export default connect(mapStateToProps)(Posts);

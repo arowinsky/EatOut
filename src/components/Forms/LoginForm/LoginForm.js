@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./LoginForm.module.scss";
 import { Formik, Field, Form } from "formik";
-import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";

@@ -2,7 +2,6 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import styles from "./RegisterForm.module.scss";
-import Title from "../../Title/Title";
 import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import FoodImgComponent from "../../Footer/FooterImages/FoodImgComponent";

@@ -1,19 +1,23 @@
 import React from "react";
 import styles from "./EatingPlaceHeader.module.scss";
-import { connect } from "react-redux";
 
 class EatingPlaceHeader extends React.Component {
   render() {
-    const { haveEatingPlace, restaurantAvatar, restaurantHeader } = this.props;
+    const { eatingPlace } = this.props;
+    console.log(eatingPlace);
+    let restaurantAvatar;
+    let restaurantHeader;
     let restaurantName;
     let restaurantStreet;
     let restaurantBuildingNumber;
     let restaurantCity;
-    if (haveEatingPlace) {
-      restaurantName = haveEatingPlace.restaurantName;
-      restaurantStreet = haveEatingPlace.restaurantStreet;
-      restaurantBuildingNumber = haveEatingPlace.restaurantBuildingNumber;
-      restaurantCity = haveEatingPlace.restaurantCity;
+    if (eatingPlace) {
+      restaurantAvatar = eatingPlace.avatar;
+      restaurantHeader = eatingPlace.header;
+      restaurantName = eatingPlace.info.restaurantName;
+      restaurantStreet = eatingPlace.info.restaurantStreet;
+      restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
+      restaurantCity = eatingPlace.info.restaurantCity;
     }
     return (
       <div>
@@ -39,12 +43,5 @@ class EatingPlaceHeader extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    haveEatingPlace: state.auth.haveEatingPlace,
-    restaurantAvatar: state.auth.restaurantAvatar,
-    restaurantHeader: state.auth.restaurantHeader
-  };
-};
 
-export default connect(mapStateToProps)(EatingPlaceHeader);
+export default EatingPlaceHeader;
