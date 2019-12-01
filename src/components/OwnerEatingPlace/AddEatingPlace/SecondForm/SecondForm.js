@@ -4,6 +4,7 @@ import MealName from "./MealName/MealName";
 import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import Button from "../../../Button/Button";
+import { Redirect } from "react-router-dom";
 
 class NewLocalCategory extends React.Component {
   state = {
@@ -189,9 +190,14 @@ class NewLocalCategory extends React.Component {
         name: "język migowy",
         value: "język_migowy"
       }
-    ]
+    ],
+    submited: null
   };
   render() {
+    const { submited } = this.state;
+    if (submited) {
+      return <Redirect to="/add-eating-place-summary-form" />;
+    }
     return (
       <div className={styles.restaurantFormWrapper}>
         <Formik
@@ -238,6 +244,7 @@ class NewLocalCategory extends React.Component {
           }}
           onSubmit={values => {
             localStorage.setItem("setSecond", JSON.stringify(values));
+            this.setState({ submited: true });
           }}
         >
           {({ isSubmitting }) => (
@@ -251,17 +258,7 @@ class NewLocalCategory extends React.Component {
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
               <Button second type="submit" className={styles.button}>
-                {isSubmitting ? (
-                  <Link
-                    to="/add-eating-place-summary-form"
-                    disabled={isSubmitting}
-                    className={styles.button}
-                  >
-                    Dalej
-                  </Link>
-                ) : (
-                  "Potwierdź"
-                )}
+                Dalej
               </Button>
             </Form>
           )}
