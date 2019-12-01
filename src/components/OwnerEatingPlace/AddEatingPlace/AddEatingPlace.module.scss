@@ -1,147 +1,148 @@
-@import '../../../views/Root/index.scss';
+@import "../../../views/Root/index.scss";
 .restaurantFormWrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin: 30px 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0px;
 
-    label {
-        color: $dark-grey-element;
-        font-size: 14px;
-        font-weight: 600;
-        letter-spacing: 1px;
-      }
+  label {
+    color: $dark-grey-element;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
 }
 .formTitle {
-    font-family: $logo-font;
-    font-size: 35px;
-    color: $yellow-element;
-    margin-bottom: 30px;
+  font-family: $logo-font;
+  font-size: 35px;
+  color: $yellow-element;
+  margin-bottom: 30px;
 }
 .restaurantForm {
-    width: 100%;    
-    max-width: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .inputElement {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .input {
-    color: #7d7d7d;
-    font-size: 16px;
-    border: none;
-    border-bottom: 2px solid $dark-grey-element;
-    line-height: 22px;
-    width: 35vw;
-    background: none;
-    margin: 8px 0;
-    outline: transparent;
-        &:focus {
-            border-bottom: 2px solid $yellow-element;
-        }
+  color: #7d7d7d;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid $dark-grey-element;
+  line-height: 22px;
+  width: 35vw;
+  background: none;
+  margin: 8px 0;
+  outline: transparent;
+  &:focus {
+    border-bottom: 2px solid $yellow-element;
   }
+}
 .inputFile {
-    margin: 15px 0px;
+  margin: 15px 0px;
 }
 .hoursWrapper {
-    display: grid;
-    //grid-template-columns: 100px 370px 100px 370px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
+  display: grid;
+  //   grid-template-columns: 100px 370px 100px 370px;
+  //   grid-template-columns:repeat(4, 1fr)
+  grid-template-rows: auto;
 
-    .inputTime {
-        margin: 0px 10px;
-        padding: 5px 0px 10px 15px;
-        text-align: center;
-        background-color: transparent;
-        width: 75px;
-        border: none;
-        border-bottom: 2px solid $yellow-element;
-    }
+  .inputTime {
+    margin: 0px 20px;
+    padding: 5px 0px 10px 15px;
+    text-align: center;
+    background-color: transparent;
+    width: 90px;
+    border: none;
+    border-bottom: 2px solid $yellow-element;
+  }
 }
-.hourElement, .hourLabel {
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 30px;
+.hourElement,
+.hourLabel {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 30px;
 }
 .hourElement {
-    margin-right: 40px;
+  margin-right: 40px;
 }
 .timeError {
-    font-size: 12px;
-    padding-left: 5px;
-    text-align: center; 
+  font-size: 12px;
+  padding-left: 5px;
+  text-align: center;
 }
 
 //BUTTON
 .button {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    text-decoration: none;
-    color: $white;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
+  color: $white;
 }
 
 //ADD CATEGORY
 .categoryName {
-    font-size: 30px;
-    color: $yellow-element;
-    font-weight: bold;
+  font-size: 30px;
+  color: $yellow-element;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+
+  .deleteElement {
     display: flex;
+    margin: 0 10px;
+    width: 20px;
+    height: 20px;
+    color: $dark-grey-element;
+    border: 1px solid $dark-grey-element;
+    justify-content: center;
     align-items: center;
+  }
 
-    .deleteElement {
-        display: flex;
-        margin: 0 10px;
-        width: 20px;
-        height: 20px;
-        color: $dark-grey-element;
-        border: 1px solid $dark-grey-element;
-        justify-content: center;
-        align-items: center;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 //MEAL NAME CATEGORY
 .categoryWrapper {
-    display: flex;
-    width: 50%;
+  display: flex;
+  width: 50%;
 }
 .mealNameWrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 20px 70px;
-    margin-bottom: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px 70px;
+  margin-bottom: 50px;
 }
 .checkboxItem {
-    display: flex;
-    justify-content: space-between;
-    width: 150px;
-    text-align: left;
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  text-align: left;
 }
 
 @media (max-width: 960px) {
-    .hoursWrapper {
-        display: flex;
-        flex-direction: column;
-    }
-    .hourElement {
-        margin-right: 0;
-    }
+  .hoursWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .hourElement {
+    margin-right: 0;
+  }
 }
 @media (max-width: 500px) {
-    .mealNameWrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 20px 70px;
-        margin-bottom: 50px;
-    }
+  .mealNameWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px 70px;
+    margin-bottom: 50px;
+  }
 }

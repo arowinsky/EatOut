@@ -153,6 +153,13 @@ class NewLocalFirst extends React.Component {
     }
     return error;
   };
+  validateOpenCloseHoursForDay = value => {
+    let error;
+    if (!value) {
+      error = "To pole jest wymagane";
+      return error;
+    }
+  };
 
   render() {
     let test = false;
@@ -338,15 +345,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="mondayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="mondayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="mondayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="mondayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -363,15 +377,23 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="tuesdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
+
                   <Field
                     type="time"
                     name="tuesdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="tuesdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="tuesdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -388,15 +410,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="wednesdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="wednesdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="wednesdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="wednesdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -413,15 +442,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="thursdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="thursdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="thursdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="thursdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -438,15 +474,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="fridayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="fridayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="fridayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="fridayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -463,15 +506,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="saturdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="saturdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="saturdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="saturdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -488,15 +538,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="sundayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="sundayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="sundayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="sundayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
