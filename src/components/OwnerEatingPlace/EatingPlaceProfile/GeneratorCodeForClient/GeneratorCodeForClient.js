@@ -23,7 +23,15 @@ const GeneratorCodeForClient = props => {
           </Button>
           <br />
           <Button second type="submit">
-            <Link to="/eating-place-profile" className={styles.button}>
+            <Link
+              to={{
+                pathname: "/eating-place-profile",
+                state: {
+                  eatingPlace: eatingPlace
+                }
+              }}
+              className={styles.button}
+            >
               Chcę powrócić do profilu tego lokalu
             </Link>
           </Button>

@@ -21,7 +21,15 @@ const EatingPlaceProfile = props => {
         <div className={styles.wrapper}>
           <div className={styles.items}>
             <Button second>
-              <Link className={styles.button} to="/generator-code-for-client">
+              <Link
+                className={styles.button}
+                to={{
+                  pathname: "/generator-code-for-client",
+                  state: {
+                    eatingPlace: eatingPlace
+                  }
+                }}
+              >
                 Chcę wygenerować kod dla klienta
               </Link>
             </Button>
