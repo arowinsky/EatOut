@@ -64,4 +64,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapDispatchToProps)(CodeForUnlockAddOpinion);
+export default connect(null, mapDispatchToProps)(CodeForUnlockAddOpinion);
