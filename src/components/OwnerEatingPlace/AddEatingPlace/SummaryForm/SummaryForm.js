@@ -307,8 +307,10 @@ class NewLocalResume extends React.Component {
             return errors;
           }}
           onSubmit={initialValues => {
-            const test = JSON.stringify(initialValues);
-            this.props.addNewLocal(test);
+            const newEatingPlaceData = JSON.stringify(initialValues);
+            this.props.addNewLocal(newEatingPlaceData);
+            localStorage.removeItem("setFirst");
+            localStorage.removeItem("setSecond");
           }}
         >
           {({ isSubmitting, initialValues }) => (
@@ -584,7 +586,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addNewLocal: values => dispatch(actions.addNewLocal(values))
+    addNewLocal: newEatingPlaceData =>
+      dispatch(actions.addNewLocal(newEatingPlaceData))
   };
 };
 
