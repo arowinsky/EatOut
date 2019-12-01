@@ -22,11 +22,11 @@ class Opinions extends React.Component {
     return (
       <div className={styles.commentsWrapper}>
         <div className={styles.commentsContent}>
-          {userId == owner ? (canShow = true) : (cantShow = true)}
+          {userId === owner ? (canShow = true) : (cantShow = true)}
           {blockedOpinionForm === null && canShow && clientCodeIsVerified ? (
             <OpinionForm eatingPlace={eatingPlace} />
           ) : null}
-          {cantShow ? null : (
+          {cantShow || clientCodeIsVerified ? null : (
             <CodeForUnlockAddOpinion eatingPlace={eatingPlace} />
           )}
           <OpinionItem eatingPlace={eatingPlace} />

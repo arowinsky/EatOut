@@ -17,10 +17,10 @@ class OpinionForm extends React.Component {
     return error;
   };
   render() {
-    const { haveEatingPlace, z } = this.props;
+    const { eatingPlace, z } = this.props;
     let eatingPlaceId;
-    if (haveEatingPlace) {
-      eatingPlaceId = haveEatingPlace.id;
+    if (eatingPlace) {
+      eatingPlaceId = eatingPlace.id;
     }
     return (
       <div className={styles.wrapper}>
