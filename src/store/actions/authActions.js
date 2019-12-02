@@ -24,10 +24,12 @@ export const userData = (userData, userId) => {
   };
 };
 
-export const addedPlace = addedPlace => {
+export const addedPlace = (added, idPlace, idUser) => {
   return {
     type: actionTypes.ADDED_NEW_PLACE,
-    addedPlace: addedPlace
+    addedPlace: added,
+    idAddedPlace: idPlace,
+    idOwnerAddedEatingPlace: idUser
   };
 };
 export const RegisterSuccess = userId => {
@@ -302,8 +304,8 @@ export const addNewLocal = values => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const added = response.added;
-        dispatch(addedPlace(added));
+        const { added, idPlace, idUser } = response;
+        dispatch(addedPlace(added, idPlace, idUser));
       });
   };
 };

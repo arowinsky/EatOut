@@ -204,9 +204,21 @@ class NewLocalResume extends React.Component {
     const setSecond = localStorage.getItem("setSecond");
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
-    const { addedPlace } = this.props;
+    const { addedPlace, idAddedPlace, idOwnerAddedEatingPlace } = this.props;
     if (addedPlace) {
-      return <Redirect to="/owner-home" />;
+      localStorage.removeItem("setFirst");
+      localStorage.removeItem("setSecond");
+      return (
+        <Redirect
+          to={{
+            pathname: "/add-eating-place-final-form",
+            state: {
+              idAddedPlace: idAddedPlace,
+              idOwnerAddedEatingPlace: idOwnerAddedEatingPlace
+            }
+          }}
+        />
+      );
     }
 
     return (
@@ -309,8 +321,6 @@ class NewLocalResume extends React.Component {
           onSubmit={initialValues => {
             const newEatingPlaceData = JSON.stringify(initialValues);
             this.props.addNewLocal(newEatingPlaceData);
-            localStorage.removeItem("setFirst");
-            localStorage.removeItem("setSecond");
           }}
         >
           {({ isSubmitting, initialValues }) => (
@@ -580,7 +590,9 @@ class NewLocalResume extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    addedPlace: state.auth.addedPlace
+    addedPlace: state.auth.addedPlace,
+    idAddedPlace: state.auth.idAddedPlace,
+    idOwnerAddedEatingPlace: state.authidOwnerAdde.dEatingPlace
   };
 };
 

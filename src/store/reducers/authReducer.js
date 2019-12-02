@@ -18,11 +18,13 @@ const initState = {
   error: null,
   z: null,
   userData: null,
-  addedPlace: null,
   restaurantAvatar: null,
   restaurantHeader: null,
   restaurantMenu: null,
-  haveEatingPlace: null
+  haveEatingPlace: null,
+  addedPlace: null,
+  idAddedPlace: null,
+  idOwnerAddedEatingPlace: null
 };
 
 const authStart = (state, action) => {
@@ -46,7 +48,9 @@ export const userData = (state, action) => {
 };
 export const addedPlace = (state, action) => {
   return updateObject(state, {
-    addedPlace: action.addedPlace
+    addedPlace: action.addedPlace,
+    idAddedPlace: action.idAddedPlace,
+    idOwnerAddedEatingPlace: action.idOwnerAddedEatingPlace
   });
 };
 const RegisterSuccess = (state, action) => {
