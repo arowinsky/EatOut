@@ -592,7 +592,7 @@ const mapStateToProps = state => {
   return {
     addedPlace: state.auth.addedPlace,
     idAddedPlace: state.auth.idAddedPlace,
-    idOwnerAddedEatingPlace: state.authidOwnerAdde.dEatingPlace
+    idOwnerAddedEatingPlace: state.auth.idOwnerAddedEatingPlace
   };
 };
 
