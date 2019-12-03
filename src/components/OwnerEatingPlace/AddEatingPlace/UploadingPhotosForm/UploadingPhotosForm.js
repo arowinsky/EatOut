@@ -2,6 +2,8 @@ import React from "react";
 import styles from "../AddEatingPlace.module.scss";
 import { Formik, Form } from "formik";
 import Button from "../../../Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../../../store/actions/index";
 
 class UploadingPhotosForm extends React.Component {
   constructor(props) {
@@ -36,17 +38,27 @@ class UploadingPhotosForm extends React.Component {
       this.setState(() => ({ restaurantMenu }));
     }
   };
-  render() {
+  handleUploadImagesEatingPlace = e => {
     const { restaurantAvatar } = this.state;
+    this.props.uploadImagesEatingPlace(
+      restaurantAvatar
+      // restaurantHeader,
+      // restaurantMenu
+    );
+  };
+
+  render() {
     const { idAddedPlace, idOwnerAddedEatingPlace } = this.props.location.state;
-    let error;
-    if (!restaurantAvatar) {
-      error = "Podaj nazwę lokalu";
-      return error;
-    }
+    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
+    console.log(restaurantAvatar, restaurantHeader, restaurantMenu);
+    console.log(
+      "TCL: UploadingPhotosForm -> render -> idAddedPlace, idOwnerAddedEatingPlace",
+      idAddedPlace,
+      idOwnerAddedEatingPlace
+    );
     return (
       <div className={styles.restaurantFormWrapper}>
-        <div className={styles.formTitle}>Dodaj lokal</div>
+        <div className={styles.formTitle}>Dodaj jeszcze zdjęcia lokalu</div>
         <Formik
           initialValues={{}}
           onSubmit={(values, errors) => {
@@ -55,12 +67,21 @@ class UploadingPhotosForm extends React.Component {
               this.setState({ noErrorsValidations: true });
               localStorage.setItem("setFirst", JSON.stringify(values));
             }
+            this.props.uploadImagesEatingPlace(
+              restaurantAvatar,
+              restaurantHeader,
+              restaurantMenu,
+              idAddedPlace,
+              idOwnerAddedEatingPlace
+            );
           }}
         >
           {({ errors, touched }) => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
-                <div className={styles.formTitle}>Zdjęcia lokalu</div>
+                {/* <div className={styles.formTitle}>
+                  Zjęciamuszę być w formacie .JPEG
+                </div> */}
                 <div className={styles.inputElement}>
                   <label htmlFor="restaurantAvatar">
                     Wybierz zdjęcie profilowe
@@ -98,8 +119,13 @@ class UploadingPhotosForm extends React.Component {
                 </div>
               </div>
 
-              <Button second type="submit" className={styles.button}>
-                Dalej
+              <Button
+                second
+                type="submit"
+                className={styles.button}
+                onClick={this.handleUploadImagesEatingPlace}
+              >
+                Załóż profil lokalu
               </Button>
             </Form>
           )}
@@ -108,4 +134,26 @@ class UploadingPhotosForm extends React.Component {
     );
   }
 }
-export default UploadingPhotosForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadImagesEatingPlace: (
+      restaurantAvatar,
+      idAddedPlace,
+      idOwnerAddedEatingPlace,
+      restaurantHeader,
+      restaurantMenu
+    ) =>
+      dispatch(
+        actions.uploadImagesEatingPlace(
+          restaurantAvatar,
+          idAddedPlace,
+          idOwnerAddedEatingPlace,
+          restaurantHeader,
+          restaurantMenu
+        )
+      )
+  };
+};
+export default connect(null, mapDispatchToProps)(UploadingPhotosForm);
+
+// export default UploadingPhotosForm;

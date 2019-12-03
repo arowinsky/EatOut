@@ -95,3 +95,33 @@ export const blockOpinionForm = blockedOpinionForm => {
     blockOpinonForm: blockedOpinionForm
   };
 };
+
+export const uploadImagesEatingPlace = (
+  restaurantAvatar,
+  restaurantHeader,
+  restaurantMenu,
+  idAddedPlace,
+  idOwnerAddedEatingPlace
+) => {
+  return dispatch => {
+    const url = "http://localhost:8080/upload-img";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `avatar=${restaurantAvatar}&header=${restaurantHeader}&
+      menu=${restaurantMenu}
+      &restaurantMenuidPlace=${idAddedPlace}&idUser=${idOwnerAddedEatingPlace}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+      });
+  };
+};

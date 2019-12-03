@@ -579,7 +579,7 @@ class NewLocalResume extends React.Component {
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
               <Button second type="submit" className={styles.button}>
-                Załóż profil lokalu
+                Dalej
               </Button>
             </Form>
           )}
