@@ -7,12 +7,16 @@ import { connect } from "react-redux";
 
 class OwnerBox extends React.Component {
   render() {
-    const { haveEatingPlace } = this.props;
+    const { haveEatingPlace, clientsOpinions } = this.props;
+    console.log(clientsOpinions);
 
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
         <div className={styles.header}>O to Twoje lokale gastronomiczne:</div>
-        <EatingPlaceProfileCard eatingPlaces={haveEatingPlace} />
+        <EatingPlaceProfileCard
+          eatingPlaces={haveEatingPlace}
+          clientsOpinions={clientsOpinions}
+        />
       </div>
     ) : (
       <div className={styles.box_wrapper}>
@@ -29,7 +33,8 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    haveEatingPlace: state.auth.haveEatingPlace
+    haveEatingPlace: state.auth.haveEatingPlace,
+    clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };
 

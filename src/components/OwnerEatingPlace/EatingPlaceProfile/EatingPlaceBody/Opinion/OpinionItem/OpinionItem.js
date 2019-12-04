@@ -1,8 +1,18 @@
 import React from "react";
 import styles from "./OpinionItem.module.scss";
-
+import { connect } from "react-redux";
+import * as actions from "../../../../../../store/actions/index";
 class OpinionItem extends React.Component {
   render() {
+    const { eatingPlace } = this.props;
+    console.log(eatingPlace.id);
+
+    let eatingPlaceId;
+    if (eatingPlace) {
+      eatingPlaceId = eatingPlace.id;
+      console.log(eatingPlaceId);
+      this.props.getClientsOpinions(eatingPlaceId);
+    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.itemWrapper}>
@@ -26,4 +36,11 @@ class OpinionItem extends React.Component {
   }
 }
 
-export default OpinionItem;
+const mapDispatchToProps = dispatch => {
+  return {
+    getClientsOpinions: eatingPlaceId =>
+      dispatch(actions.getClientsOpinions(eatingPlaceId))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(OpinionItem);
