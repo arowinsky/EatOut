@@ -39,11 +39,11 @@ class UploadingPhotosForm extends React.Component {
     }
   };
   handleUploadImagesEatingPlace = e => {
-    const { restaurantAvatar } = this.state;
+    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     this.props.uploadImagesEatingPlace(
-      restaurantAvatar
-      // restaurantHeader,
-      // restaurantMenu
+      restaurantAvatar,
+      restaurantHeader,
+      restaurantMenu
     );
   };
 
@@ -77,7 +77,10 @@ class UploadingPhotosForm extends React.Component {
           }}
         >
           {({ errors, touched }) => (
-            <Form className={styles.restaurantForm}>
+            <Form
+              className={styles.restaurantForm}
+              enctype="multipart/form-data"
+            >
               <div className={styles.inputElement}>
                 {/* <div className={styles.formTitle}>
                   Zjęciamuszę być w formacie .JPEG
@@ -155,5 +158,3 @@ const mapDispatchToProps = dispatch => {
   };
 };
 export default connect(null, mapDispatchToProps)(UploadingPhotosForm);
-
-// export default UploadingPhotosForm;

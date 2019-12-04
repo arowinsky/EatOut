@@ -105,19 +105,16 @@ export const uploadImagesEatingPlace = (
 ) => {
   return dispatch => {
     const url = "http://localhost:8080/upload-img";
+    console.log(restaurantAvatar, restaurantHeader, restaurantMenu);
+    let data = new FormData();
+    data.append("photo", restaurantAvatar);
+    data.append("photo", restaurantHeader);
+    data.append("photo", restaurantMenu);
+    data.append("user", idOwnerAddedEatingPlace);
+    data.append("user", idAddedPlace);
     fetch(url, {
       method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `avatar=${restaurantAvatar}&header=${restaurantHeader}&
-      menu=${restaurantMenu}
-      &restaurantMenuidPlace=${idAddedPlace}&idUser=${idOwnerAddedEatingPlace}`
+      body: data
     })
       .then(Response => Response.json())
       .then(response => {
