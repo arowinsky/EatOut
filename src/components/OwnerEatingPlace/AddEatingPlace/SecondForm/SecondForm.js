@@ -1,12 +1,11 @@
 import React from "react";
 import styles from "../AddEatingPlace.module.scss";
 import MealName from "./MealName/MealName";
-import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import Button from "../../../Button/Button";
 import { Redirect } from "react-router-dom";
 
-class NewLocalCategory extends React.Component {
+class SecondForm extends React.Component {
   state = {
     mealCatName: [
       {
@@ -195,8 +194,11 @@ class NewLocalCategory extends React.Component {
   };
   render() {
     const { submited } = this.state;
-    const setFirst = localStorage.getItem("setFirst");
-    if (!setFirst) {
+    let firstFormIsComplete;
+    if (this.props.location.state) {
+      firstFormIsComplete = this.props.location.state.firstFormIsComplete;
+    }
+    if (!firstFormIsComplete) {
       return <Redirect to="/" />;
     }
     if (submited) {
@@ -242,16 +244,12 @@ class NewLocalCategory extends React.Component {
             zapiekanki: false,
             śniadanie: false
           }}
-          validate={values => {
-            let errors = {};
-            return errors;
-          }}
           onSubmit={values => {
             localStorage.setItem("setSecond", JSON.stringify(values));
             this.setState({ submited: true });
           }}
         >
-          {({ isSubmitting }) => (
+          {() => (
             <Form className={styles.restaurantForm}>
               <div className={styles.formTitle}>Danie</div>
               <MealName mealCatName={this.state.mealCatName} />
@@ -271,4 +269,4 @@ class NewLocalCategory extends React.Component {
     );
   }
 }
-export default NewLocalCategory;
+export default SecondForm;
