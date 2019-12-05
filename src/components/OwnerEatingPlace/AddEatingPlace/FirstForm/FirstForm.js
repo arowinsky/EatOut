@@ -2,21 +2,12 @@ import React from "react";
 import styles from "../AddEatingPlace.module.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../../../Button/Button";
-import { connect } from "react-redux";
-import storage from "../../../../configs/firebaseConfig";
 import { Redirect } from "react-router-dom";
-// import undefined from "firebase/empty-import";
 
-class NewLocalFirst extends React.Component {
+class FirstForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurantAvatar: null,
-      restaurantHeader: null,
-      restaurantMenu: null,
-      uploadedRestaurantAvatar: null,
-      uploadedRestaurantHeader: null,
-      uploadedRestaurantMenu: null,
       noErrorsValidations: null,
       errorRestaurantName: "",
       errorRestaurantEmail: "",
@@ -25,77 +16,8 @@ class NewLocalFirst extends React.Component {
       errorRestaurantCity: "",
       errorRestaurantPhoneNumber: ""
     };
-    this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
-    this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
-      this
-    );
   }
-  handleRestaurantAvatar = e => {
-    if (e.target.files[0]) {
-      const restaurantAvatar = e.target.files[0];
-      this.setState(() => ({ restaurantAvatar }));
-    }
-  };
-  handleRestaurantHeader = e => {
-    if (e.target.files[0]) {
-      const restaurantHeader = e.target.files[0];
-      this.setState(() => ({ restaurantHeader }));
-    }
-  };
-  handleRestaurantMenu = e => {
-    if (e.target.files[0]) {
-      const restaurantMenu = e.target.files[0];
-      this.setState(() => ({ restaurantMenu }));
-    }
-  };
 
-  handleUploadImagesRestaurant = e => {
-    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
-    const { userId } = this.props;
-    const uploadRestaurantAvatar = storage
-      .ref(`${userId}/restaurantAvatar`)
-      .put(restaurantAvatar);
-    uploadRestaurantAvatar.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantAvatar =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantAvatar }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    const uploadRestaurantHeader = storage
-      .ref(`${userId}/restaurantHeader`)
-      .put(restaurantHeader);
-    uploadRestaurantHeader.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantHeader =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantHeader }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    const uploadRestaurantMenu = storage
-      .ref(`${userId}/restaurantMenu`)
-      .put(restaurantMenu);
-    uploadRestaurantMenu.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantMenu =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantMenu }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  };
   validateRestaurantName = value => {
     let error;
     if (!value) {
@@ -163,35 +85,27 @@ class NewLocalFirst extends React.Component {
   };
 
   render() {
-    let test = false;
-    const { set_first } = this.props;
     let startCreatingNewEatingPlace;
     if (this.props.location.state) {
       startCreatingNewEatingPlace = this.props.location.state
         .startCreatingNewEatingPlace;
     }
-    if (startCreatingNewEatingPlace !== true) {
+    if (!startCreatingNewEatingPlace) {
       return <Redirect to="/" />;
     }
-    if (set_first === null) {
-      test = true;
-      this.props.test(test);
-    }
-
-    const {
-      uploadedRestaurantAvatar,
-      uploadedRestaurantHeader,
-      uploadedRestaurantMenu,
-      noErrorsValidations
-    } = this.state;
+    const { noErrorsValidations } = this.state;
     console.log(noErrorsValidations);
-    if (
-      uploadedRestaurantAvatar === 100 &&
-      uploadedRestaurantHeader === 100 &&
-      uploadedRestaurantMenu === 100 &&
-      noErrorsValidations === true
-    ) {
-      return <Redirect to="/add-eating-place-second-form" />;
+    if (noErrorsValidations) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/add-eating-place-second-form",
+            state: {
+              firstFormIsComplete: noErrorsValidations
+            }
+          }}
+        />
+      );
     }
     return (
       <div className={styles.restaurantFormWrapper}>
@@ -220,14 +134,13 @@ class NewLocalFirst extends React.Component {
             sundayCloseHour: ""
           }}
           onSubmit={(values, errors) => {
-            console.log(errors);
             if (errors) {
               this.setState({ noErrorsValidations: true });
               localStorage.setItem("setFirst", JSON.stringify(values));
             }
           }}
         >
-          {({ errors, touched }) => (
+          {() => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
@@ -299,44 +212,6 @@ class NewLocalFirst extends React.Component {
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantCity" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.formTitle}>Zdjęcia lokalu</div>
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantAvatar">
-                  Wybierz zdjęcie profilowe
-                </label>
-                <input
-                  type="file"
-                  name="restaurantAvatar"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantAvatar}
-                />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantHeader">
-                  Wybierz zdjęcie banerowe
-                </label>
-                <input
-                  type="file"
-                  name="restaurantHeader"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantHeader}
-                />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
-                <input
-                  type="file"
-                  name="restaurantMenu"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantMenu}
-                />
               </div>
               <br />
               <br />
@@ -584,10 +459,4 @@ class NewLocalFirst extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    userId: state.auth.userId
-  };
-};
-export default connect(mapStateToProps, null)(NewLocalFirst);
+export default FirstForm;
