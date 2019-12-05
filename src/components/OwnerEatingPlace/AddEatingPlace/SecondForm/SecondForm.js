@@ -195,6 +195,10 @@ class NewLocalCategory extends React.Component {
   };
   render() {
     const { submited } = this.state;
+    const setFirst = localStorage.getItem("setFirst");
+    if (!setFirst) {
+      return <Redirect to="/" />;
+    }
     if (submited) {
       return <Redirect to="/add-eating-place-summary-form" />;
     }
