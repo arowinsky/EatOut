@@ -118,7 +118,14 @@ export const uploadImagesEatingPlace = (
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        const { uploadSuccess } = response;
+        dispatch(uploadedEatingPlaceImages(uploadSuccess));
       });
+  };
+};
+export const uploadedEatingPlaceImages = uploadedEatingPlaceImages => {
+  return {
+    type: actionTypes.UPLOADED_EATING_PLACE_IMAGES,
+    uploadedEatingPlaceImages: uploadedEatingPlaceImages
   };
 };

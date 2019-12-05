@@ -4,6 +4,7 @@ import { Formik, Form } from "formik";
 import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
+import { Redirect } from "react-router-dom";
 
 class UploadingPhotosForm extends React.Component {
   constructor(props) {
@@ -50,6 +51,10 @@ class UploadingPhotosForm extends React.Component {
   render() {
     const { idAddedPlace, idOwnerAddedEatingPlace } = this.props.location.state;
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
+    const { uploadedEatingPlaceImages } = this.props;
+    if (uploadedEatingPlaceImages) {
+      return <Redirect to="/owner-home" />;
+    }
     console.log(restaurantAvatar, restaurantHeader, restaurantMenu);
     console.log(
       "TCL: UploadingPhotosForm -> render -> idAddedPlace, idOwnerAddedEatingPlace",
@@ -137,6 +142,12 @@ class UploadingPhotosForm extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    uploadedEatingPlaceImages:
+      state.eatingPlaceProfile.uploadedEatingPlaceImages
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     uploadImagesEatingPlace: (
@@ -157,4 +168,7 @@ const mapDispatchToProps = dispatch => {
       )
   };
 };
-export default connect(null, mapDispatchToProps)(UploadingPhotosForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UploadingPhotosForm);

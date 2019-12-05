@@ -4,7 +4,8 @@ import { updateObject } from "../../update";
 const initState = {
   codeForClient: null,
   clientCodeIsVerified: null,
-  blockedOpinionForm: null
+  blockedOpinionForm: null,
+  uploadedEatingPlaceImages: null
 };
 
 const returnCodeForClient = (state, action) => {
@@ -25,6 +26,12 @@ const blockOpinionForm = (state, action) => {
   });
 };
 
+const uploadedEatingPlaceImages = (state, action) => {
+  return updateObject(state, {
+    uploadedEatingPlaceImages: action.uploadedEatingPlaceImages
+  });
+};
+
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.RETURN_CODE_FOR_CLIENT:
@@ -33,6 +40,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return clientCodeIsVerified(state, action);
     case actionTypes.BLOCKED_OPINION_FORM:
       return blockOpinionForm;
+    case actionTypes.UPLOADED_EATING_PLACE_IMAGES:
+      return uploadedEatingPlaceImages;
     default:
       return state;
   }
