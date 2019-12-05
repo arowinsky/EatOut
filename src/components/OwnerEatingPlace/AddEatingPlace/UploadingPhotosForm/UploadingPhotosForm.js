@@ -52,6 +52,7 @@ class UploadingPhotosForm extends React.Component {
     const { idAddedPlace, idOwnerAddedEatingPlace } = this.props.location.state;
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const { uploadedEatingPlaceImages } = this.props;
+    console.log(uploadedEatingPlaceImages);
     if (uploadedEatingPlaceImages) {
       return <Redirect to="/owner-home" />;
     }

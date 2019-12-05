@@ -27,6 +27,11 @@ const blockOpinionForm = (state, action) => {
 };
 
 const uploadedEatingPlaceImages = (state, action) => {
+  console.log(
+    "TCL: uploadedEatingPlaceImages -> action",
+    action.uploadedEatingPlaceImages
+  );
+
   return updateObject(state, {
     uploadedEatingPlaceImages: action.uploadedEatingPlaceImages
   });
@@ -41,7 +46,7 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
     case actionTypes.BLOCKED_OPINION_FORM:
       return blockOpinionForm;
     case actionTypes.UPLOADED_EATING_PLACE_IMAGES:
-      return uploadedEatingPlaceImages;
+      return uploadedEatingPlaceImages(state, action);
     default:
       return state;
   }

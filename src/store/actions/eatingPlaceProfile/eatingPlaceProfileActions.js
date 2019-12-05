@@ -119,11 +119,14 @@ export const uploadImagesEatingPlace = (
       .then(Response => Response.json())
       .then(response => {
         const { uploadSuccess } = response;
+        console.log("TCL: uploadSuccess", uploadSuccess);
+
         dispatch(uploadedEatingPlaceImages(uploadSuccess));
       });
   };
 };
 export const uploadedEatingPlaceImages = uploadedEatingPlaceImages => {
+  console.log(uploadedEatingPlaceImages);
   return {
     type: actionTypes.UPLOADED_EATING_PLACE_IMAGES,
     uploadedEatingPlaceImages: uploadedEatingPlaceImages
