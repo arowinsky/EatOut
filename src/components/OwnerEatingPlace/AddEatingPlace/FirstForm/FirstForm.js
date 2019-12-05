@@ -94,7 +94,6 @@ class FirstForm extends React.Component {
       return <Redirect to="/" />;
     }
     const { noErrorsValidations } = this.state;
-    console.log(noErrorsValidations);
     if (noErrorsValidations) {
       return (
         <Redirect
