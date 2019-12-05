@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 class OwnerBox extends React.Component {
   render() {
     const { haveEatingPlace } = this.props;
-
+    const startCreatingNewEatingPlace = true;
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
         <div className={styles.header}>O to Twoje lokale gastronomiczne:</div>
@@ -18,7 +18,14 @@ class OwnerBox extends React.Component {
       <div className={styles.box_wrapper}>
         Nie masz jeszcze restauracji
         <br />
-        <Link to="/add-eating-place-first-form">
+        <Link
+          to={{
+            pathname: "/add-eating-place-first-form",
+            state: {
+              startCreatingNewEatingPlace: startCreatingNewEatingPlace
+            }
+          }}
+        >
           <Button second>Dodaj swój lokal</Button>
         </Link>
       </div>

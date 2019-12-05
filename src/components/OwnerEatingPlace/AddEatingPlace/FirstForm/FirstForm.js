@@ -5,6 +5,7 @@ import Button from "../../../Button/Button";
 import { connect } from "react-redux";
 import storage from "../../../../configs/firebaseConfig";
 import { Redirect } from "react-router-dom";
+// import undefined from "firebase/empty-import";
 
 class NewLocalFirst extends React.Component {
   constructor(props) {
@@ -164,6 +165,14 @@ class NewLocalFirst extends React.Component {
   render() {
     let test = false;
     const { set_first } = this.props;
+    let startCreatingNewEatingPlace;
+    if (this.props.location.state) {
+      startCreatingNewEatingPlace = this.props.location.state
+        .startCreatingNewEatingPlace;
+    }
+    if (startCreatingNewEatingPlace !== true) {
+      return <Redirect to="/" />;
+    }
     if (set_first === null) {
       test = true;
       this.props.test(test);
