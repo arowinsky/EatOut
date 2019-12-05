@@ -44,7 +44,7 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
     case actionTypes.CLIENT_CODE_IS_VERIFIED:
       return clientCodeIsVerified(state, action);
     case actionTypes.BLOCKED_OPINION_FORM:
-      return blockOpinionForm;
+      return blockOpinionForm(state, action);
     case actionTypes.UPLOADED_EATING_PLACE_IMAGES:
       return uploadedEatingPlaceImages(state, action);
     default:
