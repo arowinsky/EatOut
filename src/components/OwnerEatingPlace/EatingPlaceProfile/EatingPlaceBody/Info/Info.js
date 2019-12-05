@@ -1,11 +1,9 @@
 import React from "react";
 import styles from "./Info.module.scss";
-import { connect } from "react-redux";
-
 class Info extends React.Component {
   render() {
-    const { haveEatingPlace } = this.props;
-    console.log(haveEatingPlace);
+    const { eatingPlace } = this.props;
+    console.log(eatingPlace);
     let restaurantPhoneNumber;
     let restaurantEmail;
     let mondayOpenHour;
@@ -60,61 +58,61 @@ class Info extends React.Component {
     let przystosowanie_dla_osob_niepelnosprawnych;
     let transmija_meczy;
     let wifi;
-    if (haveEatingPlace) {
-      restaurantPhoneNumber = haveEatingPlace.info.restaurantPhoneNumber;
-      restaurantEmail = haveEatingPlace.info.restaurantEmail;
-      mondayOpenHour = haveEatingPlace.info.mondayOpenHour;
-      mondayCloseHour = haveEatingPlace.info.mondayCloseHour;
-      tuesdayOpenHour = haveEatingPlace.info.tuesdayOpenHour;
-      tuesdayCloseHour = haveEatingPlace.info.tuesdayCloseHour;
-      wednesdayOpenHour = haveEatingPlace.info.wednesdayOpenHour;
-      wednesdayCloseHour = haveEatingPlace.info.wednesdayCloseHour;
-      thursdayOpenHour = haveEatingPlace.info.thursdayOpenHour;
-      thursdayCloseHour = haveEatingPlace.info.thursdayCloseHour;
-      fridayOpenHour = haveEatingPlace.info.fridayOpenHour;
-      fridayCloseHour = haveEatingPlace.info.fridayCloseHour;
-      saturdayOpenHour = haveEatingPlace.info.saturdayOpenHour;
-      saturdayCloseHour = haveEatingPlace.info.saturdayCloseHour;
-      sundayOpenHour = haveEatingPlace.info.sundayOpenHour;
-      sundayCloseHour = haveEatingPlace.info.sundayCloseHour;
-      alkohol = haveEatingPlace.dishes.alkohol;
-      burger = haveEatingPlace.dishes.burger;
-      ciastko = haveEatingPlace.dishes.ciastko;
-      kawa = haveEatingPlace.dishes.kawa;
-      kebab = haveEatingPlace.dishes.kebab;
-      makaron = haveEatingPlace.dishes.makaron;
-      obiad = haveEatingPlace.dishes.obiad;
-      pizza = haveEatingPlace.dishes.pizza;
-      ramen = haveEatingPlace.dishes.ramen;
-      stek = haveEatingPlace.dishes.stek;
-      sushi = haveEatingPlace.dishes.sushi;
-      zapieknaki = haveEatingPlace.dishes.zapieknaki;
-      amerykanska = haveEatingPlace.kitchen.amerykanska;
-      arabska = haveEatingPlace.kitchen.arabska;
-      azjatycka = haveEatingPlace.kitchen.azjatycka;
-      dietetyczna = haveEatingPlace.kitchen.dietetyczna;
-      domowa = haveEatingPlace.kitchen.domowa;
-      europejska = haveEatingPlace.kitchen.europejska;
-      francuska = haveEatingPlace.kitchen.francuska;
-      meksykanska = haveEatingPlace.kitchen.meksykanska;
-      polska = haveEatingPlace.kitchen.polska;
-      wege_wegan = haveEatingPlace.kitchen.wege_wegan;
-      lunch = haveEatingPlace.opportunity.lunch;
-      pub = haveEatingPlace.opportunity.pub;
-      randka = haveEatingPlace.opportunity.randka;
-      sniadanie = haveEatingPlace.opportunity.sniadanie;
-      animal_friendly = haveEatingPlace.facilities.animal_friendly;
-      insta_friendly = haveEatingPlace.facilities.insta_friendly;
-      jezyk_migowy = haveEatingPlace.facilities.jezyk_migowy;
-      ogrodek = haveEatingPlace.facilities.ogrodek;
+    if (eatingPlace) {
+      restaurantPhoneNumber = eatingPlace.info.restaurantPhoneNumber;
+      restaurantEmail = eatingPlace.info.restaurantEmail;
+      mondayOpenHour = eatingPlace.info.mondayOpenHour;
+      mondayCloseHour = eatingPlace.info.mondayCloseHour;
+      tuesdayOpenHour = eatingPlace.info.tuesdayOpenHour;
+      tuesdayCloseHour = eatingPlace.info.tuesdayCloseHour;
+      wednesdayOpenHour = eatingPlace.info.wednesdayOpenHour;
+      wednesdayCloseHour = eatingPlace.info.wednesdayCloseHour;
+      thursdayOpenHour = eatingPlace.info.thursdayOpenHour;
+      thursdayCloseHour = eatingPlace.info.thursdayCloseHour;
+      fridayOpenHour = eatingPlace.info.fridayOpenHour;
+      fridayCloseHour = eatingPlace.info.fridayCloseHour;
+      saturdayOpenHour = eatingPlace.info.saturdayOpenHour;
+      saturdayCloseHour = eatingPlace.info.saturdayCloseHour;
+      sundayOpenHour = eatingPlace.info.sundayOpenHour;
+      sundayCloseHour = eatingPlace.info.sundayCloseHour;
+      alkohol = eatingPlace.dishes.alkohol;
+      burger = eatingPlace.dishes.burger;
+      ciastko = eatingPlace.dishes.ciastko;
+      kawa = eatingPlace.dishes.kawa;
+      kebab = eatingPlace.dishes.kebab;
+      makaron = eatingPlace.dishes.makaron;
+      obiad = eatingPlace.dishes.obiad;
+      pizza = eatingPlace.dishes.pizza;
+      ramen = eatingPlace.dishes.ramen;
+      stek = eatingPlace.dishes.stek;
+      sushi = eatingPlace.dishes.sushi;
+      zapieknaki = eatingPlace.dishes.zapieknaki;
+      amerykanska = eatingPlace.kitchen.amerykanska;
+      arabska = eatingPlace.kitchen.arabska;
+      azjatycka = eatingPlace.kitchen.azjatycka;
+      dietetyczna = eatingPlace.kitchen.dietetyczna;
+      domowa = eatingPlace.kitchen.domowa;
+      europejska = eatingPlace.kitchen.europejska;
+      francuska = eatingPlace.kitchen.francuska;
+      meksykanska = eatingPlace.kitchen.meksykanska;
+      polska = eatingPlace.kitchen.polska;
+      wege_wegan = eatingPlace.kitchen.wege_wegan;
+      lunch = eatingPlace.opportunity.lunch;
+      pub = eatingPlace.opportunity.pub;
+      randka = eatingPlace.opportunity.randka;
+      sniadanie = eatingPlace.opportunity.sniadanie;
+      animal_friendly = eatingPlace.facilities.animal_friendly;
+      insta_friendly = eatingPlace.facilities.insta_friendly;
+      jezyk_migowy = eatingPlace.facilities.jezyk_migowy;
+      ogrodek = eatingPlace.facilities.ogrodek;
       pokoj_dla_matki_z_dzieckiem =
-        haveEatingPlace.facilities.pokoj_dla_matki_z_dzieckiem;
+        eatingPlace.facilities.pokoj_dla_matki_z_dzieckiem;
       przystosowanie_dla_osob_niepelnosprawnych =
-        haveEatingPlace.facilities.przystosowanie_dla_osob_niepelnosprawnych;
-      transmija_meczy = haveEatingPlace.facilities.transmija_meczy;
-      wifi = haveEatingPlace.facilities.wifi;
+        eatingPlace.facilities.przystosowanie_dla_osob_niepelnosprawnych;
+      transmija_meczy = eatingPlace.facilities.transmija_meczy;
+      wifi = eatingPlace.facilities.wifi;
     }
-    console.log(haveEatingPlace);
+    console.log(eatingPlace);
     return (
       <div className={styles.infoWrapper}>
         <div className={styles.infoContent}>
@@ -194,10 +192,5 @@ class Info extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    haveEatingPlace: state.auth.haveEatingPlace
-  };
-};
 
-export default connect(mapStateToProps)(Info);
+export default Info;
