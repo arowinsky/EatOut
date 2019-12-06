@@ -25,6 +25,7 @@ export const userData = (userData, userId) => {
 };
 
 export const addedPlace = (added, idPlace, idUser) => {
+  console.log(added, idPlace, idUser);
   return {
     type: actionTypes.ADDED_NEW_PLACE,
     addedPlace: added,

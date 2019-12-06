@@ -7,7 +7,7 @@ import MealName from "../SecondForm/MealName/MealName";
 import * as actions from "../../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 
-class NewLocalResume extends React.Component {
+class FinalForm extends React.Component {
   constructor(props) {
     super(props);
     const setSecond = localStorage.getItem("setSecond");
@@ -607,4 +607,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewLocalResume);
+export default connect(mapStateToProps, mapDispatchToProps)(FinalForm);

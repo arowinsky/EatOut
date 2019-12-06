@@ -47,6 +47,11 @@ export const userData = (state, action) => {
   });
 };
 export const addedPlace = (state, action) => {
+  console.log(
+    action.addedPlace,
+    action.idAddedPlace,
+    action.idOwnerAddedEatingPlace
+  );
   return updateObject(state, {
     addedPlace: action.addedPlace,
     idAddedPlace: action.idAddedPlace,

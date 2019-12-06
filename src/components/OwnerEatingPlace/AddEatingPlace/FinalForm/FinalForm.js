@@ -54,6 +54,7 @@ class UploadingPhotosForm extends React.Component {
     let idAddedPlace;
     let idOwnerAddedEatingPlace;
     if (this.props.location.state) {
+      console.log(this.props.location.state);
       idAddedPlace = this.props.location.state.idAddedPlace;
       idOwnerAddedEatingPlace = this.props.location.state
         .idOwnerAddedEatingPlace;
@@ -62,9 +63,6 @@ class UploadingPhotosForm extends React.Component {
       return <Redirect to="/" />;
     }
     console.log(uploadedEatingPlaceImages);
-    if (this.props.location.state) {
-      return <Redirect to="/" />;
-    }
     if (uploadedEatingPlaceImages) {
       return <Redirect to="/owner-home" />;
     }
