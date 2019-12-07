@@ -98,44 +98,43 @@ class UploadingPhotosForm extends React.Component {
               enctype="multipart/form-data"
             >
               <div className={styles.inputElement}>
-                {/* <div className={styles.formTitle}>
-                  Zjęciamuszę być w formacie .JPEG
-                </div> */}
-                <div className={styles.inputElement}>
-                  <label htmlFor="restaurantAvatar">
-                    Wybierz zdjęcie profilowe
-                  </label>
-                  <input
-                    type="file"
-                    name="restaurantAvatar"
-                    className={styles.inputFile}
-                    onChange={this.handleRestaurantAvatar}
-                  />
-                </div>
-                <br />
-                <br />
-                <div className={styles.inputElement}>
-                  <label htmlFor="restaurantHeader">
-                    Wybierz zdjęcie banerowe
-                  </label>
-                  <input
-                    type="file"
-                    name="restaurantHeader"
-                    className={styles.inputFile}
-                    onChange={this.handleRestaurantHeader}
-                  />
-                </div>
-                <br />
-                <br />
-                <div className={styles.inputElement}>
-                  <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
-                  <input
-                    type="file"
-                    name="restaurantMenu"
-                    className={styles.inputFile}
-                    onChange={this.handleRestaurantMenu}
-                  />
-                </div>
+                <p>Wszystkie zdjęcia muszą być w formacie .jpeg lub .jpg</p>
+              </div>
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantAvatar">
+                  Wybierz zdjęcie profilowe
+                </label>
+                <input
+                  type="file"
+                  name="restaurantAvatar"
+                  className={styles.inputFile}
+                  onChange={this.handleRestaurantAvatar}
+                />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantHeader">
+                  Wybierz zdjęcie banerowe
+                </label>
+                <input
+                  type="file"
+                  name="restaurantHeader"
+                  className={styles.inputFile}
+                  onChange={this.handleRestaurantHeader}
+                />
+              </div>
+              <br />
+              <br />
+              <div className={styles.inputElement}>
+                <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
+                <input
+                  type="file"
+                  name="restaurantMenu"
+                  className={styles.inputFile}
+                  onChange={this.handleRestaurantMenu}
+                />
               </div>
 
               <Button
