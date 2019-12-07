@@ -98,7 +98,8 @@ class UploadingPhotosForm extends React.Component {
               enctype="multipart/form-data"
             >
               <div className={styles.inputElement}>
-                <p>Wszystkie zdjęcia muszą być w formacie .jpeg lub .jpg</p>
+                <p>Dopuszczalne formaty zdjęć to:</p>
+                <p className={styles.formatsFiles}>.jpeg, .jpg, .png, .bmp</p>
               </div>
               <br />
               <div className={styles.inputElement}>
