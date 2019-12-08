@@ -49,14 +49,13 @@ class UploadingPhotosForm extends React.Component {
   };
 
   render() {
+    let dataNewEatingPlace;
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const {
       uploadedEatingPlaceImages,
       unavailableAllImageEatingPlace,
       invalidFormatImagesEatingPlace
     } = this.props;
-    let idAddedPlace;
-    let idOwnerAddedEatingPlace;
     let invalidAvatar;
     let invalidHeader;
     let invalidMenu;
@@ -67,11 +66,9 @@ class UploadingPhotosForm extends React.Component {
     }
     if (this.props.location.state) {
       console.log(this.props.location.state);
-      idAddedPlace = this.props.location.state.idAddedPlace;
-      idOwnerAddedEatingPlace = this.props.location.state
-        .idOwnerAddedEatingPlace;
+      dataNewEatingPlace = this.props.location.state.dataNewEatingPlace;
     }
-    if (!idAddedPlace && !idOwnerAddedEatingPlace) {
+    if (!dataNewEatingPlace) {
       return <Redirect to="/" />;
     }
     console.log(uploadedEatingPlaceImages);
@@ -79,32 +76,25 @@ class UploadingPhotosForm extends React.Component {
       return <Redirect to="/owner-home" />;
     }
     console.log(restaurantAvatar, restaurantHeader, restaurantMenu);
-    console.log(
-      "TCL: UploadingPhotosForm -> render -> idAddedPlace, idOwnerAddedEatingPlace",
-      idAddedPlace,
-      idOwnerAddedEatingPlace
-    );
     return (
       <div className={styles.restaurantFormWrapper}>
         <div className={styles.formTitle}>Dodaj jeszcze zdjęcia lokalu</div>
         <Formik
           initialValues={{}}
-          onSubmit={(values, errors) => {
+          onSubmit={errors => {
             console.log(errors);
             if (errors) {
               this.setState({ noErrorsValidations: true });
-              localStorage.setItem("setFirst", JSON.stringify(values));
             }
             this.props.uploadImagesEatingPlace(
+              dataNewEatingPlace,
               restaurantAvatar,
               restaurantHeader,
-              restaurantMenu,
-              idAddedPlace,
-              idOwnerAddedEatingPlace
+              restaurantMenu
             );
           }}
         >
-          {({ errors, touched }) => (
+          {() => (
             <Form
               className={styles.restaurantForm}
               enctype="multipart/form-data"
@@ -197,18 +187,16 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    uploadImagesEatingPlace: (
+    addNewEatingPlace: (
+      dataNewEatingPlace,
       restaurantAvatar,
-      idAddedPlace,
-      idOwnerAddedEatingPlace,
       restaurantHeader,
       restaurantMenu
     ) =>
       dispatch(
         actions.uploadImagesEatingPlace(
+          dataNewEatingPlace,
           restaurantAvatar,
-          idAddedPlace,
-          idOwnerAddedEatingPlace,
           restaurantHeader,
           restaurantMenu
         )

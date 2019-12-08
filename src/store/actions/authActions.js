@@ -24,15 +24,6 @@ export const userData = (userData, userId) => {
   };
 };
 
-export const addedPlace = (added, idPlace, idUser) => {
-  console.log(added, idPlace, idUser);
-  return {
-    type: actionTypes.ADDED_NEW_PLACE,
-    addedPlace: added,
-    idAddedPlace: idPlace,
-    idOwnerAddedEatingPlace: idUser
-  };
-};
 export const RegisterSuccess = userId => {
   return {
     type: actionTypes.REGISTER_SUCCESS,
@@ -286,31 +277,6 @@ export const forgotPassword = email => {
   };
 };
 
-export const addNewLocal = values => {
-  return dispatch => {
-    const z = localStorage.getItem("z");
-    const url = "http://localhost:8080/add-new-local";
-    fetch(url, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `values=${values}&z=${z}`
-    })
-      .then(Response => Response.json())
-      .then(response => {
-        const { added, idPlace, idUser } = response;
-        dispatch(addedPlace(added, idPlace, idUser));
-      });
-  };
-};
-
 export const setRestaurantAvatar = restaurantAvatar => {
   return {
     type: actionTypes.SET_RESTAURANT_AVATAR,
@@ -476,25 +442,3 @@ export const setRestaurantMenu = restaurantMenu => {
 //       });
 //   };
 // };
-
-export const sendOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
-  return dispatch => {
-    const url = "http://localhost:8080/add-owner-post";
-    fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `textOfPost=${post}&eatingPlaceName=${eatingPlaceName}&eatingPlaceId=${eatingPlaceId}`
-    })
-      .then(Response => Response.json())
-      .then(response => {
-        console.log(response);
-      });
-  };
-};
