@@ -2,6 +2,10 @@ import * as actionTypes from "../../actions/actionTypes";
 import { updateObject } from "../../update";
 
 const initState = {
+  addedPlace: null,
+  idAddedPlace: null,
+  idOwnerAddedEatingPlace: null,
+  haveEatingPlace: null,
   codeForClient: null,
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
@@ -10,6 +14,23 @@ const initState = {
   unavailableAllImageEatingPlace: null
 };
 
+export const addedPlace = (state, action) => {
+  console.log(
+    action.addedPlace,
+    action.idAddedPlace,
+    action.idOwnerAddedEatingPlace
+  );
+  return updateObject(state, {
+    addedPlace: action.addedPlace,
+    idAddedPlace: action.idAddedPlace,
+    idOwnerAddedEatingPlace: action.idOwnerAddedEatingPlace
+  });
+};
+const ownerHaveEatingPlace = (state, action) => {
+  return updateObject(state, {
+    haveEatingPlace: action.haveEatingPlace
+  });
+};
 const returnCodeForClient = (state, action) => {
   return updateObject(state, {
     codeForClient: action.codeForClient
@@ -53,6 +74,10 @@ const unavailableAllImagesEatingPlace = (state, action) => {
 
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
+    case actionTypes.ADDED_NEW_PLACE:
+      return addedPlace(state, action);
+    case actionTypes.OWNER_HAVE_EATING_PLACE:
+      return ownerHaveEatingPlace(state, action);
     case actionTypes.RETURN_CODE_FOR_CLIENT:
       return returnCodeForClient(state, action);
     case actionTypes.CLIENT_CODE_IS_VERIFIED:

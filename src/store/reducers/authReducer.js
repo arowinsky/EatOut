@@ -17,14 +17,7 @@ const initState = {
   resetedPassword: null,
   error: null,
   z: null,
-  userData: null,
-  restaurantAvatar: null,
-  restaurantHeader: null,
-  restaurantMenu: null,
-  haveEatingPlace: null,
-  addedPlace: null,
-  idAddedPlace: null,
-  idOwnerAddedEatingPlace: null
+  userData: null
 };
 
 const authStart = (state, action) => {
@@ -44,18 +37,6 @@ export const userData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId
-  });
-};
-export const addedPlace = (state, action) => {
-  console.log(
-    action.addedPlace,
-    action.idAddedPlace,
-    action.idOwnerAddedEatingPlace
-  );
-  return updateObject(state, {
-    addedPlace: action.addedPlace,
-    idAddedPlace: action.idAddedPlace,
-    idOwnerAddedEatingPlace: action.idOwnerAddedEatingPlace
   });
 };
 const RegisterSuccess = (state, action) => {
@@ -137,13 +118,6 @@ const sendedEmailWithLinkResetPassword = (state, action) => {
     resetedPassword: action.resetedPassword
   });
 };
-
-const ownerHaveEatingPlace = (state, action) => {
-  return updateObject(state, {
-    haveEatingPlace: action.haveEatingPlace
-  });
-};
-
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -178,10 +152,6 @@ const authReducer = (state = initState, action) => {
       return sendedEmailWithLinkResetPassword(state, action);
     case actionTypes.AUTH_DATA:
       return userData(state, action);
-    case actionTypes.ADDED_NEW_PLACE:
-      return addedPlace(state, action);
-    case actionTypes.OWNER_HAVE_EATING_PLACE:
-      return ownerHaveEatingPlace(state, action);
     default:
       return state;
   }
