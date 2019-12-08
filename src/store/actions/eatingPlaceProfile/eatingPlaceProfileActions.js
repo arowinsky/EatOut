@@ -138,6 +138,7 @@ export const uploadImagesEatingPlace = (
   };
 };
 export const invalidFormatImagesEatingPlace = invalidFormatFile => {
+  console.log(invalidFormatFile);
   return {
     type: actionTypes.INVALID_FORMAT_IMAGES_EATING_PLACE,
     invalidFormatFile: invalidFormatFile

@@ -40,6 +40,7 @@ const uploadedEatingPlaceImages = (state, action) => {
 };
 
 const invalidFormatImagesEatingPlace = (state, action) => {
+  console.log(action.invalidFormatFile);
   return updateObject(state, {
     invalidFormatImagesEatingPlace: action.invalidFormatFile
   });

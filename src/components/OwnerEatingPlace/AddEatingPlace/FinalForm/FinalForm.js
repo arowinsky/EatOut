@@ -52,10 +52,19 @@ class UploadingPhotosForm extends React.Component {
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const {
       uploadedEatingPlaceImages,
-      unavailableAllImageEatingPlace
+      unavailableAllImageEatingPlace,
+      invalidFormatImagesEatingPlace
     } = this.props;
     let idAddedPlace;
     let idOwnerAddedEatingPlace;
+    let invalidAvatar;
+    let invalidHeader;
+    let invalidMenu;
+    if (invalidFormatImagesEatingPlace) {
+      invalidAvatar = invalidFormatImagesEatingPlace.errorAvatar;
+      invalidHeader = invalidFormatImagesEatingPlace.errorHeader;
+      invalidMenu = invalidFormatImagesEatingPlace.errorMenu;
+    }
     if (this.props.location.state) {
       console.log(this.props.location.state);
       idAddedPlace = this.props.location.state.idAddedPlace;
@@ -121,6 +130,11 @@ class UploadingPhotosForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantAvatar}
                 />
+                {invalidAvatar ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie poprawny format pliku</p>
+                  </div>
+                ) : null}
               </div>
               <br />
               <br />
@@ -134,6 +148,11 @@ class UploadingPhotosForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantHeader}
                 />
+                {invalidHeader ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie poprawny format pliku</p>
+                  </div>
+                ) : null}
               </div>
               <br />
               <br />
@@ -145,6 +164,11 @@ class UploadingPhotosForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantMenu}
                 />
+                {invalidMenu ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie poprawny format pliku</p>
+                  </div>
+                ) : null}
               </div>
 
               <Button
@@ -167,7 +191,9 @@ const mapStateToProps = state => {
     uploadedEatingPlaceImages:
       state.eatingPlaceProfile.uploadedEatingPlaceImages,
     unavailableAllImageEatingPlace:
-      state.eatingPlaceProfile.unavailableAllImageEatingPlace
+      state.eatingPlaceProfile.unavailableAllImageEatingPlace,
+    invalidFormatImagesEatingPlace:
+      state.eatingPlaceProfile.invalidFormatImagesEatingPlace
   };
 };
 const mapDispatchToProps = dispatch => {
