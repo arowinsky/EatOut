@@ -118,11 +118,36 @@ export const uploadImagesEatingPlace = (
     })
       .then(Response => Response.json())
       .then(response => {
-        const { uploadSuccess } = response;
+        console.log(response);
+        const {
+          uploadSuccess,
+          invalidFormatFile,
+          noAllImagesSended
+        } = response;
         console.log("TCL: uploadSuccess", uploadSuccess);
-
+        if (invalidFormatFile) {
+          dispatch(invalidFormatImagesEatingPlace(invalidFormatFile));
+          console.log("TCL: invalidFormatFile", invalidFormatFile);
+        }
+        if (noAllImagesSended) {
+          dispatch(unavailableAllImagesEatingPlace(noAllImagesSended));
+          console.log("TCL: noAllImagesSended", noAllImagesSended);
+        }
         dispatch(uploadedEatingPlaceImages(uploadSuccess));
       });
+  };
+};
+export const invalidFormatImagesEatingPlace = invalidFormatFile => {
+  return {
+    type: actionTypes.INVALID_FORMAT_IMAGES_EATING_PLACE,
+    invalidFormatFile: invalidFormatFile
+  };
+};
+
+export const unavailableAllImagesEatingPlace = unavailableAllImageEatingPlace => {
+  return {
+    type: actionTypes.UNAVAILABLE_ALL_IMAGES_EATING_PLACE,
+    unavailableAllImageEatingPlace: unavailableAllImageEatingPlace
   };
 };
 export const uploadedEatingPlaceImages = uploadedEatingPlaceImages => {

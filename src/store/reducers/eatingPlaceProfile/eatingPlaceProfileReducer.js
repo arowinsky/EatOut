@@ -5,7 +5,9 @@ const initState = {
   codeForClient: null,
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
-  uploadedEatingPlaceImages: null
+  uploadedEatingPlaceImages: null,
+  invalidFormatImagesEatingPlace: null,
+  unavailableAllImageEatingPlace: null
 };
 
 const returnCodeForClient = (state, action) => {
@@ -37,6 +39,17 @@ const uploadedEatingPlaceImages = (state, action) => {
   });
 };
 
+const invalidFormatImagesEatingPlace = (state, action) => {
+  return updateObject(state, {
+    invalidFormatImagesEatingPlace: action.invalidFormatFile
+  });
+};
+const unavailableAllImagesEatingPlace = (state, action) => {
+  return updateObject(state, {
+    unavailableAllImageEatingPlace: action.unavailableAllImageEatingPlace
+  });
+};
+
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.RETURN_CODE_FOR_CLIENT:
@@ -47,6 +60,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return blockOpinionForm(state, action);
     case actionTypes.UPLOADED_EATING_PLACE_IMAGES:
       return uploadedEatingPlaceImages(state, action);
+    case actionTypes.INVALID_FORMAT_IMAGES_EATING_PLACE:
+      return invalidFormatImagesEatingPlace(state, action);
     default:
       return state;
   }
