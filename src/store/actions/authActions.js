@@ -277,53 +277,6 @@ export const forgotPassword = email => {
   };
 };
 
-export const setRestaurantAvatar = restaurantAvatar => {
-  return {
-    type: actionTypes.SET_RESTAURANT_AVATAR,
-    restaurantAvatar: restaurantAvatar
-  };
-};
-
-export const getImagesEatingPlace = (localId, eatingPlace) => {
-  return dispatch => {
-    if (eatingPlace) {
-      let restaurantAvatar;
-      let restaurantHeader;
-      let restaurantMenu;
-      storage
-        .ref(`${localId}/restaurantAvatar`)
-        .getDownloadURL()
-        .then(url => {
-          restaurantAvatar = url;
-          dispatch(setRestaurantAvatar(restaurantAvatar));
-        })
-        .catch(error => {
-          console.log("i can't get image restaurantAvatar");
-        });
-      storage
-        .ref(`${localId}/restaurantHeader`)
-        .getDownloadURL()
-        .then(url => {
-          restaurantHeader = url;
-          dispatch(setRestaurantHeader(restaurantHeader));
-        })
-        .catch(error => {
-          console.log("i can't get image restaurantHeader");
-        });
-      storage
-        .ref(`${localId}/restaurantMenu`)
-        .getDownloadURL()
-        .then(url => {
-          restaurantMenu = url;
-          dispatch(setRestaurantMenu(restaurantMenu));
-        })
-        .catch(error => {
-          console.log("i can't get image restaurantMenu");
-        });
-      dispatch(ownerHaveEatingPlace(eatingPlace));
-    }
-  };
-};
 export const ownerHaveEatingPlace = haveEatingPlace => {
   return {
     type: actionTypes.OWNER_HAVE_EATING_PLACE,
@@ -352,20 +305,8 @@ export const getDataEatingPlace = (z, localId) => {
       .then(response => {
         console.log(response);
         haveEatingPlace = response.places;
-        dispatch(getImagesEatingPlace(localId, haveEatingPlace));
+        dispatch(ownerHaveEatingPlace(haveEatingPlace));
       });
-  };
-};
-export const setRestaurantHeader = restaurantHeader => {
-  return {
-    type: actionTypes.SET_RESTAURANT_HEADER,
-    restaurantHeader: restaurantHeader
-  };
-};
-export const setRestaurantMenu = restaurantMenu => {
-  return {
-    type: actionTypes.SET_RESTAURANT_MENU,
-    restaurantMenu: restaurantMenu
   };
 };
 // export const facebookLogIn = () => {
