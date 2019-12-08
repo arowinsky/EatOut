@@ -1,13 +1,11 @@
 import React from "react";
 import styles from "../AddEatingPlace.module.scss";
-import { connect } from "react-redux";
 import Button from "../../../Button/Button";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MealName from "../SecondForm/MealName/MealName";
-import * as actions from "../../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 
-class FinalForm extends React.Component {
+class SummaryForm extends React.Component {
   constructor(props) {
     super(props);
     const setSecond = localStorage.getItem("setSecond");
@@ -208,21 +206,8 @@ class FinalForm extends React.Component {
     if (!setFirst && !setSecond) {
       return <Redirect to="/" />;
     }
-    const { addedPlace, idAddedPlace, idOwnerAddedEatingPlace } = this.props;
-    if (addedPlace) {
-      localStorage.removeItem("setFirst");
-      localStorage.removeItem("setSecond");
-      return (
-        <Redirect
-          to={{
-            pathname: "/add-eating-place-final-form",
-            state: {
-              idAddedPlace: idAddedPlace,
-              idOwnerAddedEatingPlace: idOwnerAddedEatingPlace
-            }
-          }}
-        />
-      );
+    if (firstFormData && secondFormData) {
+      return <Redirect to="/add-eating-place-final-form" />;
     }
 
     return (
@@ -327,7 +312,7 @@ class FinalForm extends React.Component {
             this.props.addNewLocal(newEatingPlaceData);
           }}
         >
-          {({ isSubmitting, initialValues }) => (
+          {() => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
@@ -592,19 +577,4 @@ class FinalForm extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    addedPlace: state.auth.addedPlace,
-    idAddedPlace: state.auth.idAddedPlace,
-    idOwnerAddedEatingPlace: state.auth.idOwnerAddedEatingPlace
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addNewLocal: newEatingPlaceData =>
-      dispatch(actions.addNewLocal(newEatingPlaceData))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FinalForm);
+export default SummaryForm;

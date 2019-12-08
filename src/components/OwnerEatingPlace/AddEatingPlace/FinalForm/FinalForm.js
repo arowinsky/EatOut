@@ -119,7 +119,6 @@ class UploadingPhotosForm extends React.Component {
                   <p>Nie dodałaś/eś wszystkich zdjęć lokalu</p>
                 </div>
               ) : null}
-
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
