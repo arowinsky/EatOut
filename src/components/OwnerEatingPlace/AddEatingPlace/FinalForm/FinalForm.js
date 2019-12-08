@@ -50,7 +50,10 @@ class UploadingPhotosForm extends React.Component {
 
   render() {
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
-    const { uploadedEatingPlaceImages } = this.props;
+    const {
+      uploadedEatingPlaceImages,
+      unavailableAllImageEatingPlace
+    } = this.props;
     let idAddedPlace;
     let idOwnerAddedEatingPlace;
     if (this.props.location.state) {
@@ -102,6 +105,12 @@ class UploadingPhotosForm extends React.Component {
                 <p className={styles.formatsFiles}>.jpeg, .jpg, .png, .bmp</p>
               </div>
               <br />
+              {unavailableAllImageEatingPlace ? (
+                <div className={styles.inputElement}>
+                  <p>Nie dodałaś/eś wszystkich zdjęć lokalu</p>
+                </div>
+              ) : null}
+
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantAvatar">
                   Wybierz zdjęcie profilowe
@@ -156,7 +165,9 @@ class UploadingPhotosForm extends React.Component {
 const mapStateToProps = state => {
   return {
     uploadedEatingPlaceImages:
-      state.eatingPlaceProfile.uploadedEatingPlaceImages
+      state.eatingPlaceProfile.uploadedEatingPlaceImages,
+    unavailableAllImageEatingPlace:
+      state.eatingPlaceProfile.unavailableAllImageEatingPlace
   };
 };
 const mapDispatchToProps = dispatch => {

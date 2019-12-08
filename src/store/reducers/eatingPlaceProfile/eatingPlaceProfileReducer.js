@@ -62,6 +62,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return uploadedEatingPlaceImages(state, action);
     case actionTypes.INVALID_FORMAT_IMAGES_EATING_PLACE:
       return invalidFormatImagesEatingPlace(state, action);
+    case actionTypes.UNAVAILABLE_ALL_IMAGES_EATING_PLACE:
+      return unavailableAllImagesEatingPlace(state, action);
     default:
       return state;
   }
