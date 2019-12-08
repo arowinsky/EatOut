@@ -195,7 +195,8 @@ class SummaryForm extends React.Component {
             value: secondFormData.język_migowy
           }
         ],
-        dataNewEatingPlace: null
+        dataNewEatingPlace: null,
+        submited: null
       };
     }
   }
@@ -204,11 +205,18 @@ class SummaryForm extends React.Component {
     const setSecond = localStorage.getItem("setSecond");
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
-    const { dataNewEatingPlace } = this.state;
-    if (!setFirst && !setSecond) {
+    let secondFormIsComplete;
+    const { dataNewEatingPlace, submited } = this.state;
+    if (this.props.location.state) {
+      secondFormIsComplete = this.props.location.state.secondFormIsComplete;
+      console.log(secondFormIsComplete);
+    }
+
+    if (!secondFormIsComplete) {
       return <Redirect to="/" />;
     }
-    if (firstFormData && secondFormData) {
+
+    if (submited) {
       return (
         <Redirect
           to={{
@@ -321,6 +329,7 @@ class SummaryForm extends React.Component {
           onSubmit={initialValues => {
             const dataNewEatingPlace = JSON.stringify(initialValues);
             this.setState({ dataNewEatingPlace });
+            this.setState({ submited: true });
           }}
         >
           {() => (

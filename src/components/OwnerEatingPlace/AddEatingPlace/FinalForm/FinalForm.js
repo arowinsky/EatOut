@@ -39,14 +39,6 @@ class UploadingPhotosForm extends React.Component {
       this.setState(() => ({ restaurantMenu }));
     }
   };
-  handleUploadImagesEatingPlace = e => {
-    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
-    this.props.uploadImagesEatingPlace(
-      restaurantAvatar,
-      restaurantHeader,
-      restaurantMenu
-    );
-  };
 
   render() {
     let dataNewEatingPlace;
@@ -86,7 +78,7 @@ class UploadingPhotosForm extends React.Component {
             if (errors) {
               this.setState({ noErrorsValidations: true });
             }
-            this.props.uploadImagesEatingPlace(
+            this.props.addNewEatingPlace(
               dataNewEatingPlace,
               restaurantAvatar,
               restaurantHeader,
@@ -194,7 +186,7 @@ const mapDispatchToProps = dispatch => {
       restaurantMenu
     ) =>
       dispatch(
-        actions.uploadImagesEatingPlace(
+        actions.addNewEatingPlace(
           dataNewEatingPlace,
           restaurantAvatar,
           restaurantHeader,

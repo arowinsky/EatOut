@@ -7,13 +7,12 @@ export {
   AutoLoginSuccess,
   AutoLogin
 } from "../actions/authActions";
+export { addNewEatingPlace } from "../actions/addNewEatingPlace/addNewEatingPlaceActions";
 
 export {
-  addNewEatingPlace,
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
   blockOpinionForm,
-  uploadImagesEatingPlace,
   sendOwnerPost
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
