@@ -95,3 +95,24 @@ export const blockOpinionForm = blockedOpinionForm => {
     blockOpinonForm: blockedOpinionForm
   };
 };
+export const sendOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-owner-post";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `textOfPost=${post}&eatingPlaceName=${eatingPlaceName}&eatingPlaceId=${eatingPlaceId}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+      });
+  };
+};

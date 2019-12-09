@@ -5,14 +5,14 @@ export {
   // facebookLogIn,
   // googleLogIn,
   AutoLoginSuccess,
-  AutoLogin,
-  addNewLocal,
-  sendOwnerPost
+  AutoLogin
 } from "../actions/authActions";
+export { addNewEatingPlace } from "../actions/addNewEatingPlace/addNewEatingPlaceActions";
 
 export {
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
-  blockOpinionForm
+  blockOpinionForm,
+  sendOwnerPost
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";

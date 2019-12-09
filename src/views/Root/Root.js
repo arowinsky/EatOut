@@ -19,6 +19,7 @@ import PrivateRoute from "../../components/Common/PrivateRoute";
 import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
+import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -83,6 +84,10 @@ class Root extends React.Component {
             <PrivateRoute
               path="/add-eating-place-summary-form"
               component={SummaryForm}
+            />
+            <PrivateRoute
+              path="/add-eating-place-final-form"
+              component={FinalForm}
             />
             <PrivateRoute
               path="/eating-place-profile"
