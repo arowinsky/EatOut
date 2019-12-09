@@ -12,19 +12,12 @@ export const addNewEatingPlace = (
     data.append("photo", restaurantAvatar);
     data.append("photo", restaurantHeader);
     data.append("photo", restaurantMenu);
+    data.append("places", dataNewEatingPlace);
+    data.append("z", z);
     const url = "http://localhost:8080/add-new-eating-place";
     fetch(url, {
       method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `dataNewEatingPlace=${dataNewEatingPlace}&data=${data}&z=${z}`
+      body: data
     })
       .then(Response => Response.json())
       .then(response => {
@@ -33,6 +26,7 @@ export const addNewEatingPlace = (
           invalidFormatFile,
           noAllImagesSended
         } = response;
+        console.log(response);
 
         if (invalidFormatFile) {
           dispatch(invalidFormatImagesEatingPlace(invalidFormatFile));

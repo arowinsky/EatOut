@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 
-class UploadingPhotosForm extends React.Component {
+class FinalForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ class UploadingPhotosForm extends React.Component {
     let dataNewEatingPlace;
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const {
-      uploadedEatingPlaceImages,
+      addedPlace,
       unavailableAllImageEatingPlace,
       invalidFormatImagesEatingPlace
     } = this.props;
@@ -63,8 +63,8 @@ class UploadingPhotosForm extends React.Component {
     if (!dataNewEatingPlace) {
       return <Redirect to="/" />;
     }
-    console.log(uploadedEatingPlaceImages);
-    if (uploadedEatingPlaceImages) {
+    console.log(addedPlace);
+    if (addedPlace) {
       return <Redirect to="/owner-home" />;
     }
     console.log(restaurantAvatar, restaurantHeader, restaurantMenu);
@@ -152,12 +152,7 @@ class UploadingPhotosForm extends React.Component {
                 ) : null}
               </div>
 
-              <Button
-                second
-                type="submit"
-                className={styles.button}
-                onClick={this.handleUploadImagesEatingPlace}
-              >
+              <Button second type="submit" className={styles.button}>
                 Załóż profil lokalu
               </Button>
             </Form>
@@ -169,12 +164,11 @@ class UploadingPhotosForm extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    uploadedEatingPlaceImages:
-      state.eatingPlaceProfile.uploadedEatingPlaceImages,
+    addedPlace: state.addNewEatingPlace.addedPlace,
     unavailableAllImageEatingPlace:
-      state.eatingPlaceProfile.unavailableAllImageEatingPlace,
+      state.addNewEatingPlace.unavailableAllImageEatingPlace,
     invalidFormatImagesEatingPlace:
-      state.eatingPlaceProfile.invalidFormatImagesEatingPlace
+      state.addNewEatingPlace.invalidFormatImagesEatingPlace
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -195,7 +189,4 @@ const mapDispatchToProps = dispatch => {
       )
   };
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UploadingPhotosForm);
+export default connect(mapStateToProps, mapDispatchToProps)(FinalForm);
