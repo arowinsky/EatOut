@@ -2,112 +2,109 @@ import React from "react";
 import styles from "../AddEatingPlace.module.scss";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Button from "../../../Button/Button";
-import { connect } from "react-redux";
-import storage from "../../../../configs/firebaseConfig";
 import { Redirect } from "react-router-dom";
 
-class NewLocalFirst extends React.Component {
+class FirstForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      restaurantAvatar: null,
-      restaurantHeader: null,
-      restaurantMenu: null,
-      uploadedRestaurantAvatar: null,
-      uploadedRestaurantHeader: null,
-      uploadedRestaurantMenu: null
+      noErrorsValidations: null,
+      errorRestaurantName: "",
+      errorRestaurantEmail: "",
+      errorRestaurantStreet: "",
+      errorRestaurantBuildingNumber: "",
+      errorRestaurantCity: "",
+      errorRestaurantPhoneNumber: ""
     };
-    this.handleRestaurantAvatar = this.handleRestaurantAvatar.bind(this);
-    this.handleUploadImagesRestaurant = this.handleUploadImagesRestaurant.bind(
-      this
-    );
   }
-  handleRestaurantAvatar = e => {
-    if (e.target.files[0]) {
-      const restaurantAvatar = e.target.files[0];
-      this.setState(() => ({ restaurantAvatar }));
-    }
-  };
-  handleRestaurantHeader = e => {
-    if (e.target.files[0]) {
-      const restaurantHeader = e.target.files[0];
-      this.setState(() => ({ restaurantHeader }));
-    }
-  };
-  handleRestaurantMenu = e => {
-    if (e.target.files[0]) {
-      const restaurantMenu = e.target.files[0];
-      this.setState(() => ({ restaurantMenu }));
+
+  validateRestaurantName = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę lokalu";
+      return error;
     }
   };
 
-  handleUploadImagesRestaurant = e => {
-    const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
-    const { userId } = this.props;
-    const uploadRestaurantAvatar = storage
-      .ref(`${userId}/restaurantAvatar`)
-      .put(restaurantAvatar);
-    uploadRestaurantAvatar.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantAvatar =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantAvatar }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-    const uploadRestaurantHeader = storage
-      .ref(`${userId}/restaurantHeader`)
-      .put(restaurantHeader);
-    uploadRestaurantHeader.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantHeader =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantHeader }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    const uploadRestaurantMenu = storage
-      .ref(`${userId}/restaurantMenu`)
-      .put(restaurantMenu);
-    uploadRestaurantMenu.on(
-      "state_changed",
-      snapshot => {
-        const uploadedRestaurantMenu =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        this.setState(() => ({ uploadedRestaurantMenu }));
-      },
-      error => {
-        console.log(error);
-      }
-    );
+  validateRestaurantEmail = value => {
+    let error;
+    if (!value) {
+      error = "Podaj adres email lokalu/właściela";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = "Adres e-mail jest nieprawidłowy";
+    }
+    return error;
+  };
+  validateRestaurantStreet = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę ulicy, na której znajduje się lokal";
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwa ulicy";
+    }
+    return error;
+  };
+  validateRestaurantBuildingNumber = value => {
+    let error;
+    if (!value) {
+      error = "Podaj numer budynku, w którym jest lokal";
+    } else if (!/[0-9]/.test(value)) {
+      error = "Numer budynku musi być liczbą";
+    }
+    return error;
+  };
+  validateRestaurantCity = value => {
+    let error;
+    if (!value) {
+      error = "Podaj miasto, w którym jest lokal";
+      return error;
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwa miasta";
+    }
+    return error;
+  };
+  validateRestaurantPhoneNumber = value => {
+    let error;
+    if (!value) {
+      error = "Podaj numer telefonu do lokalu/właściela";
+    } else if (
+      !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i.test(
+        value
+      )
+    ) {
+      error = "Nie poprawny numer telefonu";
+    }
+    return error;
+  };
+  validateOpenCloseHoursForDay = value => {
+    let error;
+    if (!value) {
+      error = "To pole jest wymagane";
+      return error;
+    }
   };
 
   render() {
-    let test = false;
-    const { set_first } = this.props;
-    if (set_first === null) {
-      test = true;
-      this.props.test(test);
+    let startCreatingNewEatingPlace;
+    if (this.props.location.state) {
+      startCreatingNewEatingPlace = this.props.location.state
+        .startCreatingNewEatingPlace;
     }
-
-    const {
-      uploadedRestaurantAvatar,
-      uploadedRestaurantHeader,
-      uploadedRestaurantMenu
-    } = this.state;
-    if (
-      uploadedRestaurantAvatar === 100 &&
-      uploadedRestaurantHeader === 100 &&
-      uploadedRestaurantMenu === 100
-    ) {
-      return <Redirect to="/add-eating-place-second-form" />;
+    if (!startCreatingNewEatingPlace) {
+      return <Redirect to="/" />;
+    }
+    const { noErrorsValidations } = this.state;
+    if (noErrorsValidations) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/add-eating-place-second-form",
+            state: {
+              firstFormIsComplete: noErrorsValidations
+            }
+          }}
+        />
+      );
     }
     return (
       <div className={styles.restaurantFormWrapper}>
@@ -120,9 +117,6 @@ class NewLocalFirst extends React.Component {
             restaurantBuildingNumber: "",
             restaurantCity: "",
             restaurantPhoneNumber: "",
-            restaurantAvatar: "",
-            restaurantHeader: "",
-            restaurantMenu: "",
             mondayOpenHour: "",
             mondayCloseHour: "",
             tuesdayOpenHour: "",
@@ -138,74 +132,21 @@ class NewLocalFirst extends React.Component {
             sundayOpenHour: "",
             sundayCloseHour: ""
           }}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.restaurantName) {
-          //     errors.restaurantName = "Pole wymagane";
-          //   }
-          //   if (!values.restaurantStreet) {
-          //     errors.restaurantStreet = "Pole wymagane";
-          //   }
-          //   // if (!values.restaurantEmail) {
-          //   //   errors.restaurantEmail = "Pole wymagane";
-          //   // } else if (
-          //   //   !values.restaurantEmail ===
-          //   //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
-          //   // ) {
-          //   //   errors.restaurantEmail = "Adres e-mail jest nieprawidłowy";
-          //   // }
-          //   // if (!values.restaurantPhoneNumber) {
-          //   //   errors.restaurantPhoneNumber = "Pole wymagane";
-          //   // } else if (
-          //   //   !values.restaurantPhoneNumber ===
-          //   //   !/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/i
-          //   // ) {
-          //   //   errors.restaurantPhoneNumber = "Nie poprawny numer telefonu";
-          //   // }
-          //   // if (!values.restaurantAvatar) {
-          //   //   errors.restaurantAvatar = "Pole wymagane";
-          //   // }
-          //   // if (!values.restaurantHeader) {
-          //   //   errors.restaurantHeader = "Pole wymagane";
-          //   // }
-          //   // if (!values.restaurantMenu) {
-          //   //   errors.restaurantMenu = "Pole wymagane";
-          //   // }
-          // //   if (!values.mondayOpenHour || !values.mondayCloseHour) {
-          // //     errors.mondayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.tuesdayOpenHour || !values.tuesdayOpenHour) {
-          // //     errors.tuesdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.wednesdayOpenHour || !values.wednesdayCloseHour) {
-          // //     errors.wednesdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.thursdayOpenHour || !values.thursdayCloseHour) {
-          // //     errors.thursdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.fridayOpenHour || !values.fridayCloseHour) {
-          // //     errors.fridayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.saturdayOpenHour || !values.saturdayCloseHour) {
-          // //     errors.saturdayOpenHour = "Pole wymagane";
-          // //   }
-          // //   if (!values.sundayOpenHour || !values.sundayCloseHour) {
-          // //     errors.sundayOpenHour = "Pole wymagane";
-          // //   }
-          // //   return errors;
-          //  }}
-          onSubmit={values => {
-            console.log(values);
-            localStorage.setItem("setFirst", JSON.stringify(values));
+          onSubmit={(values, errors) => {
+            if (errors) {
+              this.setState({ noErrorsValidations: true });
+              localStorage.setItem("setFirst", JSON.stringify(values));
+            }
           }}
         >
-          {({ isSubmitting }) => (
+          {() => (
             <Form className={styles.restaurantForm}>
               <div className={styles.inputElement}>
                 <label htmlFor="restaurantName">Nazwa lokalu</label>
                 <Field
                   type="text"
                   name="restaurantName"
+                  validate={this.validateRestaurantName}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantName" component="div" />
@@ -217,6 +158,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantEmail"
+                  validate={this.validateRestaurantEmail}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantEmail" component="div" />
@@ -228,6 +170,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantPhoneNumber"
+                  validate={this.validateRestaurantPhoneNumber}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantPhoneNumber" component="div" />
@@ -240,6 +183,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantStreet"
+                  validate={this.validateRestaurantStreet}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantStreet" component="div" />
@@ -251,6 +195,7 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantBuildingNumber"
+                  validate={this.validateRestaurantBuildingNumber}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantBuildingNumber" component="div" />
@@ -262,50 +207,10 @@ class NewLocalFirst extends React.Component {
                 <Field
                   type="text"
                   name="restaurantCity"
+                  validate={this.validateRestaurantCity}
                   className={styles.input}
                 />
                 <ErrorMessage name="restaurantCity" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.formTitle}>Zdjęcia lokalu</div>
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantAvatar">
-                  Wybierz zdjęcie profilowe
-                </label>
-                <input
-                  type="file"
-                  name="restaurantAvatar"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantAvatar}
-                />
-                <ErrorMessage name="restaurantAvatar" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantHeader">
-                  Wybierz zdjęcie banerowe
-                </label>
-                <input
-                  type="file"
-                  name="restaurantHeader"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantHeader}
-                />
-                <ErrorMessage name="restaurantHeader" component="div" />
-              </div>
-              <br />
-              <br />
-              <div className={styles.inputElement}>
-                <label htmlFor="restaurantMenu">Wybierz zdjęcie menu</label>
-                <input
-                  type="file"
-                  name="restaurantMenu"
-                  className={styles.inputFile}
-                  onChange={this.handleRestaurantMenu}
-                />
-                <ErrorMessage name="restaurantMenu" component="div" />
               </div>
               <br />
               <br />
@@ -323,15 +228,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="mondayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="mondayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="mondayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="mondayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -348,15 +260,23 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="tuesdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
+
                   <Field
                     type="time"
                     name="tuesdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="tuesdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="tuesdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -373,15 +293,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="wednesdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="wednesdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="wednesdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="wednesdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -398,15 +325,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="thursdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="thursdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="thursdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="thursdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -423,15 +357,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="fridayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="fridayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="fridayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="fridayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -448,15 +389,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="saturdayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="saturdayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="saturdayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="saturdayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -473,15 +421,22 @@ class NewLocalFirst extends React.Component {
                   <Field
                     type="time"
                     name="sundayOpenHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <Field
                     type="time"
                     name="sundayCloseHour"
+                    validate={this.validateOpenCloseHoursForDay}
                     className={styles.inputTime}
                   />
                   <ErrorMessage
                     name="sundayOpenHour"
+                    component="div"
+                    className={styles.timeError}
+                  />
+                  <ErrorMessage
+                    name="sundayCloseHour"
                     component="div"
                     className={styles.timeError}
                   />
@@ -492,7 +447,6 @@ class NewLocalFirst extends React.Component {
                 second
                 type="submit"
                 className={styles.button}
-                // disabled={isSubmitting}
                 onClick={this.handleUploadImagesRestaurant}
               >
                 Dalej
@@ -504,10 +458,4 @@ class NewLocalFirst extends React.Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    userId: state.auth.userId
-  };
-};
-export default connect(mapStateToProps, null)(NewLocalFirst);
+export default FirstForm;

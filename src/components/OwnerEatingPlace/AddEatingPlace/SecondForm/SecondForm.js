@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "../AddEatingPlace.module.scss";
 import MealName from "./MealName/MealName";
-import { Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import Button from "../../../Button/Button";
+import { Redirect } from "react-router-dom";
 
-class NewLocalCategory extends React.Component {
+class SecondForm extends React.Component {
   state = {
     mealCatName: [
       {
@@ -189,9 +189,31 @@ class NewLocalCategory extends React.Component {
         name: "język migowy",
         value: "język_migowy"
       }
-    ]
+    ],
+    submited: null
   };
   render() {
+    const { submited } = this.state;
+    let firstFormIsComplete;
+    let secondFormIsComplete = true;
+    if (this.props.location.state) {
+      firstFormIsComplete = this.props.location.state.firstFormIsComplete;
+    }
+    if (!firstFormIsComplete) {
+      return <Redirect to="/" />;
+    }
+    if (submited) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/add-eating-place-summary-form",
+            state: {
+              secondFormIsComplete: submited
+            }
+          }}
+        />
+      );
+    }
     return (
       <div className={styles.restaurantFormWrapper}>
         <Formik
@@ -232,15 +254,12 @@ class NewLocalCategory extends React.Component {
             zapiekanki: false,
             śniadanie: false
           }}
-          validate={values => {
-            let errors = {};
-            return errors;
-          }}
           onSubmit={values => {
             localStorage.setItem("setSecond", JSON.stringify(values));
+            this.setState({ submited: true });
           }}
         >
-          {({ isSubmitting }) => (
+          {() => (
             <Form className={styles.restaurantForm}>
               <div className={styles.formTitle}>Danie</div>
               <MealName mealCatName={this.state.mealCatName} />
@@ -251,17 +270,7 @@ class NewLocalCategory extends React.Component {
               <div className={styles.formTitle}>Udogodnienia</div>
               <MealName mealCatName={this.state.comfCat} />
               <Button second type="submit" className={styles.button}>
-                {isSubmitting ? (
-                  <Link
-                    to="/add-eating-place-summary-form"
-                    disabled={isSubmitting}
-                    className={styles.button}
-                  >
-                    Dalej
-                  </Link>
-                ) : (
-                  "Potwierdź"
-                )}
+                Dalej
               </Button>
             </Form>
           )}
@@ -270,4 +279,4 @@ class NewLocalCategory extends React.Component {
     );
   }
 }
-export default NewLocalCategory;
+export default SecondForm;

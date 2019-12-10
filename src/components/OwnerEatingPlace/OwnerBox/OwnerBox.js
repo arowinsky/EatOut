@@ -7,22 +7,43 @@ import { connect } from "react-redux";
 
 class OwnerBox extends React.Component {
   render() {
-    const { haveEatingPlace, clientsOpinions } = this.props;
-    console.log(clientsOpinions);
-
+    const { haveEatingPlace } = this.props;
+    const startCreatingNewEatingPlace = true;
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
-        <div className={styles.header}>O to Twoje lokale gastronomiczne:</div>
-        <EatingPlaceProfileCard
-          eatingPlaces={haveEatingPlace}
-          clientsOpinions={clientsOpinions}
-        />
+        <div className={styles.wrapper}>
+          <div className={styles.items}>
+            <Button second>
+              <Link
+                className={styles.button}
+                to={{
+                  pathname: "/add-eating-place-first-form",
+                  state: {
+                    startCreatingNewEatingPlace: startCreatingNewEatingPlace
+                  }
+                }}
+              >
+                Chcę dodać kolejny lokal gastronomiczny
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <br />
+        <div className={styles.header}>Twoje lokale gastronomiczne:</div>
+        <EatingPlaceProfileCard eatingPlaces={haveEatingPlace} />
       </div>
     ) : (
       <div className={styles.box_wrapper}>
-        Nie masz jeszcze restauracji
+        Nie masz jeszcze żadnego lokalu gastronomicznego
         <br />
-        <Link to="/add-eating-place-first-form">
+        <Link
+          to={{
+            pathname: "/add-eating-place-first-form",
+            state: {
+              startCreatingNewEatingPlace: startCreatingNewEatingPlace
+            }
+          }}
+        >
           <Button second>Dodaj swój lokal</Button>
         </Link>
       </div>
@@ -33,7 +54,7 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    haveEatingPlace: state.auth.haveEatingPlace,
+    haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace,
     clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };

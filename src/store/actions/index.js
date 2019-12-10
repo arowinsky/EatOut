@@ -5,15 +5,15 @@ export {
   // facebookLogIn,
   // googleLogIn,
   AutoLoginSuccess,
-  AutoLogin,
-  addNewLocal,
-  sendOwnerPost
+  AutoLogin
 } from "../actions/authActions";
+export { addNewEatingPlace } from "../actions/addNewEatingPlace/addNewEatingPlaceActions";
 
 export {
+  sendOwnerPost,
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
-  blockOpinionForm,
-  getClientsOpinions
+  getClientsOpinions,
+  blockOpinionForm
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";

@@ -17,12 +17,7 @@ const initState = {
   resetedPassword: null,
   error: null,
   z: null,
-  userData: null,
-  addedPlace: null,
-  restaurantAvatar: null,
-  restaurantHeader: null,
-  restaurantMenu: null,
-  haveEatingPlace: null
+  userData: null
 };
 
 const authStart = (state, action) => {
@@ -42,11 +37,6 @@ export const userData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId
-  });
-};
-export const addedPlace = (state, action) => {
-  return updateObject(state, {
-    addedPlace: action.addedPlace
   });
 };
 const RegisterSuccess = (state, action) => {
@@ -128,27 +118,6 @@ const sendedEmailWithLinkResetPassword = (state, action) => {
     resetedPassword: action.resetedPassword
   });
 };
-const setRestaurantAvatar = (state, action) => {
-  return updateObject(state, {
-    restaurantAvatar: action.restaurantAvatar
-  });
-};
-const setRestaurantHeader = (state, action) => {
-  return updateObject(state, {
-    restaurantHeader: action.restaurantHeader
-  });
-};
-const setRestaurantMenu = (state, action) => {
-  return updateObject(state, {
-    restaurantMenu: action.restaurantMenu
-  });
-};
-const ownerHaveEatingPlace = (state, action) => {
-  return updateObject(state, {
-    haveEatingPlace: action.haveEatingPlace
-  });
-};
-
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -183,16 +152,6 @@ const authReducer = (state = initState, action) => {
       return sendedEmailWithLinkResetPassword(state, action);
     case actionTypes.AUTH_DATA:
       return userData(state, action);
-    case actionTypes.ADDED_NEW_PLACE:
-      return addedPlace(state, action);
-    case actionTypes.SET_RESTAURANT_AVATAR:
-      return setRestaurantAvatar(state, action);
-    case actionTypes.SET_RESTAURANT_HEADER:
-      return setRestaurantHeader(state, action);
-    case actionTypes.SET_RESTAURANT_MENU:
-      return setRestaurantMenu(state, action);
-    case actionTypes.OWNER_HAVE_EATING_PLACE:
-      return ownerHaveEatingPlace(state, action);
     default:
       return state;
   }

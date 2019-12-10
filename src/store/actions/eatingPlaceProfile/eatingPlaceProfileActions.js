@@ -95,11 +95,9 @@ export const blockOpinionForm = blockedOpinionForm => {
     blockOpinonForm: blockedOpinionForm
   };
 };
-
-export const getClientsOpinions = eatingPlaceId => {
-  console.log(eatingPlaceId);
+export const sendOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
   return dispatch => {
-    const url = "http://localhost:8080/get-clients-opinions";
+    const url = "http://localhost:8080/add-owner-post";
     fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -110,7 +108,7 @@ export const getClientsOpinions = eatingPlaceId => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `placesId=${eatingPlaceId}`
+      body: `textOfPost=${post}&eatingPlaceName=${eatingPlaceName}&eatingPlaceId=${eatingPlaceId}`
     })
       .then(Response => Response.json())
       .then(response => {
@@ -118,6 +116,12 @@ export const getClientsOpinions = eatingPlaceId => {
         const { clientsOpinions } = response;
         dispatch(showClientsOpinions(clientsOpinions));
       });
+  };
+};
+export const getClientsOpinions = eatingPlaceId => {
+  console.log(eatingPlaceId);
+  return dispatch => {
+    const url = "http://localhost:8080/get-clients-opinions";
   };
 };
 
