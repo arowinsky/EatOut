@@ -22,10 +22,10 @@ export const addNewEatingPlace = (
       .then(Response => Response.json())
       .then(response => {
         const {
-          addedEatingPlace,
+          uploadFail,
           invalidFormatFile,
           noAllImagesSended,
-          uploadFail
+          addedEatingPlace
         } = response;
         console.log(response);
         if (uploadFail) {
