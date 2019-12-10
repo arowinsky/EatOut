@@ -34,7 +34,6 @@ const blockOpinionForm = (state, action) => {
 };
 
 const addedOwnerPost = (state, action) => {
-  console.log(action.addedOwnerPost);
   return updateObject(state, {
     addedOwnerPost: action.addedOwnerPost
   });

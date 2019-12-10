@@ -18,7 +18,6 @@ class OwnerPostForm extends React.Component {
   };
   render() {
     const { eatingPlace, addedOwnerPost } = this.props;
-    console.log(addedOwnerPost);
     let eatingPlaceName;
     let eatingPlaceId;
     if (eatingPlace) {
@@ -44,7 +43,7 @@ class OwnerPostForm extends React.Component {
               <Form>
                 <div className={styles.formItem}>
                   {addedOwnerPost ? (
-                    <div className={styles.formItem}>
+                    <div className={styles.addedOwnerPost}>
                       <p>Twój post został dodany</p>
                     </div>
                   ) : null}

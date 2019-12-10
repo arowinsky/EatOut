@@ -112,15 +112,12 @@ export const addOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { addedPost } = response;
-        console.log(response);
         dispatch(addedOwnerPost(addedPost));
       });
   };
 };
 export const addedOwnerPost = addedOwnerPost => {
-  console.log(addedOwnerPost);
   return {
     type: actionTypes.ADDED_OWNER_POST,
     addedOwnerPost: addedOwnerPost
