@@ -24,10 +24,14 @@ export const addNewEatingPlace = (
         const {
           addedEatingPlace,
           invalidFormatFile,
-          noAllImagesSended
+          noAllImagesSended,
+          uploadFail
         } = response;
         console.log(response);
-
+        if (uploadFail) {
+          dispatch(uploadFailImagesEatingPlace(uploadFail));
+          console.log("TCL: uploadFail", uploadFail);
+        }
         if (invalidFormatFile) {
           dispatch(invalidFormatImagesEatingPlace(invalidFormatFile));
           console.log("TCL: invalidFormatFile", invalidFormatFile);
@@ -41,6 +45,12 @@ export const addNewEatingPlace = (
   };
 };
 
+export const uploadFailImagesEatingPlace = uploadFailImagesEatingPlace => {
+  return {
+    type: actionTypes.UPLOAD_IMAGES_EATING_PLACE_IS_FAIL,
+    uploadFailImagesEatingPlace: uploadFailImagesEatingPlace
+  };
+};
 export const invalidFormatImagesEatingPlace = invalidFormatFile => {
   console.log(invalidFormatFile);
   return {

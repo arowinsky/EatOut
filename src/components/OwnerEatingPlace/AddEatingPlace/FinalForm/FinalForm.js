@@ -45,12 +45,21 @@ class FinalForm extends React.Component {
     const { restaurantAvatar, restaurantHeader, restaurantMenu } = this.state;
     const {
       addedPlace,
+      uploadFailImagesEatingPlace,
       unavailableAllImageEatingPlace,
       invalidFormatImagesEatingPlace
     } = this.props;
     let invalidAvatar;
     let invalidHeader;
     let invalidMenu;
+    let avatarFail;
+    let headerFail;
+    let menuFail;
+    if (uploadFailImagesEatingPlace) {
+      avatarFail = uploadFailImagesEatingPlace.avatarFail;
+      headerFail = uploadFailImagesEatingPlace.headerFail;
+      menuFail = uploadFailImagesEatingPlace.menuFail;
+    }
     if (invalidFormatImagesEatingPlace) {
       invalidAvatar = invalidFormatImagesEatingPlace.errorAvatar;
       invalidHeader = invalidFormatImagesEatingPlace.errorHeader;
@@ -111,6 +120,11 @@ class FinalForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantAvatar}
                 />
+                {avatarFail ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie udało się przesłać tego pliku. Spróbuj ponownie</p>
+                  </div>
+                ) : null}
                 {invalidAvatar ? (
                   <div className={styles.inputElement}>
                     <p>Nie poprawny format pliku</p>
@@ -129,6 +143,11 @@ class FinalForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantHeader}
                 />
+                {headerFail ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie udało się przesłać tego pliku. Spróbuj ponownie</p>
+                  </div>
+                ) : null}
                 {invalidHeader ? (
                   <div className={styles.inputElement}>
                     <p>Nie poprawny format pliku</p>
@@ -145,6 +164,11 @@ class FinalForm extends React.Component {
                   className={styles.inputFile}
                   onChange={this.handleRestaurantMenu}
                 />
+                {menuFail ? (
+                  <div className={styles.inputElement}>
+                    <p>Nie udało się przesłać tego pliku. Spróbuj ponownie</p>
+                  </div>
+                ) : null}
                 {invalidMenu ? (
                   <div className={styles.inputElement}>
                     <p>Nie poprawny format pliku</p>
@@ -168,7 +192,9 @@ const mapStateToProps = state => {
     unavailableAllImageEatingPlace:
       state.addNewEatingPlace.unavailableAllImageEatingPlace,
     invalidFormatImagesEatingPlace:
-      state.addNewEatingPlace.invalidFormatImagesEatingPlace
+      state.addNewEatingPlace.invalidFormatImagesEatingPlace,
+    uploadFailImagesEatingPlace:
+      state.addNewEatingPlace.uploadFailImagesEatingPlace
   };
 };
 const mapDispatchToProps = dispatch => {
