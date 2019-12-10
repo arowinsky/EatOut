@@ -217,6 +217,8 @@ class SummaryForm extends React.Component {
     }
 
     if (submited) {
+      localStorage.removeItem("setFirst");
+      localStorage.removeItem("setSecond");
       return (
         <Redirect
           to={{
