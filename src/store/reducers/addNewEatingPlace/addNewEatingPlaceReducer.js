@@ -3,6 +3,7 @@ import { updateObject } from "../../update";
 
 const initState = {
   addedPlace: null,
+  uploadFailImagesEatingPlace: null,
   invalidFormatImagesEatingPlace: null,
   unavailableAllImageEatingPlace: null
 };
@@ -13,6 +14,12 @@ export const addedPlace = (state, action) => {
     addedPlace: action.addedPlace,
     idAddedPlace: action.idAddedPlace,
     idOwnerAddedEatingPlace: action.idOwnerAddedEatingPlace
+  });
+};
+
+export const uploadFailImagesEatingPlace = (state, action) => {
+  return updateObject(state, {
+    uploadFailImagesEatingPlace: action.uploadFailImagesEatingPlace
   });
 };
 
@@ -36,6 +43,8 @@ const addNewEatingPlaceReducer = (state = initState, action) => {
       return invalidFormatImagesEatingPlace(state, action);
     case actionTypes.UNAVAILABLE_ALL_IMAGES_EATING_PLACE:
       return unavailableAllImagesEatingPlace(state, action);
+    case actionTypes.UPLOAD_IMAGES_EATING_PLACE_IS_FAIL:
+      return uploadFailImagesEatingPlace(state, action);
     default:
       return state;
   }
