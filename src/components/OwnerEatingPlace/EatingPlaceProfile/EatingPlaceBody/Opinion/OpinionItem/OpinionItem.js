@@ -6,33 +6,34 @@ class OpinionItem extends React.Component {
   render() {
     const { eatingPlace } = this.props;
     console.log(eatingPlace.id);
-
     let eatingPlaceId;
+    let clientsOpinions;
     if (eatingPlace) {
       eatingPlaceId = eatingPlace.id;
+      clientsOpinions = eatingPlace.clientsOpinions;
       console.log(eatingPlaceId);
       this.props.getClientsOpinions(eatingPlaceId);
     }
-    return (
-      <div className={styles.wrapper}>
-        <div className={styles.itemWrapper}>
-          <div className={styles.commentOwner}>
-            <div className={styles.icon}>ikona</div>
-            <div className={styles.name}>name</div>
-            <div className={styles.date}>data</div>
-          </div>
+    const clientsOpinionsForCurrentEatingPlace = clientsOpinions.length
+      ? clientsOpinions.map(clientsOpinions => {
+          return (
+            <div className={styles.wrapper}>
+              <div className={styles.itemWrapper}>
+                <div className={styles.commentOwner}>
+                  <div className={styles.icon}>ikona</div>
+                  <div className={styles.name}>{clientsOpinions.author}</div>
+                  <div className={styles.date}>{clientsOpinions.data}</div>
+                </div>
 
-          <div className={styles.commentItem}>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+                <div className={styles.commentItem}>
+                  <p>{clientsOpinions.clientOpinion}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      : null;
+    return <div>{clientsOpinionsForCurrentEatingPlace}</div>;
   }
 }
 
