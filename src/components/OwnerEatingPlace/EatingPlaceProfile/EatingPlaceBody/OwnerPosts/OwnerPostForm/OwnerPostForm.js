@@ -17,7 +17,8 @@ class OwnerPostForm extends React.Component {
     return error;
   };
   render() {
-    const { eatingPlace } = this.props;
+    const { eatingPlace, addedOwnerPost } = this.props;
+    console.log(addedOwnerPost);
     let eatingPlaceName;
     let eatingPlaceId;
     if (eatingPlace) {
@@ -32,7 +33,7 @@ class OwnerPostForm extends React.Component {
               textOfPost: ""
             }}
             onSubmit={value => {
-              this.props.sendOwnerPost(
+              this.props.addOwnerPost(
                 value.textOfPost,
                 eatingPlaceName,
                 eatingPlaceId
@@ -42,6 +43,11 @@ class OwnerPostForm extends React.Component {
             {({ errors, touched }) => (
               <Form>
                 <div className={styles.formItem}>
+                  {addedOwnerPost ? (
+                    <div className={styles.formItem}>
+                      <p>Twój post został dodany</p>
+                    </div>
+                  ) : null}
                   <Field
                     name="textOfPost"
                     component="textarea"
@@ -66,11 +72,17 @@ class OwnerPostForm extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    addedOwnerPost: state.eatingPlaceProfile.addedOwnerPost
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
-    sendOwnerPost: (post, eatingPlaceName, eatingPlaceId) =>
-      dispatch(actions.sendOwnerPost(post, eatingPlaceName, eatingPlaceId))
+    addOwnerPost: (post, eatingPlaceName, eatingPlaceId) =>
+      dispatch(actions.addOwnerPost(post, eatingPlaceName, eatingPlaceId))
   };
 };
 
-export default connect(mapDispatchToProps)(OwnerPostForm);
+export default connect(mapStateToProps, mapDispatchToProps)(OwnerPostForm);

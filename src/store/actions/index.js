@@ -14,5 +14,5 @@ export {
   sendCodeToVerification,
   sendClientOpinion,
   blockOpinionForm,
-  sendOwnerPost
+  addOwnerPost
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
