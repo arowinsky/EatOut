@@ -95,7 +95,7 @@ export const blockOpinionForm = blockedOpinionForm => {
     blockOpinonForm: blockedOpinionForm
   };
 };
-export const sendOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
+export const addOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
   return dispatch => {
     const url = "http://localhost:8080/add-owner-post";
     fetch(url, {
@@ -112,7 +112,14 @@ export const sendOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        const { addedPost } = response;
+        dispatch(addedOwnerPost(addedPost));
       });
+  };
+};
+export const addedOwnerPost = addedOwnerPost => {
+  return {
+    type: actionTypes.ADDED_OWNER_POST,
+    addedOwnerPost: addedOwnerPost
   };
 };

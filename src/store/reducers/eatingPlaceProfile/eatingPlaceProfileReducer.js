@@ -6,7 +6,8 @@ const initState = {
   codeForClient: null,
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
-  uploadedEatingPlaceImages: null
+  uploadedEatingPlaceImages: null,
+  addedOwnerPost: null
 };
 
 const ownerHaveEatingPlace = (state, action) => {
@@ -32,14 +33,9 @@ const blockOpinionForm = (state, action) => {
   });
 };
 
-const uploadedEatingPlaceImages = (state, action) => {
-  console.log(
-    "TCL: uploadedEatingPlaceImages -> action",
-    action.uploadedEatingPlaceImages
-  );
-
+const addedOwnerPost = (state, action) => {
   return updateObject(state, {
-    uploadedEatingPlaceImages: action.uploadedEatingPlaceImages
+    addedOwnerPost: action.addedOwnerPost
   });
 };
 
@@ -53,8 +49,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return clientCodeIsVerified(state, action);
     case actionTypes.BLOCKED_OPINION_FORM:
       return blockOpinionForm(state, action);
-    case actionTypes.UPLOADED_EATING_PLACE_IMAGES:
-      return uploadedEatingPlaceImages(state, action);
+    case actionTypes.ADDED_OWNER_POST:
+      return addedOwnerPost(state, action);
     default:
       return state;
   }
