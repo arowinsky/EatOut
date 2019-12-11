@@ -1,4 +1,3 @@
-import storage from "../../configs/firebaseConfig";
 import * as actionTypes from "./actionTypes";
 
 export const authStart = () => {
@@ -250,7 +249,7 @@ export const logIn = (email, password1) => {
 
 export const forgotPassword = email => {
   return dispatch => {
-    const url = "http://localhost:8080/reset-password";
+    const url = "http://localhost:8080/send-mail-to-reset-password";
     fetch(url, {
       method: "POST",
       mode: "cors",
