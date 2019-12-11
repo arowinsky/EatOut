@@ -54,7 +54,8 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace
+    haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace,
+    clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };
 

@@ -10,9 +10,9 @@ export {
 export { addNewEatingPlace } from "../actions/addNewEatingPlace/addNewEatingPlaceActions";
 
 export {
+  addOwnerPost,
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
-  blockOpinionForm,
-  addOwnerPost
+  blockOpinionForm
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
