@@ -3,26 +3,37 @@ import styles from "./OwnerPostItem.module.scss";
 
 class PostItem extends React.Component {
   render() {
-    return (
-      <div className={styles.wrapper}>
-        <div className={styles.itemWrapper}>
-          <div className={styles.commentOwner}>
-            <div className={styles.icon}>ikona</div>
-            <div className={styles.name}>name</div>
-            <div className={styles.date}>data</div>
-          </div>
+    const { eatingPlace } = this.props;
+    let ownerPosts;
+    if (eatingPlace) {
+      ownerPosts = eatingPlace.ownerPosts;
+    }
+    const ownerPostsForCurrentPlace = ownerPosts.length ? (
+      ownerPosts.map(ownerPosts => {
+        return (
+          <div className={styles.wrapper}>
+            <div className={styles.itemWrapper}>
+              <div className={styles.commentOwner}>
+                <div className={styles.icon}>ikona</div>
+                <div className={styles.name}>{ownerPosts.author}</div>
+                <div className={styles.date}>{ownerPosts.date}</div>
+              </div>
 
-          <div className={styles.commentItem}>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat
-            </p>
+              <div className={styles.commentItem}>
+                <p>{ownerPosts.post}</p>
+              </div>
+            </div>
           </div>
-        </div>
+        );
+      })
+    ) : (
+      <div>
+        <p>
+          Ten lokal nie posiada jeszcze zadnych postów własciciela tego lokalu
+        </p>
       </div>
     );
+    return <div>{ownerPostsForCurrentPlace}</div>;
   }
 }
 
