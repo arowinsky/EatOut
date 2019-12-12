@@ -1,0 +1,62 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  justify-self: center;
+}
+.form {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formItem {
+  width: 100%;
+  margin: 24px 0;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.formItemBar {
+  width: 100%;
+  height: 2px;
+  background: #7d7d7d;
+  transition: 0.1s all;
+}
+
+.input {
+  color: #7d7d7d;
+  font-size: 16px;
+  border: none;
+  line-height: 22px;
+  width: 100%;
+  background: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:focus + .label {
+  top: -22px;
+  font-size: 13px;
+}
+
+.input:not(:placeholder-shown) + .label {
+  top: -22px;
+  font-size: 13px;
+}
+
+.input:focus ~ .formItemBar {
+  background: #eeb144;
+}
+
+.invalidEmail {
+  text-align: center;
+  margin-bottom: 2%;
+}
