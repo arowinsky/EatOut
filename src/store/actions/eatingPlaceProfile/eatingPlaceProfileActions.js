@@ -81,7 +81,7 @@ export const sendClientOpinion = (
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
+        console.log(response.opinionsForCurrentProfile);
         blockedOpinionForm = true;
         dispatch(blockOpinionForm(blockedOpinionForm));
       });
@@ -112,8 +112,10 @@ export const addOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const { addedPost } = response;
+        console.log(response.postsForCurrentProfile);
+        const { addedPost, postsForCurrentProfile } = response;
         dispatch(addedOwnerPost(addedPost));
+        dispatch(updatedOwnerPosts(postsForCurrentProfile));
       });
   };
 };
@@ -121,5 +123,12 @@ export const addedOwnerPost = addedOwnerPost => {
   return {
     type: actionTypes.ADDED_OWNER_POST,
     addedOwnerPost: addedOwnerPost
+  };
+};
+
+export const updatedOwnerPosts = updatedOwnerPosts => {
+  return {
+    type: actionTypes.UPDATED_OWNER_POST,
+    updatedOwnerPosts: updatedOwnerPosts
   };
 };

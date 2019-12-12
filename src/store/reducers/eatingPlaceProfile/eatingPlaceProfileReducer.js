@@ -7,7 +7,8 @@ const initState = {
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
   uploadedEatingPlaceImages: null,
-  addedOwnerPost: null
+  addedOwnerPost: null,
+  updatedOwnerPosts: null
 };
 
 const ownerHaveEatingPlace = (state, action) => {
@@ -38,6 +39,11 @@ const addedOwnerPost = (state, action) => {
     addedOwnerPost: action.addedOwnerPost
   });
 };
+const updatedOwnerPosts = (state, action) => {
+  return updateObject(state, {
+    updatedOwnerPosts: action.updatedOwnerPosts
+  });
+};
 
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
@@ -51,6 +57,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return blockOpinionForm(state, action);
     case actionTypes.ADDED_OWNER_POST:
       return addedOwnerPost(state, action);
+    case actionTypes.UPDATED_OWNER_POST:
+      return updatedOwnerPosts(state, action);
     default:
       return state;
   }
