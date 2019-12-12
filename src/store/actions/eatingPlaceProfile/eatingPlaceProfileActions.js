@@ -135,8 +135,6 @@ export const sendClientOpinion = (
   };
 };
 export const updatedClientsOpinions = updatedClientsOpinions => {
-  console.log("TCL: updatedClientsOpinions", updatedClientsOpinions);
-
   return {
     type: actionTypes.UPDATED_CLIENTS_OPINIONS,
     updatedClientsOpinions: updatedClientsOpinions
