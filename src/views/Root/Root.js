@@ -13,7 +13,7 @@ import SecondForm from "../../components/OwnerEatingPlace/AddEatingPlace/SecondF
 import SummaryForm from "../../components/OwnerEatingPlace/AddEatingPlace/SummaryForm/SummaryForm";
 import { connect } from "react-redux";
 import LogOut from "../../components/Auth/LogOut/LogOut";
-import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView"
+import ForgotPasswordView from "../ForgotPasswordView/ForgotPasswordView";
 import UserActionView from "../UserActionView/UserActionView";
 import * as actions from "../../store/actions/index";
 import PrivateRoute from "../../components/Common/PrivateRoute";
@@ -73,7 +73,7 @@ class Root extends React.Component {
             <Route path="/register" component={RegisterView} />
             <Route path="/register-success" component={RegisterSuccessView} />
             <Route path="/user-action" component={UserActionView} />
-            <Route path="/forgot-password" component={ForgotPasswordView}
+            <Route path="/forgot-password" component={ForgotPasswordView} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute
               path="/add-eating-place-first-form"
