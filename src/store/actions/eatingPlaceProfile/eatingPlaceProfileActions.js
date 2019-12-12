@@ -59,35 +59,6 @@ export const clientCodeIsVerified = clientCodeIsVerified => {
   };
 };
 
-export const sendClientOpinion = (
-  clientOpinion,
-  eatingPlaceId,
-  z,
-  blockedOpinionForm
-) => {
-  return dispatch => {
-    const url = "http://localhost:8080/add-client-opinion";
-    fetch(url, {
-      method: "POST",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `clientOpinion=${clientOpinion}&eatingPlaceId=${eatingPlaceId}&z=${z}`
-    })
-      .then(Response => Response.json())
-      .then(response => {
-        console.log(response.opinionsForCurrentProfile);
-        blockedOpinionForm = true;
-        dispatch(blockOpinionForm(blockedOpinionForm));
-      });
-  };
-};
-
 export const blockOpinionForm = blockedOpinionForm => {
   console.log(blockedOpinionForm);
   return {
@@ -130,5 +101,44 @@ export const updatedOwnerPosts = updatedOwnerPosts => {
   return {
     type: actionTypes.UPDATED_OWNER_POST,
     updatedOwnerPosts: updatedOwnerPosts
+  };
+};
+
+export const sendClientOpinion = (
+  clientOpinion,
+  eatingPlaceId,
+  z,
+  blockedOpinionForm
+) => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-client-opinion";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `clientOpinion=${clientOpinion}&eatingPlaceId=${eatingPlaceId}&z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response.opinionsForCurrentProfile);
+        blockedOpinionForm = true;
+        const { opinionsForCurrentProfile } = response;
+        dispatch(blockOpinionForm(blockedOpinionForm));
+        dispatch(updatedClientsOpinions(opinionsForCurrentProfile));
+      });
+  };
+};
+export const updatedClientsOpinions = updatedClientsOpinions => {
+  console.log("TCL: updatedClientsOpinions", updatedClientsOpinions);
+
+  return {
+    type: actionTypes.UPDATED_CLIENTS_OPINIONS,
+    updatedClientsOpinions: updatedClientsOpinions
   };
 };
