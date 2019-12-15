@@ -31,6 +31,7 @@ class Root extends React.Component {
       return { sideBarOpen: !prevState.sideBarOpen };
     });
   };
+
   render() {
     let test = false;
     let sideBar;

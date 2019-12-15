@@ -4,98 +4,50 @@ import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
 import { config } from "../../../configs/firebaseConfig";
-import { Formik, Field, Form } from "formik";
 import Title from "../../Title/Title";
-import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 
-class UserActionForm extends React.Component {
-  constructor() {
-    super();
-    if (!firebase.apps.length) {
-      app.initializeApp(config);
-    }
-  }
-  validateEmail = value => {
-    let error;
-    if (!value) {
-      error = "Podaj adres e-mail";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-      error = "Adres e-mail jest nieprawidłowy";
-    }
-    return error;
-  };
-  componentDidMount() {
-    let params = new URLSearchParams(document.location.search.substring(1));
+const UserActionForm = ({ ...props }) => {
+  let params = new URLSearchParams(document.location.search.substring(1));
+  let mode = params.get("mode");
 
-    let mode = params.get("mode");
-    console.log("This is mode", mode);
-    const oobCode = params.get("oobCode");
-    console.log("This is oobCode", oobCode);
+  console.log("This is mode", mode);
+  const oobCode = params.get("oobCode");
+  console.log("This is oobCode", oobCode);
+
+  if (mode === "verifyEmail") {
+    props.userVerifyEmail(mode, oobCode);
+    let verificatedEmail = props.verificatedEmail;
+    if (verificatedEmail === true) {
+      return (
+        <div className={styles.wrapper}>
+          <Title>Twoje konto zostało aktywowane</Title>
+          <a href="http://localhost:3000/login">Tutaj możesz się zalogować</a>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.wrapper}>
+          <Title>
+            Link został już użyty, więc konto już zostało wcześniej aktywowane
+          </Title>
+        </div>
+      );
+    }
   }
-  render() {
-    const { invalidEmail, sendedEmail } = this.props;
-    return (
-      <div className={styles.wrapper}>
-        <Title>
-          Podaj adres e-mail na który założyłeś/aś to konto, a my wyślemy Ci
-          maila z kolejnymi krokami
-        </Title>
-        <Formik
-          initialValues={{
-            email: ""
-          }}
-          onSubmit={values => {
-            this.props.onForgotPassword(values.email);
-          }}
-        >
-          {({ errors, touched }) => (
-            <Form className={styles.form}>
-              <div className={styles.formItem}>
-                {invalidEmail === false ? (
-                  <p className={styles.invalidEmail}>
-                    Nie istnieje konto z takim emailem. Podaj email na pewno do
-                    swojego konta
-                  </p>
-                ) : null}
-                {sendedEmail ? (
-                  <p className={styles.invalidEmail}>
-                    Wysłaliśmy na twojego e-maila mail z linkiem do formularza,
-                    w którym będziesz mógł/ła zresetować swoje hasło.
-                  </p>
-                ) : null}
-                <Field
-                  name="email"
-                  type="text"
-                  validate={this.validateEmail}
-                  placeholder="E-mail"
-                  className={styles.input}
-                />
-                <div className={styles.formItemBar} />
-                {errors.email && touched.email && <div>{errors.email}</div>}
-              </div>
-              <Button second type="submit">
-                Wyślij
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    );
-  }
-}
+};
 
 const mapStateToProps = state => {
   return {
-    invalidEmail: state.auth.validForgotPassword,
-    sendedEmail: state.auth.resetedPassword
+    verificatedEmail: state.userAction.verificatedEmail
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onForgotPassword: email => dispatch(actions.forgotPassword(email))
+    userVerifyEmail: (mode, oobCode) =>
+      dispatch(actions.userVerifyEmail(mode, oobCode))
   };
 };
 
