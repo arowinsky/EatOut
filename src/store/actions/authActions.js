@@ -225,10 +225,11 @@ export const logIn = (email, password1) => {
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;
+        console.log(err);
         localStorage.setItem("z", response.idSession);
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        if (err === "EMAIL_NOT_FOUND") {
+        if (err === "EMAIL_NOT_FOUND" || err === "INVALID_PASSWORD") {
           dataIsCorrect = true;
           dispatch(validationsLogIn(dataIsCorrect));
         } else {
