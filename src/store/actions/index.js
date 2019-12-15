@@ -1,7 +1,7 @@
 export {
   logIn,
   logOut,
-  forgotPassword,
+  sendMailResetPassword,
   // facebookLogIn,
   // googleLogIn,
   AutoLoginSuccess,
@@ -16,3 +16,4 @@ export {
   sendClientOpinion,
   blockOpinionForm
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
+export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
