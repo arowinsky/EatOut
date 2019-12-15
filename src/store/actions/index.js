@@ -16,4 +16,4 @@ export {
   sendClientOpinion,
   blockOpinionForm
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
-export { userVerifyEmail } from "./userAction/userActionActions";
+export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";

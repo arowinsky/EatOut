@@ -28,3 +28,26 @@ export const verificationEmail = verificatedEmail => {
     verificatedEmail: verificatedEmail
   };
 };
+
+export const resetPassword = (newPassword, oobCode) => {
+  console.log(newPassword, oobCode);
+  return dispatch => {
+    const url = "http://localhost:8080/reset-password";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      mode: "cors",
+      body: `newPassword=${newPassword}&oobCode=${oobCode}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const { status } = response;
+        dispatch(verificationEmail(status));
+      });
+  };
+};
