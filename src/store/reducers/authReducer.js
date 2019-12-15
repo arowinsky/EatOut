@@ -13,8 +13,8 @@ const initState = {
   validUsername: null,
   emailNoVerified: null,
   validsLogIn: null,
-  validForgotPassword: null,
-  resetedPassword: null,
+  validSendMailResetPassword: null,
+  mailWithResetPasswordSent: null,
   error: null,
   z: null,
   userData: null
@@ -108,14 +108,14 @@ const authLogOut = (state, action) => {
     z: null
   });
 };
-const validationsForgotPassword = (state, action) => {
+const validationsSendMailResetPassword = (state, action) => {
   return updateObject(state, {
-    validForgotPassword: action.validForgotPassword
+    validSendMailResetPassword: action.validSendMailResetPassword
   });
 };
-const sendedEmailWithLinkResetPassword = (state, action) => {
+const mailWithResetPasswordSent = (state, action) => {
   return updateObject(state, {
-    resetedPassword: action.resetedPassword
+    mailWithResetPasswordSent: action.mailWithResetPasswordSent
   });
 };
 const authReducer = (state = initState, action) => {
@@ -146,10 +146,10 @@ const authReducer = (state = initState, action) => {
       return noEmailVerified(state, action);
     case actionTypes.AUTH_VALIDATIONS_LOGIN:
       return validationsLogIn(state, action);
-    case actionTypes.AUTH_VALIDATIONS_FORGOT_PASSWORD:
-      return validationsForgotPassword(state, action);
+    case actionTypes.AUTH_VALIDATIONS_SEND_MAIL_RESET_PASSWORD:
+      return validationsSendMailResetPassword(state, action);
     case actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD:
-      return sendedEmailWithLinkResetPassword(state, action);
+      return mailWithResetPasswordSent(state, action);
     case actionTypes.AUTH_DATA:
       return userData(state, action);
     default:

@@ -1,7 +1,7 @@
 export {
   logIn,
   logOut,
-  forgotPassword,
+  sendMailResetPassword,
   // facebookLogIn,
   // googleLogIn,
   AutoLoginSuccess,

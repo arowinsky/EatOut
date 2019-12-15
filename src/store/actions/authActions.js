@@ -158,16 +158,16 @@ export const validationsLogIn = validsLogIn => {
   };
 };
 
-export const validationsForgotPassword = validForgotPassword => {
+export const validationsSendMailResetPassword = validSendMailResetPassword => {
   return {
-    type: actionTypes.AUTH_VALIDATIONS_FORGOT_PASSWORD,
-    validForgotPassword: validForgotPassword
+    type: actionTypes.AUTH_VALIDATIONS_SEND_MAIL_RESET_PASSWORD,
+    validSendMailResetPassword: validSendMailResetPassword
   };
 };
-export const sendedEmailWithLinkResetPassword = resetedPassword => {
+export const mailWithResetPasswordSent = mailWithResetPasswordSent => {
   return {
     type: actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD,
-    resetedPassword: resetedPassword
+    mailWithResetPasswordSent: mailWithResetPasswordSent
   };
 };
 
@@ -247,7 +247,7 @@ export const logIn = (email, password1) => {
   };
 };
 
-export const forgotPassword = email => {
+export const sendMailResetPassword = email => {
   return dispatch => {
     const url = "http://localhost:8080/send-mail-to-reset-password";
     fetch(url, {
@@ -265,12 +265,13 @@ export const forgotPassword = email => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const resetedPassword = response.resetedPassword;
-        if (resetedPassword === true) {
-          dispatch(sendedEmailWithLinkResetPassword(resetedPassword));
+        const { mailSent } = response;
+        console.log(response);
+        if (mailSent === true) {
+          dispatch(mailWithResetPasswordSent(mailSent));
         }
-        if (resetedPassword === false) {
-          dispatch(validationsForgotPassword(resetedPassword));
+        if (mailSent === false) {
+          dispatch(validationsSendMailResetPassword(mailSent));
         }
       });
   };

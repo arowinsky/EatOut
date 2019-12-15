@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ForgotPasswordForm.module.scss";
+import styles from "./SendMailResetPasswordForm.module.scss";
 import app from "firebase/app";
 import "firebase/auth";
 import firebase from "firebase";
@@ -10,7 +10,7 @@ import Button from "../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 
-class ForgotPasswordForm extends React.Component {
+class sendMailResetPasswordForm extends React.Component {
   constructor() {
     super();
     if (!firebase.apps.length) {
@@ -30,10 +30,6 @@ class ForgotPasswordForm extends React.Component {
     const { invalidEmail, sendedEmail } = this.props;
     return (
       <div className={styles.wrapper}>
-        <Title>
-          Podaj adres e-mail na który założyłeś/aś to konto, a my wyślemy Ci
-          maila z kolejnymi krokami
-        </Title>
         <Formik
           initialValues={{
             email: ""
@@ -44,6 +40,10 @@ class ForgotPasswordForm extends React.Component {
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
+              <div className={styles.title}>
+                Podaj adres e-mail na który założyłeś/aś to konto, a my wyślemy
+                Ci maila z kolejnymi krokami
+              </div>
               <div className={styles.formItem}>
                 {invalidEmail === false ? (
                   <p className={styles.invalidEmail}>
@@ -54,7 +54,7 @@ class ForgotPasswordForm extends React.Component {
                 {sendedEmail ? (
                   <p className={styles.invalidEmail}>
                     Wysłaliśmy na twojego e-maila mail z linkiem do formularza,
-                    w którym będziesz mógł/ła zresetować swoje hasło.
+                    w którym będziesz mógł/a zresetować swoje hasło.
                   </p>
                 ) : null}
                 <Field
@@ -80,18 +80,18 @@ class ForgotPasswordForm extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    invalidEmail: state.auth.validForgotPassword,
-    sendedEmail: state.auth.resetedPassword
+    invalidEmail: state.auth.validSendMailResetPassword,
+    sendedEmail: state.auth.mailWithResetPasswordSent
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onForgotPassword: email => dispatch(actions.forgotPassword(email))
+    onForgotPassword: email => dispatch(actions.sendMailResetPassword(email))
   };
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ForgotPasswordForm);
+)(sendMailResetPasswordForm);
