@@ -39,7 +39,8 @@ class LoginForm extends React.Component {
       isLoggedInGoogle,
       emailNoVerified,
       validsEmailPassword,
-      z
+      z,
+      tooManyAttemptsLogInTryLater
     } = this.props;
     if (isLoggedIn || isLoggedInFb || isLoggedInGoogle || z)
       return <Redirect to="/" />;
@@ -59,12 +60,17 @@ class LoginForm extends React.Component {
             <Form className={styles.form}>
               <div className={styles.formItem}>
                 {validsEmailPassword != null ? (
-                  <p className={styles.validsEmailPassword}>
+                  <p className={styles.validation}>
                     Niepoprawny email lub hasło
                   </p>
                 ) : null}
+                {tooManyAttemptsLogInTryLater ? (
+                  <p className={styles.validation}>
+                    Zbyt wiele prób logowania. Spróbuj ponownie później.
+                  </p>
+                ) : null}
                 {emailNoVerified ? (
-                  <p className={styles.emailNoVerifiedInfo}>
+                  <p className={styles.validation}>
                     To konto nie jest aktywne! Wysłaliśmy email weryfikacyjny na
                     Twoją skrzynkę. Sprawdź czy czasem nie trafił do spamu.
                   </p>
@@ -132,7 +138,8 @@ const mapStateToProps = state => {
     isLoggedInGoogle: state.auth.userGoogleId,
     emailNoVerified: state.auth.emailNoVerified,
     validsEmailPassword: state.auth.validsLogIn,
-    z: state.auth.z
+    z: state.auth.z,
+    tooManyAttemptsLogInTryLater: state.auth.tooManyAttemptsLogInTryLater
   };
 };
 

@@ -225,12 +225,20 @@ export const logIn = (email, password1) => {
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;
+        let tooManyAttempts = null;
+        console.log(err);
         localStorage.setItem("z", response.idSession);
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        if (err === "EMAIL_NOT_FOUND") {
+        if (err === "EMAIL_NOT_FOUND" || err === "INVALID_PASSWORD") {
           dataIsCorrect = true;
           dispatch(validationsLogIn(dataIsCorrect));
+        } else if (
+          err ===
+          "TOO_MANY_ATTEMPTS_TRY_LATER : Too many unsuccessful login attempts. Please try again later."
+        ) {
+          tooManyAttempts = true;
+          dispatch(tooManyAttemptsLogInTryLater(tooManyAttempts));
         } else {
           z = localStorage.getItem("z");
           dispatch(getDataEatingPlace(z, localId));
@@ -244,6 +252,13 @@ export const logIn = (email, password1) => {
           console.log("server not working!");
         }
       });
+  };
+};
+
+export const tooManyAttemptsLogInTryLater = tooManyAttemptsLogInTryLater => {
+  return {
+    type: actionTypes.TOO_MANY_ATTEMPTS_LOG_IN_TRY_LATER,
+    tooManyAttemptsLogInTryLater: tooManyAttemptsLogInTryLater
   };
 };
 

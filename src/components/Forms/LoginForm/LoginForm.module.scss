@@ -7,6 +7,7 @@
   justify-content: center;
   justify-items: center;
   justify-self: center;
+  margin-top: 30px;
 }
 .formTitle {
   font-family: $logo-font;
@@ -73,10 +74,7 @@
   background: #eeb144;
 }
 
-.emailNoVerifiedInfo {
-  text-align: center;
-}
-.validsEmailPassword {
+.validation {
   text-align: center;
 }
 
