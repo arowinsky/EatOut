@@ -17,7 +17,8 @@ const initState = {
   mailWithResetPasswordSent: null,
   error: null,
   z: null,
-  userData: null
+  userData: null,
+  tooManyAttemptsLogInTryLater: null
 };
 
 const authStart = (state, action) => {
@@ -118,6 +119,12 @@ const mailWithResetPasswordSent = (state, action) => {
     mailWithResetPasswordSent: action.mailWithResetPasswordSent
   });
 };
+
+const tooManyAttemptsLogInTryLater = (state, action) => {
+  return updateObject(state, {
+    tooManyAttemptsLogInTryLater: action.tooManyAttemptsLogInTryLater
+  });
+};
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
@@ -152,6 +159,8 @@ const authReducer = (state = initState, action) => {
       return mailWithResetPasswordSent(state, action);
     case actionTypes.AUTH_DATA:
       return userData(state, action);
+    case actionTypes.TOO_MANY_ATTEMPTS_LOG_IN_TRY_LATER:
+      return tooManyAttemptsLogInTryLater(state, action);
     default:
       return state;
   }
