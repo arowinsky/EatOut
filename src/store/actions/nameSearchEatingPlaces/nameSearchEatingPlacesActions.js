@@ -1,3 +1,4 @@
+import * as actionTypes from "../actionTypes";
 export const nameSearchEatingPlaces = name => {
   console.log(name);
   return dispatch => {
@@ -14,6 +15,15 @@ export const nameSearchEatingPlaces = name => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        const { matchingPlaces } = response;
+        dispatch(searchedEatingPlaces(matchingPlaces));
       });
+  };
+};
+export const searchedEatingPlaces = searchedEatingPlaces => {
+  console.log(searchedEatingPlaces);
+  return {
+    type: actionTypes.SEARCHED_EATING_PLACES,
+    searchedEatingPlaces: searchedEatingPlaces
   };
 };
