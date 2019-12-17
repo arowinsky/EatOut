@@ -4,7 +4,7 @@ import Button from "../../../Button/Button";
 import { Link } from "react-router-dom";
 const EatingPlaceProfileCard = ({ eatingPlaces }) => {
   console.log(eatingPlaces);
-  const eatingPlacesProfilesCards = eatingPlaces.length
+  const eatingPlacesProfilesCards = eatingPlaces
     ? eatingPlaces.map(eatingPlaces => {
         return (
           <div className={styles.card}>
