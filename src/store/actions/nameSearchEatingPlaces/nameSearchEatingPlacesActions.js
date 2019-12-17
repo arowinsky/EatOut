@@ -2,7 +2,7 @@ import * as actionTypes from "../actionTypes";
 export const nameSearchEatingPlaces = name => {
   console.log(name);
   return dispatch => {
-    const url = `http://localhost:8080/verification-email?name=${name}`;
+    const url = `http://localhost:8080/name-search?name=${name}`;
     fetch(url, {
       method: "GET",
       cache: "no-cache",
