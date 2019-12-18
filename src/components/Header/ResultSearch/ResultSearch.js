@@ -4,11 +4,13 @@ import EatingPlaceProfileCard from "../../OwnerEatingPlace/EatingPlaceProfile/Ea
 import { connect } from "react-redux";
 const Stage = props => {
   const { searchedEatingPlaces } = props;
+  console.log(searchedEatingPlaces);
   return (
     <div className={styles.wrapper}>
+      {/* <EatingPlaceProfileCard eatingPlaces={searchedEatingPlaces} /> */}
       <ul className={styles.cards}>
         <li className={styles.cards_item}>
-          {/* <EatingPlaceProfileCard eatingPlaces={searchedEatingPlaces} /> */}
+          <EatingPlaceProfileCard eatingPlaces={searchedEatingPlaces} />
         </li>
       </ul>
     </div>

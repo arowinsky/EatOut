@@ -2,13 +2,13 @@ import * as actionTypes from "../../actions/actionTypes";
 import { updateObject } from "../../update";
 
 const initState = {
-  nameSearchEatingPlaces: null
+  searchedEatingPlaces: null
 };
 
 const nameSearchEatingPlaces = (state, action) => {
   console.log(action.nameSearchEatingPlaces);
   return updateObject(state, {
-    nameSearchEatingPlaces: action.nameSearchEatingPlaces
+    searchedEatingPlaces: action.searchedEatingPlaces
   });
 };
 

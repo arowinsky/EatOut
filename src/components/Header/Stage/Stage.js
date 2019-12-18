@@ -11,8 +11,8 @@ const Stage = () => {
           <span className={styles.stage_red}>Out</span>
         </div>
         <Search />
-        <ResultSearch />
       </div>
+      <ResultSearch />
     </div>
   );
 };
