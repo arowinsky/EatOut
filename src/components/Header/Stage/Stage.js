@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Stage.module.scss";
 import Search from "../Search/Search";
-import ResultSearch from "../ResultSearch/ResultSearch";
-const Stage = () => {
+import ResultSearchTemplate from "../../../templates/ResultSearchTemplate";
+import { connect } from "react-redux";
+import EatingPlaceProfileCard from "../../OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
+const Stage = searchedEatingPlaces => {
   return (
     <div className={styles.stage}>
       <div className={styles.stage_element}>
@@ -12,9 +14,17 @@ const Stage = () => {
         </div>
         <Search />
       </div>
-      <ResultSearch />
+      <ResultSearchTemplate>
+        {searchedEatingPlaces.map(item => (
+          <EatingPlaceProfileCard />
+        ))}
+      </ResultSearchTemplate>
     </div>
   );
 };
-
-export default Stage;
+const mapStateToProps = state => {
+  return {
+    searchedEatingPlaces: state.nameSearchEatingPlaces.searchedEatingPlaces
+  };
+};
+export default connect(null, mapStateToProps)(Stage);
