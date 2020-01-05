@@ -6,7 +6,7 @@ const initState = {
 };
 
 const nameSearchEatingPlaces = (state, action) => {
-  console.log(action.nameSearchEatingPlaces);
+  console.log(action.searchedEatingPlaces);
   return updateObject(state, {
     searchedEatingPlaces: action.searchedEatingPlaces
   });

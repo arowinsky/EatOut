@@ -1,6 +1,8 @@
-.wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-template-rows: 1fr;
+  grid-gap: 7px;
 }
 .cards {
   display: flex;

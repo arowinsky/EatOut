@@ -6,13 +6,15 @@ const Stage = props => {
   const { searchedEatingPlaces } = props;
   console.log(searchedEatingPlaces);
   return (
-    <div className={styles.wrapper}>
-      {/* <EatingPlaceProfileCard eatingPlaces={searchedEatingPlaces} /> */}
-      <ul className={styles.cards}>
-        <li className={styles.cards_item}>
-          <EatingPlaceProfileCard eatingPlaces={searchedEatingPlaces} />
-        </li>
-      </ul>
+    <div className={styles.grid}>
+      {searchedEatingPlaces
+        ? searchedEatingPlaces.map(eatingPlaces => (
+            <EatingPlaceProfileCard
+              cardType="searchedPlace"
+              eatingPlaces={eatingPlaces}
+            />
+          ))
+        : null}
     </div>
   );
 };
