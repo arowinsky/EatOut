@@ -9,7 +9,8 @@ const initState = {
   uploadedEatingPlaceImages: null,
   addedOwnerPost: null,
   updatedOwnerPosts: null,
-  updatedClientsOpinions: null
+  updatedClientsOpinions: null,
+  searchedEatingPlaces: null
 };
 
 const ownerHaveEatingPlace = (state, action) => {
