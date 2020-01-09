@@ -140,3 +140,34 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
     updatedClientsOpinions: updatedClientsOpinions
   };
 };
+export const getDataEatingPlace = placeId => {
+  console.log(placeId);
+  return dispatch => {
+    const url = "http://localhost:8080/get-data-place-single";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `placeId=${placeId}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        dispatch(singleEatingPlace(response.place));
+      });
+  };
+};
+
+export const singleEatingPlace = singleEatingPlace => {
+  console.log(singleEatingPlace);
+  return {
+    type: actionTypes.SINGLE_EATING_PLACE,
+    singleEatingPlace: singleEatingPlace
+  };
+};
