@@ -2,8 +2,8 @@ export {
   logIn,
   logOut,
   sendMailResetPassword,
-  // facebookLogIn,
-  // googleLogIn,
+  facebookLogIn,
+  googleLogIn,
   AutoLoginSuccess,
   AutoLogin
 } from "../actions/authActions";
