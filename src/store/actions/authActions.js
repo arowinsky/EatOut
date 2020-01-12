@@ -313,76 +313,85 @@ export const getDataEatingPlace = (z, localId) => {
 };
 export const facebookLogIn = () => {
   return dispatch => {
-    let provider = new firebase.auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
 
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log(result);
-        console.log(result.additionalUserInfo.profile.id);
+    firebase.auth().signInWithPopup(provider)
+    .then(result=>{
+    
+      console.log(result)
+      const uid = result.user.uid;
+      const displayName= result.user.displayName;
+      const email= result.user.email;
+      const token= result.user.refreshToken;
+      const provider= result.credential.providerId;
+      const newUser= result.additionalUserInfo.isNewUser;
+    
+    
+    const url = "http://localhost:8080/login-social-media";
+    fetch(url,{
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+    })
+    .then(respons=>respons.json())
+    .then(Response =>{
+      console.log(Response)
+    })
 
-        console.log("logowanie");
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let id = result.additionalUserInfo.profile.id;
-        dispatch(facebookLogInSuccess(id, username));
-        console.log(username, photoMain, userProvider, uid);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+
   };
 };
 
 export const googleLogIn = () => {
   return dispatch => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(result => {
-        console.log("logowanie");
-        console.log(result);
-        let username = result.user.displayName;
-        let photoMain = result.user.photoURL;
-        let userProvider = result.additionalUserInfo.providerId;
-        let uid = result.user.Nb.uid;
-        let idToken = result.credential.idToken;
-        console.log(username, photoMain, userProvider, uid);
-        dispatch(googleLogInSuccess(idToken, username));
-        localStorage.setItem("idToken", idToken);
-        if (result.additionalUserInfo.isNewUser) {
-          db.collection("users")
-            .doc(uid)
-            .set({
-              firstName: "",
-              lastName: "",
-              username: username,
-              userData: username,
-              photoMain: photoMain,
-              provaider: userProvider
-            });
-        }
+    const provider = new firebase.auth.GoogleAuthProvider();
+   
+    firebase.auth(). signInWithPopup(provider)
+    .then(result =>{
+      console.log(result)
+        const uid = result.user.uid;
+        const displayName= result.user.displayName;
+        const email= result.user.email;
+        const token= result.user.refreshToken;
+        const provider= result.credential.providerId;
+        const newUser= result.additionalUserInfo.isNewUser;
+      
+      
+      const url = "http://localhost:8080/login-social-media";
+      fetch(url,{
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+        body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .then(respons=>respons.json())
+      .then(Response =>{
+        console.log(Response)
+      })
+      
+    })
+    .catch(error=>{
+      console.log(error)
+    })
   };
 };
 
