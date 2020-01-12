@@ -1,18 +1,18 @@
 import React from "react";
 import styles from "./Header.module.scss";
 import Logo from "../Logo/Logo";
-import Navbar from "../Navbars/Navbar/Navbar";
-import OwnerNavbar from "../OwnerEatingPlace/OwnerNavbar/OwnerNavbar";
+import GuestNavbar from "../Navbars/GuestNavbar/GuestNavbar";
+import UserNavbar from "../Navbars/UserNavbar/UserNavbar";
 
 const Header = props => {
   const { isAuth, userIdProvider } = props;
   let navbar;
   if (userIdProvider) {
-    navbar = <OwnerNavbar click={props.sideBarClickHander} />;
+    navbar = <UserNavbar click={props.sideBarClickHander} />;
   } else if (isAuth) {
-    navbar = <OwnerNavbar click={props.sideBarClickHander} />;
+    navbar = <UserNavbar click={props.sideBarClickHander} />;
   } else {
-    navbar = <Navbar />;
+    navbar = <GuestNavbar />;
   }
   return (
     <div>
