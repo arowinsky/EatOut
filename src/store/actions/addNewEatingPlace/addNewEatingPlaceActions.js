@@ -25,7 +25,8 @@ export const addNewEatingPlace = (
           uploadFail,
           invalidFormatFile,
           noAllImagesSended,
-          addedEatingPlace
+          addedEatingPlace,
+          notAddedNewPlace
         } = response;
         console.log(response);
         if (uploadFail) {
@@ -39,6 +40,9 @@ export const addNewEatingPlace = (
         if (noAllImagesSended) {
           dispatch(unavailableAllImagesEatingPlace(noAllImagesSended));
           console.log("TCL: noAllImagesSended", noAllImagesSended);
+        }
+        if (notAddedNewPlace) {
+          dispatch(notAddedEatingPlace(notAddedNewPlace));
         }
         dispatch(addedPlace(addedEatingPlace));
       });
@@ -63,6 +67,13 @@ export const unavailableAllImagesEatingPlace = unavailableAllImageEatingPlace =>
   return {
     type: actionTypes.UNAVAILABLE_ALL_IMAGES_EATING_PLACE,
     unavailableAllImageEatingPlace: unavailableAllImageEatingPlace
+  };
+};
+
+export const notAddedEatingPlace = notAddedEatingPlace => {
+  return {
+    type: actionTypes.NOT_ADDED_EATING_PLACE,
+    notAddedEatingPlace: notAddedEatingPlace
   };
 };
 export const addedPlace = (addedEatingPlace, idPlace, idUser) => {
