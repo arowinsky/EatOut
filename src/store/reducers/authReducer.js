@@ -18,6 +18,7 @@ const initState = {
   error: null,
   z: null,
   userData: null,
+  userRule: null,
   tooManyAttemptsLogInTryLater: null
 };
 
@@ -30,6 +31,7 @@ const authSuccess = (state, action) => {
     token: action.idToken,
     userId: action.userId,
     userData: action.userData,
+    userRule: action.userRule,
     z: action.z,
     error: null
   });
