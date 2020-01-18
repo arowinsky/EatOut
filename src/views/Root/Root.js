@@ -44,7 +44,7 @@ class Root extends React.Component {
     ) {
       console.log(userRule);
       if (this.state.sideBarOpen) {
-        sideBar = <SideBarMenu />;
+        sideBar = <SideBarMenu userRule={userRule} />;
       }
     }
     if (
