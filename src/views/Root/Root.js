@@ -36,15 +36,16 @@ class Root extends React.Component {
   render() {
     let test = false;
     let sideBar;
-    const { isAuthenticated, userFbId, userGoogleId, z } = this.props;
+    const { isAuthenticated, userFbId, userGoogleId, z, userRule } = this.props;
     if (
       isAuthenticated === true ||
       userFbId === true ||
       userGoogleId === true ||
       z
     ) {
+      console.log(userRule);
       if (this.state.sideBarOpen) {
-        sideBar = <SideBarMenu />;
+        sideBar = <SideBarMenu userRule={userRule} />;
       }
     }
     if (
@@ -118,7 +119,8 @@ const mapStateToProps = state => {
     userFbId: state.auth.idFb,
     userGoogleId: state.auth.userGoogleId,
     z: state.auth.z,
-    userInfo: state.auth.userData
+    userInfo: state.auth.userData,
+    userRule: state.auth.userRule
   };
 };
 

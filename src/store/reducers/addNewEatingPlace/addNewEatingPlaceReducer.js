@@ -5,7 +5,8 @@ const initState = {
   addedPlace: null,
   uploadFailImagesEatingPlace: null,
   invalidFormatImagesEatingPlace: null,
-  unavailableAllImageEatingPlace: null
+  unavailableAllImageEatingPlace: null,
+  notAddedEatingPlace: null
 };
 
 export const addedPlace = (state, action) => {
@@ -34,6 +35,11 @@ const unavailableAllImagesEatingPlace = (state, action) => {
     unavailableAllImageEatingPlace: action.unavailableAllImageEatingPlace
   });
 };
+const notAddedEatingPlace = (state, action) => {
+  return updateObject(state, {
+    notAddedEatingPlace: action.notAddedEatingPlace
+  });
+};
 
 const addNewEatingPlaceReducer = (state = initState, action) => {
   switch (action.type) {
@@ -45,6 +51,8 @@ const addNewEatingPlaceReducer = (state = initState, action) => {
       return unavailableAllImagesEatingPlace(state, action);
     case actionTypes.UPLOAD_IMAGES_EATING_PLACE_IS_FAIL:
       return uploadFailImagesEatingPlace(state, action);
+    case actionTypes.NOT_ADDED_EATING_PLACE:
+      return notAddedEatingPlace(state, action);
     default:
       return state;
   }

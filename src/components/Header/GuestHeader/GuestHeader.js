@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./GuestHeader.module.scss";
 import Logo from "../../Logo/Logo";
-import Navbar from "../../Navbars/Navbar/Navbar";
+import GuestNavbar from "../../Navbars/GuestNavbar/GuestNavbar";
 
 const GuestHeader = () => (
   <header className={styles.wrapper}>
@@ -9,7 +9,7 @@ const GuestHeader = () => (
       <Logo />
     </div>
     <div className={styles.right}>
-      <Navbar />
+      <GuestNavbar />
     </div>
   </header>
 );

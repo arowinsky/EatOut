@@ -6,13 +6,14 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId, userData, z) => {
+export const authSuccess = (token, userId, userData, z, userRule) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId: userId,
     userData: userData,
-    z: z
+    z: z,
+    userRule: userRule
   };
 };
 export const userData = (userData, userId) => {
@@ -217,6 +218,8 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
+        const userRule = response.userRule;
         const userData = response.name;
         const idToken = response.status;
         const err = response.error;
@@ -243,7 +246,7 @@ export const logIn = (email, password1) => {
           z = localStorage.getItem("z");
           dispatch(getDataEatingPlace(z, localId));
         }
-        dispatch(authSuccess(idToken, localId, userData, z));
+        dispatch(authSuccess(idToken, localId, userData, z, userRule));
         dispatch(checkAuthTimeout(expiresIn));
       })
       .catch(error => {
