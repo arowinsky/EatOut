@@ -79,10 +79,7 @@ class Root extends React.Component {
               path="/forgot-password"
               component={sendMailResetPasswordView}
             />
-            <PrivateRoute
-              path="/loading-data-place"
-              component={WaitingForDataPlace}
-            />
+            <Route path="/loading-data-place" component={WaitingForDataPlace} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute
               path="/add-eating-place-first-form"
@@ -100,7 +97,7 @@ class Root extends React.Component {
               path="/add-eating-place-final-form"
               component={FinalForm}
             />
-            <PrivateRoute
+            <Route
               path="/eating-place-profile"
               component={EatingPlaceProfile}
             />

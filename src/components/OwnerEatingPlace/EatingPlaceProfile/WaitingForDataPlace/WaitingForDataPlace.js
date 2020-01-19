@@ -36,7 +36,7 @@ class WaitingForDataPlace extends React.Component {
     // console.log(sendedPlaceId);
     // sended = true;
 
-    return <div>{test ? <div>Loading...</div> : null}</div>;
+    return <div>Loading...</div>;
   }
 }
 
