@@ -21,6 +21,7 @@ import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
 import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
+import WaitingForDataPlace from "../../components/OwnerEatingPlace/EatingPlaceProfile/WaitingForDataPlace/WaitingForDataPlace";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -79,6 +80,7 @@ class Root extends React.Component {
               path="/forgot-password"
               component={sendMailResetPasswordView}
             />
+            <Route path="/loading-data-place" component={WaitingForDataPlace} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
             <PrivateRoute
               path="/add-eating-place-first-form"
@@ -96,7 +98,7 @@ class Root extends React.Component {
               path="/add-eating-place-final-form"
               component={FinalForm}
             />
-            <PrivateRoute
+            <Route
               path="/eating-place-profile"
               component={EatingPlaceProfile}
             />

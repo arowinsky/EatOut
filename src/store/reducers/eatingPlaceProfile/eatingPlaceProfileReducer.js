@@ -10,7 +10,8 @@ const initState = {
   addedOwnerPost: null,
   updatedOwnerPosts: null,
   updatedClientsOpinions: null,
-  searchedEatingPlaces: null
+  searchedEatingPlaces: null,
+  singleEatingPlace: null
 };
 
 const ownerHaveEatingPlace = (state, action) => {
@@ -53,6 +54,13 @@ const updatedClientsOpinions = (state, action) => {
   });
 };
 
+const singleEatingPlace = (state, action) => {
+  console.log(action.singleEatingPlace);
+  return updateObject(state, {
+    singleEatingPlace: action.singleEatingPlace
+  });
+};
+
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.OWNER_HAVE_EATING_PLACE:
@@ -69,6 +77,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return updatedOwnerPosts(state, action);
     case actionTypes.UPDATED_CLIENTS_OPINIONS:
       return updatedClientsOpinions(state, action);
+    case actionTypes.SINGLE_EATING_PLACE:
+      return singleEatingPlace(state, action);
     default:
       return state;
   }
