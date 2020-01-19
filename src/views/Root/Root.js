@@ -21,11 +21,8 @@ import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
 import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
-<<<<<<< HEAD
 import AccountSettingsView from "../AccountSettingsView/AccountSettingsView";
-=======
 import WaitingForDataPlace from "../../components/OwnerEatingPlace/EatingPlaceProfile/WaitingForDataPlace/WaitingForDataPlace";
->>>>>>> b6738fcee74c4e353e0ac0807ac82d33abf0603f
 class Root extends React.Component {
   state = {
     sideBarOpen: false
