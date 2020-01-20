@@ -1,8 +1,23 @@
 import React from "react";
 import styles from "./AccountSettings.module.scss";
 import Button from "../Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/index";
 class AccountSettings extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sendedRequest: null
+    };
+  }
   render() {
+    const { sendedRequest } = this.state;
+    if (sendedRequest === null) {
+      this.setState({ sendedRequest: true });
+      let z = localStorage.getItem("z");
+      console.log(z);
+      this.props.getUserData(z);
+    }
     return (
       <div className={styles.wrapper}>
         <div className={styles.infoContent}>Ustawienia konta</div>
@@ -44,4 +59,10 @@ class AccountSettings extends React.Component {
     );
   }
 }
-export default AccountSettings;
+const mapDispatchToProps = dispatch => {
+  return {
+    getUserData: sendedRequest => dispatch(actions.getUserData(sendedRequest))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AccountSettings);
