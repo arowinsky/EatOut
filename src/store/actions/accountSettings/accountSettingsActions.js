@@ -9,16 +9,22 @@ export const getUserData = z => {
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
-        ContentType: "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded"
       },
       redirect: "follow",
       referrer: "no-referrer",
-      mode: "no-cors",
       body: `z=${z}`
     })
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        dispatch(accountData(response));
       });
+  };
+};
+export const accountData = accountData => {
+  return {
+    type: actionTypes.ACCOUNT_DATA,
+    accountData: accountData
   };
 };

@@ -12,6 +12,8 @@ class AccountSettings extends React.Component {
   }
   render() {
     const { sendedRequest } = this.state;
+    const { accountSettings } = this.props;
+    console.log(accountSettings);
     if (sendedRequest === null) {
       this.setState({ sendedRequest: true });
       let z = localStorage.getItem("z");
@@ -59,10 +61,15 @@ class AccountSettings extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    accountSettings: state.accountSettings.accountData
+  };
+};
 const mapDispatchToProps = dispatch => {
   return {
     getUserData: sendedRequest => dispatch(actions.getUserData(sendedRequest))
   };
 };
 
-export default connect(null, mapDispatchToProps)(AccountSettings);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountSettings);
