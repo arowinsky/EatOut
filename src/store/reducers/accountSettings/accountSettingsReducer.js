@@ -5,6 +5,7 @@ const initState = {
   accountData: null
 };
 const accountData = (state, action) => {
+  console.log(action.accountData);
   return updateObject(state, {
     accountData: action.accountData
   });

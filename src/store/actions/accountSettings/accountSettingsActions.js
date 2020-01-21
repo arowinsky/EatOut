@@ -23,6 +23,7 @@ export const getUserData = z => {
   };
 };
 export const accountData = accountData => {
+  console.log(accountData);
   return {
     type: actionTypes.ACCOUNT_DATA,
     accountData: accountData

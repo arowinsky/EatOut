@@ -12,8 +12,8 @@ class AccountSettings extends React.Component {
   }
   render() {
     const { sendedRequest } = this.state;
-    const { accountSettings } = this.props;
-    console.log(accountSettings);
+    const { accountData } = this.props;
+    console.log(accountData);
     if (sendedRequest === null) {
       this.setState({ sendedRequest: true });
       let z = localStorage.getItem("z");
@@ -26,12 +26,18 @@ class AccountSettings extends React.Component {
 
         <div className={styles.content}>
           <div className={styles.title}>Podstawowe dane</div>
-          <div className={styles.basicData}>
-            <div className={styles.info}>Imię: ghghhhghgh</div>
-            <div className={styles.info}>Nazwisko: ghghhhghgh</div>
-            <div className={styles.info}>Nazwa użytkownika: ghghhhghgh</div>
-            <div className={styles.info}>Email: ghghhhghgh</div>
-          </div>
+          {accountData ? (
+            <div className={styles.basicData}>
+              <div className={styles.info}>Imię: {accountData.firstName}</div>
+              <div className={styles.info}>
+                Nazwisko: {accountData.lastName}
+              </div>
+              <div className={styles.info}>
+                Nazwa użytkownika: {accountData.username}
+              </div>
+              <div className={styles.info}>Email: {accountData.email}</div>
+            </div>
+          ) : null}
           <div className={styles.buttonBasicData}>
             <Button second>Edytuj dane</Button>
           </div>
@@ -62,8 +68,9 @@ class AccountSettings extends React.Component {
   }
 }
 const mapStateToProps = state => {
+  console.log(state.accountSettings.accountData);
   return {
-    accountSettings: state.accountSettings.accountData
+    accountData: state.accountSettings.accountData
   };
 };
 const mapDispatchToProps = dispatch => {
