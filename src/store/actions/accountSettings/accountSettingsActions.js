@@ -102,3 +102,33 @@ export const editedUserEmail = editedUserEmail => {
     editedUserEmail: editedUserEmail
   };
 };
+export const editUserPassword = (z, password) => {
+  return dispatch => {
+    const url = "http://localhost:8080/update-login-user-data";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&password=${password}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const { updatePassword } = response;
+        dispatch(editedUserPassword(updatePassword));
+      });
+  };
+};
+
+export const editedUserPassword = editedUserPassword => {
+  return {
+    type: actionTypes.EDITED_USER_PASSWORD,
+    editedUserPassword: editedUserPassword
+  };
+};

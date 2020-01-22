@@ -22,5 +22,6 @@ export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatin
 export {
   getUserData,
   editUserData,
-  editUserEmail
+  editUserEmail,
+  editUserPassword
 } from "./accountSettings/accountSettingsActions";

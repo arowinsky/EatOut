@@ -9,21 +9,31 @@ class AccountSettings extends React.Component {
     super(props);
     this.state = {
       sendedRequest: null,
-      userWantEditData: null
+      userWantEditData: null,
+      userWantEditPassword: null
     };
   }
 
   editUserData = () => {
     this.setState(() => ({ userWantEditData: true }));
   };
+  editUserPassword = () => {
+    this.setState(() => ({ userWantEditPassword: true }));
+  };
   render() {
-    const { sendedRequest, userWantEditData } = this.state;
+    const {
+      sendedRequest,
+      userWantEditData,
+      userWantEditPassword
+    } = this.state;
     const {
       accountData,
       editUserData,
       editedBasicUserData,
       editUserEmail,
-      editedUserEmail
+      editedUserEmail,
+      editUserPassword,
+      editedUserPassword
     } = this.props;
     let lastName;
     let firstName;
@@ -139,9 +149,48 @@ class AccountSettings extends React.Component {
         </div>
         <div className={styles.content}>
           <div className={styles.title}>Zarządzaj hasłem</div>
-          <div className={styles.button}>
-            <Button second>Chcę zmienić hasło</Button>
-          </div>
+          {userWantEditPassword ? (
+            <Formik
+              initialValues={{
+                newPassword: ""
+              }}
+              onSubmit={values => {
+                let z = localStorage.getItem("z");
+                let password = values.newPassword;
+                editUserPassword(z, password);
+                this.setState(() => ({ userWantEditPassword: null }));
+              }}
+            >
+              {() => (
+                <Form className={styles.userEditDataForm}>
+                  <div className={styles.inputElement}>
+                    <label htmlFor="firstName">Podaj nowe hasło</label>
+                    <Field
+                      type="password"
+                      name="newPassword"
+                      className={styles.input}
+                    />
+                  </div>
+                  <br />
+                  <Button second type="submit" className={styles.button}>
+                    Zapisz zmiany
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          ) : (
+            <div>
+              {editedUserPassword ? (
+                <div>Twoje hasło zostało zmienione</div>
+              ) : null}
+              <br />
+              <div className={styles.button}>
+                <Button second onClick={this.editUserPassword}>
+                  Chcę zmienić hasło
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
         <div className={styles.content}>
           <div className={styles.title}>Zarządzaj kontem</div>
@@ -157,7 +206,8 @@ const mapStateToProps = state => {
   return {
     accountData: state.accountSettings.accountData,
     editedBasicUserData: state.accountSettings.editedBasicUserData,
-    editedUserEmail: state.accountSettings.editedUserEmail
+    editedUserEmail: state.accountSettings.editedUserEmail,
+    editedUserPassword: state.accountSettings.editedUserPassword
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -165,7 +215,9 @@ const mapDispatchToProps = dispatch => {
     getUserData: sendedRequest => dispatch(actions.getUserData(sendedRequest)),
     editUserData: (z, firstName, lastName, username) =>
       dispatch(actions.editUserData(z, firstName, lastName, username)),
-    editUserEmail: (z, email) => dispatch(actions.editUserEmail(z, email))
+    editUserEmail: (z, email) => dispatch(actions.editUserEmail(z, email)),
+    editUserPassword: (z, password) =>
+      dispatch(actions.editUserPassword(z, password))
   };
 };
 

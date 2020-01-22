@@ -4,7 +4,8 @@ import { updateObject } from "../../update";
 const initState = {
   accountData: null,
   editedBasicUserData: null,
-  editedUserEmail: null
+  editedUserEmail: null,
+  editedUserPassword: null
 };
 const accountData = (state, action) => {
   console.log(action.accountData);
@@ -22,6 +23,11 @@ const editedUserEmail = (state, action) => {
     editedUserEmail: action.editedUserEmail
   });
 };
+const editedUserPassword = (state, action) => {
+  return updateObject(state, {
+    editedUserPassword: action.editedUserPassword
+  });
+};
 
 const accountSettingsReducer = (state = initState, action) => {
   switch (action.type) {
@@ -31,6 +37,8 @@ const accountSettingsReducer = (state = initState, action) => {
       return editedBasicUserData(state, action);
     case actionTypes.EDITED_USER_EMAIL:
       return editedUserEmail(state, action);
+    case actionTypes.EDITED_USER_PASSWORD:
+      return editedUserPassword(state, action);
     default:
       return state;
   }
