@@ -18,7 +18,7 @@ class AccountSettings extends React.Component {
   };
   render() {
     const { sendedRequest, userWantEditData } = this.state;
-    const { accountData } = this.props;
+    const { accountData, editUserData } = this.props;
     console.log(accountData);
     let lastName;
     let firstName;
@@ -49,6 +49,14 @@ class AccountSettings extends React.Component {
                 lastName: lastName,
                 username: username,
                 email: email
+              }}
+              onSubmit={values => {
+                let z = localStorage.getItem("z");
+                firstName = values.firstName;
+                lastName = values.lastName;
+                username = values.username;
+                console.log(z, firstName, lastName, username);
+                editUserData(z, firstName, lastName, username);
               }}
             >
               {() => (
@@ -138,7 +146,9 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getUserData: sendedRequest => dispatch(actions.getUserData(sendedRequest))
+    getUserData: sendedRequest => dispatch(actions.getUserData(sendedRequest)),
+    editUserData: (z, firstName, lastName, username) =>
+      dispatch(actions.editUserData(z, firstName, lastName, username))
   };
 };
 
