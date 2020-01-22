@@ -3,7 +3,7 @@ import styles from "./AccountSettings.module.scss";
 import Button from "../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 class AccountSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +25,6 @@ class AccountSettings extends React.Component {
       editUserEmail,
       editedUserEmail
     } = this.props;
-    console.log(editedBasicUserData);
-    console.log(editedUserEmail);
     let lastName;
     let firstName;
     let username;
@@ -37,7 +35,14 @@ class AccountSettings extends React.Component {
       console.log(z);
       this.props.getUserData(z);
     }
-    if (accountData) {
+    console.log(editedBasicUserData);
+    console.log(editedUserEmail);
+    if (editedBasicUserData && editedUserEmail) {
+      firstName = editedBasicUserData.firstName;
+      lastName = editedBasicUserData.lastName;
+      username = editedBasicUserData.username;
+      email = editedUserEmail;
+    } else if (accountData) {
       firstName = accountData.firstName;
       lastName = accountData.lastName;
       username = accountData.username;
@@ -66,6 +71,7 @@ class AccountSettings extends React.Component {
                 console.log(z, firstName, lastName, username);
                 editUserData(z, firstName, lastName, username);
                 editUserEmail(z, email);
+                this.setState(() => ({ userWantEditData: null }));
               }}
             >
               {() => (
