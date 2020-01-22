@@ -76,3 +76,36 @@
 .basicData {
   margin-bottom: 1em;
 }
+
+.userEditDataForm {
+  width: 50%;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  label {
+    color: $dark-grey-element;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+}
+
+.inputElement {
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  color: #7d7d7d;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid $dark-grey-element;
+  line-height: 22px;
+  width: 35vw;
+  background: none;
+  margin: 8px 0;
+  outline: transparent;
+  &:focus {
+    border-bottom: 2px solid $yellow-element;
+  }
+}
