@@ -22,10 +22,12 @@ class AccountSettings extends React.Component {
       accountData,
       editUserData,
       editedBasicUserData,
-      editUserEmail
+      editUserEmail,
+      editedUserEmail
     } = this.props;
     console.log(accountData);
     console.log(editedBasicUserData);
+    console.log(editedUserEmail);
     let lastName;
     let firstName;
     let username;
@@ -150,7 +152,8 @@ const mapStateToProps = state => {
   console.log(state.accountSettings.accountData);
   return {
     accountData: state.accountSettings.accountData,
-    editedBasicUserData: state.accountSettings.editedBasicUserData
+    editedBasicUserData: state.accountSettings.editedBasicUserData,
+    editedUserEmail: state.accountSettings.editedUserEmail
   };
 };
 const mapDispatchToProps = dispatch => {
