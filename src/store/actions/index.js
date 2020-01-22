@@ -21,5 +21,6 @@ export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";
 export {
   getUserData,
-  editUserData
+  editUserData,
+  editUserEmail
 } from "./accountSettings/accountSettingsActions";
