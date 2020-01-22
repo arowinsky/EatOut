@@ -55,7 +55,10 @@ export const editUserData = (z, firstName, lastName, username) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
-        dispatch(editedBasicUserData(response));
+        const { updateBasicData } = this.props;
+        if (updateBasicData) {
+          dispatch(editedBasicUserData(response));
+        }
       });
   };
 };

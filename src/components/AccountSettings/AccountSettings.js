@@ -25,7 +25,6 @@ class AccountSettings extends React.Component {
       editUserEmail,
       editedUserEmail
     } = this.props;
-    console.log(accountData);
     console.log(editedBasicUserData);
     console.log(editedUserEmail);
     let lastName;
@@ -149,7 +148,6 @@ class AccountSettings extends React.Component {
   }
 }
 const mapStateToProps = state => {
-  console.log(state.accountSettings.accountData);
   return {
     accountData: state.accountSettings.accountData,
     editedBasicUserData: state.accountSettings.editedBasicUserData,
