@@ -151,6 +151,16 @@ export const deleteOwnerAccount = z => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        const { ownerDeleted } = response;
+        if (ownerDeleted) {
+          dispatch(ownerAccountDeleted(ownerDeleted));
+        }
       });
+  };
+};
+export const ownerAccountDeleted = ownerAccountDeleted => {
+  return {
+    type: actionTypes.OWNER_ACCOUNT_DELETED,
+    ownerAccountDeleted: ownerAccountDeleted
   };
 };

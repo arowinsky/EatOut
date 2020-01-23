@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Formik, Form, Field } from "formik";
+import { Redirect } from "react-router-dom";
 class AccountSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +42,8 @@ class AccountSettings extends React.Component {
       editedUserEmail,
       editUserPassword,
       editedUserPassword,
-      userRule
+      userRule,
+      ownerAccountDeleted
     } = this.props;
     let lastName;
     let firstName;
@@ -65,6 +67,9 @@ class AccountSettings extends React.Component {
       lastName = accountData.lastName;
       username = accountData.username;
       email = accountData.email;
+    }
+    if (ownerAccountDeleted) {
+      console.log("usunięto");
     }
     return (
       <div className={styles.wrapper}>
@@ -218,7 +223,8 @@ const mapStateToProps = state => {
     editedBasicUserData: state.accountSettings.editedBasicUserData,
     editedUserEmail: state.accountSettings.editedUserEmail,
     editedUserPassword: state.accountSettings.editedUserPassword,
-    userRule: state.auth.userRule
+    userRule: state.auth.userRule,
+    ownerAccountDeleted: state.accountSettings.ownerAccountDeleted
   };
 };
 const mapDispatchToProps = dispatch => {
