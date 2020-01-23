@@ -23,5 +23,6 @@ export {
   getUserData,
   editUserData,
   editUserEmail,
-  editUserPassword
+  editUserPassword,
+  deleteOwnerAccount
 } from "./accountSettings/accountSettingsActions";

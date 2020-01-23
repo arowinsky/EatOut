@@ -20,6 +20,13 @@ class AccountSettings extends React.Component {
   editUserPassword = () => {
     this.setState(() => ({ userWantEditPassword: true }));
   };
+  deleteAccount = userRule => {
+    if (userRule === "owner") {
+      let z = localStorage.getItem("z");
+      this.props.deleteOwnerAccount(z);
+    }
+  };
+
   render() {
     const {
       sendedRequest,
@@ -33,7 +40,8 @@ class AccountSettings extends React.Component {
       editUserEmail,
       editedUserEmail,
       editUserPassword,
-      editedUserPassword
+      editedUserPassword,
+      userRule
     } = this.props;
     let lastName;
     let firstName;
@@ -195,7 +203,9 @@ class AccountSettings extends React.Component {
         <div className={styles.content}>
           <div className={styles.title}>Zarządzaj kontem</div>
           <div className={styles.button}>
-            <Button second>Usuń moje konto</Button>
+            <Button second onClick={this.deleteAccount(userRule)}>
+              Usuń moje konto
+            </Button>
           </div>
         </div>
       </div>
@@ -207,7 +217,8 @@ const mapStateToProps = state => {
     accountData: state.accountSettings.accountData,
     editedBasicUserData: state.accountSettings.editedBasicUserData,
     editedUserEmail: state.accountSettings.editedUserEmail,
-    editedUserPassword: state.accountSettings.editedUserPassword
+    editedUserPassword: state.accountSettings.editedUserPassword,
+    userRule: state.auth.userRule
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -217,7 +228,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.editUserData(z, firstName, lastName, username)),
     editUserEmail: (z, email) => dispatch(actions.editUserEmail(z, email)),
     editUserPassword: (z, password) =>
-      dispatch(actions.editUserPassword(z, password))
+      dispatch(actions.editUserPassword(z, password)),
+    deleteOwnerAccount: z => dispatch(actions.deleteOwnerAccount(z))
   };
 };
 
