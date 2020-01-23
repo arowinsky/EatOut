@@ -15,6 +15,7 @@ const initState = {
 };
 
 const ownerHaveEatingPlace = (state, action) => {
+  console.log(action);
   return updateObject(state, {
     haveEatingPlace: action.haveEatingPlace
   });
