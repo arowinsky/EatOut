@@ -21,6 +21,7 @@ import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
 import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
+import AccountSettingsView from "../AccountSettingsView/AccountSettingsView";
 import WaitingForDataPlace from "../../components/OwnerEatingPlace/EatingPlaceProfile/WaitingForDataPlace/WaitingForDataPlace";
 class Root extends React.Component {
   state = {
@@ -82,6 +83,10 @@ class Root extends React.Component {
             />
             <Route path="/loading-data-place" component={WaitingForDataPlace} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
+            <PrivateRoute
+              path="/account-settings"
+              component={AccountSettingsView}
+            />
             <PrivateRoute
               path="/add-eating-place-first-form"
               component={FirstForm}

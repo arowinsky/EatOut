@@ -19,3 +19,10 @@ export {
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
 export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";
+export {
+  getUserData,
+  editUserData,
+  editUserEmail,
+  editUserPassword,
+  deleteOwnerAccount
+} from "./accountSettings/accountSettingsActions";

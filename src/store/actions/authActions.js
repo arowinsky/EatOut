@@ -69,10 +69,10 @@ export const AutoLoginSuccess = test => {
         const userId = response.userId;
         if (userdata) {
           dispatch(userData(userdata, userId));
-          dispatch(getDataEatingPlace(z, userId));
+          //dispatch(getDataEatingPlace(z, userId));
         } else {
           dispatch(userData(userInfo, userId));
-          dispatch(getDataEatingPlace(z, userId));
+          // dispatch(getDataEatingPlace(z, userId));
         }
       });
   };
@@ -244,7 +244,7 @@ export const logIn = (email, password1) => {
           dispatch(tooManyAttemptsLogInTryLater(tooManyAttempts));
         } else {
           z = localStorage.getItem("z");
-          dispatch(getDataEatingPlace(z, localId));
+          // dispatch(getDataEatingPlace(z, localId));
         }
         dispatch(authSuccess(idToken, localId, userData, z, userRule));
         dispatch(checkAuthTimeout(expiresIn));
