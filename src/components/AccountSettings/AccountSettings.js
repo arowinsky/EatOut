@@ -21,8 +21,8 @@ class AccountSettings extends React.Component {
   editUserPassword = () => {
     this.setState(() => ({ userWantEditPassword: true }));
   };
-  deleteAccount = userRule => {
-    if (userRule === "owner") {
+  deleteAccount = () => {
+    if (this.props.userRule === "owner") {
       let z = localStorage.getItem("z");
       this.props.deleteOwnerAccount(z);
     }
@@ -69,7 +69,8 @@ class AccountSettings extends React.Component {
       email = accountData.email;
     }
     if (ownerAccountDeleted) {
-      console.log("usunięto");
+      localStorage.removeItem("z");
+      return <Redirect to="/" />;
     }
     return (
       <div className={styles.wrapper}>
@@ -208,7 +209,7 @@ class AccountSettings extends React.Component {
         <div className={styles.content}>
           <div className={styles.title}>Zarządzaj kontem</div>
           <div className={styles.button}>
-            <Button second onClick={this.deleteAccount(userRule)}>
+            <Button second onClick={this.deleteAccount}>
               Usuń moje konto
             </Button>
           </div>
