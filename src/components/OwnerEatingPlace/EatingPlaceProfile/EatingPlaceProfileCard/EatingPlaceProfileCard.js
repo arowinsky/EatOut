@@ -10,7 +10,8 @@ const EatingPlaceProfileCard = ({
   cardType,
   eatingPlaces,
   getDataEatingPlace,
-  singleEatingPlace
+  singleEatingPlace,
+  removeSinglePlace
 }) => {
   console.log(eatingPlaces);
   // const getDataPlace = id => {
@@ -30,6 +31,13 @@ const EatingPlaceProfileCard = ({
   //     );
   //   }
   // };
+  // this.removePlace = this.removePlace.bind(this);
+
+  const removePlace = () => {
+    let id = eatingPlaces.id;
+    let z = localStorage.getItem("z");
+    removeSinglePlace(z, id);
+  };
 
   if (cardType === "ownerPlace") {
     const eatingPlacesProfilesCards = eatingPlaces
@@ -62,6 +70,9 @@ const EatingPlaceProfileCard = ({
                 >
                   Przejdź do profilu
                 </Link>
+              </Button>
+              <Button second onClick={removePlace}>
+                Usuń ten profil
               </Button>
               <br />
             </div>
@@ -110,14 +121,11 @@ const EatingPlaceProfileCard = ({
 //     singleEatingPlace: state.eatingPlaceProfile.singleEatingPlace
 //   };
 // };
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getDataEatingPlace: id => dispatch(actions.getDataEatingPlace(id))
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    getDataEatingPlace: id => dispatch(actions.getDataEatingPlace(id)),
+    removeSinglePlace: (z, id) => dispatch(actions.removeSinglePlace(z, id))
+  };
+};
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(
-export default EatingPlaceProfileCard;
+export default connect(null, mapDispatchToProps)(EatingPlaceProfileCard);
