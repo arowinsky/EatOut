@@ -16,11 +16,12 @@ export const authSuccess = (token, userId, userData, z, userRule) => {
     userRule: userRule
   };
 };
-export const userData = (userData, userId) => {
+export const userData = (userData, userId, userRule) => {
   return {
     type: actionTypes.AUTH_DATA,
     userData: userData,
-    userId: userId
+    userId: userId,
+    userRule: userRule
   };
 };
 
@@ -64,13 +65,15 @@ export const AutoLoginSuccess = test => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
+        const userRule = response.userRule;
         const userdata = response.userData;
         const userInfo = response.userInfo;
         const userId = response.userId;
         if (userdata) {
-          dispatch(userData(userdata, userId));
+          dispatch(userData(userdata, userId, userRule));
         } else {
-          dispatch(userData(userInfo, userId));
+          dispatch(userData(userInfo, userId, userRule));
         }
       });
   };
