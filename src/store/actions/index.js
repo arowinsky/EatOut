@@ -14,9 +14,19 @@ export {
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
-  blockOpinionForm,
-  getDataEatingPlace
+  blockOpinionForm
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
 export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";
-export { removeSinglePlace } from "./myEatingPlaces/myEatingPlacesActions";
+export {
+  getUserData,
+  editUserData,
+  editUserEmail,
+  editUserPassword,
+  deleteOwnerAccount,
+  deleteClientAccount
+} from "./accountSettings/accountSettingsActions";
+export {
+  getDataEatingPlace,
+  removeSinglePlace
+} from "./myEatingPlaces/myEatingPlacesActions";

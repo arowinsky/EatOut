@@ -21,7 +21,6 @@ const initState = {
   userRule: null,
   tooManyAttemptsLogInTryLater: null
 };
-
 const authStart = (state, action) => {
   return updateObject(state, { error: null });
 };
@@ -39,7 +38,8 @@ const authSuccess = (state, action) => {
 export const userData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
-    userId: action.userId
+    userId: action.userId,
+    userRule: action.userRule
   });
 };
 const RegisterSuccess = (state, action) => {

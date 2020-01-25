@@ -4,10 +4,21 @@ import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
 import EatingPlaceProfileCard from "../EatingPlaceProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
 import { connect } from "react-redux";
+import * as actions from "../../../store/actions/index";
 
 class OwnerBox extends React.Component {
+  state = {
+    requestDataEatingPlaces: null
+  };
+
   render() {
-    const { haveEatingPlace } = this.props;
+    const { requestDataEatingPlaces } = this.state;
+    const { haveEatingPlace, getDataEatingPlace } = this.props;
+    if (!requestDataEatingPlaces) {
+      let z = localStorage.getItem("z");
+      getDataEatingPlace(z);
+    }
+
     const startCreatingNewEatingPlace = true;
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
@@ -61,5 +72,10 @@ const mapStateToProps = state => {
     clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    getDataEatingPlace: z => dispatch(actions.getDataEatingPlace(z))
+  };
+};
 
-export default connect(mapStateToProps, null)(OwnerBox);
+export default connect(mapStateToProps, mapDispatchToProps)(OwnerBox);

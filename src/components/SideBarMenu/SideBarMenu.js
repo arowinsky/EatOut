@@ -36,8 +36,10 @@ const SideBarMenu = props => {
               </Link>
             </li>
             <li className={styles.sidebar_item}>
-              <FontAwesomeIcon icon={faCog} className={styles.sidebar_icon} />
-              Ustawienia konta
+              <Link to="/account-settings" className={styles.sidebar_item}>
+                <FontAwesomeIcon icon={faCog} className={styles.sidebar_icon} />
+                Ustawienia konta
+              </Link>
             </li>
             <li className={styles.sidebar_item}>
               <FontAwesomeIcon
@@ -71,8 +73,10 @@ const SideBarMenu = props => {
               </Link>
             </li>
             <li className={styles.sidebar_item}>
-              <FontAwesomeIcon icon={faCog} className={styles.sidebar_icon} />
-              Ustawienia konta
+              <Link to="/account-settings" className={styles.sidebar_item}>
+                <FontAwesomeIcon icon={faCog} className={styles.sidebar_icon} />
+                Ustawienia konta
+              </Link>
             </li>
             <li className={styles.sidebar_item}>
               <FontAwesomeIcon

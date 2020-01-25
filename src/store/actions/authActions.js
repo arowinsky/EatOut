@@ -16,11 +16,12 @@ export const authSuccess = (token, userId, userData, z, userRule) => {
     userRule: userRule
   };
 };
-export const userData = (userData, userId) => {
+export const userData = (userData, userId, userRule) => {
   return {
     type: actionTypes.AUTH_DATA,
     userData: userData,
-    userId: userId
+    userId: userId,
+    userRule: userRule
   };
 };
 
@@ -64,15 +65,15 @@ export const AutoLoginSuccess = test => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
+        const userRule = response.userRule;
         const userdata = response.userData;
         const userInfo = response.userInfo;
         const userId = response.userId;
         if (userdata) {
-          dispatch(userData(userdata, userId));
-          dispatch(getDataEatingPlace(z, userId));
+          dispatch(userData(userdata, userId, userRule));
         } else {
-          dispatch(userData(userInfo, userId));
-          dispatch(getDataEatingPlace(z, userId));
+          dispatch(userData(userInfo, userId, userRule));
         }
       });
   };
@@ -244,7 +245,6 @@ export const logIn = (email, password1) => {
           dispatch(tooManyAttemptsLogInTryLater(tooManyAttempts));
         } else {
           z = localStorage.getItem("z");
-          dispatch(getDataEatingPlace(z, localId));
         }
         dispatch(authSuccess(idToken, localId, userData, z, userRule));
         dispatch(checkAuthTimeout(expiresIn));
@@ -295,38 +295,6 @@ export const sendMailResetPassword = email => {
   };
 };
 
-export const ownerHaveEatingPlace = haveEatingPlace => {
-  return {
-    type: actionTypes.OWNER_HAVE_EATING_PLACE,
-    haveEatingPlace: haveEatingPlace
-  };
-};
-
-export const getDataEatingPlace = (z, localId) => {
-  return dispatch => {
-    let haveEatingPlace;
-    const url = "http://localhost:8080/get-data-place";
-    fetch(url, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
-    })
-      .then(Response => Response.json())
-      .then(response => {
-        console.log(response);
-        haveEatingPlace = response.places;
-        dispatch(ownerHaveEatingPlace(haveEatingPlace));
-      });
-  };
-};
 // export const facebookLogIn = () => {
 //   return dispatch => {
 //     let provider = new firebase.auth.FacebookAuthProvider();
