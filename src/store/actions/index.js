@@ -23,6 +23,7 @@ export {
   editUserData,
   editUserEmail,
   editUserPassword,
-  deleteOwnerAccount
+  deleteOwnerAccount,
+  deleteClientAccount
 } from "./accountSettings/accountSettingsActions";
 export { getDataEatingPlace } from "./myEatingPlaces/myEatingPlacesActions";

@@ -6,7 +6,8 @@ const initState = {
   editedBasicUserData: null,
   editedUserEmail: null,
   editedUserPassword: null,
-  ownerAccountDeleted: null
+  ownerAccountDeleted: null,
+  clientAccountDeleted: null
 };
 const accountData = (state, action) => {
   console.log(action.accountData);
@@ -35,6 +36,11 @@ const ownerAccountDeleted = (state, action) => {
     ownerAccountDeleted: action.ownerAccountDeleted
   });
 };
+const clientAccountDeleted = (state, action) => {
+  return updateObject(state, {
+    clientAccountDeleted: action.clientAccountDeleted
+  });
+};
 
 const accountSettingsReducer = (state = initState, action) => {
   switch (action.type) {
@@ -48,6 +54,8 @@ const accountSettingsReducer = (state = initState, action) => {
       return editedUserPassword(state, action);
     case actionTypes.OWNER_ACCOUNT_DELETED:
       return ownerAccountDeleted(state, action);
+    case actionTypes.CLIENT_ACCOUNT_DELETED:
+      return clientAccountDeleted(state, action);
     default:
       return state;
   }

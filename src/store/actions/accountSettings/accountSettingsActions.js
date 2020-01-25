@@ -164,3 +164,35 @@ export const ownerAccountDeleted = ownerAccountDeleted => {
     ownerAccountDeleted: ownerAccountDeleted
   };
 };
+
+export const deleteClientAccount = z => {
+  return dispatch => {
+    const url = "http://localhost:8080/delete-client-account";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+        const { clientDeleted } = response;
+        if (clientDeleted) {
+          dispatch(clientAccountDeleted(clientDeleted));
+        }
+      });
+  };
+};
+export const clientAccountDeleted = clientAccountDeleted => {
+  return {
+    type: actionTypes.CLIENT_ACCOUNT_DELETED,
+    clientAccountDeleted: clientAccountDeleted
+  };
+};

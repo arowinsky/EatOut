@@ -22,9 +22,11 @@ class AccountSettings extends React.Component {
     this.setState(() => ({ userWantEditPassword: true }));
   };
   deleteAccount = () => {
+    let z = localStorage.getItem("z");
     if (this.props.userRule === "owner") {
-      let z = localStorage.getItem("z");
       this.props.deleteOwnerAccount(z);
+    } else if (this.props.userRule === "client") {
+      this.props.deleteClientAccount(z);
     }
   };
 
@@ -42,8 +44,9 @@ class AccountSettings extends React.Component {
       editedUserEmail,
       editUserPassword,
       editedUserPassword,
-      userRule,
-      ownerAccountDeleted
+      ownerAccountDeleted,
+      clientAccountDeleted,
+      logOut
     } = this.props;
     let lastName;
     let firstName;
@@ -57,6 +60,7 @@ class AccountSettings extends React.Component {
     }
     console.log(editedBasicUserData);
     console.log(editedUserEmail);
+    console.log(clientAccountDeleted);
     if (editedBasicUserData && editedUserEmail) {
       firstName = editedBasicUserData.firstName;
       lastName = editedBasicUserData.lastName;
@@ -70,6 +74,10 @@ class AccountSettings extends React.Component {
     }
     if (ownerAccountDeleted) {
       localStorage.removeItem("z");
+      return <Redirect to="/" />;
+    } else if (clientAccountDeleted) {
+      let z = localStorage.getItem("z");
+      logOut(z);
       return <Redirect to="/" />;
     }
     return (
@@ -225,7 +233,8 @@ const mapStateToProps = state => {
     editedUserEmail: state.accountSettings.editedUserEmail,
     editedUserPassword: state.accountSettings.editedUserPassword,
     userRule: state.auth.userRule,
-    ownerAccountDeleted: state.accountSettings.ownerAccountDeleted
+    ownerAccountDeleted: state.accountSettings.ownerAccountDeleted,
+    clientAccountDeleted: state.accountSettings.clientAccountDeleted
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -236,7 +245,9 @@ const mapDispatchToProps = dispatch => {
     editUserEmail: (z, email) => dispatch(actions.editUserEmail(z, email)),
     editUserPassword: (z, password) =>
       dispatch(actions.editUserPassword(z, password)),
-    deleteOwnerAccount: z => dispatch(actions.deleteOwnerAccount(z))
+    deleteOwnerAccount: z => dispatch(actions.deleteOwnerAccount(z)),
+    deleteClientAccount: z => dispatch(actions.deleteClientAccount(z)),
+    logOut: z => dispatch(actions.logOut(z))
   };
 };
 
