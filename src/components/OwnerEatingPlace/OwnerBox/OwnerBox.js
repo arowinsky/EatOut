@@ -8,15 +8,17 @@ import * as actions from "../../../store/actions/index";
 
 class OwnerBox extends React.Component {
   state = {
-    requestDataEatingPlaces: null
+    requestDataEatingPlaces: true
   };
 
   render() {
     const { requestDataEatingPlaces } = this.state;
     const { haveEatingPlace, getDataEatingPlace } = this.props;
-    if (!requestDataEatingPlaces) {
+    console.log(haveEatingPlace);
+    if (requestDataEatingPlaces) {
       let z = localStorage.getItem("z");
       getDataEatingPlace(z);
+      this.setState(() => ({ requestDataEatingPlaces: null }));
     }
 
     const startCreatingNewEatingPlace = true;
