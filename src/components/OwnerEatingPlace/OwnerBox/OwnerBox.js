@@ -43,10 +43,14 @@ class OwnerBox extends React.Component {
         </div>
         <br />
         <div className={styles.header}>Twoje lokale gastronomiczne:</div>
-        <EatingPlaceProfileCard
-          cardType="ownerPlace"
-          eatingPlaces={haveEatingPlace}
-        />
+        {haveEatingPlace
+          ? haveEatingPlace.map(eatingPlaces => (
+              <EatingPlaceProfileCard
+                cardType="ownerPlace"
+                eatingPlaces={eatingPlaces}
+              />
+            ))
+          : null}
       </div>
     ) : (
       <div className={styles.box_wrapper}>

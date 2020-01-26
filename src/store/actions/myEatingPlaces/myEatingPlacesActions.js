@@ -1,11 +1,12 @@
 import * as actionTypes from "../actionTypes";
 export const removeSinglePlace = (z, id) => {
+  console.log(id);
   return dispatch => {
     const url = "http://localhost:8080/remove-single-place";
     fetch(url, {
       method: "POST",
+      mode: "cors",
       cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
