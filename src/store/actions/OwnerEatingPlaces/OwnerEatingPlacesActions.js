@@ -1,4 +1,28 @@
 import * as actionTypes from "../actionTypes";
+export const getDataEatingPlace = z => {
+  return dispatch => {
+    let haveEatingPlace;
+    const url = "http://localhost:8080/get-data-place";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        haveEatingPlace = response.places;
+        dispatch(ownerHaveEatingPlace(haveEatingPlace));
+      });
+  };
+};
 export const removeSinglePlace = (z, id) => {
   return dispatch => {
     const url = "http://localhost:8080/remove-single-place";
@@ -23,16 +47,13 @@ export const removeSinglePlace = (z, id) => {
       });
   };
 };
-
-export const getDataEatingPlace = z => {
+export const removeAllPlaces = z => {
   return dispatch => {
-    let haveEatingPlace;
-    const url = "http://localhost:8080/get-data-place";
+    const url = "http://localhost:8080/remove-all-place-owner";
     fetch(url, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
@@ -43,8 +64,10 @@ export const getDataEatingPlace = z => {
     })
       .then(Response => Response.json())
       .then(response => {
-        haveEatingPlace = response.places;
-        dispatch(ownerHaveEatingPlace(haveEatingPlace));
+        const { removeAllPlace, ownerPlaces } = response;
+        if (removeAllPlace) {
+          dispatch(ownerHaveEatingPlace(ownerPlaces));
+        }
       });
   };
 };

@@ -28,5 +28,6 @@ export {
 } from "./accountSettings/accountSettingsActions";
 export {
   getDataEatingPlace,
-  removeSinglePlace
+  removeSinglePlace,
+  removeAllPlaces
 } from "./OwnerEatingPlaces/OwnerEatingPlacesActions";

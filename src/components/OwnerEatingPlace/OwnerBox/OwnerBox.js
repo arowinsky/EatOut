@@ -11,6 +11,11 @@ class OwnerBox extends React.Component {
     requestDataEatingPlaces: true
   };
 
+  removeAllOwnerPlaces = () => {
+    let z = localStorage.getItem("z");
+    this.props.removeAllPlaces(z);
+  };
+
   render() {
     const { requestDataEatingPlaces } = this.state;
     const { haveEatingPlace, getDataEatingPlace } = this.props;
@@ -37,6 +42,11 @@ class OwnerBox extends React.Component {
               >
                 Chcę dodać kolejny lokal gastronomiczny
               </Link>
+            </Button>
+          </div>
+          <div className={styles.items}>
+            <Button second onClick={this.removeAllOwnerPlaces}>
+              Usuń wszystkie moje lokale
             </Button>
           </div>
         </div>
@@ -79,7 +89,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getDataEatingPlace: z => dispatch(actions.getDataEatingPlace(z))
+    getDataEatingPlace: z => dispatch(actions.getDataEatingPlace(z)),
+    removeAllPlaces: z => dispatch(actions.removeAllPlaces(z))
   };
 };
 
