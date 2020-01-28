@@ -26,4 +26,7 @@ export {
   deleteOwnerAccount,
   deleteClientAccount
 } from "./accountSettings/accountSettingsActions";
-export { getDataEatingPlace } from "./myEatingPlaces/myEatingPlacesActions";
+export {
+  getDataEatingPlace,
+  removeSinglePlace
+} from "./OwnerEatingPlaces/OwnerEatingPlacesActions";

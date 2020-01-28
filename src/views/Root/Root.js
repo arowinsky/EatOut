@@ -44,7 +44,6 @@ class Root extends React.Component {
       userGoogleId === true ||
       z
     ) {
-      console.log(userRule);
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu userRule={userRule} />;
       }

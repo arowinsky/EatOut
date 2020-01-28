@@ -5,13 +5,15 @@ import addNewEatingPlaceReducer from "./addNewEatingPlace/addNewEatingPlaceReduc
 import userActionReducer from "./userAction/userActionReducer";
 import nameSearchEatingPlacesReducer from "./nameSearchEatingPlaces/nameSearchEatingPlacesReducer";
 import accountSettingsReducer from "./accountSettings/accountSettingsReducer";
+import ownerEatingPlacesReducer from "./OwnerEatingPlaces/OwnerEatingPlacesReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   eatingPlaceProfile: eatingPlaceProfileReducer,
   addNewEatingPlace: addNewEatingPlaceReducer,
   userAction: userActionReducer,
   nameSearchEatingPlaces: nameSearchEatingPlacesReducer,
-  accountSettings: accountSettingsReducer
+  accountSettings: accountSettingsReducer,
+  ownerEatingPlaces: ownerEatingPlacesReducer
 });
 
 export default rootReducer;

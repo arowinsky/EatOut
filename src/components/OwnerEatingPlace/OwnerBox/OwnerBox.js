@@ -8,15 +8,16 @@ import * as actions from "../../../store/actions/index";
 
 class OwnerBox extends React.Component {
   state = {
-    requestDataEatingPlaces: null
+    requestDataEatingPlaces: true
   };
 
   render() {
     const { requestDataEatingPlaces } = this.state;
     const { haveEatingPlace, getDataEatingPlace } = this.props;
-    if (!requestDataEatingPlaces) {
-      let z = localStorage.getItem("z");
+    let z = localStorage.getItem("z");
+    if (requestDataEatingPlaces) {
       getDataEatingPlace(z);
+      this.setState(() => ({ requestDataEatingPlaces: null }));
     }
 
     const startCreatingNewEatingPlace = true;
@@ -41,10 +42,14 @@ class OwnerBox extends React.Component {
         </div>
         <br />
         <div className={styles.header}>Twoje lokale gastronomiczne:</div>
-        <EatingPlaceProfileCard
-          cardType="ownerPlace"
-          eatingPlaces={haveEatingPlace}
-        />
+        {haveEatingPlace
+          ? haveEatingPlace.map(eatingPlaces => (
+              <EatingPlaceProfileCard
+                cardType="ownerPlace"
+                eatingPlaces={eatingPlaces}
+              />
+            ))
+          : null}
       </div>
     ) : (
       <div className={styles.box_wrapper}>
@@ -68,7 +73,7 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace,
+    haveEatingPlace: state.ownerEatingPlaces.haveEatingPlace,
     clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };

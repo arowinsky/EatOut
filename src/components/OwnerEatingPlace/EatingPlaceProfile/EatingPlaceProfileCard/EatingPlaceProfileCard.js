@@ -10,7 +10,8 @@ const EatingPlaceProfileCard = ({
   cardType,
   eatingPlaces,
   getDataEatingPlace,
-  singleEatingPlace
+  singleEatingPlace,
+  removeSinglePlace
 }) => {
   console.log(eatingPlaces);
   // const getDataPlace = id => {
@@ -30,45 +31,50 @@ const EatingPlaceProfileCard = ({
   //     );
   //   }
   // };
+  // this.removePlace = this.removePlace.bind(this);
+
+  const removePlace = () => {
+    let id = eatingPlaces.id;
+    let z = localStorage.getItem("z");
+    removeSinglePlace(z, id);
+  };
 
   if (cardType === "ownerPlace") {
-    const eatingPlacesProfilesCards = eatingPlaces
-      ? eatingPlaces.map(eatingPlaces => {
-          console.log(eatingPlaces);
-          return (
-            <div className={styles.card}>
-              <img
-                className={styles.restaurantAvatar}
-                src={eatingPlaces.avatar}
-                alt="eatingPlaceAvatar"
-              />
-              <div className={styles.container}>
-                <p>{eatingPlaces.info.restaurantName}</p>
-                <p>
-                  {eatingPlaces.info.restaurantStreet}{" "}
-                  {eatingPlaces.info.restaurantBuildingNumber}
-                </p>
-                <p>{eatingPlaces.info.restaurantCity}</p>
-              </div>
-              <Button second>
-                <Link
-                  className={styles.button}
-                  to={{
-                    pathname: "/eating-place-profile",
-                    state: {
-                      eatingPlace: eatingPlaces
-                    }
-                  }}
-                >
-                  Przejdź do profilu
-                </Link>
-              </Button>
-              <br />
-            </div>
-          );
-        })
-      : null;
-    return <div>{eatingPlacesProfilesCards}</div>;
+    console.log(eatingPlaces);
+    return (
+      <div className={styles.card}>
+        <img
+          className={styles.restaurantAvatar}
+          src={eatingPlaces.avatar}
+          alt="eatingPlaceAvatar"
+        />
+        <div className={styles.container}>
+          <p>{eatingPlaces.info.restaurantName}</p>
+          <p>
+            {eatingPlaces.info.restaurantStreet}
+            {eatingPlaces.info.restaurantBuildingNumber}
+          </p>
+          <p>{eatingPlaces.info.restaurantCity}</p>
+        </div>
+        <Button second>
+          <Link
+            className={styles.button}
+            to={{
+              pathname: "/eating-place-profile",
+              state: {
+                eatingPlace: eatingPlaces
+              }
+            }}
+          >
+            Przejdź do profilu
+          </Link>
+        </Button>
+        <Button second onClick={removePlace}>
+          Usuń ten profil
+        </Button>
+        <br />
+      </div>
+    );
   } else if (cardType === "searchedPlace") {
     console.log(eatingPlaces);
     return (
@@ -110,14 +116,11 @@ const EatingPlaceProfileCard = ({
 //     singleEatingPlace: state.eatingPlaceProfile.singleEatingPlace
 //   };
 // };
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     getDataEatingPlace: id => dispatch(actions.getDataEatingPlace(id))
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    getDataEatingPlace: id => dispatch(actions.getDataEatingPlace(id)),
+    removeSinglePlace: (z, id) => dispatch(actions.removeSinglePlace(z, id))
+  };
+};
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(
-export default EatingPlaceProfileCard;
+export default connect(null, mapDispatchToProps)(EatingPlaceProfileCard);

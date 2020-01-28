@@ -1,4 +1,28 @@
 import * as actionTypes from "../actionTypes";
+export const removeSinglePlace = (z, id) => {
+  return dispatch => {
+    const url = "http://localhost:8080/remove-single-place";
+    fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&id=${id}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const { removePlace, ownerPlaces } = response;
+        if (removePlace) {
+          dispatch(ownerHaveEatingPlace(ownerPlaces));
+        }
+      });
+  };
+};
 
 export const getDataEatingPlace = z => {
   return dispatch => {
@@ -19,7 +43,6 @@ export const getDataEatingPlace = z => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         haveEatingPlace = response.places;
         dispatch(ownerHaveEatingPlace(haveEatingPlace));
       });
