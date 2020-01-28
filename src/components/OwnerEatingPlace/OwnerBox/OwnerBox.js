@@ -13,13 +13,20 @@ class OwnerBox extends React.Component {
 
   render() {
     const { requestDataEatingPlaces } = this.state;
-    const { haveEatingPlace, getDataEatingPlace } = this.props;
-    console.log(haveEatingPlace);
+    const {
+      haveEatingPlace,
+      getDataEatingPlace,
+      ownerPlaceRemoved
+    } = this.props;
+    console.log(ownerPlaceRemoved);
+    let z = localStorage.getItem("z");
     if (requestDataEatingPlaces) {
-      let z = localStorage.getItem("z");
       getDataEatingPlace(z);
       this.setState(() => ({ requestDataEatingPlaces: null }));
     }
+    // if (ownerPlaceRemoved) {ls
+    //   getDataEatingPlace(z);
+    // }
 
     const startCreatingNewEatingPlace = true;
     return haveEatingPlace ? (
@@ -75,7 +82,8 @@ const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
     haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace,
-    clientsOpinions: state.eatingPlaceProfile.clientsOpinions
+    clientsOpinions: state.eatingPlaceProfile.clientsOpinions,
+    ownerPlaceRemoved: state.myEatingPlaces.ownerPlaceRemoved
   };
 };
 const mapDispatchToProps = dispatch => {

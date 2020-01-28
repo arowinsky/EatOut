@@ -18,9 +18,20 @@ export const removeSinglePlace = (z, id) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
+        const { removePlace, ownerPlaces } = response;
+        if (removePlace) {
+          dispatch(ownerHaveEatingPlace(ownerPlaces));
+        }
       });
   };
 };
+// export const ownerPlaceRemoved = ownerPlaceRemoved => {
+//   console.log(ownerPlaceRemoved);
+//   return {
+//     type: actionTypes.OWNER_PLACE_REMOVED,
+//     ownerPlaceRemoved: ownerPlaceRemoved
+//   };
+// };
 
 export const getDataEatingPlace = z => {
   return dispatch => {
