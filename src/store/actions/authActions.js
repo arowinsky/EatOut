@@ -65,7 +65,6 @@ export const AutoLoginSuccess = test => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const userRule = response.userRule;
         const userdata = response.userData;
         const userInfo = response.userInfo;

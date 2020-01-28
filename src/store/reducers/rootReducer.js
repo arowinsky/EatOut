@@ -5,7 +5,7 @@ import addNewEatingPlaceReducer from "./addNewEatingPlace/addNewEatingPlaceReduc
 import userActionReducer from "./userAction/userActionReducer";
 import nameSearchEatingPlacesReducer from "./nameSearchEatingPlaces/nameSearchEatingPlacesReducer";
 import accountSettingsReducer from "./accountSettings/accountSettingsReducer";
-import myEatingPlacesReducer from "./myEatingPlaces/myEatingPlacesReducer";
+import ownerEatingPlacesReducer from "./OwnerEatingPlaces/OwnerEatingPlacesReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   eatingPlaceProfile: eatingPlaceProfileReducer,
@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   userAction: userActionReducer,
   nameSearchEatingPlaces: nameSearchEatingPlacesReducer,
   accountSettings: accountSettingsReducer,
-  myEatingPlaces: myEatingPlacesReducer
+  ownerEatingPlaces: ownerEatingPlacesReducer
 });
 
 export default rootReducer;

@@ -2,7 +2,6 @@ import * as actionTypes from "../../actions/actionTypes";
 import { updateObject } from "../../update";
 
 const initState = {
-  haveEatingPlace: null,
   codeForClient: null,
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
@@ -14,12 +13,6 @@ const initState = {
   singleEatingPlace: null
 };
 
-const ownerHaveEatingPlace = (state, action) => {
-  console.log(action);
-  return updateObject(state, {
-    haveEatingPlace: action.haveEatingPlace
-  });
-};
 const returnCodeForClient = (state, action) => {
   return updateObject(state, {
     codeForClient: action.codeForClient
@@ -64,8 +57,6 @@ const singleEatingPlace = (state, action) => {
 
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.OWNER_HAVE_EATING_PLACE:
-      return ownerHaveEatingPlace(state, action);
     case actionTypes.RETURN_CODE_FOR_CLIENT:
       return returnCodeForClient(state, action);
     case actionTypes.CLIENT_CODE_IS_VERIFIED:

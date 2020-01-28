@@ -29,4 +29,4 @@ export {
 export {
   getDataEatingPlace,
   removeSinglePlace
-} from "./myEatingPlaces/myEatingPlacesActions";
+} from "./OwnerEatingPlaces/OwnerEatingPlacesActions";

@@ -1,6 +1,5 @@
 import * as actionTypes from "../actionTypes";
 export const removeSinglePlace = (z, id) => {
-  console.log(id);
   return dispatch => {
     const url = "http://localhost:8080/remove-single-place";
     fetch(url, {
@@ -17,7 +16,6 @@ export const removeSinglePlace = (z, id) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { removePlace, ownerPlaces } = response;
         if (removePlace) {
           dispatch(ownerHaveEatingPlace(ownerPlaces));
@@ -25,13 +23,6 @@ export const removeSinglePlace = (z, id) => {
       });
   };
 };
-// export const ownerPlaceRemoved = ownerPlaceRemoved => {
-//   console.log(ownerPlaceRemoved);
-//   return {
-//     type: actionTypes.OWNER_PLACE_REMOVED,
-//     ownerPlaceRemoved: ownerPlaceRemoved
-//   };
-// };
 
 export const getDataEatingPlace = z => {
   return dispatch => {
@@ -52,7 +43,6 @@ export const getDataEatingPlace = z => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         haveEatingPlace = response.places;
         dispatch(ownerHaveEatingPlace(haveEatingPlace));
       });

@@ -2,19 +2,18 @@ import * as actionTypes from "../../actions/actionTypes";
 import { updateObject } from "../../update";
 
 const initState = {
-  ownerPlaceRemoved: null
+  haveEatingPlace: null
 };
-const ownerPlaceRemoved = (state, action) => {
-  console.log(action.ownerPlaceRemoved);
+const ownerHaveEatingPlace = (state, action) => {
   return updateObject(state, {
-    ownerPlaceRemoved: action.ownerPlaceRemoved
+    haveEatingPlace: action.haveEatingPlace
   });
 };
 
 const myEatingPlacesReducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.OWNER_PLACE_REMOVED:
-      return ownerPlaceRemoved(state, action);
+    case actionTypes.OWNER_HAVE_EATING_PLACE:
+      return ownerHaveEatingPlace(state, action);
     default:
       return state;
   }
