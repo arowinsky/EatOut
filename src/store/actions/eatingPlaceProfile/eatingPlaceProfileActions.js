@@ -140,8 +140,8 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
     updatedClientsOpinions: updatedClientsOpinions
   };
 };
-export const getDataSingleEatingPlace = placeId => {
-  console.log(placeId);
+export const getDataSingleEatingPlace = (z, placeId) => {
+  console.log(z, placeId);
   return dispatch => {
     const url = "http://localhost:8080/get-data-place-single";
     fetch(url, {
@@ -154,7 +154,7 @@ export const getDataSingleEatingPlace = placeId => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `placeId=${placeId}`
+      body: `z=${z}&placeId=${placeId}`
     })
       .then(Response => Response.json())
       .then(response => {
