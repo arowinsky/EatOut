@@ -4,7 +4,7 @@ import * as actions from "../../../../store/actions/index";
 import { Redirect } from "react-router-dom";
 class WaitingForDataPlace extends React.Component {
   render() {
-    const { getDataEatingPlace } = this.props;
+    const { getDataSingleEatingPlace } = this.props;
     let { singleEatingPlace } = this.props;
     let { placeId, eatingPlace } = this.props.location.state;
     // console.log("first", singleEatingPlace);
@@ -15,7 +15,7 @@ class WaitingForDataPlace extends React.Component {
     // console.log("after", singleEatingPlace);
     // console.log("TCL: WaitingForDataPlace -> render -> placeId", placeId);
     // console.log("Id Lokalu:", placeId);
-    getDataEatingPlace(placeId);
+    getDataSingleEatingPlace(placeId);
     console.log("single", singleEatingPlace);
     if (singleEatingPlace) {
       console.log("chce przejsc");
@@ -47,7 +47,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getDataEatingPlace: placeId => dispatch(actions.getDataEatingPlace(placeId))
+    getDataSingleEatingPlace: placeId =>
+      dispatch(actions.getDataSingleEatingPlace(placeId))
   };
 };
 
