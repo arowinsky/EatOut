@@ -14,7 +14,8 @@ export {
   generationCodeForClient,
   sendCodeToVerification,
   sendClientOpinion,
-  blockOpinionForm
+  blockOpinionForm,
+  getDataSingleEatingPlace
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
 export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";

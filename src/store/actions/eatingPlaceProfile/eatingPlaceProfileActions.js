@@ -140,7 +140,7 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
     updatedClientsOpinions: updatedClientsOpinions
   };
 };
-export const getDataEatingPlace = placeId => {
+export const getDataSingleEatingPlace = placeId => {
   console.log(placeId);
   return dispatch => {
     const url = "http://localhost:8080/get-data-place-single";
