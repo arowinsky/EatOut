@@ -12,6 +12,9 @@ class EatingPlaceHeader extends React.Component {
     let restaurantBuildingNumber;
     let restaurantCity;
     let placeId;
+    let z = localStorage.getItem("z");
+    let userLoggedIn;
+
     if (eatingPlace) {
       placeId = eatingPlace.id;
       restaurantAvatar = eatingPlace.avatar;
@@ -20,6 +23,9 @@ class EatingPlaceHeader extends React.Component {
       restaurantStreet = eatingPlace.info.restaurantStreet;
       restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
       restaurantCity = eatingPlace.info.restaurantCity;
+    }
+    if (z) {
+      userLoggedIn = true;
     }
     return (
       <div>
@@ -42,7 +48,13 @@ class EatingPlaceHeader extends React.Component {
             <div>{restaurantCity}</div>
           </div>
           <div className={styles.adressWrapper}>
-            <Following placeId={placeId} restaurantName={restaurantName} />
+            {userLoggedIn ? (
+              <Following
+                z={z}
+                placeId={placeId}
+                restaurantName={restaurantName}
+              />
+            ) : null}
           </div>
         </div>
       </div>

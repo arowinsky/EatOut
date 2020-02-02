@@ -3,13 +3,13 @@ import Button from "../../../../Button/Button";
 import { connect } from "react-redux";
 import * as actions from "../../../../../store/actions/index";
 const Following = ({
+  z,
   placeId,
   restaurantName,
   following,
   followPlace,
   unfollowPlace
 }) => {
-  let z = localStorage.getItem("z");
   const userWantFollowPlace = () => {
     console.log(
       "TCL: EatingPlaceHeader -> userWantFollowPlace -> z, placeId, restaurantName",
