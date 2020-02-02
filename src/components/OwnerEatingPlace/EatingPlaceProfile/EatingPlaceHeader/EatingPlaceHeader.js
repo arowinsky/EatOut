@@ -15,6 +15,10 @@ class EatingPlaceHeader extends React.Component {
     );
     this.props.followPlace(z, placeId, restaurantName);
   };
+  userWantUnfollowPlace = placeId => {
+    let z = localStorage.getItem("z");
+    this.props.unfollowPlace(z, placeId);
+  };
   render() {
     const { eatingPlace, following } = this.props;
     console.log(eatingPlace);
@@ -58,7 +62,14 @@ class EatingPlaceHeader extends React.Component {
           </div>
           <div className={styles.adressWrapper}>
             {following ? (
-              <Button second>Pzeestań obserwować</Button>
+              <Button
+                second
+                onClick={() => {
+                  this.userWantUnfollowPlace(placeId);
+                }}
+              >
+                Pzeestań obserwować
+              </Button>
             ) : (
               <Button
                 second
@@ -84,7 +95,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     followPlace: (z, placeId, restaurantName) =>
-      dispatch(actions.followPlace(z, placeId, restaurantName))
+      dispatch(actions.followPlace(z, placeId, restaurantName)),
+    unfollowPlace: (z, placeId) => dispatch(actions.unfollowPlace(z, placeId))
   };
 };
 
