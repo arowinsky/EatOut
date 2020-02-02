@@ -23,7 +23,6 @@ class Search extends React.Component {
             onChange={this.handleChange}
           />
           <button type="submit" className={styles.search_icon}>
-            {" "}
             <FontAwesomeIcon icon={faSearchLocation} />
           </button>
         </div>

@@ -1,10 +1,22 @@
 import React from "react";
 import styles from "./EatingPlaceHeader.module.scss";
 import Button from "../../../Button/Button";
+import { connect } from "react-redux";
+import * as actions from "../../../../store/actions/index";
 
 class EatingPlaceHeader extends React.Component {
+  userWantFollowPlace = (placeId, restaurantName) => {
+    let z = localStorage.getItem("z");
+    console.log(
+      "TCL: EatingPlaceHeader -> userWantFollowPlace -> z, placeId, restaurantName",
+      z,
+      placeId,
+      restaurantName
+    );
+    this.props.followPlace(z, placeId, restaurantName);
+  };
   render() {
-    const { eatingPlace } = this.props;
+    const { eatingPlace, following } = this.props;
     console.log(eatingPlace);
     let restaurantAvatar;
     let restaurantHeader;
@@ -12,15 +24,16 @@ class EatingPlaceHeader extends React.Component {
     let restaurantStreet;
     let restaurantBuildingNumber;
     let restaurantCity;
-    let following;
+    let placeId;
+
     if (eatingPlace) {
+      placeId = eatingPlace.id;
       restaurantAvatar = eatingPlace.avatar;
       restaurantHeader = eatingPlace.header;
       restaurantName = eatingPlace.info.restaurantName;
       restaurantStreet = eatingPlace.info.restaurantStreet;
       restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
       restaurantCity = eatingPlace.info.restaurantCity;
-      following = eatingPlace.following;
       console.log(following);
     }
     return (
@@ -47,7 +60,14 @@ class EatingPlaceHeader extends React.Component {
             {following ? (
               <Button second>Pzeestań obserwować</Button>
             ) : (
-              <Button second>Obserwuj</Button>
+              <Button
+                second
+                onClick={() => {
+                  this.userWantFollowPlace(placeId, restaurantName);
+                }}
+              >
+                Obserwuj
+              </Button>
             )}
           </div>
         </div>
@@ -56,4 +76,16 @@ class EatingPlaceHeader extends React.Component {
   }
 }
 
-export default EatingPlaceHeader;
+const mapStateToProps = state => {
+  return {
+    following: state.eatingPlaceProfile.userFollowingPlace
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    followPlace: (z, placeId, restaurantName) =>
+      dispatch(actions.followPlace(z, placeId, restaurantName))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EatingPlaceHeader);

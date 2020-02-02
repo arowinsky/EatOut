@@ -159,7 +159,11 @@ export const getDataSingleEatingPlace = (z, placeId) => {
       .then(Response => Response.json())
       .then(response => {
         console.log(response);
-        dispatch(singleEatingPlace(response.place));
+        const { place } = response;
+        const { following } = place;
+        console.log(following);
+        dispatch(singleEatingPlace(place));
+        dispatch(userFollowingPlace(following));
       });
   };
 };
@@ -169,5 +173,39 @@ export const singleEatingPlace = singleEatingPlace => {
   return {
     type: actionTypes.SINGLE_EATING_PLACE,
     singleEatingPlace: singleEatingPlace
+  };
+};
+export const userFollowingPlace = userFollowingPlace => {
+  console.log("TCL: userFollowingPlace", userFollowingPlace);
+  return {
+    type: actionTypes.USER_FOLLOWING_PLACE,
+    userFollowingPlace: userFollowingPlace
+  };
+};
+export const followPlace = (z, placeId, restaurantName) => {
+  console.log(
+    "TCL: followPlace -> z, placeId, restaurantName",
+    z,
+    placeId,
+    restaurantName
+  );
+  return dispatch => {
+    const url = "http://localhost:8080/add-follow";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&placeId=${placeId}&placeName=${restaurantName}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        console.log(response);
+      });
   };
 };
