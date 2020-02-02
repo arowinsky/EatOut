@@ -1,26 +1,9 @@
 import React from "react";
 import styles from "./EatingPlaceHeader.module.scss";
-import Button from "../../../Button/Button";
-import { connect } from "react-redux";
-import * as actions from "../../../../store/actions/index";
-
+import Following from "./Following/Following";
 class EatingPlaceHeader extends React.Component {
-  userWantFollowPlace = (placeId, restaurantName) => {
-    let z = localStorage.getItem("z");
-    console.log(
-      "TCL: EatingPlaceHeader -> userWantFollowPlace -> z, placeId, restaurantName",
-      z,
-      placeId,
-      restaurantName
-    );
-    this.props.followPlace(z, placeId, restaurantName);
-  };
-  userWantUnfollowPlace = placeId => {
-    let z = localStorage.getItem("z");
-    this.props.unfollowPlace(z, placeId);
-  };
   render() {
-    const { eatingPlace, following } = this.props;
+    const { eatingPlace } = this.props;
     console.log(eatingPlace);
     let restaurantAvatar;
     let restaurantHeader;
@@ -29,7 +12,6 @@ class EatingPlaceHeader extends React.Component {
     let restaurantBuildingNumber;
     let restaurantCity;
     let placeId;
-
     if (eatingPlace) {
       placeId = eatingPlace.id;
       restaurantAvatar = eatingPlace.avatar;
@@ -38,7 +20,6 @@ class EatingPlaceHeader extends React.Component {
       restaurantStreet = eatingPlace.info.restaurantStreet;
       restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
       restaurantCity = eatingPlace.info.restaurantCity;
-      console.log(following);
     }
     return (
       <div>
@@ -61,25 +42,7 @@ class EatingPlaceHeader extends React.Component {
             <div>{restaurantCity}</div>
           </div>
           <div className={styles.adressWrapper}>
-            {following ? (
-              <Button
-                second
-                onClick={() => {
-                  this.userWantUnfollowPlace(placeId);
-                }}
-              >
-                Pzeestań obserwować
-              </Button>
-            ) : (
-              <Button
-                second
-                onClick={() => {
-                  this.userWantFollowPlace(placeId, restaurantName);
-                }}
-              >
-                Obserwuj
-              </Button>
-            )}
+            <Following placeId={placeId} restaurantName={restaurantName} />
           </div>
         </div>
       </div>
@@ -87,17 +50,4 @@ class EatingPlaceHeader extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    following: state.eatingPlaceProfile.userFollowingPlace
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-    followPlace: (z, placeId, restaurantName) =>
-      dispatch(actions.followPlace(z, placeId, restaurantName)),
-    unfollowPlace: (z, placeId) => dispatch(actions.unfollowPlace(z, placeId))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EatingPlaceHeader);
+export default EatingPlaceHeader;
