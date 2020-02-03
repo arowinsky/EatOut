@@ -6,19 +6,10 @@ class WaitingForDataPlace extends React.Component {
   render() {
     const { getDataSingleEatingPlace } = this.props;
     let { singleEatingPlace } = this.props;
-    let { placeId, eatingPlace } = this.props.location.state;
-    // console.log("first", singleEatingPlace);
-    // if (!eatingPlace) {
-    //   singleEatingPlace = eatingPlace;
-    //   eatingPlace = true;
-    // }
-    // console.log("after", singleEatingPlace);
-    // console.log("TCL: WaitingForDataPlace -> render -> placeId", placeId);
-    // console.log("Id Lokalu:", placeId);
-    getDataSingleEatingPlace(placeId);
-    console.log("single", singleEatingPlace);
+    const { placeId } = this.props.location.state;
+    let z = localStorage.getItem("z");
+    getDataSingleEatingPlace(z, placeId);
     if (singleEatingPlace) {
-      console.log("chce przejsc");
       return (
         <Redirect
           to={{
@@ -30,12 +21,6 @@ class WaitingForDataPlace extends React.Component {
         />
       );
     }
-    // let sendedPlaceId = null;
-    // console.log(sendedPlaceId);
-
-    // console.log(sendedPlaceId);
-    // sended = true;
-
     return <div>Loading...</div>;
   }
 }
@@ -47,8 +32,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getDataSingleEatingPlace: placeId =>
-      dispatch(actions.getDataSingleEatingPlace(placeId))
+    getDataSingleEatingPlace: (z, placeId) =>
+      dispatch(actions.getDataSingleEatingPlace(z, placeId))
   };
 };
 

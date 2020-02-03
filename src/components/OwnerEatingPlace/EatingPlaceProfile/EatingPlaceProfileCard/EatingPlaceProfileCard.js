@@ -4,35 +4,12 @@ import Button from "../../../Button/Button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../../../store/actions/index";
-import { Redirect } from "react-router-dom";
 
 const EatingPlaceProfileCard = ({
   cardType,
   eatingPlaces,
-  getDataEatingPlace,
-  singleEatingPlace,
   removeSinglePlace
 }) => {
-  console.log(eatingPlaces);
-  // const getDataPlace = id => {
-  //   // console.log("wchodzi");
-  //   getDataEatingPlace(id);
-  //   if (singleEatingPlace) {
-  //     console.log("chce przejsc");
-  //     return (
-  //       <Redirect
-  //         to={{
-  //           pathname: "/eating-place-profile",
-  //           state: {
-  //             eatingPlace: singleEatingPlace
-  //           }
-  //         }}
-  //       />
-  //     );
-  //   }
-  // };
-  // this.removePlace = this.removePlace.bind(this);
-
   const removePlace = () => {
     let id = eatingPlaces.id;
     let z = localStorage.getItem("z");
@@ -76,7 +53,6 @@ const EatingPlaceProfileCard = ({
       </div>
     );
   } else if (cardType === "searchedPlace") {
-    console.log(eatingPlaces);
     return (
       <div className={styles.card}>
         <img
@@ -111,11 +87,6 @@ const EatingPlaceProfileCard = ({
     );
   }
 };
-// const mapStateToProps = state => {
-//   return {
-//     singleEatingPlace: state.eatingPlaceProfile.singleEatingPlace
-//   };
-// };
 const mapDispatchToProps = dispatch => {
   return {
     getDataEatingPlace: id => dispatch(actions.getDataEatingPlace(id)),

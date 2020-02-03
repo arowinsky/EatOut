@@ -10,7 +10,8 @@ const initState = {
   updatedOwnerPosts: null,
   updatedClientsOpinions: null,
   searchedEatingPlaces: null,
-  singleEatingPlace: null
+  singleEatingPlace: null,
+  userFollowingPlace: null
 };
 
 const returnCodeForClient = (state, action) => {
@@ -49,9 +50,14 @@ const updatedClientsOpinions = (state, action) => {
 };
 
 const singleEatingPlace = (state, action) => {
-  console.log(action.singleEatingPlace);
   return updateObject(state, {
     singleEatingPlace: action.singleEatingPlace
+  });
+};
+
+const userFollowingPlace = (state, action) => {
+  return updateObject(state, {
+    userFollowingPlace: action.userFollowingPlace
   });
 };
 
@@ -71,6 +77,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return updatedClientsOpinions(state, action);
     case actionTypes.SINGLE_EATING_PLACE:
       return singleEatingPlace(state, action);
+    case actionTypes.USER_FOLLOWING_PLACE:
+      return userFollowingPlace(state, action);
     default:
       return state;
   }

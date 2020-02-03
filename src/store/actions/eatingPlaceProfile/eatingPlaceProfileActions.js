@@ -30,7 +30,6 @@ export const returnCodeForClient = codeForClient => {
 };
 
 export const sendCodeToVerification = clientCode => {
-  console.log(clientCode);
   return dispatch => {
     const url = "http://localhost:8080/verification-client-code";
     fetch(url, {
@@ -60,7 +59,6 @@ export const clientCodeIsVerified = clientCodeIsVerified => {
 };
 
 export const blockOpinionForm = blockedOpinionForm => {
-  console.log(blockedOpinionForm);
   return {
     type: actionTypes.BLOCKED_OPINION_FORM,
     blockOpinonForm: blockedOpinionForm
@@ -83,7 +81,6 @@ export const addOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response.postsForCurrentProfile);
         const { addedPost, postsForCurrentProfile } = response;
         dispatch(addedOwnerPost(addedPost));
         dispatch(updatedOwnerPosts(postsForCurrentProfile));
@@ -126,7 +123,6 @@ export const sendClientOpinion = (
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response.opinionsForCurrentProfile);
         blockedOpinionForm = true;
         const { opinionsForCurrentProfile } = response;
         dispatch(blockOpinionForm(blockedOpinionForm));
@@ -140,8 +136,7 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
     updatedClientsOpinions: updatedClientsOpinions
   };
 };
-export const getDataSingleEatingPlace = placeId => {
-  console.log(placeId);
+export const getDataSingleEatingPlace = (z, placeId) => {
   return dispatch => {
     const url = "http://localhost:8080/get-data-place-single";
     fetch(url, {
@@ -154,20 +149,75 @@ export const getDataSingleEatingPlace = placeId => {
       },
       redirect: "follow",
       referrer: "no-referrer",
-      body: `placeId=${placeId}`
+      body: `z=${z}&placeId=${placeId}`
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
-        dispatch(singleEatingPlace(response.place));
+        const { place } = response;
+        const { following } = place;
+        dispatch(singleEatingPlace(place));
+        dispatch(userFollowingPlace(following));
       });
   };
 };
 
 export const singleEatingPlace = singleEatingPlace => {
-  console.log(singleEatingPlace);
   return {
     type: actionTypes.SINGLE_EATING_PLACE,
     singleEatingPlace: singleEatingPlace
+  };
+};
+export const userFollowingPlace = userFollowingPlace => {
+  return {
+    type: actionTypes.USER_FOLLOWING_PLACE,
+    userFollowingPlace: userFollowingPlace
+  };
+};
+export const followPlace = (z, placeId, restaurantName) => {
+  return dispatch => {
+    const url = "http://localhost:8080/add-follow";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&placeId=${placeId}&placeName=${restaurantName}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const { userFollowing } = response;
+        dispatch(userFollowingPlace(userFollowing));
+      });
+  };
+};
+
+export const unfollowPlace = (z, placeId) => {
+  return dispatch => {
+    const url = "http://localhost:8080/remove-follow";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&placeId=${placeId}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const { deleteFollow } = response;
+        if (deleteFollow) {
+          let userFollowing = false;
+          dispatch(userFollowingPlace(userFollowing));
+        }
+      });
   };
 };

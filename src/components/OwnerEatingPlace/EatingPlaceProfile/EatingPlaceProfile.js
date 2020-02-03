@@ -10,7 +10,6 @@ const EatingPlaceProfile = props => {
   const { userId } = props;
   const { eatingPlace } = props.location.state;
   let owner;
-  console.log(eatingPlace);
   if (eatingPlace) {
     owner = eatingPlace.info.owner;
   }
