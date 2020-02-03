@@ -109,15 +109,15 @@ class RegisterForm extends React.Component {
           }}
           validationSchema={validateSchema}
           onSubmit={newUser => {
-            // if (this.result != null) {
-            this.props.signUp(
-              newUser.email,
-              newUser.password1,
-              newUser.firstname,
-              newUser.lastname,
-              newUser.username
-            );
-            // }
+            if (this.result != null) {
+              this.props.signUp(
+                newUser.email,
+                newUser.password1,
+                newUser.firstname,
+                newUser.lastname,
+                newUser.username
+              );
+            }
           }}
         >
           {({ errors, touched, isValidating }) => (
@@ -214,10 +214,10 @@ class RegisterForm extends React.Component {
               />
               {errors.statute && touched.statute && <div>{errors.statute}</div>}
               <br />
-              {/* <ReCAPTCHA
-                sitekey="6Ldf8rgUAAAAAPwhZUzx8p5aKLX-wG9UZ-XzP_1n"
+              <ReCAPTCHA
+                sitekey="6LdvTNUUAAAAAAgU4xeFzQnuPcyscV3dXbrcRU97"
                 onChange={this.onChange}
-              /> */}
+              />
               <Button second type="submit">
                 Zarejestruj
               </Button>
