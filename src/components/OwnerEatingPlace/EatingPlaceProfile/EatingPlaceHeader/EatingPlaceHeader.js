@@ -4,7 +4,6 @@ import Following from "./Following/Following";
 class EatingPlaceHeader extends React.Component {
   render() {
     const { eatingPlace } = this.props;
-    console.log(eatingPlace);
     let restaurantAvatar;
     let restaurantHeader;
     let restaurantName;

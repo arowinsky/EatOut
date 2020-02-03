@@ -11,12 +11,6 @@ const Following = ({
   unfollowPlace
 }) => {
   const userWantFollowPlace = () => {
-    console.log(
-      "TCL: EatingPlaceHeader -> userWantFollowPlace -> z, placeId, restaurantName",
-      z,
-      placeId,
-      restaurantName
-    );
     followPlace(z, placeId, restaurantName);
   };
   const userWantUnfollowPlace = () => {

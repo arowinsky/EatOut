@@ -50,14 +50,12 @@ const updatedClientsOpinions = (state, action) => {
 };
 
 const singleEatingPlace = (state, action) => {
-  console.log(action.singleEatingPlace);
   return updateObject(state, {
     singleEatingPlace: action.singleEatingPlace
   });
 };
 
 const userFollowingPlace = (state, action) => {
-  console.log(action.userFollowingPlace);
   return updateObject(state, {
     userFollowingPlace: action.userFollowingPlace
   });

@@ -30,7 +30,6 @@ export const returnCodeForClient = codeForClient => {
 };
 
 export const sendCodeToVerification = clientCode => {
-  console.log(clientCode);
   return dispatch => {
     const url = "http://localhost:8080/verification-client-code";
     fetch(url, {
@@ -60,7 +59,6 @@ export const clientCodeIsVerified = clientCodeIsVerified => {
 };
 
 export const blockOpinionForm = blockedOpinionForm => {
-  console.log(blockedOpinionForm);
   return {
     type: actionTypes.BLOCKED_OPINION_FORM,
     blockOpinonForm: blockedOpinionForm
@@ -83,7 +81,6 @@ export const addOwnerPost = (post, eatingPlaceName, eatingPlaceId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response.postsForCurrentProfile);
         const { addedPost, postsForCurrentProfile } = response;
         dispatch(addedOwnerPost(addedPost));
         dispatch(updatedOwnerPosts(postsForCurrentProfile));
@@ -126,7 +123,6 @@ export const sendClientOpinion = (
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response.opinionsForCurrentProfile);
         blockedOpinionForm = true;
         const { opinionsForCurrentProfile } = response;
         dispatch(blockOpinionForm(blockedOpinionForm));
@@ -141,7 +137,6 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
   };
 };
 export const getDataSingleEatingPlace = (z, placeId) => {
-  console.log(z, placeId);
   return dispatch => {
     const url = "http://localhost:8080/get-data-place-single";
     fetch(url, {
@@ -158,10 +153,8 @@ export const getDataSingleEatingPlace = (z, placeId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { place } = response;
         const { following } = place;
-        console.log(following);
         dispatch(singleEatingPlace(place));
         dispatch(userFollowingPlace(following));
       });
@@ -169,26 +162,18 @@ export const getDataSingleEatingPlace = (z, placeId) => {
 };
 
 export const singleEatingPlace = singleEatingPlace => {
-  console.log(singleEatingPlace);
   return {
     type: actionTypes.SINGLE_EATING_PLACE,
     singleEatingPlace: singleEatingPlace
   };
 };
 export const userFollowingPlace = userFollowingPlace => {
-  console.log("TCL: userFollowingPlace", userFollowingPlace);
   return {
     type: actionTypes.USER_FOLLOWING_PLACE,
     userFollowingPlace: userFollowingPlace
   };
 };
 export const followPlace = (z, placeId, restaurantName) => {
-  console.log(
-    "TCL: followPlace -> z, placeId, restaurantName",
-    z,
-    placeId,
-    restaurantName
-  );
   return dispatch => {
     const url = "http://localhost:8080/add-follow";
     fetch(url, {
@@ -205,7 +190,6 @@ export const followPlace = (z, placeId, restaurantName) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { userFollowing } = response;
         dispatch(userFollowingPlace(userFollowing));
       });
@@ -229,7 +213,6 @@ export const unfollowPlace = (z, placeId) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { deleteFollow } = response;
         if (deleteFollow) {
           let userFollowing = false;

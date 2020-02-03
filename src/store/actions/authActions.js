@@ -218,7 +218,6 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const userRule = response.userRule;
         const userData = response.name;
         const idToken = response.status;
@@ -229,7 +228,6 @@ export const logIn = (email, password1) => {
         let dataIsCorrect = null;
         let z = null;
         let tooManyAttempts = null;
-        console.log(err);
         localStorage.setItem("z", response.idSession);
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));

@@ -6,12 +6,10 @@ class WaitingForDataPlace extends React.Component {
   render() {
     const { getDataSingleEatingPlace } = this.props;
     let { singleEatingPlace } = this.props;
-    const { placeId, eatingPlace } = this.props.location.state;
+    const { placeId } = this.props.location.state;
     let z = localStorage.getItem("z");
     getDataSingleEatingPlace(z, placeId);
-    console.log("single", singleEatingPlace);
     if (singleEatingPlace) {
-      console.log("chce przejsc");
       return (
         <Redirect
           to={{
@@ -23,12 +21,6 @@ class WaitingForDataPlace extends React.Component {
         />
       );
     }
-    // let sendedPlaceId = null;
-    // console.log(sendedPlaceId);
-
-    // console.log(sendedPlaceId);
-    // sended = true;
-
     return <div>Loading...</div>;
   }
 }
