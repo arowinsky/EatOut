@@ -1,0 +1,30 @@
+@import "../../../views/Root/index.scss";
+.followingPlaces {
+  display: flex;
+  flex-direction: row;
+  width: 75%;
+  align-self: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.6);
+}
+.placeName {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2%;
+}
+.button {
+  width: 100%;
+}
+
+.icon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-color: $light-grey-element;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+}

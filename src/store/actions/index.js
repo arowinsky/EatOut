@@ -17,7 +17,8 @@ export {
   blockOpinionForm,
   getDataSingleEatingPlace,
   followPlace,
-  unfollowPlace
+  unfollowPlace,
+  getFollowingPlaces
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
 export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";

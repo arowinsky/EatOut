@@ -27,7 +27,10 @@ const SideBarMenu = props => {
               </Link>
             </li>
             <li className={styles.sidebar_item}>
-              <Link to="/owner-home" className={styles.sidebar_item}>
+              <Link
+                to="/following-eating-places"
+                className={styles.sidebar_item}
+              >
                 <FontAwesomeIcon
                   icon={faUserCircle}
                   className={styles.sidebar_icon}

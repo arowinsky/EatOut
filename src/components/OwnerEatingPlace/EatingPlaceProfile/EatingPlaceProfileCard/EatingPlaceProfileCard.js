@@ -17,7 +17,6 @@ const EatingPlaceProfileCard = ({
   };
 
   if (cardType === "ownerPlace") {
-    console.log(eatingPlaces);
     return (
       <div className={styles.card}>
         <img

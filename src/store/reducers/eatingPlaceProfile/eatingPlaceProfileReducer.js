@@ -11,7 +11,8 @@ const initState = {
   updatedClientsOpinions: null,
   searchedEatingPlaces: null,
   singleEatingPlace: null,
-  userFollowingPlace: null
+  userFollowingPlace: null,
+  followingPlaces: null
 };
 
 const returnCodeForClient = (state, action) => {
@@ -61,6 +62,12 @@ const userFollowingPlace = (state, action) => {
   });
 };
 
+const followingPlaces = (state, action) => {
+  return updateObject(state, {
+    followingPlaces: action.followingPlaces
+  });
+};
+
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.RETURN_CODE_FOR_CLIENT:
@@ -79,6 +86,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return singleEatingPlace(state, action);
     case actionTypes.USER_FOLLOWING_PLACE:
       return userFollowingPlace(state, action);
+    case actionTypes.FOLLOWING_PLACE:
+      return followingPlaces(state, action);
     default:
       return state;
   }

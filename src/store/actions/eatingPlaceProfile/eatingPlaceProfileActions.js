@@ -221,3 +221,33 @@ export const unfollowPlace = (z, placeId) => {
       });
   };
 };
+
+export const getFollowingPlaces = z => {
+  return dispatch => {
+    const url = "http://localhost:8080/get-follow";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const { follow } = response;
+        dispatch(followingPlaces(follow));
+      });
+  };
+};
+
+export const followingPlaces = followingPlaces => {
+  return {
+    type: actionTypes.FOLLOWING_PLACE,
+    followingPlaces: followingPlaces
+  };
+};
