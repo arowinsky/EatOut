@@ -23,6 +23,7 @@ import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorC
 import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
 import AccountSettingsView from "../AccountSettingsView/AccountSettingsView";
 import WaitingForDataPlace from "../../components/OwnerEatingPlace/EatingPlaceProfile/WaitingForDataPlace/WaitingForDataPlace";
+import FollowingPlacesView from "../FollowingPlacesView/FollowingPlacesView";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -109,6 +110,10 @@ class Root extends React.Component {
             <PrivateRoute
               path="/generator-code-for-client"
               component={GeneratorCodeForClientView}
+            />
+            <PrivateRoute
+              path="/following-eating-places"
+              component={FollowingPlacesView}
             />
             <Route component={E404} />
           </Switch>

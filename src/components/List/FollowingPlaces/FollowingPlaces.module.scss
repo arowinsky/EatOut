@@ -1,0 +1,39 @@
+@import "../../../views/Root/index.scss";
+.wrapper {
+  width: 49%;
+  border: 1px solid $dark-grey-element;
+  margin: 10px 0px;
+  // padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.followingPlaces {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-self: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(169, 169, 169, 0.6);
+}
+.placeName {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2%;
+}
+.button {
+  width: 100%;
+}
+
+.icon {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  background-color: $light-grey-element;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
