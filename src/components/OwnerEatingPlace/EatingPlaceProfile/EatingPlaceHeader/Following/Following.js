@@ -30,7 +30,7 @@ class Following extends React.Component {
       <div>
         {following ? (
           <Button second onClick={this.userWantUnfollowPlace}>
-            Pzeestań obserwować
+            Pzestań obserwować
           </Button>
         ) : (
           <Button second onClick={this.userWantFollowPlace}>

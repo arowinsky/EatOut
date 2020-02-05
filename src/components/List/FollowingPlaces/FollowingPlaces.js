@@ -17,7 +17,7 @@ class FollowingPlaces extends React.Component {
       this.setState(() => ({ askFollowingPlaces: null }));
     }
     return (
-      <div>
+      <div className={styles.wrapper}>
         {followingPlaces ? (
           followingPlaces.map(followingPlace => {
             const { placeId, placeName, avatar } = followingPlace;
@@ -43,7 +43,7 @@ class FollowingPlaces extends React.Component {
             );
           })
         ) : (
-          <div>Nie obserwujesz jeszcze zadnych lokali</div>
+          <div>Nie obserwujesz jeszcze żadnych lokali</div>
         )}
       </div>
     );
