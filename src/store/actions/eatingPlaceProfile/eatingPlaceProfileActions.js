@@ -173,6 +173,29 @@ export const userFollowingPlace = userFollowingPlace => {
     userFollowingPlace: userFollowingPlace
   };
 };
+export const checkFollowingPlaces = (z, placeId) => {
+  return dispatch => {
+    const url = "http://localhost:8080/check-following-places";
+    fetch(url, {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      redirect: "follow",
+      referrer: "no-referrer",
+      body: `z=${z}&placeId=${placeId}`
+    })
+      .then(Response => Response.json())
+      .then(response => {
+        const { userFollowing } = response;
+        dispatch(userFollowingPlace(userFollowing));
+      });
+  };
+};
+
 export const followPlace = (z, placeId, restaurantName) => {
   return dispatch => {
     const url = "http://localhost:8080/add-follow";
@@ -224,7 +247,7 @@ export const unfollowPlace = (z, placeId) => {
 
 export const getFollowingPlaces = z => {
   return dispatch => {
-    const url = "http://localhost:8080/get-follow";
+    const url = "http://localhost:8080/get-following-places";
     fetch(url, {
       method: "POST",
       cache: "no-cache",

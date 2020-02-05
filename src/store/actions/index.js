@@ -18,7 +18,8 @@ export {
   getDataSingleEatingPlace,
   followPlace,
   unfollowPlace,
-  getFollowingPlaces
+  getFollowingPlaces,
+  checkFollowingPlaces
 } from "../actions/eatingPlaceProfile/eatingPlaceProfileActions";
 export { userVerifyEmail, resetPassword } from "./userAction/userActionActions";
 export { nameSearchEatingPlaces } from "./nameSearchEatingPlaces/nameSearchEatingPlacesActions.js";
