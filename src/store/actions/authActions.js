@@ -315,83 +315,40 @@ export const facebookLogIn = () => {
   return dispatch => {
     const provider = new firebase.auth.FacebookAuthProvider();
 
-    firebase.auth().signInWithPopup(provider)
-    .then(result=>{
-    
-      console.log(result)
-      const uid = result.user.uid;
-      const displayName= result.user.displayName;
-      const email= result.user.email;
-      const token= result.user.refreshToken;
-      const provider= result.credential.providerId;
-      const newUser= result.additionalUserInfo.isNewUser;
-    
-    
-    const url = "http://localhost:8080/login-social-media";
-    fetch(url,{
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
-    })
-    .then(respons=>respons.json())
-    .then(Response =>{
-      console.log(Response)
-    })
-
-    })
-    .catch(error=>{
-      console.log(error)
-    })
-
-  };
-};
-
-export const googleLogIn = () => {
-  return dispatch => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-   
-    firebase.auth(). signInWithPopup(provider)
-    .then(result =>{
-      console.log(result)
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log(result);
         const uid = result.user.uid;
-        const displayName= result.user.displayName;
-        const email= result.user.email;
-        const token= result.user.refreshToken;
-        const provider= result.credential.providerId;
-        const newUser= result.additionalUserInfo.isNewUser;
-      
-      
-      const url = "http://localhost:8080/login-social-media";
-      fetch(url,{
-        method: "POST",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        redirect: "follow",
-        referrer: "no-referrer",
-        body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+        const displayName = result.user.displayName;
+        const email = result.user.email;
+        const token = result.user.refreshToken;
+        const provider = result.credential.providerId;
+        const newUser = result.additionalUserInfo.isNewUser;
+
+        const url = "http://localhost:8080/login-social-media";
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+        })
+          .then(respons => respons.json())
+          .then(Response => {
+            console.log(Response);
+          });
       })
-      .then(respons=>respons.json())
-      .then(Response =>{
-        console.log(Response)
-      })
-      
-    })
-    .catch(error=>{
-      console.log(error)
-    })
+      .catch(error => {
+        console.log(error);
+      });
   };
 };
 
@@ -401,6 +358,50 @@ export const facebookLogInSuccess = (idFb, usernameFb) => {
     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
     idFb: idFb,
     usernameFb: usernameFb
+  };
+};
+
+export const googleLogIn = () => {
+  return dispatch => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log(result);
+        const uid = result.user.uid;
+        const displayName = result.user.displayName;
+        const email = result.user.email;
+        const token = result.user.refreshToken;
+        const provider = result.credential.providerId;
+        const newUser = result.additionalUserInfo.isNewUser;
+
+        const url = "http://localhost:8080/login-social-media";
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+        })
+          .then(Response => Response.json())
+          .then(response => {
+            console.log(response);
+            console.log(displayName);
+            const { idSession, userId, userRule } = response;
+            dispatch(googleLogInSuccess(userId, displayName));
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 };
 
