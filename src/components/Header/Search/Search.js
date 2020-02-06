@@ -7,7 +7,6 @@ import * as actions from "../../../store/actions/";
 
 class Search extends React.Component {
   handleChange = e => {
-    console.log(e.target.value);
     if (e.target.value) {
       let name = e.target.value;
       this.props.nameSearchEatingPlaces(name);
@@ -23,7 +22,6 @@ class Search extends React.Component {
             onChange={this.handleChange}
           />
           <button type="submit" className={styles.search_icon}>
-            {" "}
             <FontAwesomeIcon icon={faSearchLocation} />
           </button>
         </div>

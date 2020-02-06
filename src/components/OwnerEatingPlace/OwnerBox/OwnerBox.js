@@ -4,10 +4,27 @@ import Button from "../../Button/Button";
 import { Link } from "react-router-dom";
 import EatingPlaceProfileCard from "../EatingPlaceProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
 import { connect } from "react-redux";
+import * as actions from "../../../store/actions/index";
 
 class OwnerBox extends React.Component {
+  state = {
+    requestDataEatingPlaces: true
+  };
+
+  removeAllOwnerPlaces = () => {
+    let z = localStorage.getItem("z");
+    this.props.removeAllPlaces(z);
+  };
+
   render() {
-    const { haveEatingPlace } = this.props;
+    const { requestDataEatingPlaces } = this.state;
+    const { haveEatingPlace, getDataEatingPlace } = this.props;
+    let z = localStorage.getItem("z");
+    if (requestDataEatingPlaces) {
+      getDataEatingPlace(z);
+      this.setState(() => ({ requestDataEatingPlaces: null }));
+    }
+
     const startCreatingNewEatingPlace = true;
     return haveEatingPlace ? (
       <div className={styles.box_wrapper}>
@@ -27,13 +44,22 @@ class OwnerBox extends React.Component {
               </Link>
             </Button>
           </div>
+          <div className={styles.items}>
+            <Button second onClick={this.removeAllOwnerPlaces}>
+              Usuń wszystkie moje lokale
+            </Button>
+          </div>
         </div>
         <br />
         <div className={styles.header}>Twoje lokale gastronomiczne:</div>
-        <EatingPlaceProfileCard
-          cardType="ownerPlace"
-          eatingPlaces={haveEatingPlace}
-        />
+        {haveEatingPlace
+          ? haveEatingPlace.map(eatingPlaces => (
+              <EatingPlaceProfileCard
+                cardType="ownerPlace"
+                eatingPlaces={eatingPlaces}
+              />
+            ))
+          : null}
       </div>
     ) : (
       <div className={styles.box_wrapper}>
@@ -57,9 +83,15 @@ class OwnerBox extends React.Component {
 const mapStateToProps = state => {
   return {
     restaurantAvatar: state.auth.restaurantAvatar,
-    haveEatingPlace: state.eatingPlaceProfile.haveEatingPlace,
+    haveEatingPlace: state.ownerEatingPlaces.haveEatingPlace,
     clientsOpinions: state.eatingPlaceProfile.clientsOpinions
   };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    getDataEatingPlace: z => dispatch(actions.getDataEatingPlace(z)),
+    removeAllPlaces: z => dispatch(actions.removeAllPlaces(z))
+  };
+};
 
-export default connect(mapStateToProps, null)(OwnerBox);
+export default connect(mapStateToProps, mapDispatchToProps)(OwnerBox);

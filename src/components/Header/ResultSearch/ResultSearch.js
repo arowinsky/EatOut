@@ -2,9 +2,7 @@ import React from "react";
 import styles from "./ResultSearch.module.scss";
 import EatingPlaceProfileCard from "../../OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfileCard/EatingPlaceProfileCard";
 import { connect } from "react-redux";
-const Stage = props => {
-  const { searchedEatingPlaces } = props;
-  console.log(searchedEatingPlaces);
+const Stage = ({ searchedEatingPlaces }) => {
   return (
     <div className={styles.grid}>
       {searchedEatingPlaces

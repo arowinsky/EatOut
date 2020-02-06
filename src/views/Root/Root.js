@@ -21,6 +21,9 @@ import E404 from "../Errors/HTTP/404";
 import EatingPlaceProfile from "../../components/OwnerEatingPlace/EatingPlaceProfile/EatingPlaceProfile";
 import GeneratorCodeForClientView from "../GeneratorCodeForClientView/GeneratorCodeForClientView";
 import FinalForm from "../../components/OwnerEatingPlace/AddEatingPlace/FinalForm/FinalForm";
+import AccountSettingsView from "../AccountSettingsView/AccountSettingsView";
+import WaitingForDataPlace from "../../components/OwnerEatingPlace/EatingPlaceProfile/WaitingForDataPlace/WaitingForDataPlace";
+import FollowingPlacesView from "../FollowingPlacesView/FollowingPlacesView";
 class Root extends React.Component {
   state = {
     sideBarOpen: false
@@ -35,7 +38,7 @@ class Root extends React.Component {
   render() {
     let test = false;
     let sideBar;
-    const { isAuthenticated, userFbId, userGoogleId, z } = this.props;
+    const { isAuthenticated, userFbId, userGoogleId, z, userRule } = this.props;
     if (
       isAuthenticated === true ||
       userFbId === true ||
@@ -43,7 +46,7 @@ class Root extends React.Component {
       z
     ) {
       if (this.state.sideBarOpen) {
-        sideBar = <SideBarMenu />;
+        sideBar = <SideBarMenu userRule={userRule} />;
       }
     }
     if (
@@ -78,7 +81,12 @@ class Root extends React.Component {
               path="/forgot-password"
               component={sendMailResetPasswordView}
             />
+            <Route path="/loading-data-place" component={WaitingForDataPlace} />
             <PrivateRoute path="/owner-home" component={OwnerContent} />
+            <PrivateRoute
+              path="/account-settings"
+              component={AccountSettingsView}
+            />
             <PrivateRoute
               path="/add-eating-place-first-form"
               component={FirstForm}
@@ -95,13 +103,17 @@ class Root extends React.Component {
               path="/add-eating-place-final-form"
               component={FinalForm}
             />
-            <PrivateRoute
+            <Route
               path="/eating-place-profile"
               component={EatingPlaceProfile}
             />
             <PrivateRoute
               path="/generator-code-for-client"
               component={GeneratorCodeForClientView}
+            />
+            <PrivateRoute
+              path="/following-eating-places"
+              component={FollowingPlacesView}
             />
             <Route component={E404} />
           </Switch>
@@ -116,7 +128,8 @@ const mapStateToProps = state => {
     userFbId: state.auth.idFb,
     userGoogleId: state.auth.userGoogleId,
     z: state.auth.z,
-    userInfo: state.auth.userData
+    userInfo: state.auth.userData,
+    userRule: state.auth.userRule
   };
 };
 

@@ -47,7 +47,8 @@ class FinalForm extends React.Component {
       addedPlace,
       uploadFailImagesEatingPlace,
       unavailableAllImageEatingPlace,
-      invalidFormatImagesEatingPlace
+      invalidFormatImagesEatingPlace,
+      notAddedEatingPlace
     } = this.props;
     let invalidAvatar;
     let invalidHeader;
@@ -55,6 +56,7 @@ class FinalForm extends React.Component {
     let avatarFail;
     let headerFail;
     let menuFail;
+    let notAdded;
     if (uploadFailImagesEatingPlace) {
       avatarFail = uploadFailImagesEatingPlace.avatarFail;
       headerFail = uploadFailImagesEatingPlace.headerFail;
@@ -71,6 +73,9 @@ class FinalForm extends React.Component {
     }
     if (!dataNewEatingPlace) {
       return <Redirect to="/" />;
+    }
+    if (notAddedEatingPlace) {
+      notAdded = notAddedEatingPlace;
     }
     console.log(addedPlace);
     if (addedPlace) {
@@ -108,6 +113,14 @@ class FinalForm extends React.Component {
               {unavailableAllImageEatingPlace ? (
                 <div className={styles.inputElement}>
                   <p>Nie dodałaś/eś wszystkich zdjęć lokalu</p>
+                </div>
+              ) : null}
+              {notAdded ? (
+                <div className={styles.inputElement}>
+                  <p>
+                    Coś poszło nie tak. Spróbuj ponownie kliknąć przycisk "Załóż
+                    profil lokalu"
+                  </p>
                 </div>
               ) : null}
               <div className={styles.inputElement}>
@@ -194,7 +207,8 @@ const mapStateToProps = state => {
     invalidFormatImagesEatingPlace:
       state.addNewEatingPlace.invalidFormatImagesEatingPlace,
     uploadFailImagesEatingPlace:
-      state.addNewEatingPlace.uploadFailImagesEatingPlace
+      state.addNewEatingPlace.uploadFailImagesEatingPlace,
+    notAddedEatingPlace: state.addNewEatingPlace.notAddedEatingPlace
   };
 };
 const mapDispatchToProps = dispatch => {

@@ -2,7 +2,6 @@ import * as actionTypes from "../../actions/actionTypes";
 import { updateObject } from "../../update";
 
 const initState = {
-  haveEatingPlace: null,
   codeForClient: null,
   clientCodeIsVerified: null,
   blockedOpinionForm: null,
@@ -10,14 +9,12 @@ const initState = {
   addedOwnerPost: null,
   updatedOwnerPosts: null,
   updatedClientsOpinions: null,
-  searchedEatingPlaces: null
+  searchedEatingPlaces: null,
+  singleEatingPlace: null,
+  userFollowingPlace: null,
+  followingPlaces: null
 };
 
-const ownerHaveEatingPlace = (state, action) => {
-  return updateObject(state, {
-    haveEatingPlace: action.haveEatingPlace
-  });
-};
 const returnCodeForClient = (state, action) => {
   return updateObject(state, {
     codeForClient: action.codeForClient
@@ -53,10 +50,26 @@ const updatedClientsOpinions = (state, action) => {
   });
 };
 
+const singleEatingPlace = (state, action) => {
+  return updateObject(state, {
+    singleEatingPlace: action.singleEatingPlace
+  });
+};
+
+const userFollowingPlace = (state, action) => {
+  return updateObject(state, {
+    userFollowingPlace: action.userFollowingPlace
+  });
+};
+
+const followingPlaces = (state, action) => {
+  return updateObject(state, {
+    followingPlaces: action.followingPlaces
+  });
+};
+
 const eatingPlaceProfileReducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.OWNER_HAVE_EATING_PLACE:
-      return ownerHaveEatingPlace(state, action);
     case actionTypes.RETURN_CODE_FOR_CLIENT:
       return returnCodeForClient(state, action);
     case actionTypes.CLIENT_CODE_IS_VERIFIED:
@@ -69,6 +82,12 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return updatedOwnerPosts(state, action);
     case actionTypes.UPDATED_CLIENTS_OPINIONS:
       return updatedClientsOpinions(state, action);
+    case actionTypes.SINGLE_EATING_PLACE:
+      return singleEatingPlace(state, action);
+    case actionTypes.USER_FOLLOWING_PLACE:
+      return userFollowingPlace(state, action);
+    case actionTypes.FOLLOWING_PLACE:
+      return followingPlaces(state, action);
     default:
       return state;
   }
