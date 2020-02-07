@@ -40,12 +40,9 @@ class Root extends React.Component {
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId, z, userRule } = this.props;
     console.log(userGoogleId);
-    if (
-      isAuthenticated === true ||
-      userFbId === true ||
-      userGoogleId === true ||
-      z
-    ) {
+    console.log(this.state.sideBarOpen);
+    console.log(userRule);
+    if (isAuthenticated === true || userFbId === true || userGoogleId || z) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu userRule={userRule} />;
       }
