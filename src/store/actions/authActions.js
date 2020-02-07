@@ -363,6 +363,7 @@ export const googleLogIn = () => {
             console.log(response);
             console.log(displayName);
             const { idSession, userId, userRule } = response;
+            localStorage.setItem("z", idSession);
             dispatch(googleLogInSuccess(userId, displayName, userRule));
           });
       })
