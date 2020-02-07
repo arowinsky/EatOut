@@ -55,9 +55,11 @@ const facebookLogInSuccess = (state, action) => {
   });
 };
 const googleLogInSuccess = (state, action) => {
+  console.log(action.userRule);
   return updateObject(state, {
     userGoogleId: action.userGoogleId,
-    userDataGoogle: action.userDataGoogle
+    userDataGoogle: action.userDataGoogle,
+    userRule: action.userRule
   });
 };
 const AutoLoginSuccess = (state, action) => {

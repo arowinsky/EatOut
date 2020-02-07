@@ -363,7 +363,7 @@ export const googleLogIn = () => {
             console.log(response);
             console.log(displayName);
             const { idSession, userId, userRule } = response;
-            dispatch(googleLogInSuccess(userId, displayName));
+            dispatch(googleLogInSuccess(userId, displayName, userRule));
           });
       })
       .catch(error => {
@@ -372,10 +372,12 @@ export const googleLogIn = () => {
   };
 };
 
-export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
+export const googleLogInSuccess = (userGoogleId, userDataGoogle, userRule) => {
+  console.log(userRule);
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
     userGoogleId: userGoogleId,
-    userDataGoogle: userDataGoogle
+    userDataGoogle: userDataGoogle,
+    userRule: userRule
   };
 };
