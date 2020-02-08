@@ -35,7 +35,7 @@ const authSuccess = (state, action) => {
     error: null
   });
 };
-export const userData = (state, action) => {
+export const currentUserData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId,
@@ -163,7 +163,7 @@ const authReducer = (state = initState, action) => {
     case actionTypes.AUTH_SENDED_EMAIL_WITH_LINK_RESET_PASSWORD:
       return mailWithResetPasswordSent(state, action);
     case actionTypes.AUTH_DATA:
-      return userData(state, action);
+      return currentUserData(state, action);
     case actionTypes.TOO_MANY_ATTEMPTS_LOG_IN_TRY_LATER:
       return tooManyAttemptsLogInTryLater(state, action);
     default:

@@ -17,7 +17,7 @@ export const authSuccess = (token, userId, userData, z, userRule) => {
     userRule: userRule
   };
 };
-export const userData = (userData, userId, userRule) => {
+export const currentUserData = (userData, userId, userRule) => {
   return {
     type: actionTypes.AUTH_DATA,
     userData: userData,
@@ -36,29 +36,23 @@ export const RegisterSuccess = userId => {
 export const AutoLoginSuccess = test => {
   return dispatch => {
     const z = localStorage.getItem("z");
-    const url = "http://localhost:8080/autoLogin";
+    const url = `http://localhost:8080/autoLogin?id=${z}&reSend=${test}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `sid=${z}&pleaseReSend=${test}`
+      mode: "cors"
     })
       .then(Response => Response.json())
       .then(response => {
-        const userRule = response.userRule;
-        const userdata = response.userData;
-        const userInfo = response.userInfo;
-        const userId = response.userId;
-        if (userdata) {
-          dispatch(userData(userdata, userId, userRule));
+        const { userRule, userData, userInfo, userId } = response;
+        if (userData) {
+          dispatch(currentUserData(userData, userId, userRule));
         } else {
-          dispatch(userData(userInfo, userId, userRule));
+          dispatch(currentUserData(userInfo, userId, userRule));
         }
       });
   };
