@@ -47,12 +47,7 @@ class Root extends React.Component {
         sideBar = <SideBarMenu userRule={userRule} />;
       }
     }
-    if (
-      isAuthenticated === null &&
-      userFbId === null &&
-      userGoogleId === null &&
-      z === null
-    ) {
+    if (isAuthenticated === null && userFbId && userGoogleId && z === null) {
       test = true;
       const z = localStorage.getItem("z");
       this.props.AutoLogin(z);
