@@ -42,12 +42,17 @@ class Root extends React.Component {
     console.log(userGoogleId);
     console.log(this.state.sideBarOpen);
     console.log(userRule);
-    if (isAuthenticated === true || userFbId === true || userGoogleId || z) {
+    if (isAuthenticated === true || userFbId || userGoogleId || z) {
       if (this.state.sideBarOpen) {
         sideBar = <SideBarMenu userRule={userRule} />;
       }
     }
-    if (isAuthenticated === null && userFbId && userGoogleId && z === null) {
+    if (
+      isAuthenticated === null &&
+      userFbId === null &&
+      userGoogleId === null &&
+      z === null
+    ) {
       test = true;
       const z = localStorage.getItem("z");
       this.props.AutoLogin(z);
