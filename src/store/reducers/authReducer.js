@@ -51,7 +51,8 @@ const RegisterSuccess = (state, action) => {
 const facebookLogInSuccess = (state, action) => {
   return updateObject(state, {
     idFb: action.idFb,
-    usernameFb: action.usernameFb
+    usernameFb: action.usernameFb,
+    userRule: action.userRule
   });
 };
 const googleLogInSuccess = (state, action) => {

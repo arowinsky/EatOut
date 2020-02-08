@@ -308,9 +308,13 @@ export const facebookLogIn = () => {
           referrer: "no-referrer",
           body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
         })
-          .then(respons => respons.json())
-          .then(Response => {
-            console.log(Response);
+          .then(Response => Response.json())
+          .then(response => {
+            console.log(response);
+            console.log(displayName);
+            const { idSession, userId, userRule } = response;
+            localStorage.setItem("z", idSession);
+            dispatch(facebookLogInSuccess(userId, displayName, userRule));
           });
       })
       .catch(error => {
@@ -319,12 +323,13 @@ export const facebookLogIn = () => {
   };
 };
 
-export const facebookLogInSuccess = (idFb, usernameFb) => {
+export const facebookLogInSuccess = (idFb, usernameFb, userRule) => {
   console.log(idFb, usernameFb);
   return {
     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
     idFb: idFb,
-    usernameFb: usernameFb
+    usernameFb: usernameFb,
+    userRule: userRule
   };
 };
 
