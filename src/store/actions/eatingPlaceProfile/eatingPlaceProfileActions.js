@@ -175,18 +175,17 @@ export const userFollowingPlace = userFollowingPlace => {
 };
 export const checkFollowingPlaces = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/check-following-places";
+    const url = `http://localhost:8080/check-following-places?z=${z}&placeId=${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+
+      mode: "cors"
     })
       .then(Response => Response.json())
       .then(response => {
