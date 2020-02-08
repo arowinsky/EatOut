@@ -1,3 +1,4 @@
+import firebase from "firebase";
 import * as actionTypes from "./actionTypes";
 
 export const authStart = () => {
@@ -31,22 +32,7 @@ export const RegisterSuccess = userId => {
     userId: userId
   };
 };
-// export const facebookLogInSuccess = (idFb, usernameFb) => {
-//   console.log(idFb, usernameFb);
-//   return {
-//     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
-//     idFb: idFb,
-//     usernameFb: usernameFb
-//   };
-// };
 
-// export const googleLogInSuccess = (userGoogleId, userDataGoogle) => {
-//   return {
-//     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
-//     userGoogleId: userGoogleId,
-//     userDataGoogle: userDataGoogle
-//   };
-// };
 export const AutoLoginSuccess = test => {
   return dispatch => {
     const z = localStorage.getItem("z");
@@ -292,77 +278,112 @@ export const sendMailResetPassword = email => {
   };
 };
 
-// export const facebookLogIn = () => {
-//   return dispatch => {
-//     let provider = new firebase.auth.FacebookAuthProvider();
+export const facebookLogIn = () => {
+  return dispatch => {
+    const provider = new firebase.auth.FacebookAuthProvider();
 
-//     firebase
-//       .auth()
-//       .signInWithPopup(provider)
-//       .then(result => {
-//         console.log(result);
-//         console.log(result.additionalUserInfo.profile.id);
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log(result);
+        const uid = result.user.uid;
+        const displayName = result.user.displayName;
+        const email = result.user.email;
+        const token = result.user.refreshToken;
+        const provider = result.credential.providerId;
+        const newUser = result.additionalUserInfo.isNewUser;
 
-//         console.log("logowanie");
-//         let username = result.user.displayName;
-//         let photoMain = result.user.photoURL;
-//         let userProvider = result.additionalUserInfo.providerId;
-//         let uid = result.user.Nb.uid;
-//         let id = result.additionalUserInfo.profile.id;
-//         dispatch(facebookLogInSuccess(id, username));
-//         console.log(username, photoMain, userProvider, uid);
-//         if (result.additionalUserInfo.isNewUser) {
-//           db.collection("users")
-//             .doc(uid)
-//             .set({
-//               firstName: "",
-//               lastName: "",
-//               username: username,
-//               userData: username,
-//               photoMain: photoMain,
-//               provaider: userProvider
-//             });
-//         }
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-// };
+        const url = "http://localhost:8080/login-social-media";
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+        })
+          .then(Response => Response.json())
+          .then(response => {
+            console.log(response);
+            console.log(displayName);
+            const { idSession, userId, userRule } = response;
+            localStorage.setItem("z", idSession);
+            dispatch(facebookLogInSuccess(userId, displayName, userRule));
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 
-// export const googleLogIn = () => {
-//   return dispatch => {
-//     let provider = new firebase.auth.GoogleAuthProvider();
+export const facebookLogInSuccess = (idFb, usernameFb, userRule) => {
+  console.log(idFb, usernameFb);
+  return {
+    type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+    idFb: idFb,
+    usernameFb: usernameFb,
+    userRule: userRule
+  };
+};
 
-//     firebase
-//       .auth()
-//       .signInWithPopup(provider)
-//       .then(result => {
-//         console.log("logowanie");
-//         console.log(result);
-//         let username = result.user.displayName;
-//         let photoMain = result.user.photoURL;
-//         let userProvider = result.additionalUserInfo.providerId;
-//         let uid = result.user.Nb.uid;
-//         let idToken = result.credential.idToken;
-//         console.log(username, photoMain, userProvider, uid);
-//         dispatch(facebookLogInSuccess(idToken, username));
-//         localStorage.setItem("idToken", idToken);
-//         if (result.additionalUserInfo.isNewUser) {
-//           db.collection("users")
-//             .doc(uid)
-//             .set({
-//               firstName: "",
-//               lastName: "",
-//               username: username,
-//               userData: username,
-//               photoMain: photoMain,
-//               provaider: userProvider
-//             });
-//         }
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//   };
-// };
+export const googleLogIn = () => {
+  return dispatch => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(result => {
+        console.log(result);
+        const uid = result.user.uid;
+        const displayName = result.user.displayName;
+        const email = result.user.email;
+        const token = result.user.refreshToken;
+        const provider = result.credential.providerId;
+        const newUser = result.additionalUserInfo.isNewUser;
+
+        const url = "http://localhost:8080/login-social-media";
+        fetch(url, {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          redirect: "follow",
+          referrer: "no-referrer",
+          body: `uid=${uid}&&displayName=${displayName}&&email${email}&&token=${token}&&provider=${provider}&&newUser=${newUser}`
+        })
+          .then(Response => Response.json())
+          .then(response => {
+            console.log(response);
+            console.log(displayName);
+            const { idSession, userId, userRule } = response;
+            localStorage.setItem("z", idSession);
+            dispatch(googleLogInSuccess(userId, displayName, userRule));
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+export const googleLogInSuccess = (userGoogleId, userDataGoogle, userRule) => {
+  console.log(userRule);
+  return {
+    type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+    userGoogleId: userGoogleId,
+    userDataGoogle: userDataGoogle,
+    userRule: userRule
+  };
+};

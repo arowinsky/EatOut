@@ -51,13 +51,16 @@ const RegisterSuccess = (state, action) => {
 const facebookLogInSuccess = (state, action) => {
   return updateObject(state, {
     idFb: action.idFb,
-    usernameFb: action.usernameFb
+    usernameFb: action.usernameFb,
+    userRule: action.userRule
   });
 };
 const googleLogInSuccess = (state, action) => {
+  console.log(action.userRule);
   return updateObject(state, {
     userGoogleId: action.userGoogleId,
-    userDataGoogle: action.userDataGoogle
+    userDataGoogle: action.userDataGoogle,
+    userRule: action.userRule
   });
 };
 const AutoLoginSuccess = (state, action) => {

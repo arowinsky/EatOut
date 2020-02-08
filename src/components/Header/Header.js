@@ -6,6 +6,7 @@ import UserNavbar from "../Navbars/UserNavbar/UserNavbar";
 
 const Header = props => {
   const { isAuth, userIdProvider } = props;
+  console.log(userIdProvider);
   let navbar;
   if (userIdProvider) {
     navbar = <UserNavbar click={props.sideBarClickHander} />;
