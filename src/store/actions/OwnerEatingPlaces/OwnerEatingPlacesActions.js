@@ -1,7 +1,6 @@
 import * as actionTypes from "../actionTypes";
 export const getDataEatingPlace = z => {
   return dispatch => {
-    let haveEatingPlace;
     const url = `http://localhost:8080/get-data-place?z=${z}`;
     fetch(url, {
       method: "GET",

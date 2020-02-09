@@ -138,18 +138,16 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
 };
 export const getDataSingleEatingPlace = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/get-data-place-single";
+    const url = `http://localhost:8080/get-data-place-single?z=${z}&placeId=${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
