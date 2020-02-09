@@ -67,7 +67,10 @@ const SideBarMenu = props => {
         <nav className={styles.sidebar_wrapper}>
           <ul className={styles.sidebar_list}>
             <li className={styles.sidebar_item}>
-              <Link to="/owner-home" className={styles.sidebar_item}>
+              <Link
+                to="/following-eating-places"
+                className={styles.sidebar_item}
+              >
                 <FontAwesomeIcon
                   icon={faUserCircle}
                   className={styles.sidebar_icon}

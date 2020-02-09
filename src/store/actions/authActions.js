@@ -183,27 +183,28 @@ export const signUp = (email, password1, firstname, lastname, username) => {
 export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
-    const url = "http://localhost:8080/loginEmail";
+    const url = `http://localhost:8080/loginEmail?email=${email}&password=${password1}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `email=${email}&password=${password1}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
-        const userRule = response.userRule;
-        const userData = response.name;
-        const idToken = response.status;
-        const err = response.error;
-        const emailUnverified = response.emailUnverified;
-        const localId = response.userId;
+        console.log(response);
+        const {
+          userRule,
+          name,
+          status,
+          error,
+          emailUnverified,
+          userId
+        } = response;
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;
@@ -211,11 +212,11 @@ export const logIn = (email, password1) => {
         localStorage.setItem("z", response.idSession);
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        if (err === "EMAIL_NOT_FOUND" || err === "INVALID_PASSWORD") {
+        if (error === "EMAIL_NOT_FOUND" || error === "INVALID_PASSWORD") {
           dataIsCorrect = true;
           dispatch(validationsLogIn(dataIsCorrect));
         } else if (
-          err ===
+          error ===
           "TOO_MANY_ATTEMPTS_TRY_LATER : Too many unsuccessful login attempts. Please try again later."
         ) {
           tooManyAttempts = true;
@@ -223,12 +224,12 @@ export const logIn = (email, password1) => {
         } else {
           z = localStorage.getItem("z");
         }
-        dispatch(authSuccess(idToken, localId, userData, z, userRule));
+        dispatch(authSuccess(status, userId, name, z, userRule));
         dispatch(checkAuthTimeout(expiresIn));
       })
-      .catch(error => {
-        console.log(error);
-        if (error) {
+      .catch(err => {
+        console.log(err);
+        if (err) {
           console.log("server not working!");
         }
       });
