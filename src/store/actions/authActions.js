@@ -183,16 +183,17 @@ export const signUp = (email, password1, firstname, lastname, username) => {
 export const logIn = (email, password1) => {
   return dispatch => {
     dispatch(authStart());
-    const url = `http://localhost:8080/loginEmail?email=${email}&password=${password1}`;
+    const url = "http://localhost:8080/loginEmail";
     fetch(url, {
-      method: "GET",
+      method: "POST",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow"
+      redirect: "follow",
+      body: `email=${email}&password=${password1}`
     })
       .then(Response => Response.json())
       .then(response => {
