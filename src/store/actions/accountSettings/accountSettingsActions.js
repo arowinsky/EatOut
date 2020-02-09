@@ -1,10 +1,9 @@
 import * as actionTypes from "../actionTypes";
 export const getUserData = z => {
-  console.log(z);
   return dispatch => {
-    const url = "http://localhost:8080/get-user-data";
+    const url = `http://localhost:8080/get-user-data?z=${z}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -12,12 +11,10 @@ export const getUserData = z => {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      referrer: "no-referrer"
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         dispatch(accountData(response));
       });
   };
