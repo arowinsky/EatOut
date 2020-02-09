@@ -28,17 +28,10 @@ export const accountData = accountData => {
 };
 
 export const editUserData = (z, firstName, lastName, username) => {
-  console.log(
-    "TCL: editUserData -> z,firstName, lastName, username",
-    z,
-    firstName,
-    lastName,
-    username
-  );
   return dispatch => {
     const url = "http://localhost:8080/update-firebase-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -51,7 +44,6 @@ export const editUserData = (z, firstName, lastName, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { updateBasicData } = response;
         if (updateBasicData) {
           dispatch(editedBasicUserData(response));
