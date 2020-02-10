@@ -218,18 +218,16 @@ export const followPlace = (z, placeId, restaurantName) => {
 
 export const unfollowPlace = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/remove-follow";
+    const url = `http://localhost:8080/remove-follow/${z}/${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
