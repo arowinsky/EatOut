@@ -170,9 +170,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const isRegistered = response.isRegistered;
-        const usernameTaken = response.usernameTaken;
-        const emailTaken = response.emailTaken;
+        const { isRegistered, usernameTaken, emailTaken } = response;
         dispatch(RegisterSuccess(isRegistered));
         dispatch(validationUsername(usernameTaken));
         dispatch(validationEmailSignUp(emailTaken));
