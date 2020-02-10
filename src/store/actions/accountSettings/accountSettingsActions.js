@@ -94,7 +94,7 @@ export const editUserPassword = (z, password) => {
   return dispatch => {
     const url = "http://localhost:8080/update-login-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -107,7 +107,6 @@ export const editUserPassword = (z, password) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { updatePassword } = response;
         dispatch(editedUserPassword(updatePassword));
       });
