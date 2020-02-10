@@ -1,15 +1,12 @@
 import React from "react";
 import styles from "./UserActionForm.module.scss";
-// import app from "firebase/app";
-// import "firebase/auth";
-// import firebase from "firebase";
-// import { config } from "../../../configs/firebaseConfig";
 import { Formik, Field, Form } from "formik";
 import Title from "../../Title/Title";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import Button from "../../Button/Button";
 import * as Yup from "yup";
+import { Link } from "react-router-dom";
 const validateSchema = Yup.object({
   password1: Yup.string()
     .min(8, "Hasło musi mieć minimum 8 znaków")
@@ -21,10 +18,13 @@ const validateSchema = Yup.object({
 const UserActionForm = ({ ...props }) => {
   let params = new URLSearchParams(document.location.search.substring(1));
   let mode = params.get("mode");
-  const { verificatedEmail, resetedPassword } = props;
-  console.log("This is mode", mode);
+  const {
+    verificatedEmail,
+    userVerifyEmail,
+    resetPassword,
+    resetedPassword
+  } = props;
   const oobCode = params.get("oobCode");
-  console.log("This is oobCode", oobCode);
 
   if (mode === "verifyEmail") {
     if (
@@ -32,13 +32,17 @@ const UserActionForm = ({ ...props }) => {
       verificatedEmail === "null" ||
       verificatedEmail === "undefined"
     ) {
-      props.userVerifyEmail(mode, oobCode);
+      userVerifyEmail(mode, oobCode);
     }
     if (verificatedEmail === true) {
       return (
         <div className={styles.wrapper}>
           <Title>Twoje konto zostało aktywowane</Title>
-          <a href="http://localhost:3000/login">Tutaj możesz się zalogować</a>
+          <Button second type="submit">
+            <Link to="/login" className={styles.button}>
+              Chce się zalogować
+            </Link>
+          </Button>
         </div>
       );
     } else if (verificatedEmail === false) {
@@ -47,6 +51,11 @@ const UserActionForm = ({ ...props }) => {
           <div className={styles.formTitle}>
             Link został już użyty, więc konto już zostało wcześniej aktywowane
           </div>
+          <Button second type="submit">
+            <Link to="/login" className={styles.button}>
+              Chce się zalogować
+            </Link>
+          </Button>
         </div>
       );
     }
@@ -64,7 +73,7 @@ const UserActionForm = ({ ...props }) => {
           validationSchema={validateSchema}
           onSubmit={passwords => {
             const password1 = passwords.password1;
-            props.resetPassword(password1, oobCode);
+            resetPassword(password1, oobCode);
           }}
         >
           {({ errors, touched }) => (
