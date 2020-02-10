@@ -9,11 +9,19 @@ import Title from "../../Title/Title";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions/index";
 import Button from "../../Button/Button";
-
+import * as Yup from "yup";
+const validateSchema = Yup.object({
+  password1: Yup.string()
+    .min(8, "Hasło musi mieć minimum 8 znaków")
+    .required("Podaj hasło"),
+  password2: Yup.string()
+    .required("Powtórz hasło")
+    .oneOf([Yup.ref("password1"), null], "Hasła nie są jednakowe")
+});
 const UserActionForm = ({ ...props }) => {
   let params = new URLSearchParams(document.location.search.substring(1));
   let mode = params.get("mode");
-
+  const { resetedPassword } = props;
   console.log("This is mode", mode);
   const oobCode = params.get("oobCode");
   console.log("This is oobCode", oobCode);
@@ -45,22 +53,45 @@ const UserActionForm = ({ ...props }) => {
         </div>
         <Formik
           initialValues={{
-            newPassword: ""
+            password1: "",
+            password2: ""
           }}
-          onSubmit={newPassword => {
-            props.resetPassword(newPassword, oobCode);
+          validationSchema={validateSchema}
+          onSubmit={passwords => {
+            const password1 = passwords.password1;
+            props.resetPassword(password1, oobCode);
           }}
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
               <div className={styles.formItem}>
+                {resetedPassword ? (
+                  <p className={styles.validation}>
+                    Twoje hasło zostało zmienione
+                  </p>
+                ) : null}
+                <label htmlFor="password1">Podaj nowe hasło</label>
                 <Field
-                  name="newPassword"
-                  type="text"
-                  placeholder="Podaj nowe hasło"
+                  name="password1"
+                  type="password"
                   className={styles.input}
                 />
                 <div className={styles.formItemBar} />
+                {errors.password1 && touched.password1 && (
+                  <div>{errors.password1}</div>
+                )}
+              </div>
+              <div className={styles.formItem}>
+                <label htmlFor="password2">Powtórz nowe hasło</label>
+                <Field
+                  name="password2"
+                  type="password"
+                  className={styles.input}
+                />
+                <div className={styles.formItemBar} />
+                {errors.password2 && touched.password2 && (
+                  <div>{errors.password2}</div>
+                )}
               </div>
               <Button second type="submit">
                 Wyślij
@@ -75,7 +106,8 @@ const UserActionForm = ({ ...props }) => {
 
 const mapStateToProps = state => {
   return {
-    verificatedEmail: state.userAction.verificatedEmail
+    verificatedEmail: state.userAction.verificatedEmail,
+    resetedPassword: state.userAction.resetedPassword
   };
 };
 
@@ -83,8 +115,8 @@ const mapDispatchToProps = dispatch => {
   return {
     userVerifyEmail: (mode, oobCode) =>
       dispatch(actions.userVerifyEmail(mode, oobCode)),
-    resetPassword: (newPassword, oobCode) =>
-      dispatch(actions.resetPassword(newPassword, oobCode))
+    resetPassword: (password1, oobCode) =>
+      dispatch(actions.resetPassword(password1, oobCode))
   };
 };
 
