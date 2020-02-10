@@ -122,22 +122,19 @@ export const editedUserPassword = editedUserPassword => {
 
 export const deleteOwnerAccount = z => {
   return dispatch => {
-    const url = "http://localhost:8080/delete-owner-account";
+    const url = `http://localhost:8080/delete-owner-account/${z}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { ownerDeleted } = response;
         if (ownerDeleted) {
           dispatch(ownerAccountDeleted(ownerDeleted));
