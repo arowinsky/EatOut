@@ -154,8 +154,7 @@ export const ownerAccountDeleted = ownerAccountDeleted => {
 
 export const deleteClientAccount = z => {
   return dispatch => {
-    const url =
-      "http://localhost:8080/delete-client-account/?z=erewrerewrewrewrw2334524";
+    const url = `http://localhost:8080/delete-client-account/${z}`;
     fetch(url, {
       method: "DELETE",
       cache: "no-cache",
@@ -163,10 +162,8 @@ export const deleteClientAccount = z => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
-      }
-      // redirect: "follow",
-      // referrer: "no-referrer",
-      // body: `z=${z}`
+      },
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
