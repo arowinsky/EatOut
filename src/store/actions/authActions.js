@@ -337,14 +337,12 @@ export const googleLogIn = () => {
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        console.log(result);
         const uid = result.user.uid;
         const displayName = result.user.displayName;
         const email = result.user.email;
         const token = result.user.refreshToken;
         const provider = result.credential.providerId;
         const newUser = result.additionalUserInfo.isNewUser;
-
         const url = "http://localhost:8080/login-social-media";
         fetch(url, {
           method: "POST",
@@ -361,8 +359,6 @@ export const googleLogIn = () => {
         })
           .then(Response => Response.json())
           .then(response => {
-            console.log(response);
-            console.log(displayName);
             const { idSession, userId, userRule } = response;
             localStorage.setItem("z", idSession);
             dispatch(googleLogInSuccess(userId, displayName, userRule));
@@ -375,7 +371,6 @@ export const googleLogIn = () => {
 };
 
 export const googleLogInSuccess = (userGoogleId, userDataGoogle, userRule) => {
-  console.log(userRule);
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
     userGoogleId: userGoogleId,
