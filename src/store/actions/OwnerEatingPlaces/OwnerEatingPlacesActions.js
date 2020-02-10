@@ -22,18 +22,16 @@ export const getDataEatingPlace = z => {
 };
 export const removeSinglePlace = (z, id) => {
   return dispatch => {
-    const url = "http://localhost:8080/remove-single-place";
+    const url = `http://localhost:8080/remove-single-place/${z}/${id}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       mode: "cors",
       cache: "no-cache",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&id=${id}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
