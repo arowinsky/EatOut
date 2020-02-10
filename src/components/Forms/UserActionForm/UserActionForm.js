@@ -21,14 +21,19 @@ const validateSchema = Yup.object({
 const UserActionForm = ({ ...props }) => {
   let params = new URLSearchParams(document.location.search.substring(1));
   let mode = params.get("mode");
-  const { resetedPassword } = props;
+  const { verificatedEmail, resetedPassword } = props;
   console.log("This is mode", mode);
   const oobCode = params.get("oobCode");
   console.log("This is oobCode", oobCode);
 
   if (mode === "verifyEmail") {
-    props.userVerifyEmail(mode, oobCode);
-    let verificatedEmail = props.verificatedEmail;
+    if (
+      !verificatedEmail ||
+      verificatedEmail === "null" ||
+      verificatedEmail === "undefined"
+    ) {
+      props.userVerifyEmail(mode, oobCode);
+    }
     if (verificatedEmail === true) {
       return (
         <div className={styles.wrapper}>
@@ -36,7 +41,7 @@ const UserActionForm = ({ ...props }) => {
           <a href="http://localhost:3000/login">Tutaj możesz się zalogować</a>
         </div>
       );
-    } else {
+    } else if (verificatedEmail === false) {
       return (
         <div className={styles.wrapper}>
           <div className={styles.formTitle}>
