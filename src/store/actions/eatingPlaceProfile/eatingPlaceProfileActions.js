@@ -16,8 +16,8 @@ export const generationCodeForClient = eatingPlaceId => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const codeForClient = response.code;
-        dispatch(returnCodeForClient(codeForClient));
+        const { code } = response;
+        dispatch(returnCodeForClient(code));
       });
   };
 };
