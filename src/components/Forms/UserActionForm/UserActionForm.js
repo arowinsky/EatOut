@@ -38,11 +38,13 @@ const UserActionForm = ({ ...props }) => {
       return (
         <div className={styles.wrapper}>
           <Title>Twoje konto zostało aktywowane</Title>
-          <Button second type="submit">
-            <Link to="/login" className={styles.button}>
-              Chce się zalogować
-            </Link>
-          </Button>
+          <div className={styles.items}>
+            <Button second type="submit">
+              <Link to="/login" className={styles.button}>
+                Chce się zalogować
+              </Link>
+            </Button>
+          </div>
         </div>
       );
     } else if (verificatedEmail === false) {
@@ -51,11 +53,13 @@ const UserActionForm = ({ ...props }) => {
           <div className={styles.formTitle}>
             Link został już użyty, więc konto już zostało wcześniej aktywowane
           </div>
-          <Button second type="submit">
-            <Link to="/login" className={styles.button}>
-              Chce się zalogować
-            </Link>
-          </Button>
+          <div className={styles.items}>
+            <Button second type="submit">
+              <Link to="/login" className={styles.button}>
+                Chce się zalogować
+              </Link>
+            </Button>
+          </div>
         </div>
       );
     } else {
