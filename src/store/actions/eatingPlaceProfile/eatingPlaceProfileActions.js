@@ -31,18 +31,16 @@ export const returnCodeForClient = codeForClient => {
 
 export const sendCodeToVerification = clientCode => {
   return dispatch => {
-    const url = "http://localhost:8080/verification-client-code";
+    const url = `http://localhost:8080/verification-client-code?clientCode=${clientCode}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `clientCode=${clientCode}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
