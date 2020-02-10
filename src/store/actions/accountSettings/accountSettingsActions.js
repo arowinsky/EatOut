@@ -63,7 +63,7 @@ export const editUserEmail = (z, email) => {
   return dispatch => {
     const url = "http://localhost:8080/update-login-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -76,7 +76,6 @@ export const editUserEmail = (z, email) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { updateEmail, email } = response;
         if (updateEmail) {
           dispatch(editedUserEmail(email));
