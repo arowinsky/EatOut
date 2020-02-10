@@ -58,6 +58,8 @@ const UserActionForm = ({ ...props }) => {
           </Button>
         </div>
       );
+    } else {
+      return <div className={styles.wrapper}>Loading...</div>;
     }
   } else if (mode === "resetPassword") {
     return (
