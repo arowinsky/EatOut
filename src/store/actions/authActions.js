@@ -261,7 +261,6 @@ export const sendMailResetPassword = email => {
       .then(Response => Response.json())
       .then(response => {
         const { mailSent } = response;
-        console.log(response);
         if (mailSent === true) {
           dispatch(mailWithResetPasswordSent(mailSent));
         }
