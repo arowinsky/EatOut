@@ -52,15 +52,11 @@ class AccountSettings extends React.Component {
     let firstName;
     let username;
     let email;
+    let z = localStorage.getItem("z");
     if (sendedRequest === null) {
-      this.setState({ sendedRequest: true });
-      let z = localStorage.getItem("z");
-      console.log(z);
       this.props.getUserData(z);
+      this.setState({ sendedRequest: true });
     }
-    console.log(editedBasicUserData);
-    console.log(editedUserEmail);
-    console.log(clientAccountDeleted);
     if (editedBasicUserData && editedUserEmail) {
       firstName = editedBasicUserData.firstName;
       lastName = editedBasicUserData.lastName;
@@ -73,10 +69,9 @@ class AccountSettings extends React.Component {
       email = accountData.email;
     }
     if (ownerAccountDeleted) {
-      localStorage.removeItem("z");
+      logOut(z);
       return <Redirect to="/" />;
     } else if (clientAccountDeleted) {
-      let z = localStorage.getItem("z");
       logOut(z);
       return <Redirect to="/" />;
     }
@@ -95,12 +90,10 @@ class AccountSettings extends React.Component {
                 email: email
               }}
               onSubmit={values => {
-                let z = localStorage.getItem("z");
                 firstName = values.firstName;
                 lastName = values.lastName;
                 username = values.username;
                 email = values.email;
-                console.log(z, firstName, lastName, username);
                 editUserData(z, firstName, lastName, username);
                 editUserEmail(z, email);
                 this.setState(() => ({ userWantEditData: null }));
@@ -177,7 +170,6 @@ class AccountSettings extends React.Component {
                 newPassword: ""
               }}
               onSubmit={values => {
-                let z = localStorage.getItem("z");
                 let password = values.newPassword;
                 editUserPassword(z, password);
                 this.setState(() => ({ userWantEditPassword: null }));
