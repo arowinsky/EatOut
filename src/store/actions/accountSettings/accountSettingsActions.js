@@ -19,6 +19,7 @@ export const getUserData = z => {
       });
   };
 };
+
 export const accountData = accountData => {
   console.log(accountData);
   return {
@@ -44,14 +45,20 @@ export const editUserData = (z, firstName, lastName, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const { updateBasicData } = response;
+        const { updateBasicData, userData } = response;
         if (updateBasicData) {
+          dispatch(userDataAfterUpdate(userData));
           dispatch(editedBasicUserData(response));
         }
       });
   };
 };
-
+export const userDataAfterUpdate = userData => {
+  return {
+    type: actionTypes.USER_DATA_AFTER_UPDATE,
+    userDataAfterUpdate: userData
+  };
+};
 export const editedBasicUserData = editedBasicUserData => {
   return {
     type: actionTypes.EDITED_BASIC_USERDATA,
