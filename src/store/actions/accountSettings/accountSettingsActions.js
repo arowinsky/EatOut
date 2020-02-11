@@ -1,10 +1,9 @@
 import * as actionTypes from "../actionTypes";
 export const getUserData = z => {
-  console.log(z);
   return dispatch => {
-    const url = "http://localhost:8080/get-user-data";
+    const url = `http://localhost:8080/get-user-data?z=${z}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -12,18 +11,16 @@ export const getUserData = z => {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      referrer: "no-referrer"
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         dispatch(accountData(response));
       });
   };
 };
+
 export const accountData = accountData => {
-  console.log(accountData);
   return {
     type: actionTypes.ACCOUNT_DATA,
     accountData: accountData
@@ -31,17 +28,10 @@ export const accountData = accountData => {
 };
 
 export const editUserData = (z, firstName, lastName, username) => {
-  console.log(
-    "TCL: editUserData -> z,firstName, lastName, username",
-    z,
-    firstName,
-    lastName,
-    username
-  );
   return dispatch => {
     const url = "http://localhost:8080/update-firebase-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -54,15 +44,20 @@ export const editUserData = (z, firstName, lastName, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
-        const { updateBasicData } = response;
+        const { updateBasicData, userData } = response;
         if (updateBasicData) {
+          dispatch(userDataAfterUpdate(userData));
           dispatch(editedBasicUserData(response));
         }
       });
   };
 };
-
+export const userDataAfterUpdate = userData => {
+  return {
+    type: actionTypes.USER_DATA_AFTER_UPDATE,
+    userDataAfterUpdate: userData
+  };
+};
 export const editedBasicUserData = editedBasicUserData => {
   return {
     type: actionTypes.EDITED_BASIC_USERDATA,
@@ -74,7 +69,7 @@ export const editUserEmail = (z, email) => {
   return dispatch => {
     const url = "http://localhost:8080/update-login-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -87,7 +82,6 @@ export const editUserEmail = (z, email) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { updateEmail, email } = response;
         if (updateEmail) {
           dispatch(editedUserEmail(email));
@@ -106,7 +100,7 @@ export const editUserPassword = (z, password) => {
   return dispatch => {
     const url = "http://localhost:8080/update-login-user-data";
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
@@ -119,7 +113,6 @@ export const editUserPassword = (z, password) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { updatePassword } = response;
         dispatch(editedUserPassword(updatePassword));
       });
@@ -135,22 +128,19 @@ export const editedUserPassword = editedUserPassword => {
 
 export const deleteOwnerAccount = z => {
   return dispatch => {
-    const url = "http://localhost:8080/delete-owner-account";
+    const url = `http://localhost:8080/delete-owner-account/${z}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const { ownerDeleted } = response;
         if (ownerDeleted) {
           dispatch(ownerAccountDeleted(ownerDeleted));
@@ -167,18 +157,16 @@ export const ownerAccountDeleted = ownerAccountDeleted => {
 
 export const deleteClientAccount = z => {
   return dispatch => {
-    const url = "http://localhost:8080/delete-client-account";
+    const url = `http://localhost:8080/delete-client-account/${z}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {

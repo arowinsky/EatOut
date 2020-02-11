@@ -45,9 +45,14 @@ export const resetPassword = (newPassword, oobCode) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
-        const { status } = response;
-        dispatch(verificationEmail(status));
+        const { resetPassword } = response;
+        dispatch(resetedPassword(resetPassword));
       });
+  };
+};
+export const resetedPassword = resetedPassword => {
+  return {
+    type: actionTypes.PASSWORD_RESETED,
+    resetedPassword: resetedPassword
   };
 };

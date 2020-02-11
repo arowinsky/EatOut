@@ -1,10 +1,9 @@
 import * as actionTypes from "../actionTypes";
 export const getDataEatingPlace = z => {
   return dispatch => {
-    let haveEatingPlace;
-    const url = "http://localhost:8080/get-data-place";
+    const url = `http://localhost:8080/get-data-place?z=${z}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       mode: "cors",
       cache: "no-cache",
       credentials: "same-origin",
@@ -12,31 +11,27 @@ export const getDataEatingPlace = z => {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
-        haveEatingPlace = response.places;
-        dispatch(ownerHaveEatingPlace(haveEatingPlace));
+        const { places } = response;
+        dispatch(ownerHaveEatingPlace(places));
       });
   };
 };
 export const removeSinglePlace = (z, id) => {
   return dispatch => {
-    const url = "http://localhost:8080/remove-single-place";
+    const url = `http://localhost:8080/remove-single-place/${z}/${id}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       mode: "cors",
       cache: "no-cache",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&id=${id}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
@@ -49,18 +44,16 @@ export const removeSinglePlace = (z, id) => {
 };
 export const removeAllPlaces = z => {
   return dispatch => {
-    const url = "http://localhost:8080/remove-all-place-owner";
+    const url = `http://localhost:8080/remove-all-place-owner/${z}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       mode: "cors",
       cache: "no-cache",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {

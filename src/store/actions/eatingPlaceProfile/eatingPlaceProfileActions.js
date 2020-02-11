@@ -16,8 +16,8 @@ export const generationCodeForClient = eatingPlaceId => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const codeForClient = response.code;
-        dispatch(returnCodeForClient(codeForClient));
+        const { code } = response;
+        dispatch(returnCodeForClient(code));
       });
   };
 };
@@ -31,18 +31,16 @@ export const returnCodeForClient = codeForClient => {
 
 export const sendCodeToVerification = clientCode => {
   return dispatch => {
-    const url = "http://localhost:8080/verification-client-code";
+    const url = `http://localhost:8080/verification-client-code?clientCode=${clientCode}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `clientCode=${clientCode}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
@@ -138,18 +136,16 @@ export const updatedClientsOpinions = updatedClientsOpinions => {
 };
 export const getDataSingleEatingPlace = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/get-data-place-single";
+    const url = `http://localhost:8080/get-data-place-single?z=${z}&placeId=${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
@@ -175,18 +171,17 @@ export const userFollowingPlace = userFollowingPlace => {
 };
 export const checkFollowingPlaces = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/check-following-places";
+    const url = `http://localhost:8080/check-following-places?z=${z}&placeId=${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+
+      mode: "cors"
     })
       .then(Response => Response.json())
       .then(response => {
@@ -221,18 +216,16 @@ export const followPlace = (z, placeId, restaurantName) => {
 
 export const unfollowPlace = (z, placeId) => {
   return dispatch => {
-    const url = "http://localhost:8080/remove-follow";
+    const url = `http://localhost:8080/remove-follow/${z}/${placeId}`;
     fetch(url, {
-      method: "POST",
+      method: "DELETE",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}&placeId=${placeId}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {
@@ -247,18 +240,16 @@ export const unfollowPlace = (z, placeId) => {
 
 export const getFollowingPlaces = z => {
   return dispatch => {
-    const url = "http://localhost:8080/get-following-places";
+    const url = `http://localhost:8080/get-following-places?z=${z}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
       credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `z=${z}`
+      redirect: "follow"
     })
       .then(Response => Response.json())
       .then(response => {

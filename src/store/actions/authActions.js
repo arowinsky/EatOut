@@ -17,7 +17,7 @@ export const authSuccess = (token, userId, userData, z, userRule) => {
     userRule: userRule
   };
 };
-export const userData = (userData, userId, userRule) => {
+export const currentUserData = (userData, userId, userRule) => {
   return {
     type: actionTypes.AUTH_DATA,
     userData: userData,
@@ -36,29 +36,23 @@ export const RegisterSuccess = userId => {
 export const AutoLoginSuccess = test => {
   return dispatch => {
     const z = localStorage.getItem("z");
-    const url = "http://localhost:8080/autoLogin";
+    const url = `http://localhost:8080/autoLogin?id=${z}&reSend=${test}`;
     fetch(url, {
-      method: "POST",
+      method: "GET",
       cache: "no-cache",
-      credentials: "same-origin",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       },
-      redirect: "follow",
-      referrer: "no-referrer",
-      body: `sid=${z}&pleaseReSend=${test}`
+      mode: "cors"
     })
       .then(Response => Response.json())
       .then(response => {
-        const userRule = response.userRule;
-        const userdata = response.userData;
-        const userInfo = response.userInfo;
-        const userId = response.userId;
-        if (userdata) {
-          dispatch(userData(userdata, userId, userRule));
+        const { userRule, userData, userInfo, userId } = response;
+        if (userData) {
+          dispatch(currentUserData(userData, userId, userRule));
         } else {
-          dispatch(userData(userInfo, userId, userRule));
+          dispatch(currentUserData(userInfo, userId, userRule));
         }
       });
   };
@@ -176,9 +170,7 @@ export const signUp = (email, password1, firstname, lastname, username) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const isRegistered = response.isRegistered;
-        const usernameTaken = response.usernameTaken;
-        const emailTaken = response.emailTaken;
+        const { isRegistered, usernameTaken, emailTaken } = response;
         dispatch(RegisterSuccess(isRegistered));
         dispatch(validationUsername(usernameTaken));
         dispatch(validationEmailSignUp(emailTaken));
@@ -199,17 +191,19 @@ export const logIn = (email, password1) => {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       redirect: "follow",
-      referrer: "no-referrer",
       body: `email=${email}&password=${password1}`
     })
       .then(Response => Response.json())
       .then(response => {
-        const userRule = response.userRule;
-        const userData = response.name;
-        const idToken = response.status;
-        const err = response.error;
-        const emailUnverified = response.emailUnverified;
-        const localId = response.userId;
+        console.log(response);
+        const {
+          userRule,
+          name,
+          status,
+          error,
+          emailUnverified,
+          userId
+        } = response;
         const expiresIn = 3600;
         let dataIsCorrect = null;
         let z = null;
@@ -217,11 +211,11 @@ export const logIn = (email, password1) => {
         localStorage.setItem("z", response.idSession);
         dispatch(AutoLogin(z));
         dispatch(noEmailVerified(emailUnverified));
-        if (err === "EMAIL_NOT_FOUND" || err === "INVALID_PASSWORD") {
+        if (error === "EMAIL_NOT_FOUND" || error === "INVALID_PASSWORD") {
           dataIsCorrect = true;
           dispatch(validationsLogIn(dataIsCorrect));
         } else if (
-          err ===
+          error ===
           "TOO_MANY_ATTEMPTS_TRY_LATER : Too many unsuccessful login attempts. Please try again later."
         ) {
           tooManyAttempts = true;
@@ -229,12 +223,12 @@ export const logIn = (email, password1) => {
         } else {
           z = localStorage.getItem("z");
         }
-        dispatch(authSuccess(idToken, localId, userData, z, userRule));
+        dispatch(authSuccess(status, userId, name, z, userRule));
         dispatch(checkAuthTimeout(expiresIn));
       })
-      .catch(error => {
-        console.log(error);
-        if (error) {
+      .catch(err => {
+        console.log(err);
+        if (err) {
           console.log("server not working!");
         }
       });
@@ -267,7 +261,6 @@ export const sendMailResetPassword = email => {
       .then(Response => Response.json())
       .then(response => {
         const { mailSent } = response;
-        console.log(response);
         if (mailSent === true) {
           dispatch(mailWithResetPasswordSent(mailSent));
         }
@@ -341,14 +334,12 @@ export const googleLogIn = () => {
       .auth()
       .signInWithPopup(provider)
       .then(result => {
-        console.log(result);
         const uid = result.user.uid;
         const displayName = result.user.displayName;
         const email = result.user.email;
         const token = result.user.refreshToken;
         const provider = result.credential.providerId;
         const newUser = result.additionalUserInfo.isNewUser;
-
         const url = "http://localhost:8080/login-social-media";
         fetch(url, {
           method: "POST",
@@ -365,8 +356,6 @@ export const googleLogIn = () => {
         })
           .then(Response => Response.json())
           .then(response => {
-            console.log(response);
-            console.log(displayName);
             const { idSession, userId, userRule } = response;
             localStorage.setItem("z", idSession);
             dispatch(googleLogInSuccess(userId, displayName, userRule));
@@ -379,7 +368,6 @@ export const googleLogIn = () => {
 };
 
 export const googleLogInSuccess = (userGoogleId, userDataGoogle, userRule) => {
-  console.log(userRule);
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
     userGoogleId: userGoogleId,
