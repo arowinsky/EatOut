@@ -6,6 +6,7 @@ const PrivateRoute = ({
   component: Component,
   isAuthenticated,
   userGoogleId,
+  userFbId,
   ...rest
 }) => (
   <Route
@@ -23,7 +24,8 @@ const PrivateRoute = ({
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.z,
-    userGoogleId: state.auth.userGoogleId
+    userGoogleId: state.auth.userGoogleId,
+    userFbId: state.auth.idFb
   };
 };
 export default connect(mapStateToProps)(PrivateRoute);
