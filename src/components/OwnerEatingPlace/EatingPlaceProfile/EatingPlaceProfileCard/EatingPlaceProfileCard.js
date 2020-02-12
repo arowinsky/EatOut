@@ -45,6 +45,7 @@ const EatingPlaceProfileCard = ({
             Przejdź do profilu
           </Link>
         </Button>
+        <Button second>Edytuj ten profil</Button>
         <Button second onClick={removePlace}>
           Usuń ten profil
         </Button>
