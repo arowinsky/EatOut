@@ -198,7 +198,6 @@ export const logIn = (email, password1) => {
     })
       .then(Response => Response.json())
       .then(response => {
-        console.log(response);
         const {
           userRule,
           name,
@@ -212,8 +211,10 @@ export const logIn = (email, password1) => {
         let dataIsCorrect = null;
         let z = null;
         let tooManyAttempts = null;
-        localStorage.setItem("z", response.idSession);
-        dispatch(AutoLogin(z));
+        if (!emailUnverified) {
+          localStorage.setItem("z", response.idSession);
+          dispatch(AutoLogin(z));
+        }
         dispatch(noEmailVerified(emailUnverified));
         if (error === "EMAIL_NOT_FOUND" || error === "INVALID_PASSWORD") {
           dataIsCorrect = true;
