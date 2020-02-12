@@ -119,6 +119,8 @@ const authLogOut = (state, action) => {
     userId: null,
     idFb: null,
     usernameFb: null,
+    userGoogleId: null,
+    userDataGoogle: null,
     z: null
   });
 };
