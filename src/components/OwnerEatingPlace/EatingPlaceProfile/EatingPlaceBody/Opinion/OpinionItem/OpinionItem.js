@@ -14,12 +14,11 @@ class OpinionItem extends React.Component {
             <div className={styles.wrapper}>
               <div className={styles.itemWrapper}>
                 <div className={styles.commentOwner}>
-                  <div className={styles.icon}>ikona</div>
                   <div className={styles.name}>
                     {updatedClientsOpinions.author}
                   </div>
                   <div className={styles.date}>
-                    {updatedClientsOpinions.data}
+                    {updatedClientsOpinions.date}
                   </div>
                 </div>
                 <div className={styles.commentItem}>
@@ -45,9 +44,8 @@ class OpinionItem extends React.Component {
             <div className={styles.wrapper}>
               <div className={styles.itemWrapper}>
                 <div className={styles.commentOwner}>
-                  <div className={styles.icon}>ikona</div>
                   <div className={styles.name}>{clientsOpinions.author}</div>
-                  <div className={styles.date}>{clientsOpinions.data}</div>
+                  <div className={styles.date}>{clientsOpinions.date}</div>
                 </div>
                 <div className={styles.commentItem}>
                   <p>{clientsOpinions.clientOpinion}</p>
