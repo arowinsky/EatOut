@@ -55,7 +55,7 @@ class EatingPlaceHeader extends React.Component {
               </div>
               <div className={styles.ownerButtons}>
                 <div className={styles.editProfile}>
-                  <Button second>Edytuj ten lokal</Button>
+                  <Button second>Edytuj ten profil</Button>
                 </div>
                 <div className={styles.generatorCode}>
                   <Button second>
