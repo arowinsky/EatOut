@@ -19,7 +19,7 @@
   left: 5%;
 }
 
-.adressWrapper {
+.infoPlaceWrapper {
   position: relative;
   top: 75px;
   left: 22%;
@@ -28,10 +28,68 @@
     font-weight: 800;
     font-size: 40px;
     color: $dark-grey-element;
+    margin-left: 150px;
+  }
+  .adress {
+    margin-left: 150px;
   }
 }
 
 .headerContent {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+}
+
+.ownerButtons {
+  display: grid;
+  grid-template-columns: 0.4fr 0.4fr;
+  margin-top: 90px;
+  margin-bottom: -20px;
+  margin-left: 300px;
+  margin-right: -20px;
+  .editProfile {
+    margin-right: -55px;
+    padding-right: -20px;
+  }
+  .generatorCode {
+    margin-left: -55px;
+    margin-right: -60px;
+    .button {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+.clientButton {
+  margin-top: 90px;
+  margin-bottom: -20px;
+  max-width: 250px;
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+  }
+}
+
+.adressWrapper {
+  position: relative;
+  top: 75px;
+  left: 25%;
+
+  .title {
+    font-weight: 800;
+    font-size: 40px;
+    color: $dark-grey-element;
+  }
+}
+
+.clientHeaderContent {
   display: grid;
   grid-template-columns: 1fr 0.5fr;
 }

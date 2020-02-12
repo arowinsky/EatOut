@@ -16,7 +16,6 @@ class PostItem extends React.Component {
             <div className={styles.wrapper}>
               <div className={styles.itemWrapper}>
                 <div className={styles.commentOwner}>
-                  <div className={styles.icon}>ikona</div>
                   <div className={styles.name}>{updatedOwnerPosts.author}</div>
                   <div className={styles.date}>{updatedOwnerPosts.date}</div>
                 </div>
@@ -42,7 +41,6 @@ class PostItem extends React.Component {
               <div className={styles.wrapper}>
                 <div className={styles.itemWrapper}>
                   <div className={styles.commentOwner}>
-                    <div className={styles.icon}>ikona</div>
                     <div className={styles.name}>{ownerPosts.author}</div>
                     <div className={styles.date}>{ownerPosts.date}</div>
                   </div>
