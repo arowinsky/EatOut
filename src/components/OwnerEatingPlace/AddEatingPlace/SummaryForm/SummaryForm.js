@@ -205,6 +205,7 @@ class SummaryForm extends React.Component {
     const setSecond = localStorage.getItem("setSecond");
     const firstFormData = JSON.parse(setFirst);
     const secondFormData = JSON.parse(setSecond);
+    console.log(secondFormData);
     let secondFormIsComplete;
     const { dataNewEatingPlace, submited } = this.state;
     if (this.props.location.state) {
@@ -259,7 +260,7 @@ class SummaryForm extends React.Component {
             saturdayCloseHour: firstFormData.saturdayCloseHour,
             sundayOpenHour: firstFormData.sundayOpenHour,
             sundayCloseHour: firstFormData.sundayCloseHour,
-            alkohol: true,
+            alkohol: secondFormData.alkohol,
             amerykańska: secondFormData.amerykańska,
             animal_friendly: secondFormData.animal_friendly,
             arabska: secondFormData.arabska,
