@@ -23,23 +23,10 @@
   outline: transparent;
 }
 
-.button {
-  background-color: $yellow-element;
-  border: none;
-  width: 15%;
-  color: $white;
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 20px;
-  transition: background-color ease 0.4s;
-  outline: transparent;
-
-  &:hover {
-    cursor: pointer;
-    background-color: $red-element;
-  }
-}
-
 .addedOwnerPost {
   text-align: center;
+}
+.button {
+  max-width: 50%;
+  align-items: center;
 }

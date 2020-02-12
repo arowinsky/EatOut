@@ -59,9 +59,11 @@ class OwnerPostForm extends React.Component {
                   )}
 
                   <br />
-                  <Button second type="submit">
-                    Wyślij
-                  </Button>
+                  <div className={styles.button}>
+                    <Button second type="submit">
+                      Wyślij
+                    </Button>
+                  </div>
                 </div>
               </Form>
             )}
