@@ -44,9 +44,11 @@ class CodeForUnlockAddOpinion extends React.Component {
                     <div>{errors.clientCode}</div>
                   )}
                   <br />
-                  <Button second type="submit">
-                    Wyślij
-                  </Button>
+                  <div className={styles.button}>
+                    <Button second type="submit">
+                      Wyślij
+                    </Button>
+                  </div>
                 </div>
               </Form>
             )}
