@@ -312,7 +312,13 @@ export const facebookLogIn = () => {
             const { idSession, userId, userRule, provider } = response;
             localStorage.setItem("z", idSession);
             dispatch(
-              facebookLogInSuccess(userId, displayName, userRule, provider)
+              facebookLogInSuccess(
+                idSession,
+                userId,
+                displayName,
+                userRule,
+                provider
+              )
             );
           });
       })
@@ -332,6 +338,7 @@ export const facebookLogInSuccess = (
   console.log(idFb, usernameFb);
   return {
     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+    z: idSession,
     idFb: idFb,
     usernameFb: usernameFb,
     userRule: userRule,
@@ -372,7 +379,13 @@ export const googleLogIn = () => {
             const { idSession, userId, userRule, provider } = response;
             localStorage.setItem("z", idSession);
             dispatch(
-              googleLogInSuccess(userId, displayName, userRule, provider)
+              googleLogInSuccess(
+                idSession,
+                userId,
+                displayName,
+                userRule,
+                provider
+              )
             );
           });
       })
@@ -383,6 +396,7 @@ export const googleLogIn = () => {
 };
 
 export const googleLogInSuccess = (
+  idSession,
   userGoogleId,
   userDataGoogle,
   userRule,
@@ -390,6 +404,7 @@ export const googleLogInSuccess = (
 ) => {
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+    z: idSession,
     userGoogleId: userGoogleId,
     userDataGoogle: userDataGoogle,
     userRule: userRule,

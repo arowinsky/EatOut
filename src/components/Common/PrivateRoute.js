@@ -2,17 +2,11 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-const PrivateRoute = ({
-  component: Component,
-  isAuthenticated,
-  userGoogleId,
-  userFbId,
-  ...rest
-}) => (
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
     render={props => {
-      if (isAuthenticated || userGoogleId) {
+      if (isAuthenticated) {
         return <Component {...props} />;
       } else {
         return <Redirect to="/login" />;
@@ -22,11 +16,9 @@ const PrivateRoute = ({
 );
 
 const mapStateToProps = state => {
-  console.log(state.userFbId);
+  console.log(state.auth.idFb);
   return {
-    isAuthenticated: state.auth.z,
-    userGoogleId: state.auth.userGoogleId,
-    userFbId: state.auth.idFb
+    isAuthenticated: state.auth.z
   };
 };
 export default connect(mapStateToProps)(PrivateRoute);

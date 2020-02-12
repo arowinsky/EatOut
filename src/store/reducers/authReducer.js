@@ -52,7 +52,9 @@ const RegisterSuccess = (state, action) => {
   });
 };
 const facebookLogInSuccess = (state, action) => {
+  console.log(action.z);
   return updateObject(state, {
+    z: action.z,
     idFb: action.idFb,
     usernameFb: action.usernameFb,
     userRule: action.userRule,
@@ -62,6 +64,7 @@ const facebookLogInSuccess = (state, action) => {
 const googleLogInSuccess = (state, action) => {
   console.log(action.userRule);
   return updateObject(state, {
+    z: action.z,
     userGoogleId: action.userGoogleId,
     userDataGoogle: action.userDataGoogle,
     userRule: action.userRule,
