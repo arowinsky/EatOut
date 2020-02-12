@@ -19,7 +19,8 @@ const initState = {
   z: null,
   userData: null,
   userRule: null,
-  tooManyAttemptsLogInTryLater: null
+  tooManyAttemptsLogInTryLater: null,
+  provider: null
 };
 const authStart = (state, action) => {
   return updateObject(state, { error: null });
@@ -32,6 +33,7 @@ const authSuccess = (state, action) => {
     userData: action.userData,
     userRule: action.userRule,
     z: action.z,
+    provider: action.provider,
     error: null
   });
 };
@@ -39,7 +41,8 @@ export const currentUserData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const RegisterSuccess = (state, action) => {
@@ -50,17 +53,20 @@ const RegisterSuccess = (state, action) => {
 };
 const facebookLogInSuccess = (state, action) => {
   return updateObject(state, {
+    z: action.z,
     idFb: action.idFb,
     usernameFb: action.usernameFb,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const googleLogInSuccess = (state, action) => {
-  console.log(action.userRule);
   return updateObject(state, {
+    z: action.z,
     userGoogleId: action.userGoogleId,
     userDataGoogle: action.userDataGoogle,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const AutoLoginSuccess = (state, action) => {
@@ -111,6 +117,8 @@ const authLogOut = (state, action) => {
     userId: null,
     idFb: null,
     usernameFb: null,
+    userGoogleId: null,
+    userDataGoogle: null,
     z: null
   });
 };
@@ -131,7 +139,6 @@ const tooManyAttemptsLogInTryLater = (state, action) => {
   });
 };
 const userDataAfterUpdate = (state, action) => {
-  console.log(action.userDataAfterUpdate);
   return updateObject(state, {
     userData: action.userDataAfterUpdate
   });

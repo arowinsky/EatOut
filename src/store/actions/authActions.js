@@ -7,22 +7,24 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = (token, userId, userData, z, userRule) => {
+export const authSuccess = (token, userId, userData, z, userRule, provider) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     idToken: token,
     userId: userId,
     userData: userData,
     z: z,
-    userRule: userRule
+    userRule: userRule,
+    provider: provider
   };
 };
-export const currentUserData = (userData, userId, userRule) => {
+export const currentUserData = (userData, userId, userRule, provider) => {
   return {
     type: actionTypes.AUTH_DATA,
     userData: userData,
     userId: userId,
-    userRule: userRule
+    userRule: userRule,
+    provider: provider
   };
 };
 
@@ -48,11 +50,12 @@ export const AutoLoginSuccess = test => {
     })
       .then(Response => Response.json())
       .then(response => {
-        const { userRule, userData, userInfo, userId } = response;
+        console.log(response);
+        const { userRule, userData, userInfo, userId, provider } = response;
         if (userData) {
-          dispatch(currentUserData(userData, userId, userRule));
+          dispatch(currentUserData(userData, userId, userRule, provider));
         } else {
-          dispatch(currentUserData(userInfo, userId, userRule));
+          dispatch(currentUserData(userInfo, userId, userRule, provider));
         }
       });
   };
@@ -202,7 +205,8 @@ export const logIn = (email, password1) => {
           status,
           error,
           emailUnverified,
-          userId
+          userId,
+          provider
         } = response;
         const expiresIn = 3600;
         let dataIsCorrect = null;
@@ -223,7 +227,7 @@ export const logIn = (email, password1) => {
         } else {
           z = localStorage.getItem("z");
         }
-        dispatch(authSuccess(status, userId, name, z, userRule));
+        dispatch(authSuccess(status, userId, name, z, userRule, provider));
         dispatch(checkAuthTimeout(expiresIn));
       })
       .catch(err => {
@@ -303,11 +307,17 @@ export const facebookLogIn = () => {
         })
           .then(Response => Response.json())
           .then(response => {
-            console.log(response);
-            console.log(displayName);
-            const { idSession, userId, userRule } = response;
+            const { idSession, userId, userRule, provider } = response;
             localStorage.setItem("z", idSession);
-            dispatch(facebookLogInSuccess(userId, displayName, userRule));
+            dispatch(
+              facebookLogInSuccess(
+                idSession,
+                userId,
+                displayName,
+                userRule,
+                provider
+              )
+            );
           });
       })
       .catch(error => {
@@ -316,13 +326,20 @@ export const facebookLogIn = () => {
   };
 };
 
-export const facebookLogInSuccess = (idFb, usernameFb, userRule) => {
-  console.log(idFb, usernameFb);
+export const facebookLogInSuccess = (
+  idSession,
+  idFb,
+  usernameFb,
+  userRule,
+  provider
+) => {
   return {
     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
+    z: idSession,
     idFb: idFb,
     usernameFb: usernameFb,
-    userRule: userRule
+    userRule: userRule,
+    provider: provider
   };
 };
 
@@ -356,9 +373,17 @@ export const googleLogIn = () => {
         })
           .then(Response => Response.json())
           .then(response => {
-            const { idSession, userId, userRule } = response;
+            const { idSession, userId, userRule, provider } = response;
             localStorage.setItem("z", idSession);
-            dispatch(googleLogInSuccess(userId, displayName, userRule));
+            dispatch(
+              googleLogInSuccess(
+                idSession,
+                userId,
+                displayName,
+                userRule,
+                provider
+              )
+            );
           });
       })
       .catch(error => {
@@ -367,11 +392,19 @@ export const googleLogIn = () => {
   };
 };
 
-export const googleLogInSuccess = (userGoogleId, userDataGoogle, userRule) => {
+export const googleLogInSuccess = (
+  idSession,
+  userGoogleId,
+  userDataGoogle,
+  userRule,
+  provider
+) => {
   return {
     type: actionTypes.AUTH_GOOGLE_LOGIN_SUCCESS,
+    z: idSession,
     userGoogleId: userGoogleId,
     userDataGoogle: userDataGoogle,
-    userRule: userRule
+    userRule: userRule,
+    provider: provider
   };
 };

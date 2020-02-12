@@ -39,7 +39,6 @@ class Root extends React.Component {
     let test = false;
     let sideBar;
     const { isAuthenticated, userFbId, userGoogleId, z, userRule } = this.props;
-    console.log(userGoogleId);
     console.log(this.state.sideBarOpen);
     console.log(userRule);
     if (isAuthenticated === true || userFbId || userGoogleId || z) {

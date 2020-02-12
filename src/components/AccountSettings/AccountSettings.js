@@ -46,8 +46,13 @@ class AccountSettings extends React.Component {
       editedUserPassword,
       ownerAccountDeleted,
       clientAccountDeleted,
-      logOut
+      logOut,
+      userGoogleId,
+      userFbId,
+      provider
     } = this.props;
+    console.log("TCL: AccountSettings -> render -> userGoogleId", userGoogleId);
+    console.log("TCL: AccountSettings -> render -> userFbId", userFbId);
     let lastName;
     let firstName;
     let username;
@@ -78,7 +83,6 @@ class AccountSettings extends React.Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.infoContent}>Ustawienia konta</div>
-
         <div className={styles.content}>
           <div className={styles.title}>Podstawowe dane</div>
           {userWantEditData ? (
@@ -141,14 +145,26 @@ class AccountSettings extends React.Component {
             </Formik>
           ) : (
             <div className={styles.basicData}>
-              <div className={styles.info}>Imię: {firstName}</div>
-              <div className={styles.info}>Nazwisko: {lastName}</div>
-              <div className={styles.info}>Nazwa użytkownika: {username}</div>
-              <div className={styles.info}>Email: {email}</div>
+              {provider === "facebook.com" || provider === "google.com" ? (
+                <div className={styles.info}>Nazwa użytkownika: {username}</div>
+              ) : (
+                <div>
+                  <div className={styles.info}>Imię: {firstName}</div>
+                  <div className={styles.info}>Nazwisko: {lastName}</div>
+                  <div className={styles.info}>
+                    Nazwa użytkownika: {username}
+                  </div>
+                  <div className={styles.info}>Email: {email}</div>
+                </div>
+              )}
+
               <div className={styles.buttonBasicData}>
-                <Button second onClick={this.editUserData}>
-                  Edytuj dane
-                </Button>
+                {provider === "facebook.com" ||
+                provider === "google.com" ? null : (
+                  <Button second onClick={this.editUserData}>
+                    Edytuj dane
+                  </Button>
+                )}
               </div>
             </div>
           )}
@@ -163,46 +179,50 @@ class AccountSettings extends React.Component {
           </div>
         </div>
         <div className={styles.content}>
-          <div className={styles.title}>Zarządzaj hasłem</div>
-          {userWantEditPassword ? (
-            <Formik
-              initialValues={{
-                newPassword: ""
-              }}
-              onSubmit={values => {
-                let password = values.newPassword;
-                editUserPassword(z, password);
-                this.setState(() => ({ userWantEditPassword: null }));
-              }}
-            >
-              {() => (
-                <Form className={styles.userEditDataForm}>
-                  <div className={styles.inputElement}>
-                    <label htmlFor="firstName">Podaj nowe hasło</label>
-                    <Field
-                      type="password"
-                      name="newPassword"
-                      className={styles.input}
-                    />
-                  </div>
-                  <br />
-                  <Button second type="submit" className={styles.button}>
-                    Zapisz zmiany
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          ) : (
+          {provider === "facebook.com" || provider === "google.com" ? null : (
             <div>
-              {editedUserPassword ? (
-                <div>Twoje hasło zostało zmienione</div>
-              ) : null}
-              <br />
-              <div className={styles.button}>
-                <Button second onClick={this.editUserPassword}>
-                  Chcę zmienić hasło
-                </Button>
-              </div>
+              <div className={styles.title}>Zarządzaj hasłem</div>
+              {userWantEditPassword ? (
+                <Formik
+                  initialValues={{
+                    newPassword: ""
+                  }}
+                  onSubmit={values => {
+                    let password = values.newPassword;
+                    editUserPassword(z, password);
+                    this.setState(() => ({ userWantEditPassword: null }));
+                  }}
+                >
+                  {() => (
+                    <Form className={styles.userEditDataForm}>
+                      <div className={styles.inputElement}>
+                        <label htmlFor="firstName">Podaj nowe hasło</label>
+                        <Field
+                          type="password"
+                          name="newPassword"
+                          className={styles.input}
+                        />
+                      </div>
+                      <br />
+                      <Button second type="submit" className={styles.button}>
+                        Zapisz zmiany
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+              ) : (
+                <div>
+                  {editedUserPassword ? (
+                    <div>Twoje hasło zostało zmienione</div>
+                  ) : null}
+                  <br />
+                  <div className={styles.button}>
+                    <Button second onClick={this.editUserPassword}>
+                      Chcę zmienić hasło
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -226,7 +246,10 @@ const mapStateToProps = state => {
     editedUserPassword: state.accountSettings.editedUserPassword,
     userRule: state.auth.userRule,
     ownerAccountDeleted: state.accountSettings.ownerAccountDeleted,
-    clientAccountDeleted: state.accountSettings.clientAccountDeleted
+    clientAccountDeleted: state.accountSettings.clientAccountDeleted,
+    userGoogleId: state.auth.userGoogleId,
+    userFbId: state.auth.idFb,
+    provider: state.auth.provider
   };
 };
 const mapDispatchToProps = dispatch => {
