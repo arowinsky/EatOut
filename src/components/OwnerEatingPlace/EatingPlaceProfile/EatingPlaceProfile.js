@@ -16,25 +16,6 @@ const EatingPlaceProfile = props => {
 
   return (
     <div>
-      {userId === owner ? (
-        <div className={styles.wrapper}>
-          <div className={styles.items}>
-            <Button second>
-              <Link
-                className={styles.button}
-                to={{
-                  pathname: "/generator-code-for-client",
-                  state: {
-                    eatingPlace: eatingPlace
-                  }
-                }}
-              >
-                Chcę wygenerować kod dla klienta
-              </Link>
-            </Button>
-          </div>
-        </div>
-      ) : null}
       <EatingPlaceHeader eatingPlace={eatingPlace} />
       <EatingPlaceBody eatingPlace={eatingPlace} />
     </div>

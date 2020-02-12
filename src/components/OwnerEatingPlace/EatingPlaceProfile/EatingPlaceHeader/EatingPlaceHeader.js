@@ -1,9 +1,12 @@
 import React from "react";
 import styles from "./EatingPlaceHeader.module.scss";
 import Following from "./Following/Following";
+import { connect } from "react-redux";
+import Button from "../../../Button/Button";
+import { Link } from "react-router-dom";
 class EatingPlaceHeader extends React.Component {
   render() {
-    const { eatingPlace } = this.props;
+    const { eatingPlace, userId } = this.props;
     let restaurantAvatar;
     let restaurantHeader;
     let restaurantName;
@@ -13,6 +16,7 @@ class EatingPlaceHeader extends React.Component {
     let placeId;
     let z = localStorage.getItem("z");
     let userLoggedIn;
+    let owner;
 
     if (eatingPlace) {
       placeId = eatingPlace.id;
@@ -22,6 +26,7 @@ class EatingPlaceHeader extends React.Component {
       restaurantStreet = eatingPlace.info.restaurantStreet;
       restaurantBuildingNumber = eatingPlace.info.restaurantBuildingNumber;
       restaurantCity = eatingPlace.info.restaurantCity;
+      owner = eatingPlace.info.owner;
     }
     if (z) {
       userLoggedIn = true;
@@ -47,6 +52,24 @@ class EatingPlaceHeader extends React.Component {
             <div>{restaurantCity}</div>
           </div>
           <div className={styles.adressWrapper}>
+            {userId === owner ? (
+              <Button second>
+                <Link
+                  className={styles.button}
+                  to={{
+                    pathname: "/generator-code-for-client",
+                    state: {
+                      eatingPlace: eatingPlace
+                    }
+                  }}
+                >
+                  Chcę wygenerować kod dla klienta
+                </Link>
+              </Button>
+            ) : null}
+          </div>
+
+          <div className={styles.adressWrapper}>
             {userLoggedIn ? (
               <Following
                 z={z}
@@ -60,5 +83,9 @@ class EatingPlaceHeader extends React.Component {
     );
   }
 }
-
-export default EatingPlaceHeader;
+const mapStateToProps = state => {
+  return {
+    userId: state.auth.userId
+  };
+};
+export default connect(mapStateToProps, null)(EatingPlaceHeader);

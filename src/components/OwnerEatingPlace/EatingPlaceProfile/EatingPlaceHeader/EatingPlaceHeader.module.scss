@@ -33,5 +33,12 @@
 
 .headerContent {
   display: grid;
-  grid-template-columns: 1fr 0.5fr;
+  grid-template-columns: 1fr 0.75fr 0.5fr;
+}
+.button {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
 }
