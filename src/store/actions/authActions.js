@@ -307,8 +307,6 @@ export const facebookLogIn = () => {
         })
           .then(Response => Response.json())
           .then(response => {
-            console.log(response);
-            console.log(displayName);
             const { idSession, userId, userRule, provider } = response;
             localStorage.setItem("z", idSession);
             dispatch(
@@ -335,7 +333,6 @@ export const facebookLogInSuccess = (
   userRule,
   provider
 ) => {
-  console.log(idFb, usernameFb);
   return {
     type: actionTypes.AUTH_FACEBOOK_LOGIN_SUCCESS,
     z: idSession,

@@ -52,7 +52,6 @@ const RegisterSuccess = (state, action) => {
   });
 };
 const facebookLogInSuccess = (state, action) => {
-  console.log(action.z);
   return updateObject(state, {
     z: action.z,
     idFb: action.idFb,
@@ -62,7 +61,6 @@ const facebookLogInSuccess = (state, action) => {
   });
 };
 const googleLogInSuccess = (state, action) => {
-  console.log(action.userRule);
   return updateObject(state, {
     z: action.z,
     userGoogleId: action.userGoogleId,
@@ -141,7 +139,6 @@ const tooManyAttemptsLogInTryLater = (state, action) => {
   });
 };
 const userDataAfterUpdate = (state, action) => {
-  console.log(action.userDataAfterUpdate);
   return updateObject(state, {
     userData: action.userDataAfterUpdate
   });

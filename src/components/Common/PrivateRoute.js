@@ -16,7 +16,6 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
 );
 
 const mapStateToProps = state => {
-  console.log(state.auth.idFb);
   return {
     isAuthenticated: state.auth.z
   };
