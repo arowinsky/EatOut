@@ -43,41 +43,57 @@ class EatingPlaceHeader extends React.Component {
           src={restaurantAvatar}
           alt="restaurantAvatar"
         ></img>
-        <div className={styles.headerContent}>
-          <div className={styles.adressWrapper}>
-            <div className={styles.title}>{restaurantName}</div>
-            <div>
-              {restaurantStreet} {restaurantBuildingNumber}
+        <div>
+          {userId === owner ? (
+            <div className={styles.headerContent}>
+              <div className={styles.infoPlaceWrapper}>
+                <div className={styles.title}>{restaurantName}</div>
+                <div className={styles.adress}>
+                  {restaurantStreet} {restaurantBuildingNumber}
+                </div>
+                <div className={styles.adress}>{restaurantCity}</div>
+              </div>
+              <div className={styles.ownerButtons}>
+                <div className={styles.editProfile}>
+                  <Button second>Edytuj ten lokal</Button>
+                </div>
+                <div className={styles.generatorCode}>
+                  <Button second>
+                    <Link
+                      className={styles.button}
+                      to={{
+                        pathname: "/generator-code-for-client",
+                        state: {
+                          eatingPlace: eatingPlace
+                        }
+                      }}
+                    >
+                      Wygeneruj kod dla klienta
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-            <div>{restaurantCity}</div>
-          </div>
-          <div className={styles.adressWrapper}>
-            {userId === owner ? (
-              <Button second>
-                <Link
-                  className={styles.button}
-                  to={{
-                    pathname: "/generator-code-for-client",
-                    state: {
-                      eatingPlace: eatingPlace
-                    }
-                  }}
-                >
-                  Chcę wygenerować kod dla klienta
-                </Link>
-              </Button>
-            ) : null}
-          </div>
-
-          <div className={styles.adressWrapper}>
-            {userLoggedIn ? (
-              <Following
-                z={z}
-                placeId={placeId}
-                restaurantName={restaurantName}
-              />
-            ) : null}
-          </div>
+          ) : (
+            <div className={styles.clientHeaderContent}>
+              <div className={styles.adressWrapper}>
+                <div className={styles.title}>{restaurantName}</div>
+                <div className={styles.adress}>
+                  {restaurantStreet} {restaurantBuildingNumber}
+                </div>
+                <div className={styles.adress}>{restaurantCity}</div>
+              </div>
+              <div className={styles.adressWrapper}>
+                {userLoggedIn ? (
+                  <Following
+                    z={z}
+                    placeId={placeId}
+                    restaurantName={restaurantName}
+                  />
+                ) : null}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
