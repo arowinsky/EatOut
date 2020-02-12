@@ -218,6 +218,7 @@ class RegisterForm extends React.Component {
                 sitekey="6LdvTNUUAAAAAAgU4xeFzQnuPcyscV3dXbrcRU97"
                 onChange={this.onChange}
               />
+              <br />
               <Button second type="submit">
                 Zarejestruj
               </Button>
