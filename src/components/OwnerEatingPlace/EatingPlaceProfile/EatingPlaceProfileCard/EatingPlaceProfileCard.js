@@ -83,6 +83,8 @@ const EatingPlaceProfileCard = ({
           </Link>
         </Button>
         <br />
+        <Button second>Obserwuj</Button>
+        <br />
       </div>
     );
   }
