@@ -208,6 +208,7 @@ export const followPlace = (z, placeId, restaurantName) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
         const { userFollowing } = response;
         dispatch(userFollowingPlace(userFollowing));
       });
@@ -229,6 +230,7 @@ export const unfollowPlace = (z, placeId) => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
         const { deleteFollow } = response;
         if (deleteFollow) {
           let userFollowing = false;

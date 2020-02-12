@@ -19,7 +19,8 @@ const initState = {
   z: null,
   userData: null,
   userRule: null,
-  tooManyAttemptsLogInTryLater: null
+  tooManyAttemptsLogInTryLater: null,
+  provider: null
 };
 const authStart = (state, action) => {
   return updateObject(state, { error: null });
@@ -32,6 +33,7 @@ const authSuccess = (state, action) => {
     userData: action.userData,
     userRule: action.userRule,
     z: action.z,
+    provider: action.provider,
     error: null
   });
 };
@@ -39,7 +41,8 @@ export const currentUserData = (state, action) => {
   return updateObject(state, {
     userData: action.userData,
     userId: action.userId,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const RegisterSuccess = (state, action) => {
@@ -52,7 +55,8 @@ const facebookLogInSuccess = (state, action) => {
   return updateObject(state, {
     idFb: action.idFb,
     usernameFb: action.usernameFb,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const googleLogInSuccess = (state, action) => {
@@ -60,7 +64,8 @@ const googleLogInSuccess = (state, action) => {
   return updateObject(state, {
     userGoogleId: action.userGoogleId,
     userDataGoogle: action.userDataGoogle,
-    userRule: action.userRule
+    userRule: action.userRule,
+    provider: action.provider
   });
 };
 const AutoLoginSuccess = (state, action) => {

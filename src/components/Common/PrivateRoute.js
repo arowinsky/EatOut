@@ -22,6 +22,7 @@ const PrivateRoute = ({
 );
 
 const mapStateToProps = state => {
+  console.log(state.userFbId);
   return {
     isAuthenticated: state.auth.z,
     userGoogleId: state.auth.userGoogleId,
