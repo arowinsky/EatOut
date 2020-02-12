@@ -15,7 +15,7 @@ const validateSchema = Yup.object({
   lastname: Yup.string().min(3, "Nazwisko musi mieć minimum 3 znaki"),
   username: Yup.string().min(5, "Nazwa uytkownika musi mieć minimum 5 znaków"),
   password1: Yup.string()
-    .min(3, "Hasło musi mieć minimum 8 zanaków")
+    .min(8, "Hasło musi mieć minimum 8 znaków")
     .required("Podaj hasło"),
   password2: Yup.string()
     .required("Powtórz hasło")
