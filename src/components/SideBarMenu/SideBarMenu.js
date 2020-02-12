@@ -45,13 +45,14 @@ const SideBarMenu = props => {
               </Link>
             </li>
             <li className={styles.sidebar_item}>
-              <FontAwesomeIcon
-                icon={faMapMarkedAlt}
-                className={styles.sidebar_icon}
-              />
-              Wyszkiwarka lokali
+              <Link to="/" className={styles.sidebar_item}>
+                <FontAwesomeIcon
+                  icon={faMapMarkedAlt}
+                  className={styles.sidebar_icon}
+                />
+                Wyszkiwarka lokali
+              </Link>
             </li>
-
             <li className={styles.sidebar_item}>
               <Link to="/logout" className={styles.sidebar_item}>
                 <FontAwesomeIcon
