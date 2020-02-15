@@ -34,6 +34,10 @@ class AccountSettings extends React.Component {
     this.setState(() => ({ maybeWillBecomeOwner: true }));
   };
 
+  scratchAdvance = () => {
+    this.setState(() => ({ maybeWillBecomeOwner: false }));
+  };
+
   render() {
     const {
       sendedRequest,
@@ -177,20 +181,29 @@ class AccountSettings extends React.Component {
         <div className={styles.content}>
           <div className={styles.title}>Konto właściciela</div>
           {maybeWillBecomeOwner ? (
-            <div className={styles.info}>
-              <div>Zgłoszenie zostało przyjęte</div>
-              <div>Odezwiemy się do Ciebie w tej sprawie drogą mailową</div>
+            <div>
+              <div className={styles.info}>
+                <div>Zgłoszenie zostało przyjęte</div>
+                <div>Odezwiemy się do Ciebie w tej sprawie drogą mailową</div>
+              </div>
+              <div className={styles.button}>
+                <Button second onClick={this.scratchAdvance}>
+                  Wycofaj zgłoszenie
+                </Button>
+              </div>
             </div>
           ) : (
-            <div className={styles.info}>
-              Aktulanie nie posiadasz konta właściciela
+            <div>
+              <div className={styles.info}>
+                Aktulanie nie posiadasz konta właściciela
+              </div>
+              <div className={styles.button}>
+                <Button second onClick={this.userWantsToBecomeOwner}>
+                  Chcę zostać właścicielem
+                </Button>
+              </div>
             </div>
           )}
-          <div className={styles.button}>
-            <Button second onClick={this.userWantsToBecomeOwner}>
-              Chcę zostać właścicielem
-            </Button>
-          </div>
         </div>
         <div className={styles.content}>
           {provider === "facebook.com" || provider === "google.com" ? null : (
