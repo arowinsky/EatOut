@@ -24,7 +24,42 @@ class AccountSettings extends React.Component {
       maybeWillBecomeOwner: null
     };
   }
-
+  validateFirstname = value => {
+    let error;
+    if (!value) {
+      error = "Uzupełnij imię";
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe imię";
+    }
+    return error;
+  };
+  validateLastname = value => {
+    let error;
+    if (!value) {
+      error = "Uzupełnij nazwisko";
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwisko";
+    }
+    return error;
+  };
+  validateUsername = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę użytkownika";
+    } else if (!/[A-Za-z0-9_.-]/.test(value)) {
+      error = "Nieprawidłowa nazwa użytkownika";
+    }
+    return error;
+  };
+  validateEmail = value => {
+    let error;
+    if (!value) {
+      error = "Podaj adres e-mail";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = "Adres e-mail jest nieprawidłowy";
+    }
+    return error;
+  };
   editUserData = () => {
     this.setState(() => ({ userWantEditData: true }));
   };
@@ -121,15 +156,20 @@ class AccountSettings extends React.Component {
                 this.setState(() => ({ userWantEditData: null }));
               }}
             >
-              {() => (
+              {({ errors, touched }) => (
                 <Form className={styles.userEditDataForm}>
                   <div className={styles.inputElement}>
                     <label htmlFor="firstName">Imię</label>
                     <Field
                       type="text"
                       name="firstName"
+                      validate={this.validateFirstname}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.firstName && touched.firstName && (
+                      <div>{errors.firstName}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
@@ -137,8 +177,13 @@ class AccountSettings extends React.Component {
                     <Field
                       type="text"
                       name="lastName"
+                      validate={this.validateLastname}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.lastName && touched.lastName && (
+                      <div>{errors.lastName}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
@@ -146,13 +191,25 @@ class AccountSettings extends React.Component {
                     <Field
                       type="text"
                       name="username"
+                      validate={this.validateUsername}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.username && touched.username && (
+                      <div>{errors.username}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
                     <label htmlFor="email">Email</label>
-                    <Field type="text" name="email" className={styles.input} />
+                    <Field
+                      type="text"
+                      name="email"
+                      validate={this.validateEmail}
+                      className={styles.input}
+                    />
+                    <div className={styles.formItemBar} />
+                    {errors.email && touched.email && <div>{errors.email}</div>}
                   </div>
                   <br />
                   <Button second type="submit" className={styles.button}>
