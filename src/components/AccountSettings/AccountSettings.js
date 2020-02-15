@@ -5,6 +5,15 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
+import * as Yup from "yup";
+const validateSchema = Yup.object({
+  password1: Yup.string()
+    .min(8, "Hasło musi mieć minimum 8 znaków")
+    .required("Podaj hasło"),
+  password2: Yup.string()
+    .required("Powtórz hasło")
+    .oneOf([Yup.ref("password1"), null], "Hasła nie są jednakowe")
+});
 class AccountSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -212,23 +221,41 @@ class AccountSettings extends React.Component {
               {userWantEditPassword ? (
                 <Formik
                   initialValues={{
-                    newPassword: ""
+                    password1: "",
+                    password2: ""
                   }}
+                  validationSchema={validateSchema}
                   onSubmit={values => {
                     let password = values.newPassword;
                     editUserPassword(z, password);
                     this.setState(() => ({ userWantEditPassword: null }));
                   }}
                 >
-                  {() => (
+                  {({ errors, touched }) => (
                     <Form className={styles.userEditDataForm}>
                       <div className={styles.inputElement}>
-                        <label htmlFor="firstName">Podaj nowe hasło</label>
+                        <label htmlFor="password1">Podaj nowe hasło</label>
                         <Field
+                          name="password1"
                           type="password"
-                          name="newPassword"
                           className={styles.input}
                         />
+                        <div className={styles.formItemBar} />
+                        {errors.password1 && touched.password1 && (
+                          <div>{errors.password1}</div>
+                        )}
+                      </div>
+                      <div className={styles.formItem}>
+                        <label htmlFor="password2">Powtórz nowe hasło</label>
+                        <Field
+                          name="password2"
+                          type="password"
+                          className={styles.input}
+                        />
+                        <div className={styles.formItemBar} />
+                        {errors.password2 && touched.password2 && (
+                          <div>{errors.password2}</div>
+                        )}
                       </div>
                       <br />
                       <Button second type="submit" className={styles.button}>
