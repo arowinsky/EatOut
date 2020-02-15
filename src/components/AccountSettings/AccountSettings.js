@@ -11,7 +11,8 @@ class AccountSettings extends React.Component {
     this.state = {
       sendedRequest: null,
       userWantEditData: null,
-      userWantEditPassword: null
+      userWantEditPassword: null,
+      maybeWillBecomeOwner: null
     };
   }
 
@@ -29,12 +30,16 @@ class AccountSettings extends React.Component {
       this.props.deleteClientAccount(z);
     }
   };
+  userWantsToBecomeOwner = () => {
+    this.setState(() => ({ maybeWillBecomeOwner: true }));
+  };
 
   render() {
     const {
       sendedRequest,
       userWantEditData,
-      userWantEditPassword
+      userWantEditPassword,
+      maybeWillBecomeOwner
     } = this.state;
     const {
       accountData,
@@ -171,11 +176,20 @@ class AccountSettings extends React.Component {
         </div>
         <div className={styles.content}>
           <div className={styles.title}>Konto właściciela</div>
-          <div className={styles.info}>
-            Aktulanie nie posiadasz konta właściciela
-          </div>
+          {maybeWillBecomeOwner ? (
+            <div className={styles.info}>
+              <div>Zgłoszenie zostało przyjęte</div>
+              <div>Odezwiemy się do Ciebie w tej sprawie drogą mailową</div>
+            </div>
+          ) : (
+            <div className={styles.info}>
+              Aktulanie nie posiadasz konta właściciela
+            </div>
+          )}
           <div className={styles.button}>
-            <Button second>Chcę zostać właścicielem</Button>
+            <Button second onClick={this.userWantsToBecomeOwner}>
+              Chcę zostać właścicielem
+            </Button>
           </div>
         </div>
         <div className={styles.content}>
