@@ -240,14 +240,23 @@ class AccountSettings extends React.Component {
               ) : (
                 <div>
                   {editedUserPassword ? (
-                    <div>Twoje hasło zostało zmienione</div>
-                  ) : null}
-                  <br />
-                  <div className={styles.button}>
-                    <Button second onClick={this.editUserPassword}>
-                      Chcę zmienić hasło
-                    </Button>
-                  </div>
+                    <div>
+                      <div className={styles.info}>
+                        Twoje hasło zostało zmienione
+                      </div>
+                      <div className={styles.button}>
+                        <Button second onClick={this.editUserPassword}>
+                          Chcę zmienić hasło
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.button}>
+                      <Button second onClick={this.editUserPassword}>
+                        Chcę zmienić hasło
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
