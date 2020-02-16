@@ -12,6 +12,7 @@ const initState = {
   searchedEatingPlaces: null,
   singleEatingPlace: null,
   userFollowingPlace: null,
+  userUnfollowingPlace: null,
   followingPlaces: null
 };
 
@@ -62,6 +63,12 @@ const userFollowingPlace = (state, action) => {
   });
 };
 
+const userUnfollowingPlace = (state, action) => {
+  return updateObject(state, {
+    userUnfollowingPlace: action.userUnfollowingPlace
+  });
+};
+
 const followingPlaces = (state, action) => {
   return updateObject(state, {
     followingPlaces: action.followingPlaces
@@ -86,6 +93,8 @@ const eatingPlaceProfileReducer = (state = initState, action) => {
       return singleEatingPlace(state, action);
     case actionTypes.USER_FOLLOWING_PLACE:
       return userFollowingPlace(state, action);
+    case actionTypes.USER_UNFOLLOWING_PLACE:
+      return userUnfollowingPlace(state, action);
     case actionTypes.FOLLOWING_PLACE:
       return followingPlaces(state, action);
     default:

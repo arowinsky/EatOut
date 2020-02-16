@@ -10,11 +10,17 @@ class FollowingPlaces extends React.Component {
   };
   render() {
     const { askFollowingPlaces } = this.state;
-    const { getFollowingPlaces, followingPlaces } = this.props;
+    const {
+      getFollowingPlaces,
+      followingPlaces,
+      userUnfollowingPlace
+    } = this.props;
     let z = localStorage.getItem("z");
     if (askFollowingPlaces) {
       getFollowingPlaces(z);
       this.setState(() => ({ askFollowingPlaces: null }));
+    } else if (userUnfollowingPlace) {
+      getFollowingPlaces(z);
     }
     return (
       <div className={styles.wrapper}>
@@ -52,7 +58,8 @@ class FollowingPlaces extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    followingPlaces: state.eatingPlaceProfile.followingPlaces
+    followingPlaces: state.eatingPlaceProfile.followingPlaces,
+    userUnfollowingPlace: state.eatingPlaceProfile.userUnfollowingPlace
   };
 };
 const mapDispatchToProps = dispatch => {
