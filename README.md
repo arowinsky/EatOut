@@ -7,8 +7,6 @@ https://github.com/arowinsky/EatOut-Helper-API
 
 ## In CLI
 
-You must have locally installed redis & running server redis
-
 Install dependencies:
 ```bash
 npm install
