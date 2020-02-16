@@ -84,38 +84,50 @@ const UserActionForm = ({ ...props }) => {
         >
           {({ errors, touched }) => (
             <Form className={styles.form}>
-              <div className={styles.formItem}>
-                {resetedPassword ? (
+              {resetedPassword ? (
+                <div>
                   <p className={styles.validation}>
                     Twoje hasło zostało zmienione
                   </p>
-                ) : null}
-                <label htmlFor="password1">Podaj nowe hasło</label>
-                <Field
-                  name="password1"
-                  type="password"
-                  className={styles.input}
-                />
-                <div className={styles.formItemBar} />
-                {errors.password1 && touched.password1 && (
-                  <div>{errors.password1}</div>
-                )}
-              </div>
-              <div className={styles.formItem}>
-                <label htmlFor="password2">Powtórz nowe hasło</label>
-                <Field
-                  name="password2"
-                  type="password"
-                  className={styles.input}
-                />
-                <div className={styles.formItemBar} />
-                {errors.password2 && touched.password2 && (
-                  <div>{errors.password2}</div>
-                )}
-              </div>
-              <Button second type="submit">
-                Wyślij
-              </Button>
+                  <div className={styles.items}>
+                    <Button second type="submit">
+                      <Link to="/login" className={styles.button}>
+                        Chce się zalogować
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className={styles.formItem}>
+                    <label htmlFor="password1">Podaj nowe hasło</label>
+                    <Field
+                      name="password1"
+                      type="password"
+                      className={styles.input}
+                    />
+                    <div className={styles.formItemBar} />
+                    {errors.password1 && touched.password1 && (
+                      <div>{errors.password1}</div>
+                    )}
+                  </div>
+                  <div className={styles.formItem}>
+                    <label htmlFor="password2">Powtórz nowe hasło</label>
+                    <Field
+                      name="password2"
+                      type="password"
+                      className={styles.input}
+                    />
+                    <div className={styles.formItemBar} />
+                    {errors.password2 && touched.password2 && (
+                      <div>{errors.password2}</div>
+                    )}
+                  </div>
+                  <Button second type="submit">
+                    Wyślij
+                  </Button>
+                </div>
+              )}
             </Form>
           )}
         </Formik>

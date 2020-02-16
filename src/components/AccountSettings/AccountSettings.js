@@ -5,16 +5,61 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
+import * as Yup from "yup";
+const validateSchema = Yup.object({
+  password1: Yup.string()
+    .min(8, "Hasło musi mieć minimum 8 znaków")
+    .required("Podaj hasło"),
+  password2: Yup.string()
+    .required("Powtórz hasło")
+    .oneOf([Yup.ref("password1"), null], "Hasła nie są jednakowe")
+});
 class AccountSettings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       sendedRequest: null,
       userWantEditData: null,
-      userWantEditPassword: null
+      userWantEditPassword: null,
+      maybeWillBecomeOwner: null
     };
   }
-
+  validateFirstname = value => {
+    let error;
+    if (!value) {
+      error = "Uzupełnij imię";
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe imię";
+    }
+    return error;
+  };
+  validateLastname = value => {
+    let error;
+    if (!value) {
+      error = "Uzupełnij nazwisko";
+    } else if (!/[A-Za-z]/.test(value)) {
+      error = "Nieprawidłowe nazwisko";
+    }
+    return error;
+  };
+  validateUsername = value => {
+    let error;
+    if (!value) {
+      error = "Podaj nazwę użytkownika";
+    } else if (!/[A-Za-z0-9_.-]/.test(value)) {
+      error = "Nieprawidłowa nazwa użytkownika";
+    }
+    return error;
+  };
+  validateEmail = value => {
+    let error;
+    if (!value) {
+      error = "Podaj adres e-mail";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      error = "Adres e-mail jest nieprawidłowy";
+    }
+    return error;
+  };
   editUserData = () => {
     this.setState(() => ({ userWantEditData: true }));
   };
@@ -29,12 +74,20 @@ class AccountSettings extends React.Component {
       this.props.deleteClientAccount(z);
     }
   };
+  userWantsToBecomeOwner = () => {
+    this.setState(() => ({ maybeWillBecomeOwner: true }));
+  };
+
+  scratchAdvance = () => {
+    this.setState(() => ({ maybeWillBecomeOwner: false }));
+  };
 
   render() {
     const {
       sendedRequest,
       userWantEditData,
-      userWantEditPassword
+      userWantEditPassword,
+      maybeWillBecomeOwner
     } = this.state;
     const {
       accountData,
@@ -103,15 +156,20 @@ class AccountSettings extends React.Component {
                 this.setState(() => ({ userWantEditData: null }));
               }}
             >
-              {() => (
+              {({ errors, touched }) => (
                 <Form className={styles.userEditDataForm}>
                   <div className={styles.inputElement}>
                     <label htmlFor="firstName">Imię</label>
                     <Field
                       type="text"
                       name="firstName"
+                      validate={this.validateFirstname}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.firstName && touched.firstName && (
+                      <div>{errors.firstName}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
@@ -119,8 +177,13 @@ class AccountSettings extends React.Component {
                     <Field
                       type="text"
                       name="lastName"
+                      validate={this.validateLastname}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.lastName && touched.lastName && (
+                      <div>{errors.lastName}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
@@ -128,13 +191,25 @@ class AccountSettings extends React.Component {
                     <Field
                       type="text"
                       name="username"
+                      validate={this.validateUsername}
                       className={styles.input}
                     />
+                    <div className={styles.formItemBar} />
+                    {errors.username && touched.username && (
+                      <div>{errors.username}</div>
+                    )}
                   </div>
                   <br />
                   <div className={styles.inputElement}>
                     <label htmlFor="email">Email</label>
-                    <Field type="text" name="email" className={styles.input} />
+                    <Field
+                      type="text"
+                      name="email"
+                      validate={this.validateEmail}
+                      className={styles.input}
+                    />
+                    <div className={styles.formItemBar} />
+                    {errors.email && touched.email && <div>{errors.email}</div>}
                   </div>
                   <br />
                   <Button second type="submit" className={styles.button}>
@@ -171,12 +246,30 @@ class AccountSettings extends React.Component {
         </div>
         <div className={styles.content}>
           <div className={styles.title}>Konto właściciela</div>
-          <div className={styles.info}>
-            Aktulanie nie posiadasz konta właściciela
-          </div>
-          <div className={styles.button}>
-            <Button second>Chcę zostać właścicielem</Button>
-          </div>
+          {maybeWillBecomeOwner ? (
+            <div>
+              <div className={styles.info}>
+                <div>Zgłoszenie zostało przyjęte</div>
+                <div>Odezwiemy się do Ciebie w tej sprawie drogą mailową</div>
+              </div>
+              <div className={styles.button}>
+                <Button second onClick={this.scratchAdvance}>
+                  Wycofaj zgłoszenie
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className={styles.info}>
+                Aktulanie nie posiadasz konta właściciela
+              </div>
+              <div className={styles.button}>
+                <Button second onClick={this.userWantsToBecomeOwner}>
+                  Chcę zostać właścicielem
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
         <div className={styles.content}>
           {provider === "facebook.com" || provider === "google.com" ? null : (
@@ -185,23 +278,41 @@ class AccountSettings extends React.Component {
               {userWantEditPassword ? (
                 <Formik
                   initialValues={{
-                    newPassword: ""
+                    password1: "",
+                    password2: ""
                   }}
+                  validationSchema={validateSchema}
                   onSubmit={values => {
                     let password = values.newPassword;
                     editUserPassword(z, password);
                     this.setState(() => ({ userWantEditPassword: null }));
                   }}
                 >
-                  {() => (
+                  {({ errors, touched }) => (
                     <Form className={styles.userEditDataForm}>
                       <div className={styles.inputElement}>
-                        <label htmlFor="firstName">Podaj nowe hasło</label>
+                        <label htmlFor="password1">Podaj nowe hasło</label>
                         <Field
+                          name="password1"
                           type="password"
-                          name="newPassword"
                           className={styles.input}
                         />
+                        <div className={styles.formItemBar} />
+                        {errors.password1 && touched.password1 && (
+                          <div>{errors.password1}</div>
+                        )}
+                      </div>
+                      <div className={styles.formItem}>
+                        <label htmlFor="password2">Powtórz nowe hasło</label>
+                        <Field
+                          name="password2"
+                          type="password"
+                          className={styles.input}
+                        />
+                        <div className={styles.formItemBar} />
+                        {errors.password2 && touched.password2 && (
+                          <div>{errors.password2}</div>
+                        )}
                       </div>
                       <br />
                       <Button second type="submit" className={styles.button}>
@@ -213,14 +324,23 @@ class AccountSettings extends React.Component {
               ) : (
                 <div>
                   {editedUserPassword ? (
-                    <div>Twoje hasło zostało zmienione</div>
-                  ) : null}
-                  <br />
-                  <div className={styles.button}>
-                    <Button second onClick={this.editUserPassword}>
-                      Chcę zmienić hasło
-                    </Button>
-                  </div>
+                    <div>
+                      <div className={styles.info}>
+                        Twoje hasło zostało zmienione
+                      </div>
+                      <div className={styles.button}>
+                        <Button second onClick={this.editUserPassword}>
+                          Chcę zmienić hasło
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.button}>
+                      <Button second onClick={this.editUserPassword}>
+                        Chcę zmienić hasło
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
