@@ -234,9 +234,17 @@ export const unfollowPlace = (z, placeId) => {
         const { deleteFollow } = response;
         if (deleteFollow) {
           let userFollowing = false;
+          dispatch(userUnfollowingPlace(deleteFollow));
           dispatch(userFollowingPlace(userFollowing));
         }
       });
+  };
+};
+
+export const userUnfollowingPlace = userUnfollowingPlace => {
+  return {
+    type: actionTypes.USER_UNFOLLOWING_PLACE,
+    userUnfollowingPlace: userUnfollowingPlace
   };
 };
 
@@ -255,6 +263,7 @@ export const getFollowingPlaces = z => {
     })
       .then(Response => Response.json())
       .then(response => {
+        console.log(response);
         const { follow } = response;
         dispatch(followingPlaces(follow));
       });
